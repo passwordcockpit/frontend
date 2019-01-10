@@ -1,0 +1,93 @@
+<li class="{{if folder.isEdit 'edit-view'}}">
+    {{#if (or canAccessAllFolders (eq folder.access 1) (eq folder.access 2))}}
+        {{#link-to "folders.folder" folder.id class="read"}}
+            <i class="fas fa-folder"></i>
+            {{folder.name}}
+        {{/link-to}}
+    {{else}}
+        <span class="read">
+            <i class="fas fa-folder"></i>
+            {{folder.name}}
+        </span>
+    {{/if}}
+    {{#if folder.isEdit}}
+        <div class="edit {{if errors.name 'has-error'}}">
+            <form {{action 'submit' on='submit' }}>
+                {{input class="form-control" value=folder.name id=(concat "folderEditName" folder.id)}}
+                <div class="form-btn">
+                    <button style="display: none;">
+                    </button>
+                    <button class="btn btn-default btn-xs action-close" {{action 'cancelEdit'}}>
+                        {{t 'Close'}}
+                    </button>
+                    <button class="btn btn-primary btn-xs action-save">
+                        {{t 'Save'}}
+                        <i class="fas fa-save"></i>
+                    </button>
+                </div>
+                <div>
+                    {{{display-errors errors.name}}}
+                </div>
+            </form>
+        </div>
+    {{/if}}
+    {{#if (or canAccessAllFolders (eq folder.access 2))}}
+        <div class="actions {{if isManage 'open'}}">
+            <a class="btn btn-default btn-xs open-actions" {{action 'showConfirm' folder.id}}>
+                <i class="fas fa-trash"></i>
+            </a>
+            <a class="btn btn-default btn-xs open-actions" {{action 'showAdd'}}>
+                <i class="fas fa-plus"></i>
+            </a>
+            <a class="btn btn-default btn-xs open-actions" {{action 'showEdit'}}>
+                <i class="fas fa-pencil-alt"></i>
+            </a>
+        </div>
+    {{/if}}
+    <ul>
+        {{#if folder.isAdd}}
+            {{folder/new-folder-element
+                parentId=folder.id
+                onCreateFolder=(action "onCreateFolder")
+            }}
+        {{/if}}
+        {{#each (get tree (concat "" folder.id)) as |folderId|}}
+            {{folder/folder-element 
+                folder=(get indexedFolders folderId) 
+                indexedFolders=indexedFolders 
+                tree=tree 
+                onCreateFolder=(action "onCreateFolder")
+                onUpdateFolder=(action "onUpdateFolder")
+                onDeleteFolder=(action "onDeleteFolder")
+                canAccessAllFolders=canAccessAllFolders
+            }}
+        {{/each}}
+    </ul>
+</li>
+
+{{#if (or canAccessAllFolders (eq folder.access 2))}}
+<div class="modal fade" id="deleteFolderConfirm{{folder.id}}" tabindex="-1" role="dialog" aria-labelledby="confirm action"
+    aria-hidden="true">
+    <div class="modal-with-action" {{action "cancelFormConfirm"}}></div>
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">
+                    {{t "Folder deletion"}}
+                </h5>
+            </div>
+            <div class="modal-body">
+                {{t "Are you sure you want to delete this folder?"}}
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-light" {{action "cancelFormConfirm" folder.id}}>
+                    {{t "Cancel"}}
+                </button>
+                <button type="button" class="btn btn-danger" {{action "onDeleteFolder" folder.id}}>
+                    {{t "Delete"}}
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+{{/if}}

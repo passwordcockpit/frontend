@@ -1,0 +1,132 @@
+<div class=''>
+    <form class='form-horizontal' {{action 'searchSubmit' on='submit' }}>
+        <div class='input-group'>
+            <div class='col-sm-6'>
+                <input type='text' class='form-control' id='search-keywords' placeholder='Search in everything...'>
+            </div>
+            <div class='col-sm-4'>
+                <select class='form-control' id='search-target'>
+                    <option value='All' selected>{{t 'All'}}</option>
+                    <option value='Folder'>{{t 'Folder'}}</option>
+                    <option value='Password'>{{t 'Password'}}</option>
+                </select>
+            </div>
+            <div class='col-sm-2'>
+                <span class='input-group-btn'>
+                    <button type='submit' name='submit' class='btn btn-primary'>
+                        <i class='fa fa-search'></i>
+                    </button>
+                </span>
+            </div>
+        </div>
+    </form>
+    <br>
+</div>
+{{#if searchResults.hasResults}}
+    <div class='search-result area open'>
+		<div class='title'>
+			{{t 'Search result'}}
+			<div class='pull-right'>
+				<div class='btn-group'>
+					<a class='btn btn-default btn-xs' {{action 'cancelSearch'}}>
+						{{t 'Cancel'}}
+					</a>
+				</div>
+			</div>
+		</div>
+		<div class='scroll-container'>
+            {{#if searchResults.results.length}}
+			<table class='table'>
+				<tbody>
+                    {{#each searchResults.results as |searchResult|}}
+                    <tr>
+                        {{#if searchResult.isFolder}}
+                        <td>
+                            {{#link-to 'folders.folder' searchResult.folderId}}
+                                <span {{action 'onSelectSearchFolderElement' searchResult.folderId}}>
+                                    <i class='fa fa-folder'></i>
+                                    {{searchResult.folderName}}
+                                </span>
+                            {{/link-to}}
+                        </td>
+						<td class='path'>
+                            {{searchResult.folderPathToString}}
+						</td>
+                        {{else}}
+                        <td>
+                            {{#link-to 'folders.folder.passwords.password' searchResult.folderId searchResult.passwordId}}
+                                <span {{action 'onSelectSearchPasswordElement' searchResult.folderId searchResult.passwordId}}>
+                                    <i class='fa fa-key'></i>
+                                    {{searchResult.passwordTitle}}
+                                </span>
+                            {{/link-to}}
+                        </td>
+						<td class='path'>
+                            {{searchResult.passwordPathToString}}
+						</td>
+                        {{/if}}
+                    </tr>
+                    {{/each}}
+				</tbody>
+			</table>
+        {{else}}
+            <p class='alert alert-info'>
+                {{t 'No result found'}}
+            </p>
+        {{/if}}
+		</div>
+	</div>
+{{else}}
+<div class="folder-menu area open">
+    <div class="title">
+        {{#if showList}}
+            <span  {{action 'hideFoldersList'}}>
+                {{t 'Folders list'}}
+                <i class="fas fa-angle-down mobile"></i>
+            </span>
+        {{else}}
+            <span  {{action 'showFoldersList'}}>
+                {{t 'Folders list'}}
+                <i class="fas fa-angle-up mobile"></i>
+            </span>
+        {{/if}}
+        <div class="pull-right">
+            <div class="btn-group">
+                {{#if canCreateFolders}}
+                    <a class="btn btn-default btn-xs" {{action 'addFolder'}}>
+                        <i class="fas fa-plus"></i>
+                    </a>
+                {{/if}}
+            </div>
+        </div>
+    </div>
+    <div class="scroll-container {{unless showList 'listHidden'}}">
+        <ul class="list">
+            {{#if isAdd}}
+                {{folder/new-folder-element 
+                    isAdd=isAdd 
+                    parentId=null 
+                    cancelAddFolder=(action "cancelAddFolder")
+                    onCreateFolder=(action "onCreateFolder")
+                }}
+            {{/if}}
+            {{#each [roots] as |folderId|}}
+                {{folder/folder-element
+                    folder=(get indexedFolders folderId) 
+                    indexedFolders=indexedFolders 
+                    tree=tree
+                    onCreateFolder=(action "onCreateFolder")
+                    onUpdateFolder=(action "onUpdateFolder")
+                    onDeleteFolder=(action "onDeleteFolder")
+                    canAccessAllFolders=canAccessAllFolders
+                }}
+                {{else}}
+                    <p class="alert alert-info">
+                        {{t 'There are no folders'}}
+                    </p>
+            {{/each}}
+        </ul>
+    </div>
+</div>
+{{/if}}
+{{outlet}}

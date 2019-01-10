@@ -1,0 +1,206 @@
+<div class="panel panel-default read {{if isEdit 'hide'}}">
+    <div class="panel-heading">
+        {{t 'Personal data'}}
+        <div class="pull-right">
+            <div class="btn-group">
+                <a class="btn btn-default btn-xs" {{action 'showEdit'}}>
+                    <i class="fas fa-pencil-alt"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+    <div class="panel-body">
+        <div class="table-responsive">
+            <table class="table">
+                <tbody>
+                    <tr>
+                        <th class="grid-130">
+                            {{t 'Username'}}
+                        </th>
+                        <td>
+                            {{user.username}}
+                        </td>
+                    </tr>
+                    <tr>
+                        <th class="grid-130">
+                            {{t 'Name'}}
+                        </th>
+                        <td>
+                            {{user.name}}
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>
+                            {{t 'Surname'}}
+                        </th>
+                        <td>
+                            {{user.surname}}
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>
+                            {{t 'Phone'}}
+                        </th>
+                        <td>
+                            {{user.phone}}
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>
+                            {{t 'Email'}}
+                        </th>
+                        <td>
+                            <a href="mailto:{{user.email}}">
+                                {{user.email}}
+                            </a>
+                        </td>
+                    </tr>
+
+                    {{#if isManageUsers}}
+                        <tr>
+                            <th>
+                                {{t 'Enabled' }}
+                            </th>
+                            <td>
+                                {{#if user.enabled}}
+                                    <i class="fas fa-check"></i>
+                                {{else}}
+                                    <i class="fas fa-times"></i>
+                                {{/if}}
+                            </td>
+                        </tr>
+                    {{/if}}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+<div class="panel panel-default edit {{unless isEdit 'hide'}}">
+    <div class="panel-heading">
+        {{t 'Personal data'}}
+        {{#if isManageUsers}}
+            <div class="pull-right">
+                <div class="btn-group">
+                    <a class="btn btn-default btn-xs" {{action 'cancel'}}>
+                        {{t 'Close'}} <i class="fas fa-times"></i>
+                    </a>
+                </div>
+            </div>
+        {{/if}}
+    </div>
+    <div class="panel-body">
+        <form class="form-horizontal" {{action 'submit' on='submit' }}>
+            <div class="form-group {{if errors.username 'has-error'}}">
+                <label class="control-label col-sm-2">
+                    {{t 'Username'}}
+                </label>
+                <div class="col-sm-10">
+                    {{input class="form-control" value=user.username}} {{{display-errors errors.username}}}
+                </div>
+            </div>
+
+            {{#if isManageUsers}}
+                <div class="form-group {{if errors.password 'has-error'}}">
+                    <label class="control-label col-sm-2">
+                        {{t 'Password'}}
+                    </label>
+                    <div class="col-sm-10">
+                        {{input class="form-control" value=user.password type="password"}} {{{display-errors errors.password}}}
+                    </div>
+                </div>
+            {{else}}
+                <div class="form-group {{if errors.actual_password 'has-error'}}">
+                    <label class="control-label col-sm-2">
+                        {{t 'Password'}}
+                    </label>
+                    <div class="col-sm-10">
+                        {{input class="form-control" id='actual_password' name="actual_password" value=actual_password type='password' placeholder=(t 'Current password')}} {{{display-errors errors.actual_password}}}
+                    </div>
+                </div>
+                <div class="form-group {{if errors.password 'has-error'}}">
+                    <label class="control-label col-sm-2">
+                    </label>
+                    <div class="col-sm-10">
+                        {{input class="form-control" name="newpass" id='newpass' placeholder=(t 'New password') type='password' value=newpass}}
+                    </div>
+                </div>
+                <div class="form-group {{if errors.password 'has-error'}}">
+                    <label class="control-label col-sm-2">
+                    </label>
+                    <div class="col-sm-10">
+                        {{input class="form-control" name="repeatnewpass" id='repeatnewpass' placeholder=(t 'Repeat new password') type='password' value=repeatnewpass}} {{{display-errors errors.password}}}
+                    </div>
+                </div>
+            {{/if}}
+            <div class="form-group {{if errors.name 'has-error'}}">
+                <label class="control-label col-sm-2">
+                    {{t 'Name'}}
+                </label>
+                <div class="col-sm-10">
+                    {{input class="form-control" value=user.name}} {{{display-errors errors.name}}}
+                </div>
+            </div>
+            <div class="form-group {{if errors.surname 'has-error'}}">
+                <label class="control-label col-sm-2">
+                    {{t 'Surname'}}
+                </label>
+                <div class="col-sm-10">
+                    {{input class="form-control" value=user.surname}} {{{display-errors errors.surname}}}
+                </div>
+            </div>
+            <div class="form-group {{if errors.phone 'has-error'}}">
+                <label class="control-label col-sm-2">
+                    {{t 'Phone'}}
+                </label>
+                <div class="col-sm-10">
+                    {{input class="form-control" value=user.phone}} {{{display-errors errors.phone}}}
+                </div>
+            </div>
+            <div class="form-group {{if errors.email 'has-error'}}">
+                <label class="control-label col-sm-2">
+                    {{t 'Email'}}
+                </label>
+                <div class="col-sm-10">
+                    {{input class="form-control" value=user.email}} {{{display-errors errors.email}}}
+                </div>
+            </div>
+
+            {{#if isManageUsers}}
+            <div class="form-group">
+                <label class="control-label col-sm-2">
+                    {{t 'Enabled'}}
+                </label>
+                <div class="col-sm-10">
+                    {{input type="checkbox" checked=user.enabled}}
+                </div>
+            </div>
+            {{/if}}
+            
+            <div class="form-group">
+                <label class="control-label col-sm-2">
+                    {{t 'Language'}}
+                </label>
+                <div class="col-sm-10">
+                    <select class="language-select form-control">
+                        {{#if (eq user.language 'en')}}
+                            <option value="en" selected>English</option>
+                            <option value="it">Italiano</option>
+                        {{else}}
+                            <option value="en">English</option>
+                            <option value="it" selected>Italiano</option>
+                        {{/if}}
+                    </select>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-sm-offset-2 col-sm-10">
+                    <button type="submit" name="submit" class="btn btn-primary">
+                        {{t 'Save'}}
+                        <i class="fa  fa-floppy-o"></i>
+                    </button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+{{yield}}

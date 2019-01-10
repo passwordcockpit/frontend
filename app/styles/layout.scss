@@ -1,0 +1,67 @@
+/** 
+* @see https://github.com/password-cockpit/frontend for the canonical source repository 
+* @copyright Copyright (c) 2018 Blackpoints AG (https://www.blackpoints.ch) 
+* @license https://github.com/password-cockpit/frontend/blob/master/LICENSE.md BSD 3-Clause License 
+*/
+
+.browser-error{
+	padding: 20px 0;
+	position: fixed;
+	z-index: 1000;
+	top:0;
+	left: 0;
+	right: 0;
+	border-bottom: 3px solid $brand-primary;
+	color: $brand-primary;
+	background: #fff;
+	text-align: center;
+}
+@media screen and (min-width: $screen-md-min) {
+    .area {
+        width: 25%;
+        padding: 44px 0 0;
+        position: fixed;
+        border-right: 1px solid $border-color;
+        bottom: 0;
+
+        &.user-menu,
+        &.folder-menu {
+            left: 0;
+        }
+
+        &.password-menu {
+            left: 25%;
+        }
+
+        &.open {
+            top: $header-height;
+        }
+
+        &.closed {
+            display: none;
+        }
+
+        .scroll-container {
+            height: 100%;
+            overflow-y: auto;
+        }
+    }
+
+    main {
+        padding: $padding;
+        position: absolute;
+        top: 50px;
+        right: 0;
+        bottom: 0;
+        background: #fff;
+        overflow-y: auto;
+
+        &.main-password {
+            left: 50%;
+        }
+
+        &.main-user {
+            left: 25%;
+        }
+    }
+}

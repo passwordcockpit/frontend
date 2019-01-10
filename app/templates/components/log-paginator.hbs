@@ -1,0 +1,35 @@
+<div class="text-center">
+    <ul class="pagination">
+        {{#if previousDisabled}}
+            <li class="page-item disabled">
+                <a class="page-link">{{t 'Previous'}}</a>
+            </li>
+        {{else}}
+            <li class="page-item">
+                <a class="page-link" href="#" {{action "previousPage" page}}>{{t 'Previous'}}</a>
+            </li>
+        {{/if}}
+        {{#each pages as |number|}}
+            {{#if (eq number page)}}
+                <li class="page-item active">
+                    <span class="page-link">
+                        {{{number}}}
+                    </span>
+                </li>
+            {{else}}
+                <li class="page-item">
+                    <a class="page-link" href="#" {{action "changePage" number}}>{{{number}}}</a>
+                </li>
+            {{/if}}
+        {{/each}}
+        {{#if nextDisabled}}
+            <li class="page-item disabled">
+                <a class="page-link">{{t 'Next'}}</a>
+            </li>
+        {{else}}
+            <li class="page-item">
+                <a class="page-link" href="#" {{action "nextPage" page}}>{{t 'Next'}}</a>
+            </li>
+        {{/if}}
+    </ul>
+</div>

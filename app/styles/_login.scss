@@ -1,0 +1,22 @@
+/** 
+* @see https://github.com/password-cockpit/frontend for the canonical source repository 
+* @copyright Copyright (c) 2018 Blackpoints AG (https://www.blackpoints.ch) 
+* @license https://github.com/password-cockpit/frontend/blob/master/LICENSE.md BSD 3-Clause License 
+*/
+
+.login-panel {
+    margin-top: 0;
+    .panel-body {
+        padding-bottom: 0;
+    }
+}
+
+.logo-login {
+    margin: 25% 0 10px;
+}
+
+.error-message {
+    color: $brand-danger;
+    font-style: italic;
+    font-size: 12px;
+}

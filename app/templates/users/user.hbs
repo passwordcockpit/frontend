@@ -1,0 +1,20 @@
+{{user/user-details 
+    user=model.user
+    isEdit=model.isDetailEdit
+    errors=updatingUserErrors
+    isManageUsers=true
+}}
+{{user/user-rights 
+    permission=model.permission
+    isEdit=model.isPermissionEdit
+    onUpdateUserRight=(action "onUpdateUserRight")
+}}
+
+{{user/user-logs 
+    logs=logs 
+    user=model.user 
+    canViewLog=canViewLog
+    page=model.page
+    pageCount=model.pageCount
+}}
+{{outlet}}

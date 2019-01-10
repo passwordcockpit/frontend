@@ -1,0 +1,38 @@
+<div class="panel panel-default folder-permissions read">
+    <div class="panel-heading">
+        {{t 'Rights on folder'}}
+        <div class="pull-right">
+            {{#if (or canAccessAllFolders (eq folder.access 2))}}
+                <div class="btn-group">
+                    <a class="btn btn-default btn-xs" {{action 'addPermission' users}}>
+                        <i class="fas fa-plus"></i>
+                    </a>
+                </div>
+            {{/if}}
+        </div>
+    </div>
+    <div class="scroll-container">
+        <ul class="list">
+            {{#if isAdd}}
+                {{folder/new-permission-element
+                    isAdd=isAdd 
+                    errors=errors
+                    filteredUsers=filteredUsers
+                    folderUsers=folderUsers
+                    folderId=folderId
+                    reloadFolderUser = (action 'reloadFolderUser')
+                }}
+            {{/if}}
+            {{#each folderUsers as |folderUser|}}
+                {{folder/folder-user
+                    folderUser=folderUser
+                    folderId=folderId
+                    folder=folder
+                    reloadFolderUser = (action 'reloadFolderUser')
+                    onUpdatePermission = (action 'onUpdatePermission')
+                    onDeletePermission = (action 'onDeletePermission')
+                }}
+            {{/each}}
+        </ul>
+    </div>
+</div>

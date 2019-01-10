@@ -1,0 +1,92 @@
+<div class="panel panel-default edit ">
+    <div class="panel-heading">
+        {{t 'Personal data'}}
+        <div class="pull-right">
+            <div class="btn-group">
+                {{#link-to "users.index" class="edit btn btn-default btn-xs" }}
+                    {{t 'Cancel'}} <i class="fas fa-times"></i>
+                {{/link-to}}
+            </div>
+        </div>
+    </div>
+    <div class="panel-body">
+        <form class="form-horizontal" {{action 'submit' on='submit' }}>
+            <div class="form-group {{if errors.username 'has-error'}}">
+                <label class="control-label col-sm-2">
+                    {{t 'Username'}}
+                </label>
+                <div class="col-sm-10">
+                    {{input class="form-control" value=username }} {{{display-errors errors.username}}}
+                </div>
+            </div>
+            <div class="form-group {{if errors.password 'has-error'}}">
+                <label class="control-label col-sm-2">
+                    {{t 'Password'}}
+                </label>
+                <div class="col-sm-10">
+                    {{input class="form-control" value=password type="password"}} {{{display-errors errors.password}}}
+                </div>
+            </div>
+            <div class="form-group {{if errors.name 'has-error'}}">
+                <label class="control-label col-sm-2">
+                    {{t 'Name'}}
+                </label>
+                <div class="col-sm-10">
+                    {{input class="form-control" value=name}} {{{display-errors errors.name}}}
+                </div>
+            </div>
+            <div class="form-group {{if errors.surname 'has-error'}}">
+                <label class="control-label col-sm-2">
+                    {{t 'Surname'}}
+                </label>
+                <div class="col-sm-10">
+                    {{input class="form-control" value=surname}} {{{display-errors errors.surname}}}
+                </div>
+            </div>
+            <div class="form-group {{if errors.phone 'has-error'}}">
+                <label class="control-label col-sm-2">
+                    {{t 'Phone'}}
+                </label>
+                <div class="col-sm-10">
+                    {{input class="form-control" value=phone}} {{{display-errors errors.phone}}}
+                </div>
+            </div>
+            <div class="form-group {{if errors.email 'has-error'}}">
+                <label class="control-label col-sm-2">
+                    {{t 'Email'}}
+                </label>
+                <div class="col-sm-10">
+                    {{input class="form-control" value=email}} {{{display-errors errors.email}}}
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="control-label col-sm-2">
+                    {{t 'Enabled'}}
+                </label>
+                <div class="col-sm-10">
+                    {{input type="checkbox" checked=enabled}}
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="control-label col-sm-2">
+                    {{t 'Language'}}
+                </label>
+                <div class="col-sm-10">
+                    <select class="form-control" name="language" value="language">
+                        <option value="en" selected>English</option>
+                        <option value="it">Italiano</option>
+                    </select>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-sm-offset-2 col-sm-10">
+                    <button type="submit" name="submit" class="btn btn-primary">
+                        {{t 'Save'}}
+                        <i class="fa  fa-floppy-o"></i>
+                    </button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+{{yield}}

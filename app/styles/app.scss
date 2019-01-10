@@ -1,0 +1,337 @@
+/** 
+* @see https://github.com/password-cockpit/frontend for the canonical source repository 
+* @copyright Copyright (c) 2018 Blackpoints AG (https://www.blackpoints.ch) 
+* @license https://github.com/password-cockpit/frontend/blob/master/LICENSE.md BSD 3-Clause License 
+*/
+
+/* CONTENT
+***********************************************************************************
+***********************************************************************************
+- import
+- base
+- layout
+- growl (@import)
+- grid
+- power select
+- table
+- tags
+- loading (@import)
+- header
+- table
+- form
+	- password generator
+	- error
+- list (@import)
+- login (@import)
+- content
+	- password content
+	- permissions
+    - log
+- error page    
+- media (@import)
+***********************************************************************************/
+
+/* Import
+*********************************************************************************/
+@import "bootstrap/variables";
+@import "bootstrap";
+@import "sb-admin-2";
+$fa-font-path: "/fonts/" !default;
+//@import "../../node_modules/font-awesome/scss/font-awesome.scss";
+@import "../../node_modules/@fortawesome/fontawesome-free/scss/fontawesome.scss";
+@import "../../node_modules/@fortawesome/fontawesome-free/scss/regular.scss";
+@import "../../node_modules/@fortawesome/fontawesome-free/scss/solid.scss";
+@import "../../node_modules/@fortawesome/fontawesome-free/scss/brands.scss";
+
+
+
+/* Base
+*********************************************************************************/
+.logo {
+    height: $logoHeight;
+}
+
+.align-right {
+    text-align: right;
+}
+
+.align-center {
+    text-align: center;
+}
+
+.red {
+    color: $brand-danger;
+}
+
+.green {
+    color: $brand-success;
+}
+
+h1 {
+    color: $brand-primary;
+}
+
+.panel-default > .panel-heading,
+.title {
+    margin: 0;
+    border-bottom: 1px solid $border-color;
+    height: 44px;
+    padding: 10px $padding;
+    font-size: 14px;
+    line-height: 21px;
+    font-weight: normal;
+    background: $gray-light;
+    color: #fff;
+}
+
+.btn-group {
+    .btn {
+        margin: 0 5px 0 0;
+
+        &:last-child {
+            margin-right: 0;
+        }
+    }
+}
+.alert:last-child{
+    margin-bottom: 0
+}
+/* Layout
+*********************************************************************************/
+@import "layout";
+
+/* growl 
+*********************************************************************************/
+@import "growl";
+
+/* grid 
+*********************************************************************************/
+@for $i from 1 through 100 {
+    .grid-#{$i}0 {
+        width: 10px * $i;
+    }
+}
+
+/* table 
+*********************************************************************************/
+@-moz-document url-prefix() { /* firefox fix */
+    fieldset {
+        display: table-cell;
+    }
+}
+
+/* task 
+*********************************************************************************/
+ul.tags {
+    list-style: none;
+    padding: 0;
+
+    li {
+        margin: 0 4px 4px 0;
+        padding: 5px 10px;
+        float: left;
+        background: $gray-lighter;
+        border-radius: 3px;
+    }
+}
+
+/* header
+*********************************************************************************/
+.navbar {
+    li {
+        a {
+            color: #000;
+
+            &.active {
+                background: #eee;
+            }
+
+            &:hover {
+                color: $brand-primary;
+            }
+        }
+    }
+}
+
+/* table
+*********************************************************************************/
+.table {
+    margin: 0;
+
+    ul:not(.tags) {
+        padding-left: 15px;
+        margin: 0;
+    }
+}
+
+/* form
+*********************************************************************************/
+textarea {
+    resize: vertical;
+}
+
+textarea.form-control,
+input.form-control,
+select.form-control,
+.select2-container--bootstrap .select2-selection {
+    font-size: 12px;
+}
+
+.select2-container--bootstrap .select2-selection {
+    line-height: 20px;
+}
+
+input:invalid {
+    border: 1px solid $state-danger-text;
+}
+
+input.number {
+    max-width: 200px;
+}
+
+.input-group-btn {
+    i {
+        height: 19px;
+    }
+
+    button {
+        height: 35px;
+    }
+}
+
+/* password generator */
+.password-generator,
+.password-options-btn {
+    cursor: pointer;
+}
+
+.password-generator {
+    border-left: 0;
+}
+.password-encrypt-form,
+.password-options-form {
+    margin-top: 10px;
+    display: none;
+}
+
+/* error */
+.errors-list{
+    padding: 10px;
+    background: $state-danger-text;
+    color: #fff;
+    border-radius: 5px;
+    position: relative;
+    z-index: 1000;
+    font-size: 10px;
+    margin: 10px 0 0;
+    p{
+        border: 0;
+        margin: 0 0 5px; 
+        &:last-child{
+            margin-bottom: 0;
+        }
+    }
+    &::after {
+        content: " ";
+        position: absolute;
+        bottom: 100%; /* At the bottom of the tooltip */
+        left: 20px;
+        margin-left: -7px;
+        border-width: 7px;
+        border-style: solid;
+        border-color:  transparent transparent $state-danger-text  transparent;
+    }
+}
+ul.list{
+    .errors-list{
+        margin: 0;
+        position: absolute;
+        top: 110%;
+    }
+}
+.folder-permissions-container {
+    .btn-primary {
+        width: 100%;
+    }
+}
+
+/* loading */
+@import "loading";
+
+/* list
+*********************************************************************************/
+@import "list";
+
+/* login
+*********************************************************************************/
+@import "login";
+
+/* content
+*********************************************************************************/
+.password-container {
+    background: #fff;
+}
+
+/* password content */
+.blur {
+    color: transparent;
+    text-shadow: 0 0 12px rgba(0, 0, 0, 0.5); 
+}
+.action{
+    margin: 0 0 0 5px;
+    float: right;
+}
+.select-password {
+    float: right;
+    padding: 1px 6px;
+    margin-right: 5px;
+    color: #9F9F9F;
+}
+.file-container{
+    padding-top: 8px;
+}
+/* permissions */
+.folder-permissions-container {
+    background: #fff;
+}
+
+/* log */
+.log-container {
+    background: #fff;
+}
+
+.folder-permissions {
+    margin-bottom: 0;
+}
+
+/* error page
+*********************************************************************************/
+.error-page{
+    text-align: center;
+    padding: 10vh;
+    i{
+        font-size: 10rem;
+        margin-bottom: 50px;
+    }
+    h1{
+        margin: 0 0 20px 0;   
+        color: $text-color;
+    }
+}
+
+
+.profile-container{
+    width: 100%;
+    padding: 15px;
+}
+/* media
+*********************************************************************************/
+@media screen and (max-width: $screen-sm-max) {
+    @import "mobile";
+}
+
+@media screen and (min-width: $screen-md-min) {
+    @import "desktop";
+}
+
+@import "ember-power-select";

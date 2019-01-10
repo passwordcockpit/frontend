@@ -1,0 +1,114 @@
+<div class="panel panel-default read">
+    {{#if isEdit}}
+        <div class="panel-heading">
+            {{t 'Global permissions'}}
+            <div class="pull-right">
+                <div class="btn-group">
+                    <a class="btn btn-default btn-xs" {{action 'cancel'}}>
+                        {{t 'Close'}} <i class="fas fa-times"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="panel-body">
+            <form class="form-horizontal" {{action 'submit' permission.id on='submit' }}>
+                <div class="checkbox">
+                    <label>
+                        {{input type="checkbox" checked=permission.manage_users}} {{t 'Create and manage users'}}
+                    </label>
+                </div>
+                <div class="checkbox">
+                    <label>
+                        {{input type="checkbox" checked=permission.create_folders}} {{t 'Create folders'}}
+                    </label>
+                </div>
+                <div class="checkbox">
+                    <label>
+                        {{input type="checkbox" checked=permission.access_all_folders}} {{t 'Access to all directiories'}}
+                    </label>
+                </div>
+                <div class="checkbox">
+                    <label>
+                        {{input type="checkbox" checked=permission.view_logs}} {{t 'Can view log'}}
+                    </label>
+                </div>
+                <div class="form-group">
+                    <div class="col-sm-offset-2 col-sm-10">
+                        <button type="submit" name="submit" class="btn btn-primary">
+                            {{t 'Save'}}
+                            <i class="fa  fa-floppy-o"></i>
+                        </button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    {{else}}
+        <div class="panel-heading">
+            {{t 'Global permissions'}}
+            <div class="pull-right">
+                <div class="btn-group">
+                    <a class="btn btn-default btn-xs" {{action 'editPermission'}}>
+                        <i class="fas fa-pencil-alt"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="panel-body">
+            <div class="table-responsive">
+                <table class="table">
+                    <tbody>
+                        <tr>
+                            <th>
+                                {{t 'Create and manage users'}}
+                            </th>
+                            <td class="grid-50 text-right">
+                                {{#if permission.manage_users}}
+                                    <i class="fas fa-check"></i>
+                                {{else}}
+                                    <i class="fas fa-times"></i>
+                                {{/if}}
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>
+                                {{t 'Create folders'}}
+                            </th>
+                            <td class="grid-50 text-right">
+                                {{#if permission.create_folders}}
+                                    <i class="fas fa-check"></i>
+                                {{else}}
+                                    <i class="fas fa-times"></i>
+                                {{/if}}
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>
+                                {{t 'Access to all directiories'}}
+                            </th>
+                            <td class="grid-50 text-right">
+                                {{#if permission.access_all_folders}}
+                                    <i class="fas fa-check"></i>
+                                {{else}}
+                                    <i class="fas fa-times"></i>
+                                {{/if}}
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>
+                                {{t 'Can view log'}}
+                            </th>
+                            <td class="grid-50 text-right">
+                                {{#if permission.view_logs}}
+                                    <i class="fas fa-check"></i>
+                                {{else}}
+                                    <i class="fas fa-times"></i>
+                                {{/if}}
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    {{/if}}
+</div>
+{{yield}}

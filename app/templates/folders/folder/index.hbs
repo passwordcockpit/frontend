@@ -1,0 +1,18 @@
+<h1>
+    <i class="fas fa-folder"></i>
+    {{model.folderName}}
+</h1>
+
+{{folder/folder-users 
+    folder=model.folder 
+    users=model.users 
+    filteredUsers=model.filteredUsers
+    folderUsers=model.folderUsers
+    folderId=model.folderId
+    isAdd=isAdd
+    errors=errors
+    controller=this 
+    onUpdatePermission = (action 'onUpdatePermission')
+    onDeletePermission = (action 'onDeletePermission')
+}}
+{{outlet}}

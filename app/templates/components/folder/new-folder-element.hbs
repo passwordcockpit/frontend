@@ -1,0 +1,20 @@
+<li class="new-folder edit-view">
+    <div class="edit {{if errors.name 'has-error'}}">
+        <form {{action 'submit' on='submit' }}>
+            {{input type="text" class="form-control" value=folderName placeholder=(t "New folder")}}
+            <div class="form-btn">
+                <button style="display: none;">
+                </button>
+                <button class="btn btn-default btn-xs action-close" {{action 'cancel'}}>
+                    {{t 'Cancel'}} <i class="fas fa-times"></i>
+                </button>
+                <button class="btn btn-primary btn-xs action-save">
+                    {{t 'Add'}} <i class="fas fa-plus"></i>
+                </button>
+            </div>
+            <div>
+                {{{display-errors errors.name}}}
+            </div>
+        </form>
+    </div>
+</li>

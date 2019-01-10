@@ -1,0 +1,43 @@
+<div class="user-menu area open">
+    <div class="title">
+        {{t 'Users list'}}
+        <div class="pull-right">
+            <div class="btn-group">
+                {{#link-to "users.new-user" class="edit btn btn-default btn-xs" }}
+                    <i class="fas fa-plus"></i>
+                {{/link-to}}
+            </div>
+        </div>
+    </div>
+    <div class="scroll-container">
+        {{#unless users}}
+            <p class="alert alert-info">
+                {{t 'There are no users'}}
+            </p>
+            {{else}}
+                <ul class="list">
+                    {{#each users as |user|}}
+                        <li style="{{unless user.enabled 'opacity:0.6'}}"> <!-- TODO -->
+                            {{#link-to "users.user" user.id class="read" }}
+                                <i class="fas fa-user"></i>
+                                {{user.username}}
+                            {{/link-to}}
+                            <div class="edit">
+                                <input type="text" class="form-control" value="User 1">
+                                <div class="form-btn">
+                                    <a class="btn btn-default btn-xs action-close" href="javascript:void(0)">
+                                        {{t 'Close'}} <i class="fas fa-times"></i>
+                                    </a>
+                                    <a class="btn btn-primary btn-xs action-save" href="javascript:void(0)">
+                                        {{t 'Save'}}
+                                        <i class="fas fa-save"></i>
+                                    </a>
+                                </div>
+                            </div>
+                        </li>
+                    {{/each}}
+                </ul>
+        {{/unless}}
+    </div>
+</div>
+{{yield}}

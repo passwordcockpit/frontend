@@ -1,0 +1,24 @@
+<li class="edit-view">
+    <div class="edit {{if errors.selectUser 'has-error'}}">
+        <form {{action 'submit' folderId filteredUsers.id on='submit' }}>
+            <div class="user-select-container">
+                {{#power-select options=filteredUsers matcher=filterUsers selected=filteredUsers.id onchange=(action (mut filteredUsers.id)) as |user| }}
+                    {{user.name}} {{user.surname}}
+                {{/power-select}}
+            </div>
+            <label class="user-edit-container">
+                {{input type="checkbox" id='access' checked=access}}{{t 'Manage' }}
+            </label>
+            <br>
+            <div class="form-btn">
+                <button class="btn btn-default btn-xs action-close" {{action 'cancel'}}>
+                    {{t 'Cancel'}} <i class="fas fa-times"></i>
+                </button>
+                <button class="btn btn-primary btn-xs action-save">
+                    {{t 'Add'}} <i class="fas fa-plus"></i>
+                </button>
+            </div>
+            {{{display-errors errors.selectUser}}}
+        </form>
+    </div>
+</li>
