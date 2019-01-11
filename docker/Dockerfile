@@ -32,7 +32,7 @@ RUN set -ex; \
     # enable HTTPS in apache (need ssl-cert and apache module ssl)
     ln -s /etc/apache2/sites-available/default-ssl.conf /etc/apache2/sites-enabled/default-ssl.conf; \
     # download source password-cockpit
-    /usr/local/bin/getsource.sh $PASSWORDCOCKPIT_FRONTEND_DEVELOPMENTMODE PASSWORDCOCKPIT_FRONTEND_VERSION
+    /usr/local/bin/getsource.sh $PASSWORDCOCKPIT_FRONTEND_DEVELOPMENTMODE $PASSWORDCOCKPIT_FRONTEND_VERSION
 
 VOLUME /var/www/html
 
