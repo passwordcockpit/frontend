@@ -12,7 +12,7 @@ module.exports = function (environment) {
         i18n: {
             defaultLocale: 'en'
         },
-        modulePrefix: 'password',
+        modulePrefix: 'passwordcockpit_frontend',
         environment,
         rootURL: '/',
         locationType: 'auto',

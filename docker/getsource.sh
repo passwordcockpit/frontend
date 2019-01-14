@@ -27,7 +27,7 @@ fi
 # npm install
 npm install
 # install ember-cli
-#npm install -g ember-cli
+ember install ember-cli-mirage
 
 # Build dist for production
 if [ $1 -eq 0 ]; then
