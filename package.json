@@ -1,10 +1,10 @@
 {
-    "name": "password-cockpit/frontend",
+    "name": "passwordcockpit_frontend",
     "version": "0.0.0",
     "private": true,
     "description": "Password-cockpit frontend",
-    "homepage": "https://github.com/password-cockpit/frontend",
-    "repository": "https://github.com/password-cockpit/frontend",
+    "homepage": "https://github.com/passwordcockpit/frontend",
+    "repository": "https://github.com/passwordcockpit/frontend",
     "license": "BSD-3-Clause",
     "author": "Blackpoints AG",
     "directories": {
