@@ -1,1 +1,1 @@
-# password-cockpit/frontend
+# passwordcockpit/frontend
