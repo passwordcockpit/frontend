@@ -8,7 +8,7 @@ if [ $count -eq "3" ] && [ -a .DS_Store ]; then
     rm -rf .DS_Store
     echo >&2 ".DS_Store removed from $PWD"
 elif [ $count -gt "2" ]; then
-        echo >&2 "ERROR: $PWD is not empty! Passwrdcockpit will not be installed"
+        echo >&2 "ERROR: $PWD is not empty! Passwordcockpit will not be installed"
         exit 1
 fi
 
@@ -27,20 +27,6 @@ if [ ! -e $filename ]; then
     } >> $filename
 
 fi
-
-if [ "${PASSWORDCOCKPIT_BACKEND_DEVELOPMENTMODE}" -eq 1 ]; then
-    # development mode
-    echo >&2 "Development mode"
-else
-    # production mode
-    # build application
-    ember build -p
-    # remove all file escept dist
-    find . -maxdepth 1 ! -name 'dist' -exec rm -rf {} \;
-    # move dist file in webroot
-    mv dist/* ./
-    # remove empty dist folder
-    rm -rf dist
-fi
+echo >&2 "Configuration files created"
 
 exec "$@"

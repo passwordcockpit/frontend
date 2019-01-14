@@ -27,7 +27,16 @@ fi
 # npm install
 npm install
 # install ember-cli
-npm install -g ember-cli
-# install bower
-npm install -g bower
-bower install --allow-root
+#npm install -g ember-cli
+
+# Build dist for production
+if [ $1 -eq 0 ]; then
+    # build application
+    ember build -p
+    # remove all file except dist
+    #find . -maxdepth 1 ! -name 'dist' -exec rm -rf {} \;
+    # move dist file in webroot
+    mv dist/* ./
+    # remove empty dist folder
+    rm -rf dist
+fi

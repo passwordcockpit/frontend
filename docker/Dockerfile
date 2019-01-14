@@ -35,6 +35,7 @@ RUN set -ex; \
     /usr/local/bin/getsource.sh $PASSWORDCOCKPIT_FRONTEND_DEVELOPMENTMODE $PASSWORDCOCKPIT_FRONTEND_VERSION
 
 VOLUME /var/www/html
+WORKDIR /var/www/html
 
 COPY entrypoint.sh /usr/local/bin/
 ENTRYPOINT ["entrypoint.sh"]
