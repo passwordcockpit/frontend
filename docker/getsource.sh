@@ -26,17 +26,30 @@ fi
 
 # npm install
 npm install
-# install ember-cli
-ember install ember-cli-mirage
+# install ember-cli global
+npm install -g ember-cli
+
+# configuration files needed to build the application
+filename=/usr/src/passwordcockpit/config/local.js
+if [ ! -e $filename ]; then
+    {
+        echo "module.exports = {"
+        echo "    baseHost: 'PASSWORDCOCKPIT_FRONTEND_BASEHOST_TOKEN'"
+        echo "};"
+    } >> $filename
+
+fi
+echo >&2 "Configuration files created"
 
 # Build dist for production
 if [ $1 -eq 0 ]; then
     # build application
     ember build -p
     # remove all file except dist
-    #find . -maxdepth 1 ! -name 'dist' -exec rm -rf {} \;
+    find ./ -maxdepth 1 ! -name 'dist' -exec rm -rf {} \;
     # move dist file in webroot
-    mv dist/* ./
+    mv ./dist/* ./
     # remove empty dist folder
-    rm -rf dist
+    rm -rf ./dist
+    echo >&2 "Application builded"
 fi

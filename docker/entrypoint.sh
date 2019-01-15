@@ -15,18 +15,16 @@ fi
 # move passwordcockpit source in container
 shopt -s dotglob
 mv /usr/src/passwordcockpit/* ./
-echo >&2 "Source copied in $PWD"
+echo >&2 "Source moved in $PWD"
 
-# configuration files
-filename=/var/www/html/config/local.js
-if [ ! -e $filename ]; then
-    {
-        echo "module.exports = {"
-        echo "    baseHost: '${PASSWORDCOCKPIT_FRONTEND_BASEHOST}'"
-        echo "};"
-    } >> $filename
-
+if [ "${PASSWORDCOCKPIT_FRONTEND_DEVELOPMENTMODE}" -eq 1 ]; then
+    # develop mode
+    sed -ri -e 's!PASSWORDCOCKPIT_FRONTEND_BASEHOST_TOKEN!'${PASSWORDCOCKPIT_FRONTEND_BASEHOST}'!g' config/local.js
+    echo >&2 "local.js updated"
+else
+    # production mode
+    sed -ri -e 's!PASSWORDCOCKPIT_FRONTEND_BASEHOST_TOKEN!'${PASSWORDCOCKPIT_FRONTEND_BASEHOST}'!g' index.html
+    sed -ri -e 's!PASSWORDCOCKPIT_FRONTEND_BASEHOST_TOKEN!'${PASSWORDCOCKPIT_FRONTEND_BASEHOST}'!g' assets/*.*  
 fi
-echo >&2 "Configuration files created"
 
 exec "$@"

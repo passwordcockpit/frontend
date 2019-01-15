@@ -1,8 +1,10 @@
 FROM php:7.2-apache
 
 # passwordcockpit frontend env
+# for the image
 ENV PASSWORDCOCKPIT_FRONTEND_DEVELOPMENTMODE 0
 ENV PASSWORDCOCKPIT_FRONTEND_VERSION 0.0.3
+# for the container
 ENV PASSWORDCOCKPIT_FRONTEND_BASEHOST http://127.0.0.1:8080
 
 # apache configurations
