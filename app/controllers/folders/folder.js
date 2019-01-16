@@ -34,7 +34,7 @@ export default Controller.extend({
                     "Accept": "application/json",
                     "Authorization": "Bearer " + this.get('session.data.authenticated.token')
                 }
-            }).then((result) => {
+            }).done((result) => {
                 this.set('passwords', result._embedded.passwords);
                 this.set('selectFolder', true);
                 // Hide folders list on Folder selecting
@@ -43,7 +43,7 @@ export default Controller.extend({
                 this.get('folderController').send('showPasswordsList');
 
                 $('#loading').hide();
-            }).catch((adapterError) => {
+            }).fail((adapterError) => {
                 this.set('passwords', null);
                 this.set('selectFolder', false);
                 $('#loading').hide();
@@ -66,11 +66,11 @@ export default Controller.extend({
                     "Accept": "application/json",
                     "Authorization": "Bearer " + this.get('session.data.authenticated.token')
                 }
-            }).then((result) => {
+            }).done((result) => {
                 this.set('passwords', result._embedded.passwords);
                 this.set('selectFolder', true);
                 $('#loading').hide();
-            }).catch((adapterError) => {
+            }).fail((adapterError) => {
                 this.set('passwords', null);
                 $('#loading').hide();
                 this.get('growl').errorShowRaw(adapterError.responseJSON.title, adapterError.responseJSON.detail);

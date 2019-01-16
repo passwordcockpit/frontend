@@ -225,7 +225,7 @@ export default Component.extend({
                     "Accept": "application/json",
                     "Authorization": "Bearer " + self.get("session.session.content.authenticated.token")
                 }
-            }).then(() => {
+            }).done(() => {
                 // Update password of deleting-file's data
                 let dataPassword = self.get('store').peekRecord('password', self.password.get('id'));
                 dataPassword.set('fileId', null);
@@ -236,7 +236,7 @@ export default Component.extend({
 
                 $('#loading').hide();
                 self.get('growl').notice('Success', 'File deleted');
-            }).catch((adapterError) => {
+            }).fail((adapterError) => {
                 $('#loading').hide();
                 this.get('growl').errorShowRaw(adapterError.responseJSON.title, adapterError.responseJSON.detail);
             });
@@ -303,7 +303,7 @@ export default Component.extend({
                             this.set('isEdit', false);
                             $('#loading').hide();
                             this.get('growl').notice('Success', 'File uploaded');
-                        }).catch(adapterError => {
+                        }).fail(adapterError => {
                             this.set('isEdit', false);
                             $('#loading').hide();
                             this.get('growl').errorShowRaw(adapterError.responseJSON.title, adapterError.responseJSON.detail);

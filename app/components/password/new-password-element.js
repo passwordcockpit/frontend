@@ -149,7 +149,7 @@ export default Component.extend({
                 self.get('growl').notice('Success', 'Password created');
                 $('#loading').hide();
                 self.get('router').transitionTo('folders.folder.passwords.password', success.password_id);
-            }).catch(adapterError => {
+            }).fail(adapterError => {
                 let errors = this.get('growl').errorsDatabaseToArray(adapterError);
                 this.set('errors', errors);
                 $('#loading').hide();

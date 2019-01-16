@@ -51,7 +51,7 @@ export default Route.extend(AuthenticatedRouteMixin, {
             headers: {
                 "Authorization": "Bearer " + this.get('session.data.authenticated.token')
             }
-        }).then((results) => {
+        }).done((results) => {
             results._embedded.users.forEach(user => {
                 let storeUser = self.get('store').peekRecord('user', user.user_id);
                 if (storeUser == null) {
@@ -59,7 +59,7 @@ export default Route.extend(AuthenticatedRouteMixin, {
                     self.get('store').createRecord('user', user);
                 }
             });
-        }).catch((adapterError) => {
+        }).fail((adapterError) => {
             if (adapterError.responseJSON.status != 401) {
                 this.get('growl').errorShowRaw(adapterError.responseJSON.title, adapterError.responseJSON.detail);
             }

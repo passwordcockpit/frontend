@@ -212,7 +212,7 @@ export default Controller.extend({
                     "Accept": "application/json",
                     "Authorization": "Bearer " + this.get('session.data.authenticated.token')
                 }
-            }).then(() => {
+            }).done(() => {
                 this.get('growl').notice('Success', 'Folder deleted');
                 //  Recreate the tree
                 this.get('store').query("folder", {})
@@ -234,7 +234,7 @@ export default Controller.extend({
                         this.transitionToRoute('folders');
                     }
                 }
-            }).catch((adapterError) => {
+            }).fail((adapterError) => {
                 $('#loading').hide();
                 this.get('growl').errorShowRaw(adapterError.responseJSON.title, adapterError.responseJSON.detail);
             });
