@@ -17,7 +17,7 @@ shopt -s dotglob
 mv /usr/src/passwordcockpit/* ./
 echo >&2 "Source moved in $PWD"
 
-if [ "${PASSWORDCOCKPIT_FRONTEND_DEVELOPMENTMODE}" -eq 1 ]; then
+if [ "${PASSWORDCOCKPIT_FRONTEND_DEVELOPMENTMODE_FOR_ENTRYPOINT}" -eq "1" ]; then
     # develop mode
     sed -ri -e 's!PASSWORDCOCKPIT_FRONTEND_BASEHOST_TOKEN!'${PASSWORDCOCKPIT_FRONTEND_BASEHOST}'!g' config/local.js
     echo >&2 "local.js updated"
