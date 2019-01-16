@@ -18,6 +18,7 @@ module.exports = {
             , 'bookmark', 'print', 'camera'],
         options: {
             menubar: false,
+            plugins: 'lists',
             toolbar1: 'bold italic underline | bullist numlist',
             formats: {
                 underline: { inline: 'u' },

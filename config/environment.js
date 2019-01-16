@@ -12,6 +12,11 @@ module.exports = function (environment) {
         i18n: {
             defaultLocale: 'en'
         },
+
+        tinyMCE: {
+            load: 'assets'
+        },
+        
         modulePrefix: 'passwordcockpit_frontend',
         environment,
         rootURL: '/',

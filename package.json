@@ -56,7 +56,7 @@
     "dependencies": {
         "@fortawesome/fontawesome-free": "^5.6.1",
         "bootstrap-sass": "^3.3.6",
-        "ember-cli-tinymce": "^0.3.2",
+        "ember-cli-tinymce": "git://github.com/marucjmar/ember-cli-tinymce.git#load-from-assets",
         "ember-jwt-decode": "^0.1.1",
         "ember-simple-auth": "^1.6.0",
         "ember-simple-auth-token": "^3.0.0",
