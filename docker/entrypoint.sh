@@ -24,7 +24,8 @@ if [ "${PASSWORDCOCKPIT_FRONTEND_DEVELOPMENTMODE}" -eq 1 ]; then
 else
     # production mode
     sed -ri -e 's!PASSWORDCOCKPIT_FRONTEND_BASEHOST_TOKEN!'${PASSWORDCOCKPIT_FRONTEND_BASEHOST}'!g' index.html
-    sed -ri -e 's!PASSWORDCOCKPIT_FRONTEND_BASEHOST_TOKEN!'${PASSWORDCOCKPIT_FRONTEND_BASEHOST}'!g' assets/*.*  
+    sed -ri -e 's!PASSWORDCOCKPIT_FRONTEND_BASEHOST_TOKEN!'${PASSWORDCOCKPIT_FRONTEND_BASEHOST}'!g' assets/*.*
+    echo >&2 "files updated"
 fi
 
 exec "$@"
