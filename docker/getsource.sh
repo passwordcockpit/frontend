@@ -24,11 +24,6 @@ else
     rm -rf tests
 fi
 
-# npm install
-npm install
-# install ember-cli global
-npm install -g ember-cli
-
 # configuration files needed to build the application
 filename=/usr/src/passwordcockpit/config/local.js
 if [ ! -e $filename ]; then
@@ -43,6 +38,10 @@ echo >&2 "Configuration files created"
 
 # Build dist for production
 if [ $1 -eq 0 ]; then
+    # npm install
+    npm install
+    # install ember-cli global
+    npm install -g ember-cli
     # build application
     ember build -p
     # remove all file except dist
