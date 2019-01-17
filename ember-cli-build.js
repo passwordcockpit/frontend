@@ -15,8 +15,6 @@ module.exports = function (defaults) {
             }
         }
     });
-    // Jquery form validation
-    app.import('node_modules/jquery-form-validator/form-validator/jquery.form-validator.min.js');
 
     // Import Bootstrap JS
     app.import('node_modules/bootstrap-sass/assets/javascripts/bootstrap.min.js');
@@ -62,8 +60,6 @@ module.exports = function (defaults) {
 
     // Import password encrypt
     app.import('vendor/sjcl.js');
-
-    app.import('vendor/script.js');
 
     // Use `app.import` to add additional libraries to the generated
     // output files.
