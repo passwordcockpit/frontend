@@ -9,6 +9,10 @@ const local = require('./local.js');
 const passwordForm = require('./password-form.js');
 module.exports = function (environment) {
     let ENV = {
+        i18n: {
+            defaultLocale: 'en'
+        },
+
         tinyMCE: {
             load: 'assets'
         },
