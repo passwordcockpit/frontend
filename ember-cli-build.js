@@ -15,6 +15,9 @@ module.exports = function (defaults) {
             }
         }
     });
+    
+    // Jquery form validation
+    app.import('node_modules/jquery-form-validator/form-validator/jquery.form-validator.min.js');
 
     // Import Bootstrap JS
     app.import('node_modules/bootstrap-sass/assets/javascripts/bootstrap.min.js');
