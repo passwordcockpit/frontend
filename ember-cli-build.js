@@ -56,7 +56,7 @@ module.exports = function (defaults) {
     //app.import('node_modules/whatwg-fetch/fetch.js');
 
     // Import File-saver
-    app.import('node_modules/file-saver/FileSaver.min.js');
+    app.import('node_modules/file-saver/src/FileSaver.js');
 
     // Import password generation
     app.import('vendor/pGenerator.js');
