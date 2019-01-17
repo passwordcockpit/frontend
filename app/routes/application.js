@@ -17,7 +17,7 @@ export default Route.extend(ApplicationRouteMixin, {
     session: inject('session'),
     account: inject('account'),
     growl: inject('growl'),
-    i18n: inject('i18n'),
+    intl: inject('intl'),
     closeFoldersInputs: inject('close-folders-inputs'),
 
     beforeModel() {
@@ -39,7 +39,7 @@ export default Route.extend(ApplicationRouteMixin, {
                 self.get('account').setUser(hash.user);
                 //Set language
                 var token = jwtDecode(this.get('session.data.authenticated.token'));
-                this.set('i18n.locale', token.data.language);
+                this.set('intl.locale', token.data.language);
                 return {
                     user: hash.user,
                     permission: hash.permission,

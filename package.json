@@ -38,7 +38,7 @@
         "ember-cryptojs-shim": "^4.2.0",
         "ember-data": "^3.6.0",
         "ember-export-application-global": "^2.0.0",
-        "ember-i18n": "^5.1.0",
+        "ember-intl": "^3.5.0",
         "ember-link-action": "0.0.38",
         "ember-load-initializers": "^1.0.0",
         "ember-power-select": "^2.0.0-beta.0",

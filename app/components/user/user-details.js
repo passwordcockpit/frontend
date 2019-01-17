@@ -12,7 +12,7 @@ import $ from 'jquery';
 export default Component.extend({
     store: inject('store'),
     session: inject('session'),
-    i18n: inject('i18n'),
+    intl: inject('intl'),
     growl: inject('growl'),
     router: inject('router'),
 
@@ -81,7 +81,7 @@ export default Component.extend({
                     }
                     else {
                         this.set('errors', {
-                            password: [this.get('i18n').t('New passwords mismatch')],
+                            password: [this.get('intl').t('New passwords mismatch')],
                         });
                         $('#loading').hide();
                         return;
@@ -108,7 +108,7 @@ export default Component.extend({
                             this.get('session').invalidate();
                         } else {
                             //Update language
-                            this.set('i18n.locale', user.get('language'));
+                            this.set('intl.locale', user.get('language'));
                             // Update token
                             this.set('session.data.authenticated.token', userData.get('token'));
                             let sessionData = self.get('session.data');
