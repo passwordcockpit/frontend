@@ -10,7 +10,7 @@ import jwtDecode from 'ember-cli-jwt-decode';
 import $ from 'jquery';
 
 export default Controller.extend({
-    i18n: inject('i18n'),
+    intl: inject('intl'),
     session: inject('session'),
     growl: inject('growl'),
 
@@ -34,7 +34,7 @@ export default Controller.extend({
                     var language = jwtDecode(this.get('session.data.authenticated.token'));
 
                     //set language received from token
-                    this.set('i18n.locale', language.data.language);
+                    this.set('intl.locale', language.data.language);
                     $('#loading').hide();
                     this.transitionToRoute('folders');
 

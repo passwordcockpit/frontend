@@ -12,7 +12,7 @@ export default Component.extend({
     router: inject('router'),
     store: inject('store'),
     growl: inject('growl'),
-    i18n: inject('i18n'),
+    intl: inject('intl'),
 
     parentId: null,
     userId: null,
@@ -31,7 +31,7 @@ export default Component.extend({
         submit(folderId, userId) {
             if(userId == undefined){
                 this.set('errors', {
-                    selectUser: [this.get('i18n').t('This is a required field')],
+                    selectUser: [this.get('intl').t('This is a required field')],
                 });
                 return
             }
