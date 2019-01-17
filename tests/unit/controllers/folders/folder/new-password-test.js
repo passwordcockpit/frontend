@@ -7,9 +7,7 @@
 import { moduleFor, test } from 'ember-qunit';
 
 moduleFor('controller:folders/folder/new-password', 'Unit | Controller | folders/folder/new-password', {
-  // Specify the other units that are required for this test.
-  // needs: ['controller:foo']
-  needs: ['controller:folders.folder']
+    integration: true
 });
 
 // Replace this with your real tests.

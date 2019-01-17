@@ -7,8 +7,7 @@
 import { moduleFor, test } from 'ember-qunit';
 
 moduleFor('route:folders/index', 'Unit | Route | folders/index', {
-  // Specify the other units that are required for this test.
-  // needs: ['controller:foo']
+    integration: true
 });
 
 test('it exists', function(assert) {
