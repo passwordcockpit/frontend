@@ -13,6 +13,15 @@ fi
 # install passwordcockpit only if the volume is empty
 if  [ $count -gt "2" ]; then
         echo >&2 "WARNING: $PWD is not empty! Passwordcockpit will not be installed"
+
+        if [ "${PASSWORDCOCKPIT_FRONTEND_DEVELOPMENTMODE_FOR_ENTRYPOINT}" -eq "1" ]; then
+            # develop mode
+            # npm install
+            npm prune
+            npm install
+            npm install -g ember-cli
+            echo >&2 "npm install"
+        fi
 else
     # move passwordcockpit source in container
     shopt -s dotglob
@@ -20,11 +29,11 @@ else
     echo >&2 "Source moved in $PWD"
 
     if [ "${PASSWORDCOCKPIT_FRONTEND_DEVELOPMENTMODE_FOR_ENTRYPOINT}" -eq "1" ]; then
+        # develop mode
         # npm install
         npm install
-        # install ember-cli global
         npm install -g ember-cli
-        # develop mode
+
         sed -ri -e 's!PASSWORDCOCKPIT_FRONTEND_BASEHOST_TOKEN!'${PASSWORDCOCKPIT_FRONTEND_BASEHOST}'!g' config/local.js
         echo >&2 "local.js updated"
     else
