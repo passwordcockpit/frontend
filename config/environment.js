@@ -72,8 +72,6 @@ module.exports = function (environment) {
     };
 
     ENV['ember-simple-auth-token'] = {
-        identificationField: 'username',
-        passwordField: 'password',
         tokenPropertyName: 'token',
         authorizationPrefix: 'Bearer ',
         authorizationHeaderName: 'Authorization',

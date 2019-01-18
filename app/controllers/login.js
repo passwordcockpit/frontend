@@ -29,7 +29,7 @@ export default Controller.extend({
             if ($('#loginForm').isValid()) {
                 $('#loading').show();
                 let { username, password } = this.getProperties('username', 'password');
-                this.get('session').authenticate('authenticator:jwt', { identification: username, password: password }).then(() => {
+                this.get('session').authenticate('authenticator:jwt', { username: username, password: password }).then(() => {
                     this.set('errorMessage', null);
                     var language = jwtDecode(this.get('session.data.authenticated.token'));
 
