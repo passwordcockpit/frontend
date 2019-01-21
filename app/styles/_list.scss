@@ -85,7 +85,16 @@ ul.list {
             background: #eee;
             text-decoration: none;
         }
-
+        &.active{
+            .fa-folder{
+                display: none;
+            }
+        }
+        &:not(.active){
+            .fa-folder-open{
+                display: none;
+            }
+        }
         &:hover {
             color: $brand-primary;
         }
