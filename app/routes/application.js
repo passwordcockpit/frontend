@@ -9,6 +9,7 @@ import Route from '@ember/routing/route';
 import { inject } from '@ember/service';
 import ApplicationRouteMixin from 'ember-simple-auth/mixins/application-route-mixin';
 import jwtDecode from 'ember-cli-jwt-decode';
+import ENV from '../config/environment';
 import RSVP from 'rsvp';
 import $ from 'jquery';
 
@@ -23,6 +24,7 @@ export default Route.extend(ApplicationRouteMixin, {
     beforeModel() {
         this._super(...arguments);
         $('#loading').show();
+        this.set('intl.locale', ENV.APP.languages);
     },
     model() {
         let self = this;

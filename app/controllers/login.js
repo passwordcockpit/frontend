@@ -45,7 +45,13 @@ export default Controller.extend({
                         $('#password').val('');
 
                         $('#loading').hide();
-                        this.get('growl').errorShowRaw(loginErrors.title, loginErrors.detail);
+
+                        if (loginErrors.hasOwnProperty('json')) {
+                            this.get('growl').errorShowRaw(loginErrors.json.title, loginErrors.json.detail);
+                        }
+                        else {
+                            this.get('growl').errorShowRaw(loginErrors.title, loginErrors.detail);
+                        }
                     });
             }
         }
