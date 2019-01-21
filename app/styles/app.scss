@@ -22,6 +22,7 @@
 	- password generator
 	- error
 - list (@import)
+- search
 - login (@import)
 - content
 	- password content
@@ -261,6 +262,46 @@ ul.list{
 /* list
 *********************************************************************************/
 @import "list";
+
+/* search 
+*********************************************************************************/
+.search{
+	#search-target{
+        width: 35%;
+        border-radius: 0;
+        -webkit-appearance: none; 
+        border-left: 0;
+        border-right: 0;
+	}
+	&.global-search{
+		input.form-control{
+			width: 65%;
+		}
+	}
+}
+.result{
+	a{
+		color: #000;
+		&:hover{
+			color: $brand-primary;
+		}
+	}
+}
+td.path{
+	a{
+		width: auto;
+		padding: 5px;
+		float: left;
+		background: #eee;
+		border-radius: 3px;
+		margin-right: 5px;
+	}
+	span{
+		padding: 5px;
+		float: left;
+		margin-right: 5px;
+	}
+}
 
 /* login
 *********************************************************************************/

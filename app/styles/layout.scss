@@ -34,7 +34,7 @@
         }
 
         &.open {
-            top: $header-height;
+            top: $header-height + $global-search-height;
         }
 
         &.closed {
