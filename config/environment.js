@@ -66,7 +66,7 @@ module.exports = function (environment) {
 
     // Authentication parameters
     ENV['ember-simple-auth'] = {
-        store: 'simple-auth-session-store:local-storage',
+        store: 'simple-auth-session-store:session-storage',
         authorizer: 'authorizer:token',
         routeAfterAuthentication: 'folders',
     };
