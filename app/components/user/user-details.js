@@ -20,7 +20,15 @@ export default Component.extend({
     actual_password: null,
     newpass: null,
     repeatnewpass: null,
-
+    
+    /**
+     * Reset password form's fields
+     */
+    resetPasswordForms() {
+        this.set('actual_password', null);
+        this.set('newpass', null);
+        this.set('repeatnewpass', null);
+    },
     actions: {
         // cancelEdit
 
@@ -80,6 +88,7 @@ export default Component.extend({
                         user.set('actual_password', actual_password);
                     }
                     else {
+                        this.resetPasswordForms();
                         this.set('errors', {
                             password: [this.get('intl').t('New passwords mismatch')],
                         });
@@ -94,9 +103,9 @@ export default Component.extend({
 
             user.save()
                 .then((userData) => {
-                    
+
                     // cancel Editing mode
-                    if(this.get('isManageUsers')){
+                    if (this.get('isManageUsers')) {
                         this.send('cancel');
                     }
 
@@ -116,10 +125,12 @@ export default Component.extend({
                         }
                     }
 
+                    this.resetPasswordForms();
                     this.get('growl').notice('Success', 'User updated');
                     $('#loading').hide();
                 })
                 .catch(adapterError => {
+                    this.resetPasswordForms();
                     let errors = this.get('growl').errorsDatabaseToArray(adapterError);
                     this.set('errors', errors);
                     this.get('growl').errorShowRaw(adapterError.title, adapterError.message);
