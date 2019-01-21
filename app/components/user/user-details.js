@@ -25,6 +25,7 @@ export default Component.extend({
      * Reset password form's fields
      */
     resetPasswordForms() {
+        this.get('user').rollbackAttributes();
         this.set('actual_password', null);
         this.set('newpass', null);
         this.set('repeatnewpass', null);
@@ -62,7 +63,7 @@ export default Component.extend({
             $('#loading').show();
             let self = this;
             let user = this.get('user');
-            user.set('actual_password', null);
+            this.set('errors', null);
 
             if (this.get('isManageUsers')) {
                 if (user.get('password') == '') {
