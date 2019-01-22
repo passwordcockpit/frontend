@@ -14,10 +14,9 @@ export default Component.extend({
     session: inject('session'),
     store: inject('store'),
     growl: inject('growl'),
-
+    passwordEncrypt: inject('password-encrypt'),
     icons: ENV.passwordFormConfig.icons,
     options: ENV.passwordFormConfig.options,
-    
     actions: {
         /**
          * Is called on Random-password's refresh button clicking
@@ -100,6 +99,7 @@ export default Component.extend({
             let self = this;
             let file = $('#file')[0].files[0]
             var fd = new FormData();
+            let isFormValid = true;
             fd.append("folder_id", folderId);
             if (this.get('title')) {
                 fd.append("title", this.get('title'));
@@ -113,49 +113,66 @@ export default Component.extend({
             if (this.get('username')) {
                 fd.append("username", this.get('username'));
             }
-            if (this.get('password')) {
-                fd.append("password", this.get('password'));
-            }
+            
             if (this.get('url')) {
                 fd.append("url", this.get('url'));
             }
             if (this.get('tags')) {
                 fd.append("tags", this.get('tags'));
             }
+            // plain password
+            if (this.get('password') && !this.get('usePin')) {
+                fd.append("password", this.get('password'));
+            }
+            // password with pin encryption
+            if(this.get('usePin')){
+                if (this.get('password') && this.get('pin')) {
+                    fd.append("usePin",  this.get('usePin'));
+                    fd.append("password",  this.get('passwordEncrypt').encryptPassword(this.get('pin') ,this.get('password')));
+                }else if (!this.get('password')){
+                    self.get('growl').warning('Warning', 'Password missing');
+                    isFormValid = false;
+                }else if (!this.get('pin')){
+                    self.get('growl').warning('Warning', 'PIN missing');
+                    isFormValid = false;
+                }
+            }
             if (file) {
                 fd.append("file", file);
             }
-
-            $.ajax({
-                url:
-                    window.APP.host +
-                    "/" +
-                    window.APP.namespace +
-                    "/passwords",
-                data: fd,
-                headers: {
-                    Authorization:
-                        "Bearer " + self.get("session.session.content.authenticated.token")
-                },
-                cache: false,
-                contentType: false,
-                processData: false,
-                type: "POST"
-            }).done(success => {
-                // Add new file to the store
-                success.id = success.password_id;
-                self.get('store').createRecord('password', success);
-                self.onCreatePassword();
-                self.get('growl').notice('Success', 'Password created');
+            if(isFormValid){
+                $.ajax({
+                    url:
+                        window.APP.host +
+                        "/" +
+                        window.APP.namespace +
+                        "/passwords",
+                    data: fd,
+                    headers: {
+                        Authorization:
+                            "Bearer " + self.get("session.session.content.authenticated.token")
+                    },
+                    cache: false,
+                    contentType: false,
+                    processData: false,
+                    type: "POST"
+                }).done(success => {
+                    // Add new file to the store
+                    success.id = success.password_id;
+                    self.get('store').createRecord('password', success);
+                    self.onCreatePassword();
+                    self.get('growl').notice('Success', 'Password created');
+                    $('#loading').hide();
+                    self.get('router').transitionTo('folders.folder.passwords.password', success.password_id);
+                }).fail(adapterError => {
+                    let errors = this.get('growl').errorsDatabaseToArray(adapterError);
+                    this.set('errors', errors);
+                    $('#loading').hide();
+                    self.get('growl').error('Error', 'Error while creating the password');
+                });
+            }else{
                 $('#loading').hide();
-                self.get('router').transitionTo('folders.folder.passwords.password', success.password_id);
-            }).fail(adapterError => {
-                let errors = this.get('growl').errorsDatabaseToArray(adapterError);
-                this.set('errors', errors);
-                $('#loading').hide();
-                self.get('growl').error('Error', 'Error while creating the password');
-            });
-
+            }
 
         }
     }

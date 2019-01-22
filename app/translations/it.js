@@ -124,8 +124,12 @@ export default {
     "Create folders": "Creare cartelle",
     "Access to all directiories": "Accesso a tutte le cartelle",
     "Can view log": "Può visualizzare il log",
-    
     "No result found": "Nessun risultato trovato",
     "Keyword": "Parola chiave",
     "String length is too short": "La lunghezza della stringa è troppo corta"
+    "Password missing": "Campo password vuoto",
+    "PIN missing": "Campo PIN vuoto",
+    "Warning": "Attenzione",
+    "PIN encryption": "Cifratura con PIN",
+    "PIN": "PIN"
   };

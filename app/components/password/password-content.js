@@ -13,8 +13,8 @@ export default Component.extend({
     store: inject('store'),
     session: inject('session'),
     growl: inject('growl'),
+    passwordEncrypwt: inject('password-encrypt'),
     localTempPassword: null,
-
     icons: ENV.passwordFormConfig.icons,
     options: ENV.passwordFormConfig.options,
     
@@ -51,19 +51,6 @@ export default Component.extend({
             this.set('errors', null);
         },
 
-        // Encrypt password funtions
-        /**
-         * Show Encrypt-password Options' panel
-         */
-        showPasswordEncryptOption() {
-            $('.password-encrypt-form').slideDown();
-        },
-        /**
-         * Update password password from Encrypt password panel
-         */
-        onUpdatePasswordPassword(password){
-            this.get('password').set('password', password);
-        },
         // Generate password functions
         /**
          * Is called on Random-password's refresh button clicking

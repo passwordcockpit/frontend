@@ -25,6 +25,19 @@ export default Service.extend({
     },
 
     /**
+     * Show warning message
+     * 
+     * @param {*} title
+     * @param {*} message
+     */
+    warning(title, message) {
+        $.growl.warning({
+            title: this.get('intl').t('Warning'),
+            message: this.get('intl').t(message)
+        });
+    },
+
+    /**
      * Show error message
      * 
      * @param {*} title

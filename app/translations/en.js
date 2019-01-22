@@ -123,8 +123,12 @@ export default {
     "Create folders": "Create folders",
     "Access to all directiories": "Access to all directiories",
     "Can view log": "Can view log",
-
     "No result found": "No result found",
     "Keyword": "Keyword",
-    "String length is too short": "The length of the string is too short"
+    "String length is too short": "The length of the string is too short",
+    "Password missing": "Password missing",
+    "PIN missing": "PIN missing",
+    "Warning": "Warning",
+    "PIN encryption": "PIN encryption",
+    "PIN": "PIN"
 };
