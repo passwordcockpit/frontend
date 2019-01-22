@@ -83,6 +83,7 @@ export default Controller.extend({
             let parentId = password.data.folder_id;
             passwordPath = self.get('retrieveParentFolders').call(self, parentId);
             passwordPathToString = passwordPath.join(' / ');
+            let icon = password.data.icon;
 
             result.push({
                 valueToSort: passwordTitle,
@@ -91,7 +92,8 @@ export default Controller.extend({
                 folderId: parentId,
                 passwordPath: passwordPath,
                 passwordPathToString: passwordPathToString,
-                isFolder: false
+                isFolder: false,
+                icon: icon
             });
         });
         return result;
@@ -265,6 +267,7 @@ export default Controller.extend({
             let result = {
                 target: target
             };
+
             if (target === 'Folder' || target === 'All') {
                 result.folders = this.get('store').query('folder', { q: keywords })
             }
@@ -288,10 +291,13 @@ export default Controller.extend({
                         return 1;
                     }
                 });
+
                 this.set('searchResults', {
                     results: resultsSearch,
-                    hasResults: true
+                    hasResults: true,
+                    target: hash.target
                 })
+
                 $('#loading').hide();
                 return resultsSearch;
             }).catch((adapterError) => {

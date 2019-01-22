@@ -49,7 +49,11 @@
                         <td>
                             {{#link-to 'folders.folder.passwords.password' searchResult.folderId searchResult.passwordId}}
                                 <span {{action 'onSelectSearchPasswordElement' searchResult.folderId searchResult.passwordId}}>
-                                    <i class='fa fa-key'></i>
+                                    {{#if (eq searchResults.target 'Password')}}
+                                        <i class='fa fa-{{searchResult.icon}}'></i>
+                                    {{else}}
+                                        <i class='fa fa-key'></i>
+                                    {{/if}}
                                     {{searchResult.passwordTitle}}
                                 </span>
                             {{/link-to}}

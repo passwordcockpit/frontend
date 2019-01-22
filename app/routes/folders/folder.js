@@ -20,8 +20,7 @@ export default Route.extend({
     model(params, transition) {
         // Save current transition
         this.controllerFor('folders').set('transitionData', transition);
-
-        this.store.unloadAll('password');
+        
         let folder = this.get('store').peekRecord('folder', params.folder_id);
         let canAccessAllFolders = this.get('store').peekRecord('permission', this.get('account').getUserId()).get('access_all_folders');
         
