@@ -331,6 +331,32 @@ td.path{
 .file-container{
     padding-top: 8px;
 }
+.buttons-container{ 
+    display: block; 
+    float: right;
+}
+.password-read-container{
+    padding-right: 70px !important;
+    position: relative;
+    .buttons-container{
+        position: absolute;
+        top: 5px;
+        right: 2px;
+        width: 62px;
+    }
+}
+.table-password-content{ 
+    th{
+        width: 140px;
+    }
+    td{
+        max-width: 0;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        }
+}
+
 /* permissions */
 .folder-permissions-container {
     background: #fff;

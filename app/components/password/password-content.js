@@ -124,7 +124,7 @@ export default Component.extend({
          */
         selectPassword() {
             let sel, range;
-            let el = $('#password-content-password')[0];
+            let el = $('#password-read')[0];
             if (window.getSelection && document.createRange) { //Browser compatibility
                 sel = window.getSelection();
                 if (sel.toString() == '') { //no text selection
