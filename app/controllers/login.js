@@ -13,12 +13,29 @@ export default Controller.extend({
     intl: inject('intl'),
     session: inject('session'),
     growl: inject('growl'),
-
+    errors: null,
     init: function () {
         this._super(...arguments);
         if (this.get('session.data.authenticated.authenticator') != undefined) {
             this.transitionToRoute('folders');
         }
+    },
+    isValid: function (username, password) {
+        let errors = {};
+        if (username == undefined || username == '') {
+            errors.username = [this.get('intl').t('This is a required field')];
+        }
+        if (password == undefined || password == '') {
+            errors.password = [this.get('intl').t('This is a required field')];
+        }
+        else if (password.length <= 4) {
+            errors.password = [this.get('intl').t('String length is too short')];
+        }
+        let size = Object.keys(errors).length;
+        if (size != 0) {
+            this.set('errors', errors);
+        }
+        return size == 0;
     },
     actions: {
         /**
@@ -26,9 +43,9 @@ export default Controller.extend({
          */
         authenticate: function () {
             this.set('errors', null);
-            if ($('#loginForm').isValid()) {
+            let { username, password } = this.getProperties('username', 'password');
+            if (this.isValid(username, password)) {
                 $('#loading').show();
-                let { username, password } = this.getProperties('username', 'password');
                 this.get('session').authenticate('authenticator:jwt', { username: username, password: password }).then(() => {
                     this.set('errorMessage', null);
                     var language = jwtDecode(this.get('session.data.authenticated.token'));
@@ -37,7 +54,6 @@ export default Controller.extend({
                     this.set('intl.locale', language.data.language);
                     $('#loading').hide();
                     this.transitionToRoute('folders');
-
                 })
                     .catch((loginErrors) => {
                         //Empty form

@@ -125,5 +125,6 @@ export default {
     "Can view log": "Can view log",
 
     "No result found": "No result found",
-    "Keyword": "Keyword"
+    "Keyword": "Keyword",
+    "String length is too short": "The length of the string is too short"
 };
