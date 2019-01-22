@@ -4,6 +4,10 @@
 * @license https://github.com/passwordcockpit/frontend/blob/master/LICENSE.md BSD 3-Clause License 
 */
 
+body { 
+    font-size: 16px;
+}
+
 .desktop {
     display: none;
 }
@@ -45,4 +49,9 @@ h1 {
 
 .main-password p.alert {
     margin: 15px;
+}
+
+.btn-xs, .btn-group-xs > .btn { 
+    font-size: 16px;
+    line-height: 1.2;
 }
