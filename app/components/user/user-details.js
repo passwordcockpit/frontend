@@ -20,7 +20,7 @@ export default Component.extend({
     actual_password: null,
     newpass: null,
     repeatnewpass: null,
-    
+
     /**
      * Reset password form's fields
      */
@@ -63,6 +63,7 @@ export default Component.extend({
             $('#loading').show();
             let self = this;
             let user = this.get('user');
+            user.set('actual_password', null);
             this.set('errors', null);
 
             if (this.get('isManageUsers')) {
@@ -73,8 +74,8 @@ export default Component.extend({
                 let actual_password = this.get('actual_password');
                 let newpass = this.get('newpass');
                 let repeatnewpass = this.get('repeatnewpass');
-
-                if (actual_password == newpass && newpass == repeatnewpass && (actual_password == '' || actual_password == null)) {
+                
+                if ((newpass == '' || newpass == null) && (repeatnewpass == '' || repeatnewpass == null) && (actual_password == '' || actual_password == null)) {
                     user.set('password', undefined);
                 } else if (actual_password == '' || actual_password == null) {
                     this.set('errors', {
