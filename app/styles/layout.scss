@@ -47,6 +47,10 @@
         }
     }
 
+    .user-menu.area.open { 
+        top: $header-height + 16px;
+    }
+
     main {
         padding: $padding;
         position: absolute;
