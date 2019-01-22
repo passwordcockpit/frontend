@@ -126,7 +126,7 @@ export default {
     "Can view log": "Può visualizzare il log",
     "No result found": "Nessun risultato trovato",
     "Keyword": "Parola chiave",
-    "String length is too short": "La lunghezza della stringa è troppo corta"
+    "String length is too short": "La lunghezza della stringa è troppo corta",
     "Password missing": "Campo password vuoto",
     "PIN missing": "Campo PIN vuoto",
     "Warning": "Attenzione",
