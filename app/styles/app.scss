@@ -25,7 +25,8 @@
 - search
 - login (@import)
 - content
-	- password content
+    - password PIN alert
+    - password content
 	- permissions
     - log
 - error page    
@@ -312,7 +313,17 @@ td.path{
 .password-container {
     background: #fff;
 }
-
+/* password PIN alert */
+.alert-pin{
+    padding-left: 100px;
+    position: relative;
+    i{
+        position: absolute;
+        top: 20px;
+        left: 20px;
+        font-size: 4.5rem;
+    }
+}
 /* password content */
 .blur {
     color: transparent;

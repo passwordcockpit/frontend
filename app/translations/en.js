@@ -126,9 +126,8 @@ export default {
     "No result found": "No result found",
     "Keyword": "Keyword",
     "String length is too short": "The length of the string is too short",
-    "Password missing": "Password missing",
-    "PIN missing": "PIN missing",
     "Warning": "Warning",
     "PIN encryption": "PIN encryption",
-    "PIN": "PIN"
+    "PIN": "PIN",
+    "The password is procteted with a PIN:": "The password is procteted with a PIN:"
 };

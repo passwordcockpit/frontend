@@ -8,6 +8,7 @@ import Component from '@ember/component';
 import { inject } from '@ember/service';
 import $ from 'jquery';
 import ENV from './../../config/environment';
+import { observer } from '@ember/object';
 
 export default Component.extend({
     router: inject('router'),
@@ -17,6 +18,15 @@ export default Component.extend({
     passwordEncrypt: inject('password-encrypt'),
     icons: ENV.passwordFormConfig.icons,
     options: ENV.passwordFormConfig.options,
+    /**
+     * reset usePin if password empty
+     * 
+     */
+    resetPin: observer('password', function() {
+        if(!this.get('password')){
+            this.set('usePin', false)
+        }
+    }),
     actions: {
         /**
          * Is called on Random-password's refresh button clicking
@@ -126,16 +136,8 @@ export default Component.extend({
             }
             // password with pin encryption
             if(this.get('usePin')){
-                if (this.get('password') && this.get('pin')) {
-                    fd.append("usePin",  this.get('usePin'));
-                    fd.append("password",  this.get('passwordEncrypt').encryptPassword(this.get('pin') ,this.get('password')));
-                }else if (!this.get('password')){
-                    self.get('growl').warning('Warning', 'Password missing');
-                    isFormValid = false;
-                }else if (!this.get('pin')){
-                    self.get('growl').warning('Warning', 'PIN missing');
-                    isFormValid = false;
-                }
+                fd.append("usePin",  this.get('usePin'));
+                fd.append("password",  this.get('passwordEncrypt').encryptPassword(this.get('pin') ,this.get('password')));
             }
             if (file) {
                 fd.append("file", file);

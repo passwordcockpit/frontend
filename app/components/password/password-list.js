@@ -16,6 +16,6 @@ export default Component.extend({
         },
         hidePasswordsList() {
             this.hidePasswordsList();
-        },
+        }
     }
 });

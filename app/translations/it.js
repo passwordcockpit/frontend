@@ -127,9 +127,8 @@ export default {
     "No result found": "Nessun risultato trovato",
     "Keyword": "Parola chiave",
     "String length is too short": "La lunghezza della stringa è troppo corta",
-    "Password missing": "Campo password vuoto",
-    "PIN missing": "Campo PIN vuoto",
     "Warning": "Attenzione",
     "PIN encryption": "Cifratura con PIN",
-    "PIN": "PIN"
+    "PIN": "PIN",
+    "The password is procteted with a PIN:": "La password è protetta da una PIN:"
   };
