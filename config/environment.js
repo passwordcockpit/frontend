@@ -80,8 +80,8 @@ module.exports = function (environment) {
 
         refreshAccessTokens: true,
         refreshTokenPropertyName: 'token',
-        serverTokenRefreshEndpoint: local.baseHost + '/api/auth/update', // Server endpoint to send refresh request
-        refreshLeeway: 900 // Amount of time (sec.) to send refresh request before token expiration
+        serverTokenRefreshEndpoint: local.baseHost + '/api/v1/token/update', // Server endpoint to send refresh request
+        refreshLeeway: 60 // Amount of time (sec.) to send refresh request before token expiration
     };
 
     return ENV;

@@ -9,17 +9,35 @@ import { inject } from '@ember/service';
 
 export default Component.extend({
     router: inject('router'),
+    session: inject('session'),
     actions: {
         /**
          * Destroy user's session on logout
          */
         invalidateSession() {
-            this.get('session').invalidate();
+            let self = this;
+            $.ajax({
+                url:
+                    window.APP.host +
+                    "/" +
+                    window.APP.namespace +
+                    "/token/logout",
+                headers: {
+                    Authorization:
+                        "Bearer " + this.get("session.session.content.authenticated.token")
+                },
+                cache: false,
+                contentType: false,
+                processData: false,
+                type: "DELETE"
+            }).always(function () {
+                self.get('session').invalidate();
+            });
         },
         /**
          * Redirect to home page
          */
-        transitionToHomePage(){
+        transitionToHomePage() {
             this.get('router').transitionTo('application');
         }
     }
