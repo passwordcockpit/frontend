@@ -22,6 +22,7 @@ export default Component.extend({
     pinDecrypt: null,
     pinEncrypt: null,
     passwordDecrypted:  null,
+    localTempPasswordDecrypted: null,
     init(){
         this._super(...arguments);
         // set passwordDecrypted if pin not required
@@ -81,6 +82,7 @@ export default Component.extend({
         editPassword() {
             this.set('isEdit', true);
             this.set('localTempPassword', this.get('password').serialize());
+            this.set('localTempPasswordDecrypted', this.get('passwordDecrypted'));
         },
         /**
          * Cancel editing Password
@@ -94,6 +96,7 @@ export default Component.extend({
             Object.keys(this.localTempPassword).forEach(function (key) {
                 self.get('password').set(key, self.localTempPassword[key]);
             });
+            this.set('passwordDecrypted', this.get('localTempPasswordDecrypted'));
             // reset errors data
             this.set('errors', null);
         },
