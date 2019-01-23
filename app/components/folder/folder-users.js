@@ -67,6 +67,7 @@ export default Component.extend({
          */
         onDeletePermission() {
             this.onDeletePermission();
+            this.send('reloadFolderUser');
         },
     }
 });

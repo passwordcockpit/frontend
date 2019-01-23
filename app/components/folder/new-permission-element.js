@@ -18,18 +18,20 @@ export default Component.extend({
     userId: null,
     access: false,
     tagName: '',
+
     actions: {
         /**
          * Exit the creation of a permission
          */
         cancel() {
             this.set('isAdd', false);
+            this.set('selectedUser', null)
         },
         /**
          * Create new permission
          */
         submit(folderId, userId) {
-            if(userId == undefined){
+            if (userId == undefined) {
                 this.set('errors', {
                     selectUser: [this.get('intl').t('This is a required field')],
                 });
@@ -58,6 +60,10 @@ export default Component.extend({
                     $('#loading').hide();
                     this.get('growl').errorShowRaw(adapterError.title, adapterError.message);
                 });
-        }
+        },
+
+        handleFocus() {
+            this.set('errors', null);
+        },
     }
 });

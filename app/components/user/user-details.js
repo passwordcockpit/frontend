@@ -74,12 +74,13 @@ export default Component.extend({
                 let actual_password = this.get('actual_password');
                 let newpass = this.get('newpass');
                 let repeatnewpass = this.get('repeatnewpass');
-                
+
                 if ((newpass == '' || newpass == null) && (repeatnewpass == '' || repeatnewpass == null) && (actual_password == '' || actual_password == null)) {
                     user.set('password', undefined);
                 } else if (actual_password == '' || actual_password == null) {
+                    this.resetPasswordForms();
                     this.set('errors', {
-                        actual_password: ['Actual password is empty'],
+                        actual_password: [this.get('intl').t('Actual password is empty')],
                     });
                     $('#loading').hide();
                     return;
@@ -138,6 +139,18 @@ export default Component.extend({
                     this.get('growl').errorShowRaw(adapterError.title, adapterError.message);
                     $('#loading').hide();
                 });
+        },
+        /**
+         * Delete password related error messages 
+         * on changing password inputs
+         */
+        onPasswordChange(type) {
+            if (this.get('errors') !== undefined && this.get('errors') !== null && this.get('errors')[type] !== undefined) {
+                delete this.get('errors')[type];
+                if (Object.keys(this.get('errors')).length == 0) {
+                    this.set('errors', null);
+                }
+            }
         }
     }
 });

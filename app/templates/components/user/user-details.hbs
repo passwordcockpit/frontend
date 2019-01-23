@@ -114,21 +114,47 @@
                         {{t 'Password'}}
                     </label>
                     <div class="col-sm-10">
-                        {{input class="form-control" id='actual_password' name="actual_password" value=actual_password type='password' placeholder=(t 'Current password')}} {{{display-errors errors.actual_password}}}
+                        {{input 
+                            class="form-control" 
+                            id='actual_password' 
+                            name="actual_password" 
+                            value=actual_password 
+                            type='password' 
+                            placeholder=(t 'Current password')
+                            change=(action "onPasswordChange" "actual_password")
+                        }} 
+                        {{{display-errors errors.actual_password}}}
                     </div>
                 </div>
                 <div class="form-group {{if errors.password 'has-error'}}">
                     <label class="control-label col-sm-2">
                     </label>
                     <div class="col-sm-10">
-                        {{input class="form-control" name="newpass" id='newpass' placeholder=(t 'New password') type='password' value=newpass}}
+                        {{input 
+                            class="form-control" 
+                            name="newpass" 
+                            id='newpass' 
+                            placeholder=(t 'New password') 
+                            type='password' 
+                            value=newpass
+                            change=(action "onPasswordChange" "password")
+                        }}
                     </div>
                 </div>
                 <div class="form-group {{if errors.password 'has-error'}}">
                     <label class="control-label col-sm-2">
                     </label>
                     <div class="col-sm-10">
-                        {{input class="form-control" name="repeatnewpass" id='repeatnewpass' placeholder=(t 'Repeat new password') type='password' value=repeatnewpass}} {{{display-errors errors.password}}}
+                        {{input 
+                            class="form-control" 
+                            name="repeatnewpass" 
+                            id='repeatnewpass' 
+                            placeholder=(t 'Repeat new password') 
+                            type='password' 
+                            value=repeatnewpass
+                            change=(action "onPasswordChange" "password")
+                        }} 
+                        {{{display-errors errors.password}}}
                     </div>
                 </div>
             {{/if}}

@@ -12,7 +12,7 @@
                                 name="username" 
                                 placeholder='Username' 
                                 value=username 
-                                errors=errors.identification 
+                                change=(action "onInputChange")
                             }}
                         </div>
                         <div>
@@ -25,7 +25,7 @@
                                 name="password" 
                                 placeholder='Password' 
                                 value=password 
-                                errors=errors.password 
+                                change=(action "onInputChange")
                             }}
                         </div>
                         <div>
