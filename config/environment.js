@@ -7,12 +7,13 @@
 'use strict';
 const local = require('./local.js');
 const passwordForm = require('./password-form.js');
+const passwordEncryption = require('./password-encryption.js');
 module.exports = function (environment) {
     let ENV = {
         tinyMCE: {
             load: 'assets'
         },
-        
+
         modulePrefix: 'passwordcockpit_frontend',
         environment,
         rootURL: '/',
@@ -33,7 +34,8 @@ module.exports = function (environment) {
             namespace: 'api/v1',
             languages: ['en', 'it']
         },
-        passwordFormConfig: passwordForm.passwordFormConfig
+        passwordFormConfig: passwordForm.passwordFormConfig,
+        passwordEncryptionConfig: passwordEncryption.passwordEncryptionConfig
 
     };
 

@@ -64,10 +64,20 @@ export default Route.extend(AuthenticatedRouteMixin, {
         this.controllerFor('folders.folder.passwords.password').set('logs', model.logs);
         this.controllerFor('folders.folder.passwords.password').set('page', model.page);
         this.controllerFor('folders.folder.passwords.password').set('pageCount', model.pageCount);
-        
+        this.controllerFor('folders.folder.passwords.password').set('flag', true);
+
+        // Descrypt/Encrypt password related variables
+        if (!model.password.usePin) {
+            this.controllerFor('folders.folder.passwords.password').set('passwordDecrypted', model.password.password);
+        }
+        this.controllerFor('folders.folder.passwords.password').set('pinDecrypt', null);
+        this.controllerFor('folders.folder.passwords.password').set('isPinValid', false);
+        this.controllerFor('folders.folder.passwords.password').set('passwordDescryptionFailureCounted', 0);
+        this.controllerFor('folders.folder.passwords.password').set('passwordDescryptionBlocked', false);
+
         // Hide passwords list on Password selecting
         this.controllerFor('folders.folder').send('hidePasswordsList');
-    },
+    }
 });
 
 

@@ -13,73 +13,16 @@ export default Component.extend({
     store: inject('store'),
     session: inject('session'),
     growl: inject('growl'),
+    intl: inject('intl'),
     passwordEncrypt: inject('password-encrypt'),
     localTempPassword: null,
     icons: ENV.passwordFormConfig.icons,
     options: ENV.passwordFormConfig.options,
-    pinDecrypt: null,
     pinEncrypt: null,
-    passwordDecrypted: null,
     localTempPasswordDecrypted: null,
-    init() {
-        this._super(...arguments);
-        // set passwordDecrypted if pin not required
-        if (!this.get('password.usePin')) {
-            this.set('passwordDecrypted', this.get('password.password'));
-        }
-    },
-    isPinValid: false,
+    failureLimit: ENV.passwordEncryptionConfig.failureLimit,
 
     actions: {
-        /**
-         * descrypt password.password
-         */
-        desryptPassword() {
-            if (this.get('passwordEncrypt').decryptPassword(this.get('pinDecrypt'), this.get('password.password'))) {
-                // decrypt password for edit read password
-                this.set('passwordDecrypted', this.get('passwordEncrypt').decryptPassword(this.get('pinDecrypt'), this.get('password.password')));
-                // fill the pin field for edit password
-                this.set('pinEncrypt', this.get('pinDecrypt'));
-
-                this.set('isPinValid', true);
-                return
-            }
-            this.set('isPinValid', false);
-        },
-        /**
-         * Lock password on pinDecrypt changing
-         */
-        protectPassword() {
-            this.set('isPinValid', false);
-        },
-        /**
-        * reset usePin if password empty
-        * 
-        */
-        resetPin() {
-            if (!this.get('passwordDecrypted')) {
-                this.set('password.usePin', false)
-            }
-            this.send('setPassword');
-        },
-        /**
-        * set password.password (with/without PIN)
-        * 
-        */
-        setPassword() {
-            if (this.get('isEdit')) {
-                if (this.get('password.usePin')) {
-                    // with PIN
-                    let passwordEncrypted = this.get('passwordEncrypt').encryptPassword(this.get('pinEncrypt'), this.get('passwordDecrypted'));
-                    this.set('password.password', passwordEncrypted);
-                    this.set('pinDecrypt', this.get('pinEncrypt'));
-                } else {
-                    // without PIN
-                    this.set('password.password', this.get('passwordDecrypted'));
-                    this.set('pinEncrypt', null);
-                }
-            }
-        },
         /**
          * Toggle Password's visibility
          */
@@ -377,6 +320,65 @@ export default Component.extend({
                     $('#loading').hide();
                     this.get('growl').errorShowRaw(adapterError.title, adapterError.message);
                 });
+        },
+
+        // Descrypt/Encrypt password funtions
+        /**
+         * descrypt password.password
+         */
+        desryptPassword() {
+            if (this.get('passwordEncrypt').decryptPassword(this.get('pinDecrypt'), this.get('password.password'))) {
+                // decrypt password for edit read password
+                this.set('passwordDecrypted', this.get('passwordEncrypt').decryptPassword(this.get('pinDecrypt'), this.get('password.password')));
+                // fill the pin field for edit password
+                this.set('pinEncrypt', this.get('pinDecrypt'));
+
+                this.set('isPinValid', true);
+                this.set('failureCounted', 0);
+                return
+            }
+
+            this.set('failureCounted', this.get('failureCounted') + 1);
+            this.get('growl').error('Error', 'Wrong PIN');
+            this.set('passwordDescryptionBlocked', (this.get('failureCounted') >= this.get('failureLimit')));
+            this.set('isPinValid', false);
+        },
+        /**
+         * Lock password on pinDecrypt changing
+         */
+        protectPassword() {
+            this.set('isPinValid', false);
+        },
+        /**
+        * reset usePin if password empty
+        * 
+        */
+        resetPin() {
+            if (!this.get('passwordDecrypted')) {
+                this.set('password.usePin', false)
+            }
+            this.send('setPassword');
+        },
+        /**
+        * set password.password (with/without PIN)
+        * 
+        */
+        setPassword(toggleUsePin) {
+            if (toggleUsePin) {
+                this.set('password.usePin', !this.get('password.usePin'))
+            }
+            if (this.get('isEdit')) {
+                if (this.get('password.usePin')) {
+                    // with PIN
+                    let passwordEncrypted = this.get('passwordEncrypt').encryptPassword(this.get('pinEncrypt'), this.get('passwordDecrypted'));
+                    this.set('password.password', passwordEncrypted);
+                    this.set('pinDecrypt', this.get('pinEncrypt'));
+                } else {
+                    // without PIN
+                    this.set('password.password', this.get('passwordDecrypted'));
+                    this.set('pinEncrypt', null);
+                }
+            }
         },
     }
 });

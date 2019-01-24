@@ -132,5 +132,7 @@ export default {
     "PIN": "PIN",
     "The password is procteted with a PIN:": "La password è protetta da una PIN:",
 
-    "Please change your password for the first time you logged in": "Cambia la tua password per la prima volta che hai effettuato il login"
+    "Please change your password for the first time you logged in": "Cambia la tua password per la prima volta che hai effettuato il login",
+    "You exceeded the maximum allowed number of descryption attempts": "Hai superato il numero massimo consentito di tentativi di decriptazione",
+    "Wrong PIN": "PIN sbagliato"
   };
