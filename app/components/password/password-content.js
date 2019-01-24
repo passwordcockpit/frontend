@@ -6,8 +6,6 @@
 
 import Component from '@ember/component';
 import { inject } from '@ember/service';
-import { computed } from '@ember/object';
-import { observer } from '@ember/object';
 import $ from 'jquery';
 import ENV from './../../config/environment';
 
@@ -21,53 +19,67 @@ export default Component.extend({
     options: ENV.passwordFormConfig.options,
     pinDecrypt: null,
     pinEncrypt: null,
-    passwordDecrypted:  null,
+    passwordDecrypted: null,
     localTempPasswordDecrypted: null,
-    init(){
+    init() {
         this._super(...arguments);
         // set passwordDecrypted if pin not required
-        if(!this.get('password.usePin')){
+        if (!this.get('password.usePin')) {
             this.set('passwordDecrypted', this.get('password.password'));
         }
     },
-    isPinValid: computed('pinDecrypt', function() {
-        if(this.get('passwordEncrypt').decryptPassword(this.get('pinDecrypt') ,this.get('password.password'))){
-            // decrypt password for edit read password
-            this.set('passwordDecrypted', this.get('passwordEncrypt').decryptPassword(this.get('pinDecrypt') ,this.get('password.password')));
-            // fill the pin field for edit password
-            this.set('pinEncrypt', this.get('pinDecrypt'));
-            return true;
-        }
-        return false;
-    }),
-     /**
-     * set password.password (with/without PIN)
-     * 
-     */
-    setPassword: observer('password.usePin', 'pinEncrypt', 'passwordDecrypted', function() {
-        if(this.get('isEdit')){
-            if(this.get('password.usePin')){
-                // with PIN
-                let passwordEncrypted = this.get('passwordEncrypt').encryptPassword(this.get('pinEncrypt') ,this.get('passwordDecrypted'));
-                this.set('password.password', passwordEncrypted);
-                this.set('pinDecrypt', this.get('pinEncrypt'));
-            }else{
-                // without PIN
-                this.set('password.password', this.get('passwordDecrypted'));
-                this.set('pinEncrypt', null);
-            }
-        }
-    }),
-     /**
-     * reset usePin if password empty
-     * 
-     */
-    resetPin: observer('passwordDecrypted', function() {
-        if(!this.get('passwordDecrypted')){
-            this.set('password.usePin', false)
-        }
-    }),
+    isPinValid: false,
+
     actions: {
+        /**
+         * descrypt password.password
+         */
+        desryptPassword() {
+            if (this.get('passwordEncrypt').decryptPassword(this.get('pinDecrypt'), this.get('password.password'))) {
+                // decrypt password for edit read password
+                this.set('passwordDecrypted', this.get('passwordEncrypt').decryptPassword(this.get('pinDecrypt'), this.get('password.password')));
+                // fill the pin field for edit password
+                this.set('pinEncrypt', this.get('pinDecrypt'));
+
+                this.set('isPinValid', true);
+                return
+            }
+            this.set('isPinValid', false);
+        },
+        /**
+         * Lock password on pinDecrypt changing
+         */
+        protectPassword() {
+            this.set('isPinValid', false);
+        },
+        /**
+        * reset usePin if password empty
+        * 
+        */
+        resetPin() {
+            if (!this.get('passwordDecrypted')) {
+                this.set('password.usePin', false)
+            }
+            this.send('setPassword');
+        },
+        /**
+        * set password.password (with/without PIN)
+        * 
+        */
+        setPassword() {
+            if (this.get('isEdit')) {
+                if (this.get('password.usePin')) {
+                    // with PIN
+                    let passwordEncrypted = this.get('passwordEncrypt').encryptPassword(this.get('pinEncrypt'), this.get('passwordDecrypted'));
+                    this.set('password.password', passwordEncrypted);
+                    this.set('pinDecrypt', this.get('pinEncrypt'));
+                } else {
+                    // without PIN
+                    this.set('password.password', this.get('passwordDecrypted'));
+                    this.set('pinEncrypt', null);
+                }
+            }
+        },
         /**
          * Toggle Password's visibility
          */
@@ -99,6 +111,10 @@ export default Component.extend({
             this.set('passwordDecrypted', this.get('localTempPasswordDecrypted'));
             // reset errors data
             this.set('errors', null);
+
+            // protect password
+            this.set('pinDecrypt', null);
+            this.set('isPinValid', false);
         },
 
         // Generate password functions
@@ -298,6 +314,10 @@ export default Component.extend({
             $('#loading').show();
             // reset errors data
             this.set('errors', null);
+            // protect password
+            this.set('pinDecrypt', null);
+            this.set('isPinValid', false);
+
             let password = this.get('password');
             if (this.localTempPassword.icon != null && password.get('icon') == null) {
                 password.set('icon', '');
@@ -337,6 +357,7 @@ export default Component.extend({
                             this.set('password', this.get('store').peekRecord('password', fileCreatedResult.password_id));
 
                             this.set('isEdit', false);
+
                             $('#loading').hide();
                             this.get('growl').notice('Success', 'File uploaded');
                         }).fail(adapterError => {

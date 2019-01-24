@@ -6,6 +6,7 @@
 
 import Component from '@ember/component';
 import { inject } from '@ember/service';
+import $ from 'jquery';
 
 export default Component.extend({
     router: inject('router'),

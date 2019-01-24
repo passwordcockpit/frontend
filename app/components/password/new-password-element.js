@@ -8,7 +8,6 @@ import Component from '@ember/component';
 import { inject } from '@ember/service';
 import $ from 'jquery';
 import ENV from './../../config/environment';
-import { observer } from '@ember/object';
 
 export default Component.extend({
     router: inject('router'),
@@ -18,15 +17,7 @@ export default Component.extend({
     passwordEncrypt: inject('password-encrypt'),
     icons: ENV.passwordFormConfig.icons,
     options: ENV.passwordFormConfig.options,
-    /**
-     * reset usePin if password empty
-     * 
-     */
-    resetPin: observer('password', function() {
-        if(!this.get('password')){
-            this.set('usePin', false)
-        }
-    }),
+
     actions: {
         /**
          * Is called on Random-password's refresh button clicking
@@ -94,7 +85,7 @@ export default Component.extend({
             input.focus();
             input.select();
         },
-        
+
         /**
          * Create new password
          * Notify to new-password about the operation
@@ -123,7 +114,7 @@ export default Component.extend({
             if (this.get('username')) {
                 fd.append("username", this.get('username'));
             }
-            
+
             if (this.get('url')) {
                 fd.append("url", this.get('url'));
             }
@@ -135,14 +126,14 @@ export default Component.extend({
                 fd.append("password", this.get('password'));
             }
             // password with pin encryption
-            if(this.get('usePin')){
-                fd.append("usePin",  this.get('usePin'));
-                fd.append("password",  this.get('passwordEncrypt').encryptPassword(this.get('pin') ,this.get('password')));
+            if (this.get('usePin')) {
+                fd.append("usePin", this.get('usePin'));
+                fd.append("password", this.get('passwordEncrypt').encryptPassword(this.get('pin'), this.get('password')));
             }
             if (file) {
                 fd.append("file", file);
             }
-            if(isFormValid){
+            if (isFormValid) {
                 $.ajax({
                     url:
                         window.APP.host +
@@ -172,10 +163,19 @@ export default Component.extend({
                     $('#loading').hide();
                     self.get('growl').error('Error', 'Error while creating the password');
                 });
-            }else{
+            } else {
                 $('#loading').hide();
             }
 
-        }
+        },
+        /**
+         * reset usePin if password empty
+         * 
+         */
+        resetPin() {
+            if (!this.get('password')) {
+                this.set('usePin', false)
+            }
+        },
     }
 });

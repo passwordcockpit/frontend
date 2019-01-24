@@ -8,23 +8,27 @@ import Service from '@ember/service';
 
 /* global sjcl */
 export default Service.extend({
-    parameters: {'mode':'gcm'},
+    init() {
+        this._super(...arguments);
+
+        this.parameters = this.parameters || { 'mode': 'gcm' };
+    },
     encryptPassword(pin, password) {
         try {
             return sjcl.encrypt(pin, password, this.get('parameters'));
-          }
-          catch(err) {
+        }
+        catch (err) {
             return false
-          }
-        
+        }
+
     },
     decryptPassword(pin, password) {
         try {
             return sjcl.decrypt(pin, password);
-          }
-          catch(err) {
+        }
+        catch (err) {
             return false
-          }
-       
+        }
+
     }
 });
