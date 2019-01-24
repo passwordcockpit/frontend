@@ -53,7 +53,12 @@ export default Controller.extend({
                     //set language received from token
                     this.set('intl.locale', language.data.language);
                     $('#loading').hide();
-                    this.transitionToRoute('folders');
+
+                    if (this.get('session.data.authenticated.firstTimeLogin') !== undefined) {
+                        this.transitionToRoute('profile');
+                    } else {
+                        this.transitionToRoute('folders');
+                    }
                 })
                     .catch((loginErrors) => {
                         //Empty form

@@ -43,6 +43,7 @@ export default Route.extend(AuthenticatedRouteMixin, {
     actions: {
         willTransition: function () {
             this.currentModel.user.rollbackAttributes();
+            this.controllerFor('profile').set('showChangePasswordMessage', false);
         }
     },
 });

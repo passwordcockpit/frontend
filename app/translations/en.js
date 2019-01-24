@@ -129,5 +129,7 @@ export default {
     "Warning": "Warning",
     "PIN encryption": "PIN encryption",
     "PIN": "PIN",
-    "The password is procteted with a PIN:": "The password is procteted with a PIN:"
+    "The password is procteted with a PIN:": "The password is procteted with a PIN:",
+
+    "Please change your password for the first time you logged in": "Please change your password for the first time you logged in"
 };
