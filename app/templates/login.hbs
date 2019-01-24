@@ -6,30 +6,29 @@
                 <div class="panel-body">
                     <form id="loginForm" class="form-horizontal" name="login" {{action 'authenticate' on='submit'}}>
                         <div class="form-group {{if errors.username 'has-error'}}">
-                            {{login/login-form-group 
+                            {{form/form-text
                                 type="text"
                                 viewId="username"
                                 name="username" 
                                 placeholder='Username' 
                                 value=username 
-                                change=(action "onInputChange")
+                                required=true
+                                minLength=2
+                                isFormValid=isFormValid
+                                showMessage=showMessage
                             }}
                         </div>
-                        <div>
-                            {{{display-errors errors.username}}}
-                        </div>
                         <div class="form-group {{if errors.password 'has-error'}}">
-                            {{login/login-form-group 
+                            {{form/form-text
                                 type="password"
                                 viewId="password"
                                 name="password" 
                                 placeholder='Password' 
                                 value=password 
-                                change=(action "onInputChange")
+                                required=true
+                                isFormValid=isFormValid
+                                showMessage=showMessage
                             }}
-                        </div>
-                        <div>
-                            {{{display-errors errors.password}}}
                         </div>
                         <div class="form-group ">
                             <div class=" col-sm-12">

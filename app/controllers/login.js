@@ -13,40 +13,24 @@ export default Controller.extend({
     intl: inject('intl'),
     session: inject('session'),
     growl: inject('growl'),
-    errors: null,
+    isFormValid: [],
+    showMessage: false,
     init: function () {
         this._super(...arguments);
+        this.set('error', [this.get('intl').t('This is a required field')]);
         if (this.get('session.data.authenticated.authenticator') != undefined) {
             this.transitionToRoute('folders');
         }
-    },
-    isValid: function (username, password) {
-        let errors = {};
-        if (username == undefined || username == '') {
-            errors.username = [this.get('intl').t('This is a required field')];
-        }
-        if (password == undefined || password == '') {
-            errors.password = [this.get('intl').t('This is a required field')];
-        }
-        else if (password.length <= 4) {
-            errors.password = [this.get('intl').t('String length is too short')];
-        }
-        let size = Object.keys(errors).length;
-        if (size != 0) {
-            this.set('errors', errors);
-        }
-        return size == 0;
     },
     actions: {
         /**
          * Perform authentication
          */
         authenticate: function () {
-            this.set('errors', null);
-            let { username, password } = this.getProperties('username', 'password');
-            if (this.isValid(username, password)) {
+            if (this.get('isFormValid').isEvery('isElementValid', true)) {
+                // frontend validation OK
                 $('#loading').show();
-                this.get('session').authenticate('authenticator:jwt', { username: username, password: password }).then(() => {
+                this.get('session').authenticate('authenticator:jwt', { username: username.value, password: password.value }).then(() => {
                     this.set('errorMessage', null);
                     var language = jwtDecode(this.get('session.data.authenticated.token'));
 
@@ -62,8 +46,8 @@ export default Controller.extend({
                 })
                     .catch((loginErrors) => {
                         //Empty form
-                        $('#username').val('');
-                        $('#password').val('');
+                        this.set('username', '');
+                        this.set('password', '');
 
                         $('#loading').hide();
 
@@ -74,14 +58,13 @@ export default Controller.extend({
                             this.get('growl').errorShowRaw(loginErrors.title, loginErrors.detail);
                         }
                     });
+            }else{
+                // frontend validation NOK
+                this.set('showMessage', true);
+                this.set('username', '');
+                this.set('password', '');
+                this.get('growl').error('Login TODO', 'error TODO');
             }
         },
-        /**
-         * Delete error messages
-         * on changing inputs
-         */
-        onInputChange() {
-            this.set('errors', null);
-        }
     }
 });

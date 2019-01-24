@@ -1,0 +1,16 @@
+<div class="col-sm-12">
+    {{input
+        type=type
+        class='form-control'
+        id=viewId
+        name=name
+        placeholder=placeholder
+        value=value
+        key-up=(action "keyUp")
+        }}
+    {{#if (and showMessage (not isElementValid))}}
+        <div class="errors-list">
+            {{errorMessage}}
+        </div>
+    {{/if}}
+</div>
