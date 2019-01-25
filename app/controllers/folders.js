@@ -55,7 +55,7 @@ export default Controller.extend({
             }
 
             result.push({
-                valueToSort: folderName,
+                valueToSort: [folderPathToString, 0, folderName],   // 1 stands for isFolder, meaning that password (0) with the same path will be printed first
                 folderId: folderId,
                 folderName: folderName,
                 folderAccess: folderAccess,
@@ -86,7 +86,7 @@ export default Controller.extend({
             let icon = password.data.icon;
 
             result.push({
-                valueToSort: passwordTitle,
+                valueToSort: [passwordPath, 1, passwordTitle],
                 passwordId: passwordId,
                 passwordTitle: passwordTitle,
                 folderId: parentId,
@@ -285,11 +285,16 @@ export default Controller.extend({
                 }
 
                 resultsSearch = resultsSearch.sort(function (a, b) {
-                    if (a.valueToSort.toLowerCase() < b.valueToSort.toLowerCase()) {
-                        return -1;
-                    } else {
-                        return 1;
+                    let arrayLength = a.valueToSort.length < b.valueToSort.length ? a.valueToSort.length : b.valueToSort.length;
+                    for (let i = 0; i < arrayLength; i++) {
+                        if (a.valueToSort[i].toString().toLowerCase() < b.valueToSort[i].toString().toLowerCase()) {
+                            return -1;
+                        }
+                        else if (b.valueToSort[i].toString().toLowerCase() < a.valueToSort[i].toString().toLowerCase()) {
+                            return 1;
+                        }
                     }
+                    return 0;
                 });
 
                 this.set('searchResults', {
