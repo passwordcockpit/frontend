@@ -1,4 +1,4 @@
-<div class="search global-search closed">
+<div class="folder-menu search global-search closed">
     <form {{action 'searchSubmit' on='submit' }}>
         <div class='input-group'>
             <input type='text' class='form-control' id='search-keywords' placeholder='{{t "Keyword"}}'>
@@ -16,7 +16,7 @@
     </form>
 </div>
 {{#if searchResults.hasResults}}
-    <div class='result'>
+    <div class='folder-menu result'>
 		<div class='title'>
 			{{t 'Search result'}}
 			<div class='pull-right'>
