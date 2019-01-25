@@ -5,14 +5,12 @@
 */
 
 import Service from '@ember/service';
+import ENV from '../config/environment';
 
 /* global sjcl */
 export default Service.extend({
-    init() {
-        this._super(...arguments);
+    parameters: ENV.passwordEncryptionConfig.encryptParameters,
 
-        this.parameters = this.parameters || { 'mode': 'gcm' };
-    },
     encryptPassword(pin, password) {
         try {
             return sjcl.encrypt(pin, password, this.get('parameters'));

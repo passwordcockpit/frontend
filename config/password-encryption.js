@@ -9,5 +9,6 @@
 module.exports = {
     passwordEncryptionConfig: {
         failureLimit: 10,
+        encryptParameters: { 'mode': 'gcm' }
     }
 };
