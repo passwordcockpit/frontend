@@ -294,7 +294,10 @@ ul.list{
 		&:hover{
 			color: $brand-primary;
 		}
-	}
+    }
+    .fa {
+        width: 1em;
+    }
 }
 td.path{
 	a{
