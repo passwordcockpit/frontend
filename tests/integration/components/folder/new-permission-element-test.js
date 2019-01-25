@@ -4,28 +4,31 @@
 * @license https://github.com/passwordcockpit/frontend/blob/master/LICENSE.md BSD 3-Clause License 
 */
 
-import { moduleForComponent, test } from 'ember-qunit';
+import { module, test } from 'qunit';
+import { setupRenderingTest } from 'ember-qunit';
+import { render } from '@ember/test-helpers';
 import hbs from 'htmlbars-inline-precompile';
-import $ from 'jquery'
+import $ from 'jquery';
 
-moduleForComponent('folder/new-permission-element', 'Integration | Component | folder/new-permission-element', {
-    integration: true
-});
+module('Integration | Component | browser error', function (hooks) {
+    setupRenderingTest(hooks);
 
-test('it renders', function (assert) {
-    // Set any properties with this.set('myProperty', 'value');
-    // Handle any actions with this.on('myAction', function(val) { ... });
+    hooks.beforeEach(function () {
+        const intl = this.owner.lookup('service:intl');
+        intl.set('locale', ['en', 'it']);
+    });
+    test('it renders', async function (assert) {
+        await render(hbs`{{folder/new-permission-element}}`);
 
-    this.render(hbs`{{folder/new-permission-element}}`);
+        assert.equal($.trim(this.$().text().trim().replace(/\s\s+/g, ' ')), 'Manage Cancel Add');
 
-    assert.equal($.trim(this.$().text().trim().replace(/\s\s+/g, ' ')), 'Manage Cancel Add');
+        // Template block usage:
+        await render(hbs`
+        {{#folder/new-permission-element}}
+          template block text
+        {{/folder/new-permission-element}}
+      `);
 
-    // Template block usage:
-    this.render(hbs`
-    {{#folder/new-permission-element}}
-      template block text
-    {{/folder/new-permission-element}}
-  `);
-
-assert.equal($.trim(this.$().text().trim().replace(/\s\s+/g, ' ')), 'Manage Cancel Add');
+        assert.equal($.trim(this.$().text().trim().replace(/\s\s+/g, ' ')), 'Manage Cancel Add');
+    });
 });

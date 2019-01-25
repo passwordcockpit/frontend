@@ -4,27 +4,29 @@
 * @license https://github.com/passwordcockpit/frontend/blob/master/LICENSE.md BSD 3-Clause License 
 */
 
-import { moduleForComponent, test } from 'ember-qunit';
+import { module, test } from 'qunit';
+import { setupRenderingTest } from 'ember-qunit';
+import { render } from '@ember/test-helpers';
 import hbs from 'htmlbars-inline-precompile';
 
-moduleForComponent('browser-error', 'Integration | Component | browser error', {
-  integration: true
-});
+module('Integration | Component | browser error', function (hooks) {
+    setupRenderingTest(hooks);
 
-test('it renders', function(assert) {
-  // Set any properties with this.set('myProperty', 'value');
-  // Handle any actions with this.on('myAction', function(val) { ... });
+    hooks.beforeEach(function () {
+        const intl = this.owner.lookup('service:intl');
+        intl.set('locale', ['en', 'it']);
+    });
+    test('it renders', async function (assert) {
+        await render(hbs`{{browser-error}}`);
+        assert.equal(this.$().text().trim(), 'This page requires Java script to display all functions correctly.');
 
-  this.render(hbs`{{browser-error}}`);
+        // Render component passing unuses varaible
+        await render(hbs`
+        {{#browser-error}}
+          template block text
+        {{/browser-error}}
+      `);
 
-  assert.equal(this.$().text().trim(), 'This page requires Java script to display all functions correctly.');
-
-  // Render component passing unuses varaible
-  this.render(hbs`
-    {{#browser-error}}
-      template block text
-    {{/browser-error}}
-  `);
-
-  assert.equal(this.$().text().trim(), 'This page requires Java script to display all functions correctly.');
+        assert.equal(this.$().text().trim(), 'This page requires Java script to display all functions correctly.');
+    });
 });
