@@ -15,6 +15,8 @@ export default Controller.extend({
     growl: inject('growl'),
     isFormValid: [],
     showMessage: false,
+    username: null,
+    password: null,
     init: function () {
         this._super(...arguments);
         this.set('error', [this.get('intl').t('This is a required field')]);

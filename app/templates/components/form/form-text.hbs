@@ -8,7 +8,7 @@
         value=value
         key-up=(action "keyUp")
         }}
-    {{#if (and showMessage (not isElementValid))}}
+    {{#if (or (and showElementMessage (not isElementValid)) (and showMessage (not isElementValid)))}}
         <div class="errors-list">
             {{errorMessage}}
         </div>
