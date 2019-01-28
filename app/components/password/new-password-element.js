@@ -122,12 +122,12 @@ export default Component.extend({
                 fd.append("tags", this.get('tags'));
             }
             // plain password
-            if (this.get('password') && !this.get('usePin')) {
+            if (this.get('password') && !this.get('frontendCrypted')) {
                 fd.append("password", this.get('password'));
             }
             // password with pin encryption
-            if (this.get('usePin')) {
-                fd.append("usePin", this.get('usePin'));
+            if (this.get('frontendCrypted')) {
+                fd.append("frontendCrypted", this.get('frontendCrypted'));
                 fd.append("password", this.get('passwordEncrypt').encryptPassword(this.get('pin'), this.get('password')));
             }
             if (file) {
@@ -169,12 +169,12 @@ export default Component.extend({
 
         },
         /**
-         * reset usePin if password empty
+         * reset frontendCrypted if password empty
          * 
          */
         resetPin() {
             if (!this.get('password')) {
-                this.set('usePin', false)
+                this.set('frontendCrypted', false)
             }
         },
     }

@@ -350,12 +350,12 @@ export default Component.extend({
             this.set('isPinValid', false);
         },
         /**
-        * reset usePin if password empty
+        * reset frontendCrypted if password empty
         * 
         */
         resetPin() {
             if (!this.get('passwordDecrypted')) {
-                this.set('password.usePin', false)
+                this.set('password.frontendCrypted', false)
             }
             this.send('setPassword');
         },
@@ -363,12 +363,12 @@ export default Component.extend({
         * set password.password (with/without PIN)
         * 
         */
-        setPassword(toggleUsePin) {
-            if (toggleUsePin) {
-                this.set('password.usePin', !this.get('password.usePin'))
+        setPassword(toggleFrontendCrypted) {
+            if (toggleFrontendCrypted) {
+                this.set('password.frontendCrypted', !this.get('password.frontendCrypted'))
             }
             if (this.get('isEdit')) {
-                if (this.get('password.usePin')) {
+                if (this.get('password.frontendCrypted')) {
                     // with PIN
                     let passwordEncrypted = this.get('passwordEncrypt').encryptPassword(this.get('pinEncrypt'), this.get('passwordDecrypted'));
                     this.set('password.password', passwordEncrypted);

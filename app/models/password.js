@@ -13,7 +13,7 @@ export default DS.Model.extend({
     description: DS.attr(),
     username: DS.attr(),
     password: DS.attr(),
-    usePin: DS.attr(),
+    frontendCrypted: DS.attr(),
     url: DS.attr(),
     tags: DS.attr(),
     fileId: DS.attr(),

@@ -67,7 +67,7 @@ export default Route.extend(AuthenticatedRouteMixin, {
         this.controllerFor('folders.folder.passwords.password').set('flag', true);
 
         // Descrypt/Encrypt password related variables
-        if (!model.password.usePin) {
+        if (!model.password.frontendCrypted) {
             this.controllerFor('folders.folder.passwords.password').set('passwordDecrypted', model.password.password);
         }
         this.controllerFor('folders.folder.passwords.password').set('pinDecrypt', null);
