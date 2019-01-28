@@ -11,11 +11,12 @@ export default Mixin.create({
   showElementMessage: false,
   init() {
     this._super(...arguments);
+    // populate object for form validation on submit
     this.get("isFormValid").pushObject({
       name: this.get("name"),
       isElementValid: this.get("isElementValid")
     });
-    // validate on load
+    // validate element on load
     this.validation(false);
   },
   /**
@@ -36,8 +37,7 @@ export default Mixin.create({
    */
   validation: function(showElementMessage) {
     let isElementValid = true;
-    // let isFormValid = this.get('isFormValid');
-
+    
     // required
     if (this.get("required") && !this.get("value")) {
       this.set("errorMessage", this.get("intl").t("This is a required field"));
@@ -49,6 +49,7 @@ export default Mixin.create({
         isElementValid = false;
       }
     }
+
     // show / hide message
     this.set("showElementMessage", showElementMessage);
     this.set("isElementValid", isElementValid);
@@ -59,7 +60,6 @@ export default Mixin.create({
       this.get("name")
     )[0].isElementValid = isElementValid;
 
-    // TODO! devo aggiornare con i metodi ember per poter utilizzare i computed
     return isElementValid;
   },
   actions: {
