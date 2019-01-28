@@ -5,31 +5,32 @@
             <div class="login-panel panel panel-default">
                 <div class="panel-body">
                     <form id="loginForm" class="form-horizontal" name="login" {{action 'authenticate' on='submit'}}>
-                        <div class="form-group {{if errors.username 'has-error'}}">
-                            {{form/form-text
-                                type="text"
-                                viewId="username"
-                                name="username" 
-                                placeholder='Username' 
-                                value=username 
-                                required=true
-                                minLength=2
-                                isFormValid=isFormValid
-                                showMessage=showMessage
-                            }}
-                        </div>
-                        <div class="form-group {{if errors.password 'has-error'}}">
-                            {{form/form-text
-                                type="password"
-                                viewId="password"
-                                name="password" 
-                                placeholder='Password' 
-                                value=password 
-                                required=true
-                                isFormValid=isFormValid
-                                showMessage=showMessage
-                            }}
-                        </div>
+                        {{form/form-text
+                            type="text"
+                            viewId="username"
+                            name="username" 
+                            placeholder=(t 'Username')
+                            value=username 
+                            isFormValid=isFormValid
+                            showMessage=showMessage
+                            validator=(validation-parameters
+                                            required=true
+                                            minLength=2
+                                        )
+                        }}
+                        {{form/form-text
+                            type="password"
+                            viewId="password"
+                            name="password" 
+                            placeholder=(t 'Password') 
+                            value=password 
+                            isFormValid=isFormValid
+                            showMessage=showMessage
+                            validator=(validation-parameters
+                                            required=true
+                                            minLength=8
+                                        )
+                        }}
                         <div class="form-group ">
                             <div class=" col-sm-12">
                                 <button type="submit" name="save" class="btn btn-lg btn-primary btn-block" value="">

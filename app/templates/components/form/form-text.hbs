@@ -1,16 +1,18 @@
-<div class="col-sm-12">
-    {{input
-        type=type
-        class='form-control'
-        id=viewId
-        name=name
-        placeholder=placeholder
-        value=value
-        key-up=(action "keyUp")
-        }}
-    {{#if (or (and showElementMessage (not isElementValid)) (and showMessage (not isElementValid)))}}
-        <div class="errors-list">
-            {{errorMessage}}
-        </div>
-    {{/if}}
+<div class="form-group  {{if (or (and showElementMessage (not isElementValid)) (and showMessage (not isElementValid))) 'has-error'}}">
+    <div class="col-sm-12">
+        {{input
+            type=type
+            class='form-control'
+            id=viewId
+            name=name
+            placeholder=placeholder
+            value=value
+            key-up=(action "keyUp")
+            }}
+        {{#if (or (and showElementMessage (not isElementValid)) (and showMessage (not isElementValid)))}}
+            <div class="errors-list">
+                {{errorMessage}}
+            </div>
+        {{/if}}
+    </div>
 </div>
