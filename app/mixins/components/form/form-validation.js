@@ -9,6 +9,7 @@ export default Mixin.create({
     isElementValid: null,
     errorMessage: null,
     showElementMessage: false,
+    tagName: '',
     init() {
         this._super(...arguments);
         // populate object for form validation on submit
@@ -31,6 +32,17 @@ export default Mixin.create({
         return true;
     },
     /**
+     * max length validation
+     *
+     * @param {length} integer
+     */
+    checkMaxLength: function (length) {
+        if (this.get("value").length > length) {
+            return false;
+        }
+        return true;
+    },
+    /**
      * validation
      *
      * @param {boolean} showEMessage
@@ -41,12 +53,14 @@ export default Mixin.create({
         if (this.get('validator.required') && !this.get('value')) {
             this.set("errorMessage", this.get("intl").t("This is a required field"));
             isElementValid = false;
-        } else if (this.get('validator.minLength')) {
+        } else if (this.get('validator.minLength') && !this.checkMinLength(this.get("validator.minLength"))) {
             // min length
-            if (!this.checkMinLength(this.get("validator.minLength"))) {
-                this.set("errorMessage", this.get("intl").t("Error minlength TODO"));
-                isElementValid = false;
-            }
+            this.set("errorMessage", this.get("intl").t("Error minlength TODO"));
+            isElementValid = false;
+        } else if (this.get('validator.maxLength') && !this.checkMaxLength(this.get("validator.maxLength"))) {
+            // max length
+            this.set("errorMessage", this.get("intl").t("Error maxlength TODO"));
+            isElementValid = false;
         }
 
         // show / hide message

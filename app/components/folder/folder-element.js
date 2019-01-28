@@ -14,7 +14,10 @@ export default Component.extend({
     growl: inject('growl'),
     isManage: false,
     errors: null,
-    tagName: '',
+
+    isFormValid: [],
+    showMessage: false,
+
     actions: {
         /**
          * Close New folder form and notify to folders about the creation of new folder

@@ -12,6 +12,10 @@ export default Component.extend({
     store: inject('store'),
     growl: inject('growl'),
     parentId: null,
+
+    isFormValid: [],
+    showMessage: false,
+    
     actions: {
         /**
          * Exit the creation of a folder

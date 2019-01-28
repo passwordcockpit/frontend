@@ -17,7 +17,6 @@ export default Component.extend({
     parentId: null,
     userId: null,
     access: false,
-    tagName: '',
 
     actions: {
         /**
