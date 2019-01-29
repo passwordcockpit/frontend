@@ -1,0 +1,10 @@
+{{tinymce-editor 
+    options=options 
+    name=name
+    onValueChanged=(action "onChange")
+    }} 
+{{#if (or (and showElementMessage (not isElementValid)) (and showMessage (not isElementValid)))}}
+    <div class="errors-list">
+        {{errorMessage}}
+    </div>
+{{/if}}    
