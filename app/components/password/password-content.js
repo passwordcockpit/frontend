@@ -17,7 +17,7 @@ export default Component.extend(formValidation, {
     intl: inject('intl'),
     passwordEncrypt: inject('password-encrypt'),
     localTempPassword: null,
-    icons: ENV.passwordFormConfig.icons,
+    icons: ENV.passwordFormConfig.icons, 
     options: ENV.passwordFormConfig.options,
     pinEncrypt: null,
     localTempPasswordDecrypted: null,
@@ -29,7 +29,7 @@ export default Component.extend(formValidation, {
          */
         togglePasswordVisibility() {
             this.toggleProperty('isPasswordVisible');
-        },
+        }, 
 
         /**
          * Show edit Password form
@@ -254,7 +254,7 @@ export default Component.extend(formValidation, {
          * Update password
          * Notify to passwords (controller) about the operation
          */
-        submit() {
+        save() {
             $('#loading').show();
             // reset errors data
             this.set('errors', null);
@@ -327,7 +327,7 @@ export default Component.extend(formValidation, {
         /**
          * descrypt password.password
          */
-        desryptPassword() {
+        decryptPassword() {
             if (this.get('passwordEncrypt').decryptPassword(this.get('pinDecrypt'), this.get('password.password'))) {
                 // decrypt password for edit read password
                 this.set('passwordDecrypted', this.get('passwordEncrypt').decryptPassword(this.get('pinDecrypt'), this.get('password.password')));
@@ -363,23 +363,24 @@ export default Component.extend(formValidation, {
         /**
         * set password.password (with/without PIN)
         * 
+        * @param {boolean} toggleFrontendCrypted
         */
-        setPassword(toggleFrontendCrypted) {
-            if (toggleFrontendCrypted) {
-                this.set('password.frontendCrypted', !this.get('password.frontendCrypted'))
+       setPassword(toggleFrontendCrypted) {
+        if (toggleFrontendCrypted) {
+            this.set('password.frontendCrypted', !this.get('password.frontendCrypted'))
+        }
+        if (this.get('isEdit')) {
+            if (this.get('password.frontendCrypted')) {
+                // with PIN
+                let passwordEncrypted = this.get('passwordEncrypt').encryptPassword(this.get('pinEncrypt'), this.get('passwordDecrypted'));
+                this.set('password.password', passwordEncrypted);
+                this.set('pinDecrypt', this.get('pinEncrypt'));
+            } else {
+                // without PIN
+                this.set('password.password', this.get('passwordDecrypted'));
+                this.set('pinEncrypt', null);
             }
-            if (this.get('isEdit')) {
-                if (this.get('password.frontendCrypted')) {
-                    // with PIN
-                    let passwordEncrypted = this.get('passwordEncrypt').encryptPassword(this.get('pinEncrypt'), this.get('passwordDecrypted'));
-                    this.set('password.password', passwordEncrypted);
-                    this.set('pinDecrypt', this.get('pinEncrypt'));
-                } else {
-                    // without PIN
-                    this.set('password.password', this.get('passwordDecrypted'));
-                    this.set('pinEncrypt', null);
-                }
-            }
-        },
+        }
+    },
     }
 });

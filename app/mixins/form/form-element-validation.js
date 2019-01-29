@@ -104,7 +104,7 @@ export default Mixin.create({
     actions: {
         keyUp() {
             this.validation(true);
-            if(this.keyUpAction!==undefined){
+            if(this.keyUpCustomAction!==undefined){
                 this.keyUpCustomAction()
             }
         }

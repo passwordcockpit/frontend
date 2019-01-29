@@ -6,6 +6,10 @@ import Mixin from "@ember/object/mixin";
 export default Mixin.create({
     isFormValid: [],
     showMessage: false,
+    init(){
+        this._super(...arguments);
+        this.set('isFormValid', []);
+    },
     actions: {
         submit(){
             let self = this;
