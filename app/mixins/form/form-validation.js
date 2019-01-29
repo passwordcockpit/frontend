@@ -13,7 +13,6 @@ export default Mixin.create({
                 this.send('save');
                 this.set('isFormValid', []);
             }else{
-                debugger
                 // frontend validation NOK
                 this.set('showMessage', true);
                 this.get('growl').error('Form not saved', 'Validation error');
