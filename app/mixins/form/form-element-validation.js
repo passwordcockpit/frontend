@@ -43,17 +43,14 @@ export default Mixin.create({
         return true;
     },
     /**
-     * max length validation
+     * type validation
      *
-     * @param {type} integer
+     * @param {integer} type
      */
     checkType: function (type) {
         let regex = '';
         if (this.get('validator.type') === 'email' ){
             regex = /^$|(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
-        }
-        if (this.get('validator.type') === 'phone' ){
-            regex = ''
         }
         if (this.get('validator.type') === 'url' ){
             regex = /^$|(http:\/\/www\.|https:\/\/www\.|http:\/\/|https:\/\/)?[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}(:[0-9]{1,5})?(\/.*)?$/ 
