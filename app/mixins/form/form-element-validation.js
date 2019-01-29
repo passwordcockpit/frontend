@@ -50,7 +50,7 @@ export default Mixin.create({
     validation: function (showElementMessage) {
         let isElementValid = true;
         // required
-        if (this.get('validator.required') && !this.get('value')) {
+        if (this.get('validator.required') && !this.get('value')) { 
             this.set("errorMessage", this.get("intl").t("This is a required field"));
             isElementValid = false;
         } else if (this.get('validator.minLength') && !this.checkMinLength(this.get("validator.minLength"))) {

@@ -16,6 +16,7 @@
             <form {{action 'submit' on='submit' }}>
                 {{form/form-text
                     type="text" 
+                    name="folder"
                     viewId=(concat "folderEditName" folder.id)
                     class="form-control" 
                     value=folder.name 

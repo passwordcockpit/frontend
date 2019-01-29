@@ -16,9 +16,6 @@ export default Component.extend(formValidation, {
     intl: inject('intl'),
     growl: inject('growl'),
     router: inject('router'),
-    // validation
-    isFormValid: [],
-    showMessage: false,
     // Password variables to be used by Change profile
     actual_password: null,
     newpass: null,
