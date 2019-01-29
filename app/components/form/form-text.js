@@ -5,8 +5,8 @@
 */
 
 import Component from '@ember/component';
-import formValidation from '../../mixins/components/form/form-validation';
+import formElementValidation from '../../mixins/form/form-element-validation';
 
-export default Component.extend(formValidation, {
+export default Component.extend(formElementValidation, {
     
 });

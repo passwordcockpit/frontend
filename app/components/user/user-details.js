@@ -7,15 +7,18 @@
 import Component from '@ember/component';
 import { inject } from '@ember/service';
 import jwtDecode from 'ember-cli-jwt-decode';
+import formValidation from '../../mixins/form/form-validation';
 import $ from 'jquery';
 
-export default Component.extend({
+export default Component.extend(formValidation, {
     store: inject('store'),
     session: inject('session'),
     intl: inject('intl'),
     growl: inject('growl'),
     router: inject('router'),
-
+    // validation
+    isFormValid: [],
+    showMessage: false,
     // Password variables to be used by Change profile
     actual_password: null,
     newpass: null,
@@ -59,7 +62,7 @@ export default Component.extend({
         /**
          * Edit user
          */
-        submit() {
+        save() {
             $('#loading').show();
             let self = this;
             let user = this.get('user');
@@ -100,7 +103,6 @@ export default Component.extend({
                     }
                 }
             }
-
             // set language
             user.set('language', $('.language-select option:selected').val());
 

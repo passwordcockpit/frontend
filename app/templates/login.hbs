@@ -4,7 +4,7 @@
             <img class="logo-login" src="/assets/images/logo.svg" alt="login">
             <div class="login-panel panel panel-default">
                 <div class="panel-body">
-                    <form id="loginForm" class="form-horizontal" name="login" {{action 'authenticate' on='submit'}}>
+                    <form id="loginForm" class="form-horizontal" name="login" {{action 'submit' on='submit'}}>
                         <div class="form-group {{if errors.username 'has-error'}}">
                             <div class="col-sm-12">
                                 {{form/form-text
@@ -17,8 +17,8 @@
                                     isFormValid=isFormValid
                                     showMessage=showMessage
                                     validator=(validation-parameters
-                                                    required=true
-                                                    minLength=2
+                                                required=true
+                                                minLength=2
                                                 )
                                 }}
                             </div>
@@ -35,8 +35,8 @@
                                     isFormValid=isFormValid
                                     showMessage=showMessage
                                     validator=(validation-parameters
-                                                    required=true
-                                                    minLength=8
+                                                required=true
+                                                minLength=8
                                                 )
                                 }}
                             </div>
