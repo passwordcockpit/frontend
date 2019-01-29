@@ -13,7 +13,6 @@ import ENV from '../config/environment';
 import RSVP from 'rsvp';
 import $ from 'jquery';
 
-
 export default Route.extend(ApplicationRouteMixin, {
     session: inject('session'),
     account: inject('account'),
