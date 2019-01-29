@@ -139,5 +139,7 @@ export default {
     "Minimum length: ": "Minimum length: ",
     "Maximum length: ": "Maximum length: ",
     "Field type: email": "Field type: email",
-    "Field type: password": "Password must have at least 1 upper case 1 lower case 1 number and 1 special character"
+    "Field type: password": "Password must have at least 1 upper case 1 lower case 1 number and 1 special character",
+    "Field type: phone": "Field type: phone",
+    "Field type: url": "Field type: url"
 };

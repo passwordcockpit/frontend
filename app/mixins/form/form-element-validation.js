@@ -26,7 +26,7 @@ export default Mixin.create({
      * @param {integer} length
      */
     checkMinLength: function (length) {
-        if (this.get("value").length < length) {
+        if (this.get("value") && this.get("value").length < length) {
             return false;
         }
         return true;
@@ -37,7 +37,7 @@ export default Mixin.create({
      * @param {integer} length
      */
     checkMaxLength: function (length) {
-        if (this.get("value").length > length) {
+        if (this.get("value") && this.get("value").length > length) {
             return false;
         }
         return true;

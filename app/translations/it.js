@@ -140,5 +140,7 @@ export default {
     "Minimum length: ": "Lunghezza minima: ",
     "Maximum length: ": "Lunghezza massima: ",
     "Field type: email": "Campo di tipo: email",
-    "Field type: password": "La password deve avere almeno 1 maiuscola 1 minuscola 1 numero e 1 carattere speciale"
+    "Field type: password": "La password deve avere almeno 1 maiuscola 1 minuscola 1 numero e 1 carattere speciale",
+    "Field type: phone": "Campo di tipo: telefono",
+    "Field type: url": "Campo di tipo: url"
   };
