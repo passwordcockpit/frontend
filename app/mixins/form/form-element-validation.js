@@ -55,7 +55,7 @@ export default Mixin.create({
             regex = /^$|(http:\/\/www\.|https:\/\/www\.|http:\/\/|https:\/\/)?[a-z0-9]+([-.]{1}[a-z0-9]+)*\.[a-z]{2,5}(:[0-9]{1,5})?(\/.*)?$/ 
         }
         if (this.get('validator.type') === 'password' ){
-            regex = /^$|\S*(?=\S*[\W])(?=\S*[a-z])(?=\S*[A-Z])(?=\S*[\d])\S*$/
+            regex = /^$|\S*(?=\S*[\W])(?=\S*[a-z])(?=\S*[A-Z])(?=\S*[\d])\S*$/ 
         }
         if (this.get('validator.type') === 'phone' ){ 
             regex = /^$|[\d-]+$/
@@ -82,8 +82,7 @@ export default Mixin.create({
             // max length
             this.set("errorMessage", this.get("intl").t("Maximum length: ") + this.get("validator.maxLength"));
             isElementValid = false;
-        }
-        else if (this.get('validator.type') && !this.checkType()) {
+        } else if (this.get('validator.type') && this.get('value') && !this.checkType()) {
             // type (email, url, ...)
             this.set("errorMessage", this.get("intl").t("Field type: " + this.get("validator.type")));
             isElementValid = false;
