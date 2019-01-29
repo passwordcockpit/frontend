@@ -45,20 +45,19 @@ export default Mixin.create({
     /**
      * type validation
      *
-     * @param {integer} type
      */
-    checkType: function (type) {
+    checkType: function () {
         let regex = '';
         if (this.get('validator.type') === 'email' ){
-            regex = /^$|(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+            regex = /^$|(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@(([[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
         }
         if (this.get('validator.type') === 'url' ){
-            regex = /^$|(http:\/\/www\.|https:\/\/www\.|http:\/\/|https:\/\/)?[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}(:[0-9]{1,5})?(\/.*)?$/ 
+            regex = /^$|(http:\/\/www\.|https:\/\/www\.|http:\/\/|https:\/\/)?[a-z0-9]+([-.]{1}[a-z0-9]+)*\.[a-z]{2,5}(:[0-9]{1,5})?(\/.*)?$/ 
         }
         if (this.get('validator.type') === 'password' ){
             regex = /^$|\S*(?=\S*[\W])(?=\S*[a-z])(?=\S*[A-Z])(?=\S*[\d])\S*$/
         }
-        if (this.get('validator.type') === 'phone' ){
+        if (this.get('validator.type') === 'phone' ){ 
             regex = /^$|[\d-]+$/
         }
         return regex.test(this.get('value'));
@@ -84,7 +83,7 @@ export default Mixin.create({
             this.set("errorMessage", this.get("intl").t("Maximum length: ") + this.get("validator.maxLength"));
             isElementValid = false;
         }
-        else if (this.get('validator.type') && !this.checkType(this.get("validator.type"))) {
+        else if (this.get('validator.type') && !this.checkType()) {
             // type (email, url, ...)
             this.set("errorMessage", this.get("intl").t("Field type: " + this.get("validator.type")));
             isElementValid = false;
@@ -105,6 +104,9 @@ export default Mixin.create({
     actions: {
         keyUp() {
             this.validation(true);
+            if(this.keyUpAction!==undefined){
+                this.keyUpCustomAction()
+            }
         }
     }
 });
