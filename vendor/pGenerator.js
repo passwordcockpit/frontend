@@ -122,7 +122,7 @@
         return Math.floor(Math.random() * (to - from + 1) + from);
     };
 
-    $.fn.pGenerator = function (method) {
+    $.pGenerator = function (method) {
         if (typeof method === 'object' || !method) {
             return methods.init.apply(this, arguments);
         } else {

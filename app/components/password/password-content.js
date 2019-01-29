@@ -115,18 +115,16 @@ export default Component.extend(formValidation, {
                 specialchars = true;
             }
 
-            $('.password-generator').pGenerator({
-                'passwordElement': 'input[name="password"]',
+            let newPassword = $.pGenerator({
                 'passwordLength': passwordLength,
-                'uppercase': uppercase,
+                'uppercase': uppercase, 
                 'lowercase': lowercase,
                 'numbers': numbers,
                 'specialChars': specialchars
             });
-
-            var input = document.getElementById('passwordEdit');
-            input.focus();
-            input.select();
+            // update password
+            this.set('passwordDecrypted', newPassword);
+            this.send('setPassword', false);
         },
 
         /**
