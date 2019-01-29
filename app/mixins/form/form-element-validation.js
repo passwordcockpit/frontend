@@ -61,7 +61,7 @@ export default Mixin.create({
         if (this.get('validator.type') === 'password' ){
             regex = /^$|\S*(?=\S*[\W])(?=\S*[a-z])(?=\S*[A-Z])(?=\S*[\d])\S*$/
         }
-        if (this.get('validator.type') === 'password' ){
+        if (this.get('validator.type') === 'phone' ){
             regex = /^$|[\d-]+$/
         }
         return regex.test(this.get('value'));
