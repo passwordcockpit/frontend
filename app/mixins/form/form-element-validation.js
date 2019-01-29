@@ -23,7 +23,7 @@ export default Mixin.create({
     /**
      * min length validation
      *
-     * @param {length} integer
+     * @param {integer} length
      */
     checkMinLength: function (length) {
         if (this.get("value").length < length) {
@@ -34,7 +34,7 @@ export default Mixin.create({
     /**
      * max length validation
      *
-     * @param {length} integer
+     * @param {integer} length
      */
     checkMaxLength: function (length) {
         if (this.get("value").length > length) {
@@ -42,6 +42,31 @@ export default Mixin.create({
         }
         return true;
     },
+    /**
+     * max length validation
+     *
+     * @param {type} integer
+     */
+    checkType: function (type) {
+        let regex = '';
+        if (this.get('validator.type') === 'email' ){
+            regex = /^$|(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+        }
+        if (this.get('validator.type') === 'phone' ){
+            regex = ''
+        }
+        if (this.get('validator.type') === 'url' ){
+            regex = /^$|(http:\/\/www\.|https:\/\/www\.|http:\/\/|https:\/\/)?[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}(:[0-9]{1,5})?(\/.*)?$/ 
+        }
+        if (this.get('validator.type') === 'password' ){
+            regex = /^$|\S*(?=\S*[\W])(?=\S*[a-z])(?=\S*[A-Z])(?=\S*[\d])\S*$/
+        }
+        if (this.get('validator.type') === 'password' ){
+            regex = /^$|[\d-]+$/
+        }
+        return regex.test(this.get('value'));
+    },
+
     /**
      * validation
      *
@@ -55,11 +80,16 @@ export default Mixin.create({
             isElementValid = false;
         } else if (this.get('validator.minLength') && !this.checkMinLength(this.get("validator.minLength"))) {
             // min length
-            this.set("errorMessage", this.get("intl").t("Error minlength TODO"));
+            this.set("errorMessage", this.get("intl").t("Minimum length: ") + this.get("validator.minLength"));
             isElementValid = false;
         } else if (this.get('validator.maxLength') && !this.checkMaxLength(this.get("validator.maxLength"))) {
             // max length
-            this.set("errorMessage", this.get("intl").t("Error maxlength TODO"));
+            this.set("errorMessage", this.get("intl").t("Maximum length: ") + this.get("validator.maxLength"));
+            isElementValid = false;
+        }
+        else if (this.get('validator.type') && !this.checkType(this.get("validator.type"))) {
+            // type (email, url, ...)
+            this.set("errorMessage", this.get("intl").t("Field type: " + this.get("validator.type")));
             isElementValid = false;
         }
 

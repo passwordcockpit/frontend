@@ -134,5 +134,11 @@ export default {
 
     "Please change your password for the first time you logged in": "Cambia la tua password per la prima volta che hai effettuato il login",
     "You exceeded the maximum allowed number of descryption attempts": "Hai superato il numero massimo consentito di tentativi di decriptazione",
-    "Wrong PIN": "PIN sbagliato"
+    "Wrong PIN": "PIN sbagliato",
+    "Form not saved": "Form not saved",
+    "Validation error": "Validation error",
+    "Minimum length: ": "Lunghezza minima: ",
+    "Maximum length: ": "Lunghezza massima: ",
+    "Field type: email": "Campo di tipo: email",
+    "Field type: password": "La password deve avere almeno 1 maiuscola 1 minuscola 1 numero e 1 carattere speciale"
   };
