@@ -10,11 +10,12 @@ export default Mixin.create({
         submit(){
             let self = this;
             if (this.get('isFormValid').isEvery('isElementValid', true)) {
+                this.set('isFormValid', []);
                 this.send('save');
             }else{
                 // frontend validation NOK
                 this.set('showMessage', true);
-                this.get('growl').error('Form not savad', 'Validation error');
+                this.get('growl').error('Form not saved', 'Validation error');
 
                 /* reset values */
                 if(this.get('clearOnSubmitError')){
