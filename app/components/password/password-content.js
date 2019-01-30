@@ -9,6 +9,7 @@ import { inject } from '@ember/service';
 import ENV from './../../config/environment';
 import formValidation from '../../mixins/form/form-validation';
 import $ from 'jquery';
+import { htmlSafe } from '@ember/string'
 
 export default Component.extend(formValidation, {
     store: inject('store'),
@@ -17,7 +18,7 @@ export default Component.extend(formValidation, {
     intl: inject('intl'),
     passwordEncrypt: inject('password-encrypt'),
     localTempPassword: null,
-    icons: ENV.passwordFormConfig.icons, 
+    icons: ENV.passwordFormConfig.icons,
     options: ENV.passwordFormConfig.options,
     pinEncrypt: null,
     localTempPasswordDecrypted: null,
@@ -29,7 +30,7 @@ export default Component.extend(formValidation, {
          */
         togglePasswordVisibility() {
             this.toggleProperty('isPasswordVisible');
-        }, 
+        },
 
         /**
          * Show edit Password form
@@ -117,7 +118,7 @@ export default Component.extend(formValidation, {
 
             let newPassword = $.pGenerator({
                 'passwordLength': passwordLength,
-                'uppercase': uppercase, 
+                'uppercase': uppercase,
                 'lowercase': lowercase,
                 'numbers': numbers,
                 'specialChars': specialchars
@@ -363,22 +364,28 @@ export default Component.extend(formValidation, {
         * 
         * @param {boolean} toggleFrontendCrypted
         */
-       setPassword(toggleFrontendCrypted) {
-        if (toggleFrontendCrypted) {
-            this.set('password.frontendCrypted', !this.get('password.frontendCrypted'))
-        }
-        if (this.get('isEdit')) {
-            if (this.get('password.frontendCrypted')) {
-                // with PIN
-                let passwordEncrypted = this.get('passwordEncrypt').encryptPassword(this.get('pinEncrypt'), this.get('passwordDecrypted'));
-                this.set('password.password', passwordEncrypted);
-                this.set('pinDecrypt', this.get('pinEncrypt'));
-            } else {
-                // without PIN
-                this.set('password.password', this.get('passwordDecrypted'));
-                this.set('pinEncrypt', null);
+        setPassword(toggleFrontendCrypted) {
+            if (toggleFrontendCrypted) {
+                this.set('password.frontendCrypted', !this.get('password.frontendCrypted'))
             }
+            if (this.get('isEdit')) {
+                if (this.get('password.frontendCrypted')) {
+                    // with PIN
+                    let passwordEncrypted = this.get('passwordEncrypt').encryptPassword(this.get('pinEncrypt'), this.get('passwordDecrypted'));
+                    this.set('password.password', passwordEncrypted);
+                    this.set('pinDecrypt', this.get('pinEncrypt'));
+                } else {
+                    // without PIN
+                    this.set('password.password', this.get('passwordDecrypted'));
+                    this.set('pinEncrypt', null);
+                }
+            }
+        },
+        /**
+         * How to handle printed value of select
+         */
+        printSelectValuesHandle(icon) {
+            return new htmlSafe('<i class="fas fa-' + icon + '"></i>');
         }
-    },
     }
 });

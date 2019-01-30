@@ -8,10 +8,18 @@ import Component from '@ember/component';
 import formElementValidation from '../../mixins/form/form-element-validation';
 
 export default Component.extend(formElementValidation, {
-    actions:{
-        selectOptionChange(value){
+    actions: {
+        selectOptionChange(value) {
             this.set('value', value);
             this.send('keyUp');
+        },
+        printSelectValuesHandle(value) {
+            if (this.get('printSelectValuesHandle') !== undefined) {
+                return this.printSelectValuesHandle(value);
+            }
+            else{
+                return value;
+            }
         }
     }
 });

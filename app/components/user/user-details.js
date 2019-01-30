@@ -21,7 +21,7 @@ export default Component.extend(formValidation, {
     newpass: null,
     repeatnewpass: null,
     // Language options
-    userLanguage:[
+    userLanguage: [
         {
             value: 'en',
             text: 'English'
@@ -174,6 +174,12 @@ export default Component.extend(formValidation, {
          */
         CloseForceLogoutModal() {
             this.get('session').invalidate();
+        },
+        /**
+         * How to handle printed value of select
+         */
+        printSelectValuesHandle(userLanguage) {
+            return userLanguage.text
         }
     }
 });

@@ -110,7 +110,7 @@ export default Mixin.create({
             "name",
             this.get("name")
         )[0].isElementValid = isElementValid;
-
+        
         return isElementValid;
     },
     actions: {

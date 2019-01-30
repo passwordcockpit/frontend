@@ -1,11 +1,20 @@
 {{#if isPowerSelect}}
+    {{#power-select
+        options=selectOptions
+        allowClear=true
+        onchange=(action 'selectOptionChange')
+        selected=value
+        as |icon|}}
+        {{print-select-values-handle icon (action 'printSelectValuesHandle')}}
+        {{!--<i class="fas fa-{{icon}}"></i>--}}
+    {{/power-select}}
 {{else}}
     <select class={{class}} onchange={{action 'selectOptionChange' value="target.value"}}>
         {{#each selectOptions as |selectOption|}}
             {{#if (eq selectOption.value value)}}
                 <option value="{{selectOption.value}}" selected>{{selectOption.text}}</option>
             {{else}}
-                <option value="{{selectOption.value}}">{{selectOption.text}}</option>
+                <option value="{{selectOption.value}}">{{print-select-values-handle selectOption (action 'printSelectValuesHandle')}}</option>
             {{/if}}
         {{/each}}
     </select>
