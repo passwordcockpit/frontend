@@ -1,0 +1,17 @@
+{{#if isPowerSelect}}
+{{else}}
+    <select class={{class}} onchange={{action 'selectOptionChange'}}>
+        {{#each selectOptions as |selectOption|}}
+            {{#if (eq selectOption.value selectedValue)}}
+                <option value="{{selectOption.value}}" selected>{{selectOption.text}}</option>
+            {{else}}
+                <option value="{{selectOption.value}}">{{selectOption.text}}</option>
+            {{/if}}
+        {{/each}}
+    </select>
+{{/if}}
+{{#if (or (and showElementMessage (not isElementValid)) (and showMessage (not isElementValid)))}}
+    <div class="errors-list">
+        {{errorMessage}}
+    </div>
+{{/if}}
