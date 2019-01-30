@@ -6,10 +6,11 @@
 
 import Component from '@ember/component';
 import { inject } from '@ember/service';
-import $ from 'jquery';
 import ENV from './../../config/environment';
+import formValidation from '../../mixins/form/form-validation';
+import $ from 'jquery';
 
-export default Component.extend({
+export default Component.extend(formValidation, {
     router: inject('router'),
     session: inject('session'),
     store: inject('store'),
