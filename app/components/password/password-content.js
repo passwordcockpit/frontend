@@ -346,8 +346,10 @@ export default Component.extend(formValidation, {
         /**
          * Lock password on pinDecrypt changing
          */
-        protectPassword() {
-            this.set('isPinValid', false);
+        protectPassword(event) {
+            if (event.keyCode !== 13) {
+                this.set('isPinValid', false);
+            }
         },
         /**
         * reset frontendCrypted if password empty
