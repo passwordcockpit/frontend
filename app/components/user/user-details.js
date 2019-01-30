@@ -121,7 +121,9 @@ export default Component.extend(formValidation, {
                             //Update language
                             this.set('intl.locale', user.get('language'));
                             // Update token
-                            this.set('session.data.authenticated.token', userData.get('token'));
+                            if (userData.get('token') !== undefined && userData.get('token') !== '') {
+                                this.set('session.data.authenticated.token', userData.get('token'));
+                            }
                             let sessionData = self.get('session.data');
                             self.get('session.store').persist(sessionData);
                         }
@@ -130,6 +132,10 @@ export default Component.extend(formValidation, {
                     this.resetPasswordForms();
                     this.get('growl').notice('Success', 'User updated');
                     $('#loading').hide();
+                    // Redirect user to login page in case that the user token became unvalid
+                    if (userData.get('forceLogin') !== undefined && userData.get('forceLogin')) {
+                        $('#forceLogoutModal').modal('show');
+                    }
                 })
                 .catch(adapterError => {
                     this.resetPasswordForms();
@@ -150,6 +156,13 @@ export default Component.extend(formValidation, {
                     this.set('errors', null);
                 }
             }
+        },
+        /**
+         * close Force to login modal
+         * redirect to login page because useer token became unvalid
+         */
+        CloseForceLogoutModal() {
+            this.get('session').invalidate();
         }
     }
 });
