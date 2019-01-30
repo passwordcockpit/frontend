@@ -6,20 +6,36 @@
 
 import Component from '@ember/component';
 import { inject } from '@ember/service';
+import formValidation from '../../mixins/form/form-validation';
 import $ from 'jquery';
 
-export default Component.extend({
+export default Component.extend(formValidation, {
     router: inject('router'),
     store: inject('store'),
     growl: inject('growl'),
     errors: null,
-
+    language: '',
+    // Language options
+    userLanguage:[
+        {
+            value: '',
+            text: '-'
+        },
+        {
+            value: 'en',
+            text: 'English'
+        },
+        {
+            value: 'it',
+            text: 'Italiano'
+        }
+    ],
     actions: {
         /**
          * Create new userusers (controller)
          * Notify to users (passing by new-users) about the operation
          */
-        submit() {
+        save() {
             $('#loading').show();
             let newUserRecord = this.get('store')
                 .createRecord('user', {
@@ -47,6 +63,12 @@ export default Component.extend({
                     $('#loading').hide();
                     this.get('growl').errorShowRaw(adapterError.title, adapterError.message);
                 });
+        },
+        /**
+         * How to handle printed value of select
+         */
+        printSelectValuesHandle(userLanguage) {
+            return userLanguage.text;
         }
     }
 });

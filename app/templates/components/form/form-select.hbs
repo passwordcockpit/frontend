@@ -12,9 +12,13 @@
     <select class={{class}} onchange={{action 'selectOptionChange' value="target.value"}}>
         {{#each selectOptions as |selectOption|}}
             {{#if (eq selectOption.value value)}}
-                <option value="{{selectOption.value}}" selected>{{selectOption.text}}</option>
+                <option value="{{selectOption.value}}" selected>
+                    {{print-select-values-handle selectOption (action 'printSelectValuesHandle')}}
+                </option>
             {{else}}
-                <option value="{{selectOption.value}}">{{print-select-values-handle selectOption (action 'printSelectValuesHandle')}}</option>
+                <option value="{{selectOption.value}}">
+                    {{print-select-values-handle selectOption (action 'printSelectValuesHandle')}}
+                </option>
             {{/if}}
         {{/each}}
     </select>
