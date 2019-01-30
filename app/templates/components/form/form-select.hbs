@@ -1,6 +1,6 @@
 {{#if isPowerSelect}}
 {{else}}
-    <select class={{class}} onchange={{action 'selectOptionChange'}}>
+    <select class={{class}} onchange={{action 'selectOptionChange' value="target.value"}}>
         {{#each selectOptions as |selectOption|}}
             {{#if (eq selectOption.value selectedValue)}}
                 <option value="{{selectOption.value}}" selected>{{selectOption.text}}</option>

@@ -9,8 +9,8 @@ import formElementValidation from '../../mixins/form/form-element-validation';
 
 export default Component.extend(formElementValidation, {
     actions:{
-        selectOptionChange(){
-            this.set('value', $('.language-select option:selected').val());
+        selectOptionChange(value){
+            this.set('value', value);
             this.send('keyUp');
         }
     }
