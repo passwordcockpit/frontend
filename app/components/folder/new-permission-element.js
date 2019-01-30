@@ -6,9 +6,10 @@
 
 import Component from '@ember/component';
 import { inject } from '@ember/service';
+import formValidation from '../../mixins/form/form-validation';
 import $ from 'jquery';
 
-export default Component.extend({
+export default Component.extend(formValidation, {
     router: inject('router'),
     store: inject('store'),
     growl: inject('growl'),
@@ -64,5 +65,11 @@ export default Component.extend({
         handleFocus() {
             this.set('errors', null);
         },
+        /**
+         * How to handle printed value of select
+         */
+        printSelectValuesHandle(user) {
+            return user.name + ' ' + user.surname;
+        }
     }
 });
