@@ -89,10 +89,10 @@ export default Component.extend(formValidation, {
          * Create new password
          * Notify to new-password about the operation
          * 
-         * @param {*} folderId 
          */
-        submit(folderId) {
+        save() {
             $('#loading').show();
+            let folderId = this.get('folderId');
             // reset errors data
             this.set('errors', null);
 
