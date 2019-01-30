@@ -9,7 +9,11 @@
         {{!--<i class="fas fa-{{icon}}"></i>--}}
     {{/power-select}}
 {{else}}
-    <select class={{class}} onchange={{action 'selectOptionChange' value="target.value"}}>
+    <select 
+        class={{class}} 
+        name={{name}}
+        onchange={{action 'selectOptionChange' value="target.value"}}
+    >
         {{#each selectOptions as |selectOption|}}
             {{#if (eq selectOption.value value)}}
                 <option value="{{selectOption.value}}" selected>

@@ -40,7 +40,6 @@ export default Component.extend(formValidation, {
             let newUserRecord = this.get('store')
                 .createRecord('user', {
                     username: this.get('username'),
-                    password: this.get('password'),
                     name: this.get('name'),
                     surname: this.get('surname'),
                     phone: this.get('phone'),
@@ -48,6 +47,9 @@ export default Component.extend(formValidation, {
                     enabled: this.get('enabled') ? true : false,
                     language: $('select[name=language] option:selected').val()
                 });
+                if(this.get('password')!==undefined && this.get('password')!=''){
+                    newUserRecord.set('password', this.get('password'));
+                }
             newUserRecord.save()
                 .then((result) => {
                     this.onCreateUser();

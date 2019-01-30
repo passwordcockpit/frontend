@@ -112,7 +112,7 @@ export default Component.extend(formValidation, {
                 }
             }
             // set language
-            user.set('language', $('.language-select option:selected').val());
+            user.set('language', $('select[name=language] option:selected').val());
 
             user.save()
                 .then((userData) => {
