@@ -50,8 +50,8 @@ export default Route.extend(ApplicationRouteMixin, {
             }).catch((adapterError) => {
                 if (adapterError.hasOwnProperty('code')) {
                     if (adapterError.code == 401) {
-                        this.get('growl').errorShowRaw(adapterError.title, adapterError.message);
-                        this.get('router').transitionTo('login');
+                        self.get('growl').errorShowRaw(adapterError.title, adapterError.message);
+                        self.get('session').invalidate();
                     }
                 }
             });
