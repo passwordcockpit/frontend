@@ -20,6 +20,17 @@ export default Component.extend(formValidation, {
     actual_password: null,
     newpass: null,
     repeatnewpass: null,
+    // Language options
+    userLanguage:[
+        {
+            value: 'en',
+            text: 'English'
+        },
+        {
+            value: 'it',
+            text: 'Italiano'
+        }
+    ],
 
     /**
      * Reset password form's fields
