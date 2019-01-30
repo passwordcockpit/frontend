@@ -30,13 +30,7 @@ export default Component.extend(formValidation, {
         /**
          * Create new permission
          */
-        submit(folderId, userId) {
-            if (userId == undefined) {
-                this.set('errors', {
-                    selectUser: [this.get('intl').t('This is a required field')],
-                });
-                return
-            }
+        save(folderId, userId) {
             $('#loading').show();
 
             let access = 1;
