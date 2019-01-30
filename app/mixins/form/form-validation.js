@@ -15,7 +15,6 @@ export default Mixin.create({
             let self = this;
             if (this.get('isFormValid').isEvery('isElementValid', true)) {
                 this.send('save');
-                this.set('isFormValid', []);
             }else{
                 // frontend validation NOK
                 this.set('showMessage', true);

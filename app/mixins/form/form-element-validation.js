@@ -13,10 +13,15 @@ export default Mixin.create({
     init() {
         this._super(...arguments);
         // populate object for form validation on submit
-        this.get("isFormValid").pushObject({
-            name: this.get("name"),
-            isElementValid: this.get("isElementValid")
-        });
+        if (this.get("isFormValid").filterBy(
+            "name",
+            this.get("name")
+        ).length === 0) {
+            this.get("isFormValid").pushObject({
+                name: this.get("name"),
+                isElementValid: this.get("isElementValid")
+            });
+        }
         // validate element on load
         this.validation(false);
     },
@@ -48,16 +53,16 @@ export default Mixin.create({
      */
     checkType: function () {
         let regex = '';
-        if (this.get('validator.type') === 'email' ){
+        if (this.get('validator.type') === 'email') {
             regex = /^$|(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@(([[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
         }
-        if (this.get('validator.type') === 'url' ){
-            regex = /^$|(http:\/\/www\.|https:\/\/www\.|http:\/\/|https:\/\/)?[a-z0-9]+([-.]{1}[a-z0-9]+)*\.[a-z]{2,5}(:[0-9]{1,5})?(\/.*)?$/ 
+        if (this.get('validator.type') === 'url') {
+            regex = /^$|(http:\/\/www\.|https:\/\/www\.|http:\/\/|https:\/\/)?[a-z0-9]+([-.]{1}[a-z0-9]+)*\.[a-z]{2,5}(:[0-9]{1,5})?(\/.*)?$/
         }
-        if (this.get('validator.type') === 'password' ){
-            regex = /^$|\S*(?=\S*[\W])(?=\S*[a-z])(?=\S*[A-Z])(?=\S*[\d])\S*$/ 
+        if (this.get('validator.type') === 'password') {
+            regex = /^$|\S*(?=\S*[\W])(?=\S*[a-z])(?=\S*[A-Z])(?=\S*[\d])\S*$/
         }
-        if (this.get('validator.type') === 'phone' ){ 
+        if (this.get('validator.type') === 'phone') {
             regex = /^$|[\d-]+$/
         }
         return regex.test(this.get('value'));
@@ -71,7 +76,7 @@ export default Mixin.create({
     validation: function (showElementMessage) {
         let isElementValid = true;
         // required
-        if (this.get('validator.required') && !this.get('value')) { 
+        if (this.get('validator.required') && !this.get('value')) {
             this.set("errorMessage", this.get("intl").t("This is a required field"));
             isElementValid = false;
         } else if (this.get('validator.minLength') && !this.checkMinLength(this.get("validator.minLength"))) {
@@ -91,7 +96,6 @@ export default Mixin.create({
         // show / hide message
         this.set("showElementMessage", showElementMessage);
         this.set("isElementValid", isElementValid);
-
         // update object for form validation on submit
         this.get("isFormValid").filterBy(
             "name",
@@ -103,7 +107,7 @@ export default Mixin.create({
     actions: {
         keyUp() {
             this.validation(true);
-            if(this.keyUpCustomAction!==undefined){
+            if (this.keyUpCustomAction !== undefined) {
                 this.keyUpCustomAction()
             }
         }
