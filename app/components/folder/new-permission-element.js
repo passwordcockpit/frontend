@@ -30,7 +30,7 @@ export default Component.extend(formValidation, {
         /**
          * Create new permission
          */
-        save(folderId, userId) {
+        save() {
             $('#loading').show();
 
             let access = 1;
@@ -39,8 +39,8 @@ export default Component.extend(formValidation, {
             }
             this.get('store')
                 .createRecord('folderuser', {
-                    folder_id: folderId,
-                    userId: userId.id,
+                    folder_id: this.get('folderId'),
+                    userId: this.get('selectedUser').get('id'),
                     access: access
                 })
                 .save()
