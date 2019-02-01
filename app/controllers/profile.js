@@ -13,7 +13,7 @@ export default Controller.extend({
     showChangePasswordMessage: false,
     init: function () {
         this._super(...arguments);
-        if (!this.get('session.data.authenticated.tokenData.data.change_password')) {
+        if (this.get('session.data.authenticated.tokenData.data.change_password')) {
             this.set('showChangePasswordMessage', true);
         }
     },

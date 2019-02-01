@@ -45,7 +45,7 @@ export default Route.extend(AuthenticatedRouteMixin, {
     actions: {
         willTransition: function (transition) {
             this.currentModel.user.rollbackAttributes();
-            if (!this.get('session.data.authenticated.tokenData.data.change_password')) {
+            if (this.get('session.data.authenticated.tokenData.data.change_password')) {
                 transition.abort();
             }else{
                 return true;
