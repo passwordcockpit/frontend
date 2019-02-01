@@ -31,7 +31,10 @@ export default Route.extend(ApplicationRouteMixin, {
         if (session.get('isAuthenticated')) {
             this.get('closeFoldersInputs').init(this);
             var userID = jwtDecode(this.get('session.session.content.authenticated.token'));
-            
+
+            if (!userID.data.change_password) {
+                this.transitionTo('profile');
+            }
             let result = {
                 user: this.get('store').findRecord('user', userID.sub),
                 permission: this.get('store').queryRecord('permission', { userId: userID.sub })

@@ -38,11 +38,7 @@ export default Controller.extend(formValidation, {
                 this.set('intl.locale', language.data.language);
                 $('#loading').hide();
 
-                if (this.get('session.data.authenticated.firstTimeLogin') !== undefined) {
-                    this.transitionToRoute('profile');
-                } else {
-                    this.transitionToRoute('folders');
-                }
+                this.transitionToRoute('folders');
             })
                 .catch((loginErrors) => {
                     //Empty form

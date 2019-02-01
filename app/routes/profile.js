@@ -9,8 +9,10 @@ import jwtDecode from 'ember-cli-jwt-decode';
 import AuthenticatedRouteMixin from 'ember-simple-auth/mixins/authenticated-route-mixin';
 import $ from 'jquery';
 import RSVP from 'rsvp';
+import { inject } from '@ember/service';
 
 export default Route.extend(AuthenticatedRouteMixin, {
+    session: inject('session'),
     beforeModel() {
         this._super(...arguments);
         $('#loading').show();
@@ -41,9 +43,11 @@ export default Route.extend(AuthenticatedRouteMixin, {
     },
 
     actions: {
-        willTransition: function () {
+        willTransition: function (transition) {
             this.currentModel.user.rollbackAttributes();
-            this.controllerFor('profile').set('showChangePasswordMessage', false);
+            if (!this.get('session.data.authenticated.tokenData.data.change_password')) {
+                transition.abort();
+            }
         }
     },
 });
