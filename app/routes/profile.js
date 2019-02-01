@@ -47,6 +47,8 @@ export default Route.extend(AuthenticatedRouteMixin, {
             this.currentModel.user.rollbackAttributes();
             if (!this.get('session.data.authenticated.tokenData.data.change_password')) {
                 transition.abort();
+            }else{
+                return true;
             }
         }
     },

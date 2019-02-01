@@ -16,10 +16,10 @@ export default Controller.extend(formValidation, {
     growl: inject('growl'),
     username: null,
     password: null,
-    clearOnSubmitError: ['username', 'password'],
     init: function () {
         this._super(...arguments);
         this.set('error', [this.get('intl').t('This is a required field')]);
+        this.clearOnSubmitError = this.clearOnSubmitError || ['username', 'password'];
         if (this.get('session.data.authenticated.authenticator') != undefined) {
             this.transitionToRoute('folders');
         }
@@ -30,7 +30,7 @@ export default Controller.extend(formValidation, {
          */
         save() {
             $('#loading').show();
-            this.get('session').authenticate('authenticator:jwt', { username: username.value, password: password.value }).then(() => {
+            this.get('session').authenticate('authenticator:jwt', { username: this.get('username'), password: this.get('password') }).then(() => {
                 this.set('errorMessage', null);
                 var language = jwtDecode(this.get('session.data.authenticated.token'));
 

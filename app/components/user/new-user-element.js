@@ -15,21 +15,25 @@ export default Component.extend(formValidation, {
     growl: inject('growl'),
     errors: null,
     language: '',
-    // Language options
-    userLanguage:[
-        {
-            value: '',
-            text: '-'
-        },
-        {
-            value: 'en',
-            text: 'English'
-        },
-        {
-            value: 'it',
-            text: 'Italiano'
-        }
-    ],
+    init() {
+        this._super(...arguments);
+        // Language options
+        this.userLanguages = [
+            {
+                value: '',
+                text: '-'
+            },
+            {
+                value: 'en',
+                text: 'English'
+            },
+            {
+                value: 'it',
+                text: 'Italiano'
+            }
+        ];
+    },
+
     actions: {
         /**
          * Create new userusers (controller)
@@ -47,9 +51,9 @@ export default Component.extend(formValidation, {
                     enabled: this.get('enabled') ? true : false,
                     language: $('select[name=language] option:selected').val()
                 });
-                if(this.get('password')!==undefined && this.get('password')!=''){
-                    newUserRecord.set('password', this.get('password'));
-                }
+            if (this.get('password') !== undefined && this.get('password') != '') {
+                newUserRecord.set('password', this.get('password'));
+            }
             newUserRecord.save()
                 .then((result) => {
                     this.onCreateUser();
