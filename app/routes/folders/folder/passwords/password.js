@@ -38,9 +38,6 @@ export default Route.extend(AuthenticatedRouteMixin, {
                 return RSVP.hash(hash).then((hashHash) => {
                     hashHash.page = hashHash.logs.get('meta')._page;
                     hashHash.pageCount = hashHash.logs.get('meta')._page_count;
-                    hashHash.logs.forEach(function (log) {
-                        log.set('userName', self.get('store').peekRecord('user', log.get('user_id')).get('username'));
-                    });
                     return hashHash;
                 });
             } else {
