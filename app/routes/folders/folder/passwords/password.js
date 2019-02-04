@@ -77,7 +77,13 @@ export default Route.extend(AuthenticatedRouteMixin, {
 
         // Hide passwords list on Password selecting
         this.controllerFor('folders.folder').send('hidePasswordsList');
-    }
+    },
+
+    actions: {
+        willTransition: function () {
+            this.currentModel.password.rollbackAttributes();
+        },
+    },
 });
 
 

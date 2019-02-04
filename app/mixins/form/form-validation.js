@@ -19,6 +19,9 @@ export default Mixin.create({
     actions: {
         submit(){
             let self = this;
+            this.get('isFormValid').forEach(function(data) {
+                data.element.validation(true);
+            });
             if (this.get('isFormValid').isEvery('isElementValid', true)) {
                 this.send('save');
             }else{

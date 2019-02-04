@@ -16,6 +16,13 @@ export default Mixin.create({
     errorMessage: null,
     showElementMessage: false,
     tagName: '',
+    willDestroyElement() {
+        // Remove element from Errors list
+        let isFormValid = this.get('isFormValid').filter(element => {
+            return element.name != this.get("name")
+        });
+        this.set('isFormValid', isFormValid);
+    },
     init() {
         this._super(...arguments);
         // populate object for form validation on submit
@@ -25,7 +32,8 @@ export default Mixin.create({
         ).length === 0) {
             this.get("isFormValid").pushObject({
                 name: this.get("name"),
-                isElementValid: this.get("isElementValid")
+                isElementValid: this.get("isElementValid"),
+                element: this
             });
         }
         // validate element on load
