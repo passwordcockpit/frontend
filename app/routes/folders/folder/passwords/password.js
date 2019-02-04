@@ -29,8 +29,6 @@ export default Route.extend(AuthenticatedRouteMixin, {
         // Check user vier_logs permission
         let canViewLogs = this.controllerFor('folders.folder.passwords.password').get('canViewLogs');
 
-        let self = this;
-
         return RSVP.hash(result).then((hash) => {
             // Load password's logs
             if (canViewLogs) {

@@ -80,7 +80,7 @@ export default Service.extend({
      * @param {*} responseJSON - boolean
      */
     errorsDatabaseToArray(adapterError) {
-        let errors = {};
+        let errors = null; //{}
         if (adapterError.hasOwnProperty('responseJSON')) {
             if (adapterError.responseJSON.hasOwnProperty('errors')) {
                 Object.keys(adapterError.responseJSON.errors).forEach(key => {
@@ -101,6 +101,6 @@ export default Service.extend({
                 });
             }
         }
-        return null;
+        return errors;
     },
 });
