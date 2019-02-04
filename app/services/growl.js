@@ -84,17 +84,23 @@ export default Service.extend({
         if (adapterError.hasOwnProperty('responseJSON')) {
             if (adapterError.responseJSON.hasOwnProperty('errors')) {
                 Object.keys(adapterError.responseJSON.errors).forEach(key => {
-                    errors[adapterError.responseJSON.errors[key].name] = adapterError.responseJSON.errors[key].messages;
+                    let name = adapterError.responseJSON.errors[key].name;
+                    let message = adapterError.responseJSON.errors[key].messages;
+                    //errors[name] = message;
+                    this.errorShowRaw('', name + ': ' + message);
                 });
             }
         }
         else {
             if (adapterError.hasOwnProperty('errors')) {
                 Object.keys(adapterError.errors).forEach(key => {
-                    errors[adapterError.errors[key].name] = adapterError.errors[key].messages;
+                    let name = adapterError.errors[key].name;
+                    let message = adapterError.errors[key].messages;
+                    //errors[name] = message;
+                    this.errorShowRaw('', name + ': ' + message);
                 });
             }
         }
-        return errors;
+        return null;
     },
 });
