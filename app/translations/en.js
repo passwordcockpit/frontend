@@ -144,5 +144,6 @@ export default {
     "Field type: url": "Field type: url",
 
     "Token is no longer valid after the change.": "Token is no longer valid after the change.",
-    "User is forced to re-login.": "User is forced to re-login"
+    "User is forced to re-login.": "User is forced to re-login",
+    "Value mismatch": "Value mismatch"
 };

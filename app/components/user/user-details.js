@@ -91,28 +91,10 @@ export default Component.extend(formValidation, {
 
                 if ((newpass == '' || newpass == null) && (repeatnewpass == '' || repeatnewpass == null) && (actual_password == '' || actual_password == null)) {
                     user.set('password', undefined);
-                } else if (actual_password == '' || actual_password == null) {
-                    this.resetPasswordForms();
-                    this.set('errors', {
-                        actual_password: [this.get('intl').t('Actual password is empty')],
-                    });
-                    $('#loading').hide();
-                    return;
-                } else {
-                    // if user wants to set new password
-                    if (newpass === repeatnewpass) {
-                        user.set('password', newpass);
-                        user.set('actual_password', actual_password);
-                    }
-                    else {
-                        this.resetPasswordForms();
-                        this.set('errors', {
-                            password: [this.get('intl').t('New passwords mismatch')],
-                        });
-                        $('#loading').hide();
-                        return;
-                    }
                 }
+
+                user.set('password', newpass);
+                user.set('actual_password', actual_password);
             }
             // set language
             user.set('language', $('select[name=language] option:selected').val());

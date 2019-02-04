@@ -108,7 +108,12 @@ export default Mixin.create({
             // type (email, url, ...)
             this.set("errorMessage", this.get("intl").t("Field type: " + this.get("validator.type")));
             isElementValid = false;
+        } else if (this.get('validator.equalTo') && this.get('value') !== this.get('validator.equalTo')) {
+            // type (email, url, ...)
+            this.set("errorMessage", this.get("intl").t("Value mismatch"));
+            isElementValid = false;
         }
+
 
         // show / hide message
         this.set("showElementMessage", showElementMessage);
@@ -118,7 +123,7 @@ export default Mixin.create({
             "name",
             this.get("name")
         )[0].isElementValid = isElementValid;
-        
+
         return isElementValid;
     },
     actions: {
