@@ -5,6 +5,16 @@
 */
 
 import Controller from '@ember/controller';
+import { inject } from '@ember/service';
 
 export default Controller.extend({
+    session: inject('session'),
+
+    showChangePasswordMessage: false,
+    init: function () {
+        this._super(...arguments);
+        if (this.get('session.data.authenticated.tokenData.data.change_password')) {
+            this.set('showChangePasswordMessage', true);
+        }
+    },
 });

@@ -1,10 +1,21 @@
 <li class="edit-view">
     <div class="edit {{if errors.selectUser 'has-error'}}">
-        <form {{action 'submit' folderId filteredUsers.id on='submit' }}>
+        <form {{action 'submit' folderId selectedUser on='submit' }}>
             <div class="user-select-container">
-                {{#power-select options=filteredUsers matcher=filterUsers selected=filteredUsers.id onchange=(action (mut filteredUsers.id)) as |user| }}
-                    {{user.name}} {{user.surname}}
-                {{/power-select}}
+
+                {{form/form-select
+                    isPowerSelect=true
+                    selectOptions=filteredUsers
+                    value=selectedUser
+                    printSelectValuesHandle=(action 'printSelectValuesHandle')
+                    isFormValid=isFormValid
+                    showMessage=showMessage
+                    validator=(validation-parameters
+                        required=true
+                        type='select'
+                        )
+                }}
+                
             </div>
             <label class="user-edit-container">
                 {{input type="checkbox" id='access' checked=access}}{{t 'Manage' }}

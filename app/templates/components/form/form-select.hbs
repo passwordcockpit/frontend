@@ -1,0 +1,34 @@
+{{#if isPowerSelect}}
+    {{#power-select
+        options=selectOptions
+        allowClear=true
+        onchange=(action 'selectOptionChange')
+        selected=value
+        as |icon|}}
+        {{print-select-values-handle icon (action 'printSelectValuesHandle')}}
+        {{!--<i class="fas fa-{{icon}}"></i>--}}
+    {{/power-select}}
+{{else}}
+    <select 
+        class={{class}} 
+        name={{name}}
+        onchange={{action 'selectOptionChange' value="target.value"}}
+    >
+        {{#each selectOptions as |selectOption|}}
+            {{#if (eq selectOption.value value)}}
+                <option value="{{selectOption.value}}" selected>
+                    {{print-select-values-handle selectOption (action 'printSelectValuesHandle')}}
+                </option>
+            {{else}}
+                <option value="{{selectOption.value}}">
+                    {{print-select-values-handle selectOption (action 'printSelectValuesHandle')}}
+                </option>
+            {{/if}}
+        {{/each}}
+    </select>
+{{/if}}
+{{#if (or (and showElementMessage (not isElementValid)) (and showMessage (not isElementValid)))}}
+    <div class="errors-list">
+        {{errorMessage}}
+    </div>
+{{/if}}

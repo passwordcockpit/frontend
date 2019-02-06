@@ -9,20 +9,21 @@ import Route from '@ember/routing/route';
 import { inject } from '@ember/service';
 import ApplicationRouteMixin from 'ember-simple-auth/mixins/application-route-mixin';
 import jwtDecode from 'ember-cli-jwt-decode';
+import ENV from '../config/environment';
 import RSVP from 'rsvp';
 import $ from 'jquery';
-
 
 export default Route.extend(ApplicationRouteMixin, {
     session: inject('session'),
     account: inject('account'),
     growl: inject('growl'),
-    i18n: inject('i18n'),
+    intl: inject('intl'),
     closeFoldersInputs: inject('close-folders-inputs'),
 
     beforeModel() {
         this._super(...arguments);
         $('#loading').show();
+        this.set('intl.locale', ENV.APP.languages);
     },
     model() {
         let self = this;
@@ -30,16 +31,21 @@ export default Route.extend(ApplicationRouteMixin, {
         if (session.get('isAuthenticated')) {
             this.get('closeFoldersInputs').init(this);
             var userID = jwtDecode(this.get('session.session.content.authenticated.token'));
-            
+
             let result = {
                 user: this.get('store').findRecord('user', userID.sub),
-                permission: this.get('store').queryRecord('permission', { userId: userID.sub })
             };
+
+            if (userID.data.change_password) {
+                this.transitionTo('profile');
+            } else {
+                result.permission = this.get('store').queryRecord('permission', { userId: userID.sub });
+            }
             return RSVP.hash(result).then((hash) => {
                 self.get('account').setUser(hash.user);
                 //Set language
                 var token = jwtDecode(this.get('session.data.authenticated.token'));
-                this.set('i18n.locale', token.data.language);
+                this.set('intl.locale', token.data.language);
                 return {
                     user: hash.user,
                     permission: hash.permission,
@@ -49,8 +55,8 @@ export default Route.extend(ApplicationRouteMixin, {
             }).catch((adapterError) => {
                 if (adapterError.hasOwnProperty('code')) {
                     if (adapterError.code == 401) {
-                        this.get('growl').errorShowRaw(adapterError.title, adapterError.message);
-                        this.get('router').transitionTo('login');
+                        self.get('growl').errorShowRaw(adapterError.title, adapterError.message);
+                        self.get('session').invalidate();
                     }
                 }
             });

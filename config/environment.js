@@ -7,16 +7,13 @@
 'use strict';
 const local = require('./local.js');
 const passwordForm = require('./password-form.js');
+const passwordEncryption = require('./password-encryption.js');
 module.exports = function (environment) {
     let ENV = {
-        i18n: {
-            defaultLocale: 'en'
-        },
-
         tinyMCE: {
             load: 'assets'
         },
-        
+
         modulePrefix: 'passwordcockpit_frontend',
         environment,
         rootURL: '/',
@@ -37,7 +34,8 @@ module.exports = function (environment) {
             namespace: 'api/v1',
             languages: ['en', 'it']
         },
-        passwordFormConfig: passwordForm.passwordFormConfig
+        passwordFormConfig: passwordForm.passwordFormConfig,
+        passwordEncryptionConfig: passwordEncryption.passwordEncryptionConfig
 
     };
 
@@ -70,14 +68,12 @@ module.exports = function (environment) {
 
     // Authentication parameters
     ENV['ember-simple-auth'] = {
-        store: 'simple-auth-session-store:local-storage',
+        store: 'simple-auth-session-store:session-storage',
         authorizer: 'authorizer:token',
         routeAfterAuthentication: 'folders',
     };
 
     ENV['ember-simple-auth-token'] = {
-        identificationField: 'username',
-        passwordField: 'password',
         tokenPropertyName: 'token',
         authorizationPrefix: 'Bearer ',
         authorizationHeaderName: 'Authorization',
@@ -86,8 +82,8 @@ module.exports = function (environment) {
 
         refreshAccessTokens: true,
         refreshTokenPropertyName: 'token',
-        serverTokenRefreshEndpoint: local.baseHost + '/api/auth/update', // Server endpoint to send refresh request
-        refreshLeeway: 900 // Amount of time (sec.) to send refresh request before token expiration
+        serverTokenRefreshEndpoint: local.baseHost + '/api/v1/token/update', // Server endpoint to send refresh request
+        refreshLeeway: 60 // Amount of time (sec.) to send refresh request before token expiration
     };
 
     return ENV;

@@ -2,6 +2,7 @@
     {{#if (or canAccessAllFolders (eq folder.access 1) (eq folder.access 2))}}
         {{#link-to "folders.folder" folder.id class="read"}}
             <i class="fas fa-folder"></i>
+            <i class="fas fa-folder-open"></i>
             {{folder.name}}
         {{/link-to}}
     {{else}}
@@ -13,7 +14,20 @@
     {{#if folder.isEdit}}
         <div class="edit {{if errors.name 'has-error'}}">
             <form {{action 'submit' on='submit' }}>
-                {{input class="form-control" value=folder.name id=(concat "folderEditName" folder.id)}}
+                {{form/form-text
+                    type="text" 
+                    name="folder"
+                    viewId=(concat "folderEditName" folder.id)
+                    class="form-control" 
+                    value=folder.name 
+                    isFormValid=isFormValid
+                    showMessage=showMessage
+                    validator=(validation-parameters
+                                    required=true
+                                    minLength=2
+                                    maxLength=45
+                                )
+                }}
                 <div class="form-btn">
                     <button style="display: none;">
                     </button>
@@ -24,9 +38,6 @@
                         {{t 'Save'}}
                         <i class="fas fa-save"></i>
                     </button>
-                </div>
-                <div>
-                    {{{display-errors errors.name}}}
                 </div>
             </form>
         </div>

@@ -1,4 +1,12 @@
+
+
 <div class="profile-container">
+    {{#if showChangePasswordMessage}}
+        <p class="alert alert-warning">
+            <i class="fas fa-exclamation-triangle"></i>
+            {{t "Please change your password for the first time you logged in"}}
+        </p>
+    {{/if}}
     {{user/user-details 
         user=model.user
         isEdit=true

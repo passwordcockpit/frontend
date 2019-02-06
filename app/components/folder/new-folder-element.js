@@ -6,12 +6,14 @@
 
 import Component from '@ember/component';
 import { inject } from '@ember/service';
+import formValidation from '../../mixins/form/form-validation';
 import $ from 'jquery'
 
-export default Component.extend({
+export default Component.extend(formValidation, {
     store: inject('store'),
     growl: inject('growl'),
     parentId: null,
+    
     actions: {
         /**
          * Exit the creation of a folder
@@ -27,7 +29,7 @@ export default Component.extend({
         /**
          * Create new folder
          */
-        submit() {
+        save() {
             $('#loading').show();
             let folderToCreate = this.get('store')
                 .createRecord('folder', {

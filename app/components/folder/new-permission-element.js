@@ -6,35 +6,31 @@
 
 import Component from '@ember/component';
 import { inject } from '@ember/service';
+import formValidation from '../../mixins/form/form-validation';
 import $ from 'jquery';
 
-export default Component.extend({
+export default Component.extend(formValidation, {
     router: inject('router'),
     store: inject('store'),
     growl: inject('growl'),
-    i18n: inject('i18n'),
+    intl: inject('intl'),
 
     parentId: null,
     userId: null,
     access: false,
-    tagName: '',
+
     actions: {
         /**
          * Exit the creation of a permission
          */
         cancel() {
             this.set('isAdd', false);
+            this.set('selectedUser', null)
         },
         /**
          * Create new permission
          */
-        submit(folderId, userId) {
-            if(userId == undefined){
-                this.set('errors', {
-                    selectUser: [this.get('i18n').t('This is a required field')],
-                });
-                return
-            }
+        save() {
             $('#loading').show();
 
             let access = 1;
@@ -43,8 +39,8 @@ export default Component.extend({
             }
             this.get('store')
                 .createRecord('folderuser', {
-                    folder_id: folderId,
-                    userId: userId.id,
+                    folder_id: this.get('folderId'),
+                    userId: this.get('selectedUser').get('id'),
                     access: access
                 })
                 .save()
@@ -58,6 +54,16 @@ export default Component.extend({
                     $('#loading').hide();
                     this.get('growl').errorShowRaw(adapterError.title, adapterError.message);
                 });
+        },
+
+        handleFocus() {
+            this.set('errors', null);
+        },
+        /**
+         * How to handle printed value of select
+         */
+        printSelectValuesHandle(user) {
+            return user.name + ' ' + user.surname;
         }
     }
 });

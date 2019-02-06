@@ -6,18 +6,19 @@
 
 import Component from '@ember/component';
 import { inject } from '@ember/service';
-import $ from 'jquery';
 import ENV from './../../config/environment';
+import formValidation from '../../mixins/form/form-validation';
+import $ from 'jquery';
 
-export default Component.extend({
+export default Component.extend(formValidation, {
     router: inject('router'),
     session: inject('session'),
     store: inject('store'),
     growl: inject('growl'),
-
+    passwordEncrypt: inject('password-encrypt'),
     icons: ENV.passwordFormConfig.icons,
     options: ENV.passwordFormConfig.options,
-    
+
     actions: {
         /**
          * Is called on Random-password's refresh button clicking
@@ -72,34 +73,33 @@ export default Component.extend({
                 specialchars = true;
             }
 
-            $('.password-generator').pGenerator({
-                'passwordElement': 'input[name="password"]',
+            let newPassword = $.pGenerator({
                 'passwordLength': passwordLength,
-                'uppercase': uppercase,
+                'uppercase': uppercase, 
                 'lowercase': lowercase,
                 'numbers': numbers,
                 'specialChars': specialchars
             });
 
-            var input = document.getElementById('passwordEdit');
-            input.focus();
-            input.select();
+            // update password
+            this.set('password', newPassword);
         },
-        
+
         /**
          * Create new password
          * Notify to new-password about the operation
          * 
-         * @param {*} folderId 
          */
-        submit(folderId) {
+        save() {
             $('#loading').show();
+            let folderId = this.get('folderId');
             // reset errors data
             this.set('errors', null);
 
             let self = this;
             let file = $('#file')[0].files[0]
             var fd = new FormData();
+            let isFormValid = true;
             fd.append("folder_id", folderId);
             if (this.get('title')) {
                 fd.append("title", this.get('title'));
@@ -113,50 +113,68 @@ export default Component.extend({
             if (this.get('username')) {
                 fd.append("username", this.get('username'));
             }
-            if (this.get('password')) {
-                fd.append("password", this.get('password'));
-            }
+
             if (this.get('url')) {
                 fd.append("url", this.get('url'));
             }
             if (this.get('tags')) {
                 fd.append("tags", this.get('tags'));
             }
+            // plain password
+            if (this.get('password') && !this.get('frontendCrypted')) {
+                fd.append("password", this.get('password'));
+            }
+            // password with pin encryption
+            if (this.get('frontendCrypted')) {
+                fd.append("frontendCrypted", this.get('frontendCrypted'));
+                fd.append("password", this.get('passwordEncrypt').encryptPassword(this.get('pin'), this.get('password')));
+            }
             if (file) {
                 fd.append("file", file);
             }
-
-            $.ajax({
-                url:
-                    window.APP.host +
-                    "/" +
-                    window.APP.namespace +
-                    "/passwords",
-                data: fd,
-                headers: {
-                    Authorization:
-                        "Bearer " + self.get("session.session.content.authenticated.token")
-                },
-                cache: false,
-                contentType: false,
-                processData: false,
-                type: "POST"
-            }).done(success => {
-                // Add new file to the store
-                success.id = success.password_id;
-                self.get('store').createRecord('password', success);
-                self.onCreatePassword();
-                self.get('growl').notice('Success', 'Password created');
+            if (isFormValid) {
+                $.ajax({
+                    url:
+                        window.APP.host +
+                        "/" +
+                        window.APP.namespace +
+                        "/passwords",
+                    data: fd,
+                    headers: {
+                        Authorization:
+                            "Bearer " + self.get("session.session.content.authenticated.token")
+                    },
+                    cache: false,
+                    contentType: false,
+                    processData: false,
+                    type: "POST"
+                }).done(success => {
+                    // Add new file to the store
+                    success.id = success.password_id;
+                    self.get('store').createRecord('password', success);
+                    self.onCreatePassword();
+                    self.get('growl').notice('Success', 'Password created');
+                    $('#loading').hide();
+                    self.get('router').transitionTo('folders.folder.passwords.password', success.password_id);
+                }).fail(adapterError => {
+                    let errors = this.get('growl').errorsDatabaseToArray(adapterError);
+                    this.set('errors', errors);
+                    $('#loading').hide();
+                    self.get('growl').error('Error', 'Error while creating the password');
+                });
+            } else {
                 $('#loading').hide();
-                self.get('router').transitionTo('folders.folder.passwords.password', success.password_id);
-            }).fail(adapterError => {
-                let errors = this.get('growl').errorsDatabaseToArray(adapterError);
-                this.set('errors', errors);
-                $('#loading').hide();
-                self.get('growl').error('Error', 'Error while creating the password');
-            });
+            }
 
-
-        }
+        },
+        /**
+         * reset frontendCrypted if password empty
+         * 
+         */
+        resetPin() {
+            if (!this.get('password')) {
+                this.set('frontendCrypted', false)
+            }
+        },
     }
 });

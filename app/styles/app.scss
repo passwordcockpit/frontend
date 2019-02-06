@@ -22,9 +22,11 @@
 	- password generator
 	- error
 - list (@import)
+- search
 - login (@import)
 - content
-	- password content
+    - password PIN alert
+    - password content
 	- permissions
     - log
 - error page    
@@ -38,11 +40,11 @@
 @import "sb-admin-2";
 $fa-font-path: "/fonts/" !default;
 //@import "../../node_modules/font-awesome/scss/font-awesome.scss";
-@import "../../node_modules/@fortawesome/fontawesome-free/scss/fontawesome.scss";
-@import "../../node_modules/@fortawesome/fontawesome-free/scss/regular.scss";
-@import "../../node_modules/@fortawesome/fontawesome-free/scss/solid.scss";
-@import "../../node_modules/@fortawesome/fontawesome-free/scss/brands.scss";
 
+@import "node_modules/@fortawesome/fontawesome-free/scss/fontawesome.scss";
+@import "node_modules/@fortawesome/fontawesome-free/scss/regular.scss";
+@import "node_modules/@fortawesome/fontawesome-free/scss/solid.scss";
+@import "node_modules/@fortawesome/fontawesome-free/scss/brands.scss";
 
 
 /* Base
@@ -104,6 +106,14 @@ h1 {
 *********************************************************************************/
 @import "growl";
 
+/* alert 
+*********************************************************************************/
+p.alert{
+    & > .fas{
+        font-size: 2rem;
+        margin: 0 5px 0 0;
+    }
+}
 /* grid 
 *********************************************************************************/
 @for $i from 1 through 100 {
@@ -262,6 +272,49 @@ ul.list{
 *********************************************************************************/
 @import "list";
 
+/* search 
+*********************************************************************************/
+.search{
+	#search-target{
+        width: 35%;
+        border-radius: 0;
+        -webkit-appearance: none; 
+        border-left: 0;
+        border-right: 0;
+	}
+	&.global-search{
+		input.form-control{
+			width: 65%;
+		}
+	}
+}
+.result{
+	a{
+		color: #000;
+		&:hover{
+			color: $brand-primary;
+		}
+    }
+    .fa {
+        width: 1em;
+    }
+}
+td.path{
+	a{
+		width: auto;
+		padding: 5px;
+		float: left;
+		background: #eee;
+		border-radius: 3px;
+		margin-right: 5px;
+	}
+	span{
+		padding: 5px;
+		float: left;
+		margin-right: 5px;
+	}
+}
+
 /* login
 *********************************************************************************/
 @import "login";
@@ -271,7 +324,17 @@ ul.list{
 .password-container {
     background: #fff;
 }
-
+/* password PIN alert */
+.alert-pin{
+    padding-left: 100px;
+    position: relative;
+    & > i.fas{
+        position: absolute;
+        top: 20px;
+        left: 20px;
+        font-size: 4.5rem;
+    }
+}
 /* password content */
 .blur {
     color: transparent;
@@ -290,6 +353,32 @@ ul.list{
 .file-container{
     padding-top: 8px;
 }
+.buttons-container{ 
+    display: block; 
+    float: right;
+}
+.password-read-container{
+    padding-right: 70px !important;
+    position: relative;
+    .buttons-container{
+        position: absolute;
+        top: 5px;
+        right: 2px;
+        width: 70px;
+    }
+}
+.table-password-content{ 
+    th{
+        width: 140px;
+    }
+    td{
+        max-width: 0;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        }
+}
+
 /* permissions */
 .folder-permissions-container {
     background: #fff;

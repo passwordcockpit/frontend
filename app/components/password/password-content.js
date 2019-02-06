@@ -6,20 +6,25 @@
 
 import Component from '@ember/component';
 import { inject } from '@ember/service';
-import $ from 'jquery';
 import ENV from './../../config/environment';
+import formValidation from '../../mixins/form/form-validation';
+import $ from 'jquery';
+import { htmlSafe } from '@ember/string'
 
-export default Component.extend({
+export default Component.extend(formValidation, {
     store: inject('store'),
     session: inject('session'),
     growl: inject('growl'),
+    intl: inject('intl'),
+    passwordEncrypt: inject('password-encrypt'),
     localTempPassword: null,
-
     icons: ENV.passwordFormConfig.icons,
     options: ENV.passwordFormConfig.options,
-    
+    pinEncrypt: null,
+    localTempPasswordDecrypted: null,
+    failureLimit: ENV.passwordEncryptionConfig.failureLimit,
+
     actions: {
-        
         /**
          * Toggle Password's visibility
          */
@@ -34,6 +39,7 @@ export default Component.extend({
         editPassword() {
             this.set('isEdit', true);
             this.set('localTempPassword', this.get('password').serialize());
+            this.set('localTempPasswordDecrypted', this.get('passwordDecrypted'));
         },
         /**
          * Cancel editing Password
@@ -47,23 +53,15 @@ export default Component.extend({
             Object.keys(this.localTempPassword).forEach(function (key) {
                 self.get('password').set(key, self.localTempPassword[key]);
             });
+            this.set('passwordDecrypted', this.get('localTempPasswordDecrypted'));
             // reset errors data
             this.set('errors', null);
+
+            // protect password
+            this.set('pinDecrypt', null);
+            this.set('isPinValid', false);
         },
 
-        // Encrypt password funtions
-        /**
-         * Show Encrypt-password Options' panel
-         */
-        showPasswordEncryptOption() {
-            $('.password-encrypt-form').slideDown();
-        },
-        /**
-         * Update password password from Encrypt password panel
-         */
-        onUpdatePasswordPassword(password){
-            this.get('password').set('password', password);
-        },
         // Generate password functions
         /**
          * Is called on Random-password's refresh button clicking
@@ -118,18 +116,16 @@ export default Component.extend({
                 specialchars = true;
             }
 
-            $('.password-generator').pGenerator({
-                'passwordElement': 'input[name="password"]',
+            let newPassword = $.pGenerator({
                 'passwordLength': passwordLength,
                 'uppercase': uppercase,
                 'lowercase': lowercase,
                 'numbers': numbers,
                 'specialChars': specialchars
             });
-
-            var input = document.getElementById('passwordEdit');
-            input.focus();
-            input.select();
+            // update password
+            this.set('passwordDecrypted', newPassword);
+            this.send('setPassword', false);
         },
 
         /**
@@ -137,7 +133,7 @@ export default Component.extend({
          */
         selectPassword() {
             let sel, range;
-            let el = $('#password-content-password')[0];
+            let el = $('#password-read')[0];
             if (window.getSelection && document.createRange) { //Browser compatibility
                 sel = window.getSelection();
                 if (sel.toString() == '') { //no text selection
@@ -253,15 +249,18 @@ export default Component.extend({
         cancelDeleteFileConfirm() {
             $('#deleteFilePermissionConfirm').modal('hide');
         },
-
         /**
          * Update password
          * Notify to passwords (controller) about the operation
          */
-        submit() {
+        save() {
             $('#loading').show();
             // reset errors data
             this.set('errors', null);
+            // protect password
+            this.set('pinDecrypt', null);
+            this.set('isPinValid', false);
+
             let password = this.get('password');
             if (this.localTempPassword.icon != null && password.get('icon') == null) {
                 password.set('icon', '');
@@ -301,6 +300,7 @@ export default Component.extend({
                             this.set('password', this.get('store').peekRecord('password', fileCreatedResult.password_id));
 
                             this.set('isEdit', false);
+
                             $('#loading').hide();
                             this.get('growl').notice('Success', 'File uploaded');
                         }).fail(adapterError => {
@@ -321,5 +321,73 @@ export default Component.extend({
                     this.get('growl').errorShowRaw(adapterError.title, adapterError.message);
                 });
         },
+
+        // Descrypt/Encrypt password funtions
+        /**
+         * descrypt password.password
+         */
+        decryptPassword() {
+            if (this.get('passwordEncrypt').decryptPassword(this.get('pinDecrypt'), this.get('password.password'))) {
+                // decrypt password for edit read password
+                this.set('passwordDecrypted', this.get('passwordEncrypt').decryptPassword(this.get('pinDecrypt'), this.get('password.password')));
+                // fill the pin field for edit password
+                this.set('pinEncrypt', this.get('pinDecrypt'));
+
+                this.set('isPinValid', true);
+                this.set('failureCounted', 0);
+                return
+            }
+
+            this.set('failureCounted', this.get('failureCounted') + 1);
+            this.get('growl').error('Error', 'Wrong PIN');
+            this.set('passwordDescryptionBlocked', (this.get('failureCounted') >= this.get('failureLimit')));
+            this.set('isPinValid', false);
+        },
+        /**
+         * Lock password on pinDecrypt changing
+         */
+        protectPassword(event) {
+            if (event.keyCode !== 13) {
+                this.set('isPinValid', false);
+            }
+        },
+        /**
+        * reset frontendCrypted if password empty
+        * 
+        */
+        resetPin() {
+            if (!this.get('passwordDecrypted')) {
+                this.set('password.frontendCrypted', false)
+            }
+            this.send('setPassword');
+        },
+        /**
+        * set password.password (with/without PIN)
+        * 
+        * @param {boolean} toggleFrontendCrypted
+        */
+        setPassword(toggleFrontendCrypted) {
+            if (toggleFrontendCrypted) {
+                this.set('password.frontendCrypted', !this.get('password.frontendCrypted'))
+            }
+            if (this.get('isEdit')) {
+                if (this.get('password.frontendCrypted')) {
+                    // with PIN
+                    let passwordEncrypted = this.get('passwordEncrypt').encryptPassword(this.get('pinEncrypt'), this.get('passwordDecrypted'));
+                    this.set('password.password', passwordEncrypted);
+                    this.set('pinDecrypt', this.get('pinEncrypt'));
+                } else {
+                    // without PIN
+                    this.set('password.password', this.get('passwordDecrypted'));
+                    this.set('pinEncrypt', null);
+                }
+            }
+        },
+        /**
+         * How to handle printed value of select
+         */
+        printSelectValuesHandle(icon) {
+            return new htmlSafe('<i class="fas fa-' + icon + '"></i>');
+        }
     }
 });

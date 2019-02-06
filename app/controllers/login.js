@@ -7,15 +7,19 @@
 import Controller from '@ember/controller';
 import { inject } from '@ember/service';
 import jwtDecode from 'ember-cli-jwt-decode';
+import formValidation from '../mixins/form/form-validation';
 import $ from 'jquery';
 
-export default Controller.extend({
-    i18n: inject('i18n'),
+export default Controller.extend(formValidation, {
+    intl: inject('intl'),
     session: inject('session'),
     growl: inject('growl'),
-
+    username: null,
+    password: null,
     init: function () {
         this._super(...arguments);
+        this.set('error', [this.get('intl').t('This is a required field')]);
+        this.clearOnSubmitError = this.clearOnSubmitError || ['username', 'password'];
         if (this.get('session.data.authenticated.authenticator') != undefined) {
             this.transitionToRoute('folders');
         }
@@ -24,30 +28,32 @@ export default Controller.extend({
         /**
          * Perform authentication
          */
-        authenticate: function () {
-            this.set('errors', null);
-            if ($('#loginForm').isValid()) {
-                $('#loading').show();
-                let { username, password } = this.getProperties('username', 'password');
-                this.get('session').authenticate('authenticator:jwt', { identification: username, password: password }).then(() => {
-                    this.set('errorMessage', null);
-                    var language = jwtDecode(this.get('session.data.authenticated.token'));
+        save() {
+            $('#loading').show();
+            this.get('session').authenticate('authenticator:jwt', { username: this.get('username'), password: this.get('password') }).then(() => {
+                this.set('errorMessage', null);
+                var language = jwtDecode(this.get('session.data.authenticated.token'));
 
-                    //set language received from token
-                    this.set('i18n.locale', language.data.language);
+                //set language received from token
+                this.set('intl.locale', language.data.language);
+                $('#loading').hide();
+
+                this.transitionToRoute('folders');
+            })
+                .catch((loginErrors) => {
+                    //Empty form
+                    this.set('username', '');
+                    this.set('password', '');
+
                     $('#loading').hide();
-                    this.transitionToRoute('folders');
 
-                })
-                    .catch((loginErrors) => {
-                        //Empty form
-                        $('#username').val('');
-                        $('#password').val('');
-
-                        $('#loading').hide();
+                    if (loginErrors.hasOwnProperty('json')) {
+                        this.get('growl').errorShowRaw(loginErrors.json.title, loginErrors.json.detail);
+                    }
+                    else {
                         this.get('growl').errorShowRaw(loginErrors.title, loginErrors.detail);
-                    });
-            }
+                    }
+                });
         }
     }
 });

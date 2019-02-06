@@ -4,6 +4,13 @@
 * @license https://github.com/passwordcockpit/frontend/blob/master/LICENSE.md BSD 3-Clause License 
 */
 
+/* CONTENT
+***********************************************************************************
+***********************************************************************************
+- search
+
+*/ 
+
 .mobile {
     display: none;
 }
@@ -18,3 +25,69 @@
 h1 {
     margin: 0 0 10px;
 }
+
+/* Search
+*********************************************************************************/
+.search{
+	padding: $padding;
+	height: $global-search-height;
+	position: fixed;
+	top: 50px;
+	left: 0%;
+	border-right: 1px solid $border-color;
+	border-bottom: 1px solid $border-color;
+	&.closed{
+		.result{
+			display: none;
+		}
+	}
+	&.open{
+		.result{
+			display: block;
+		}
+	}
+	&.global-search{
+		width: 50%;
+	}
+	&.user-search{
+		width: 25%;
+	}
+}
+.result{
+	width: 50%;
+	padding: 44px 0 0;
+	border-right: 1px solid $border-color;
+	position: fixed;
+	top: $header-height + $global-search-height;
+	bottom: 0;
+	left: 0;
+	.scroll-container{
+		padding: $padding;
+		height: 100%;
+		overflow-y: auto;
+	}
+}
+// .menu{
+// 	width: 25%;
+// 	padding: 44px 0 0;
+// 	position: fixed;
+// 	border-right: 1px solid $border-color;
+// 	bottom: 0;
+// 	&.user-menu,
+// 	&.folder-menu{
+// 		left: 0;
+// 	}
+// 	&.password-menu{
+// 		left: 25%;
+// 	}
+// 	&.open{
+// 		top: $header-height + $global-search-height;
+// 	}
+// 	&.closed{
+// 		display: none;
+// 	}
+// 	.scroll-container{
+// 		height: 100%;
+// 		overflow-y: auto;
+// 	}
+// }

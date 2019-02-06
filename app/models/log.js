@@ -10,7 +10,7 @@ export default DS.Model.extend({
     password_id: DS.attr(),
     password_title: DS.attr(),
     user_id: DS.attr(),
-    userName: DS.attr('string'),
+    username: DS.attr('string'),
     action_date: DS.attr(),
     action: DS.attr(),
 });

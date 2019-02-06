@@ -18,7 +18,6 @@ export default Component.extend({
     errors: null,
     isManage: false,
     access: null,
-    tagName: '',
     
     actions: {
         // Edit folder-user-permission

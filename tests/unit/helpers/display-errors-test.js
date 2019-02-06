@@ -4,7 +4,7 @@
 * @license https://github.com/passwordcockpit/frontend/blob/master/LICENSE.md BSD 3-Clause License 
 */
 
-import { displayErrors } from 'password/helpers/display-errors';
+import { displayErrors } from 'passwordcockpit_frontend/helpers/display-errors';
 import { module, test } from 'qunit';
 import { setupTest } from 'ember-qunit';
 

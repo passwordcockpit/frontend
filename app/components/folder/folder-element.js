@@ -6,15 +6,15 @@
 
 import Component from '@ember/component';
 import { inject } from '@ember/service';
+import formValidation from '../../mixins/form/form-validation';
 import $ from 'jquery';
 
-export default Component.extend({
+export default Component.extend(formValidation,{
     store: inject('store'),
     closeFoldersInputs: inject('close-folders-inputs'),
     growl: inject('growl'),
     isManage: false,
     errors: null,
-    tagName: '',
     actions: {
         /**
          * Close New folder form and notify to folders about the creation of new folder
@@ -100,7 +100,7 @@ export default Component.extend({
         /**
          * Update folder
          */
-        submit() {
+        save() {
             $('#loading').show();
             let folder = this.get('folder');
             folder.save()

@@ -1,29 +1,22 @@
-<div class=''>
-    <form class='form-horizontal' {{action 'searchSubmit' on='submit' }}>
+<div class="folder-menu search global-search closed">
+    <form {{action 'searchSubmit' on='submit' }}>
         <div class='input-group'>
-            <div class='col-sm-6'>
-                <input type='text' class='form-control' id='search-keywords' placeholder='Search in everything...'>
-            </div>
-            <div class='col-sm-4'>
-                <select class='form-control' id='search-target'>
-                    <option value='All' selected>{{t 'All'}}</option>
-                    <option value='Folder'>{{t 'Folder'}}</option>
-                    <option value='Password'>{{t 'Password'}}</option>
-                </select>
-            </div>
-            <div class='col-sm-2'>
-                <span class='input-group-btn'>
-                    <button type='submit' name='submit' class='btn btn-primary'>
-                        <i class='fa fa-search'></i>
-                    </button>
-                </span>
-            </div>
+            <input type='text' class='form-control' id='search-keywords' placeholder='{{t "Keyword"}}'>
+            <select class='form-control' id='search-target'>
+                <option value='All' selected>{{t 'All'}}</option>
+                <option value='Folder'>{{t 'Folder'}}</option>
+                <option value='Password'>{{t 'Password'}}</option>
+            </select>
+            <span class='input-group-btn'>
+                <button type='submit' name='submit' class='btn btn-primary'>
+                    <i class='fa fa-search'></i>
+                </button>
+            </span>
         </div>
     </form>
-    <br>
 </div>
 {{#if searchResults.hasResults}}
-    <div class='search-result area open'>
+    <div class='folder-menu result'>
 		<div class='title'>
 			{{t 'Search result'}}
 			<div class='pull-right'>
@@ -56,7 +49,11 @@
                         <td>
                             {{#link-to 'folders.folder.passwords.password' searchResult.folderId searchResult.passwordId}}
                                 <span {{action 'onSelectSearchPasswordElement' searchResult.folderId searchResult.passwordId}}>
-                                    <i class='fa fa-key'></i>
+                                    {{#if (eq searchResults.target 'Password')}}
+                                        <i class='fa fa-{{searchResult.icon}}'></i>
+                                    {{else}}
+                                        <i class='fa fa-key'></i>
+                                    {{/if}}
                                     {{searchResult.passwordTitle}}
                                 </span>
                             {{/link-to}}
@@ -71,6 +68,7 @@
 			</table>
         {{else}}
             <p class='alert alert-info'>
+                <i class="fas fa-info-circle"></i>
                 {{t 'No result found'}}
             </p>
         {{/if}}
@@ -122,6 +120,7 @@
                 }}
                 {{else}}
                     <p class="alert alert-info">
+                        <i class="fas fa-info-circle"></i>
                         {{t 'There are no folders'}}
                     </p>
             {{/each}}

@@ -9,7 +9,7 @@ import $ from 'jquery';
 
 export default Service.extend({
 
-    i18n: inject('i18n'),
+    intl: inject('intl'),
 
     /**
      * Show success message
@@ -19,8 +19,21 @@ export default Service.extend({
      */
     notice(title, message) {
         $.growl.notice({
-            title: this.get('i18n').t('Success'),
-            message: this.get('i18n').t(message)
+            title: this.get('intl').t('Success'),
+            message: this.get('intl').t(message)
+        });
+    },
+
+    /**
+     * Show warning message
+     * 
+     * @param {*} title
+     * @param {*} message
+     */
+    warning(title, message) {
+        $.growl.warning({
+            title: this.get('intl').t('Warning'),
+            message: this.get('intl').t(message)
         });
     },
 
@@ -32,8 +45,8 @@ export default Service.extend({
      */
     error(title, message) {
         $.growl.error({
-            title: this.get('i18n').t('Error'),
-            message: this.get('i18n').t(message),
+            title: this.get('intl').t('Error'),
+            message: this.get('intl').t(message),
             fixed: true
         });
     },
@@ -45,7 +58,7 @@ export default Service.extend({
      */
     errorShowRaw(title, message) {
         $.growl.error({
-            title: this.get('i18n').t('Error'),
+            title: this.get('intl').t('Error'),
             message: message,
             fixed: true
         });
@@ -57,7 +70,7 @@ export default Service.extend({
      */
     errorsDatabase(errors) {
         Object.keys(errors).forEach(key => {
-            this.errorShowRaw(this.get('i18n').t('Error'), errors[key].messages.join('. '));
+            this.errorShowRaw(this.get('intl').t('Error'), errors[key].messages.join('. '));
         });
     },
     /**
@@ -67,18 +80,24 @@ export default Service.extend({
      * @param {*} responseJSON - boolean
      */
     errorsDatabaseToArray(adapterError) {
-        let errors = {};
+        let errors = null; //{}
         if (adapterError.hasOwnProperty('responseJSON')) {
             if (adapterError.responseJSON.hasOwnProperty('errors')) {
                 Object.keys(adapterError.responseJSON.errors).forEach(key => {
-                    errors[adapterError.responseJSON.errors[key].name] = adapterError.responseJSON.errors[key].messages;
+                    let name = adapterError.responseJSON.errors[key].name;
+                    let message = adapterError.responseJSON.errors[key].messages;
+                    //errors[name] = message;
+                    this.errorShowRaw('', name + ': ' + message);
                 });
             }
         }
         else {
             if (adapterError.hasOwnProperty('errors')) {
                 Object.keys(adapterError.errors).forEach(key => {
-                    errors[adapterError.errors[key].name] = adapterError.errors[key].messages;
+                    let name = adapterError.errors[key].name;
+                    let message = adapterError.errors[key].messages;
+                    //errors[name] = message;
+                    this.errorShowRaw('', name + ': ' + message);
                 });
             }
         }

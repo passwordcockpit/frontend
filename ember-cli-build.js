@@ -15,8 +15,6 @@ module.exports = function (defaults) {
             }
         }
     });
-    // Jquery form validation
-    app.import('node_modules/jquery-form-validator/form-validator/jquery.form-validator.min.js');
 
     // Import Bootstrap JS
     app.import('node_modules/bootstrap-sass/assets/javascripts/bootstrap.min.js');
@@ -55,15 +53,13 @@ module.exports = function (defaults) {
     //app.import('node_modules/whatwg-fetch/fetch.js');
 
     // Import File-saver
-    app.import('node_modules/file-saver/FileSaver.min.js');
+    app.import('node_modules/file-saver/src/FileSaver.js');
 
     // Import password generation
     app.import('vendor/pGenerator.js');
 
     // Import password encrypt
     app.import('vendor/sjcl.js');
-
-    app.import('vendor/script.js');
 
     // Use `app.import` to add additional libraries to the generated
     // output files.

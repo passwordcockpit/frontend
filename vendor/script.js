@@ -1,7 +1,0 @@
-$(function() {
-    /*
-	 * validation
-	 */
-	$.validate({
-    });
-});

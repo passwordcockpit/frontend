@@ -1,0 +1,14 @@
+{{input
+    type=type
+    class=class
+    id=viewId
+    name=name
+    placeholder=placeholder
+    value=value
+    key-up=(action "keyUp")
+    }}
+{{#if (or (and showElementMessage (not isElementValid)) (and showMessage (not isElementValid)))}}
+    <div class="errors-list">
+        {{errorMessage}}
+    </div>
+{{/if}}

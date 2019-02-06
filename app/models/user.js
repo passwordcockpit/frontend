@@ -17,4 +17,5 @@ export default DS.Model.extend({
     enabled: DS.attr(),
     language: DS.attr(),
     token:  DS.attr(),
+    forceLogin: DS.attr(),
 });

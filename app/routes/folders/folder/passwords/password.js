@@ -29,8 +29,6 @@ export default Route.extend(AuthenticatedRouteMixin, {
         // Check user vier_logs permission
         let canViewLogs = this.controllerFor('folders.folder.passwords.password').get('canViewLogs');
 
-        let self = this;
-
         return RSVP.hash(result).then((hash) => {
             // Load password's logs
             if (canViewLogs) {
@@ -38,9 +36,6 @@ export default Route.extend(AuthenticatedRouteMixin, {
                 return RSVP.hash(hash).then((hashHash) => {
                     hashHash.page = hashHash.logs.get('meta')._page;
                     hashHash.pageCount = hashHash.logs.get('meta')._page_count;
-                    hashHash.logs.forEach(function (log) {
-                        log.set('userName', self.get('store').peekRecord('user', log.get('user_id')).get('username'));
-                    });
                     return hashHash;
                 });
             } else {
@@ -64,9 +59,25 @@ export default Route.extend(AuthenticatedRouteMixin, {
         this.controllerFor('folders.folder.passwords.password').set('logs', model.logs);
         this.controllerFor('folders.folder.passwords.password').set('page', model.page);
         this.controllerFor('folders.folder.passwords.password').set('pageCount', model.pageCount);
-        
+        this.controllerFor('folders.folder.passwords.password').set('flag', true);
+
+        // Descrypt/Encrypt password related variables
+        if (!model.password.frontendCrypted) {
+            this.controllerFor('folders.folder.passwords.password').set('passwordDecrypted', model.password.password);
+        }
+        this.controllerFor('folders.folder.passwords.password').set('pinDecrypt', null);
+        this.controllerFor('folders.folder.passwords.password').set('isPinValid', false);
+        this.controllerFor('folders.folder.passwords.password').set('passwordDescryptionFailureCounted', 0);
+        this.controllerFor('folders.folder.passwords.password').set('passwordDescryptionBlocked', false);
+
         // Hide passwords list on Password selecting
         this.controllerFor('folders.folder').send('hidePasswordsList');
+    },
+
+    actions: {
+        willTransition: function () {
+            this.currentModel.password.rollbackAttributes();
+        },
     },
 });
 

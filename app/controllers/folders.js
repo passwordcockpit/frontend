@@ -55,7 +55,7 @@ export default Controller.extend({
             }
 
             result.push({
-                valueToSort: folderName,
+                valueToSort: [folderPathToString, 0, folderName],   // 1 stands for isFolder, meaning that password (0) with the same path will be printed first
                 folderId: folderId,
                 folderName: folderName,
                 folderAccess: folderAccess,
@@ -83,15 +83,17 @@ export default Controller.extend({
             let parentId = password.data.folder_id;
             passwordPath = self.get('retrieveParentFolders').call(self, parentId);
             passwordPathToString = passwordPath.join(' / ');
+            let icon = password.data.icon;
 
             result.push({
-                valueToSort: passwordTitle,
+                valueToSort: [passwordPath, 1, passwordTitle],
                 passwordId: passwordId,
                 passwordTitle: passwordTitle,
                 folderId: parentId,
                 passwordPath: passwordPath,
                 passwordPathToString: passwordPathToString,
-                isFolder: false
+                isFolder: false,
+                icon: icon
             });
         });
         return result;
@@ -265,6 +267,7 @@ export default Controller.extend({
             let result = {
                 target: target
             };
+
             if (target === 'Folder' || target === 'All') {
                 result.folders = this.get('store').query('folder', { q: keywords })
             }
@@ -282,16 +285,24 @@ export default Controller.extend({
                 }
 
                 resultsSearch = resultsSearch.sort(function (a, b) {
-                    if (a.valueToSort.toLowerCase() < b.valueToSort.toLowerCase()) {
-                        return -1;
-                    } else {
-                        return 1;
+                    let arrayLength = a.valueToSort.length < b.valueToSort.length ? a.valueToSort.length : b.valueToSort.length;
+                    for (let i = 0; i < arrayLength; i++) {
+                        if (a.valueToSort[i].toString().toLowerCase() < b.valueToSort[i].toString().toLowerCase()) {
+                            return -1;
+                        }
+                        else if (b.valueToSort[i].toString().toLowerCase() < a.valueToSort[i].toString().toLowerCase()) {
+                            return 1;
+                        }
                     }
+                    return 0;
                 });
+
                 this.set('searchResults', {
                     results: resultsSearch,
-                    hasResults: true
+                    hasResults: true,
+                    target: hash.target
                 })
+
                 $('#loading').hide();
                 return resultsSearch;
             }).catch((adapterError) => {
