@@ -115,7 +115,21 @@
                         {{t 'Password'}}
                     </label>
                     <div class="col-sm-10">
-                        {{input class="form-control" value=user.password type="password"}} {{{display-errors errors.password}}}
+                        {{form/form-text
+                        type='password' 
+                        class='form-control'
+                        id='password'
+                        name="password"
+                        value=user.password 
+                        isFormValid=isFormValid
+                        showMessage=showMessage
+                        validator=(validation-parameters
+                                    required=(unless (or (not user.password) (eq user.password '')) true)
+                                    minLength=8
+                                    maxLength=200
+                                    type='password'
+                                    )
+                        }}
                     </div>
                 </div>
             {{else}}
@@ -156,6 +170,7 @@
                         isFormValid=isFormValid
                         showMessage=showMessage
                         validator=(validation-parameters
+                                    required=(if actual_password true)
                                     minLength=8
                                     maxLength=200
                                     type='password'
@@ -177,6 +192,7 @@
                         isFormValid=isFormValid
                         showMessage=showMessage
                         validator=(validation-parameters
+                                    required=(if actual_password true)
                                     minLength=8
                                     maxLength=200
                                     type='password' 
