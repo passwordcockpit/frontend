@@ -146,5 +146,6 @@ export default {
 
     "Token is no longer valid after the change.": "Token non è più valido dopo la modifica.",
     "User is forced to re-login.": "L'utente è costretto a riconnettersi.",
-    "Value mismatch": "TODO Value mismatch"
+    "Value mismatch": "Valore non corrispondente",
+    "Loading ...": "Caricamento ..."
   };

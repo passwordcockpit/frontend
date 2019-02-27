@@ -4,12 +4,12 @@
             {{t 'User\'s log'}}
         </div>
         <div class="panel-body">
-            {{#unless logs}}
+            {{#if loading}}
                 <p class="alert alert-info">
                     <i class="fas fa-info-circle"></i>
-                    {{t 'There are no logs'}}
+                    {{t 'Loading ...'}}
                 </p>
-            {{else}}
+            {{else if logs}}
                 <div class="table-responsive">
                     <table class="table">
                         <thead>
@@ -42,7 +42,12 @@
                         </tbody>
                     </table>
                 </div>
-            {{/unless}}
+            {{else}}
+                <p class="alert alert-info">
+                    <i class="fas fa-info-circle"></i>
+                    {{t 'There are no logs'}}
+                </p>
+            {{/if}}
         </div>
         {{#if logs}}
             {{log-paginator page=page 
