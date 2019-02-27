@@ -13,6 +13,11 @@ module.exports = function (defaults) {
                     'styles': '/assets/styles.css'
                 }
             }
+        },
+        fingerprint: {
+            exclude: [
+                'assets/skins/**/*.*'
+            ]
         }
     });
 
