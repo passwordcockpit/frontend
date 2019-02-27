@@ -18,10 +18,10 @@ export default Mixin.create({
     tagName: '',
     willDestroyElement() {
         // Remove element from Errors list
-        let isFormValid = this.get('isFormValid').filter(element => {
-            return element.name != this.get("name")
+        let elementToRemove = this.get('isFormValid').filter(element => {
+            return element.name == this.get("name")
         });
-        this.set('isFormValid', isFormValid);
+        this.get('isFormValid').removeObjects(elementToRemove);
     },
     init() {
         this._super(...arguments);
