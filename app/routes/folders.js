@@ -12,6 +12,7 @@ import $ from 'jquery';
 export default Route.extend(AuthenticatedRouteMixin, {
     account: inject('account'),
     growl: inject('growl'),
+    session: inject('session'),
     closeFoldersInputs: inject('close-folders-inputs'),
 
     beforeModel() {
@@ -60,8 +61,10 @@ export default Route.extend(AuthenticatedRouteMixin, {
                 }
             });
         }).fail((adapterError) => {
-            if (adapterError.responseJSON.status != 401) {
-                this.get('growl').errorShowRaw(adapterError.responseJSON.title, adapterError.responseJSON.detail);
+            this.get('growl').errorShowRaw(adapterError.responseJSON.title, adapterError.responseJSON.detail);
+            if (adapterError.responseJSON.status == 401) {
+                self.get('session').invalidate();
+                return this.transitionTo('sorry-page');
             }
         });
 
