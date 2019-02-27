@@ -91,10 +91,11 @@ export default Component.extend(formValidation, {
 
                 if ((newpass == '' || newpass == null) && (repeatnewpass == '' || repeatnewpass == null) && (actual_password == '' || actual_password == null)) {
                     user.set('password', undefined);
+                    user.set('actual_password', undefined);
+                }else{
+                    user.set('password', newpass);
+                    user.set('actual_password', actual_password);
                 }
-
-                user.set('password', newpass);
-                user.set('actual_password', actual_password);
             }
             // set language
             user.set('language', $('select[name=language] option:selected').val());
