@@ -8,6 +8,7 @@ import Route from '@ember/routing/route';
 import AuthenticatedRouteMixin from 'ember-simple-auth/mixins/authenticated-route-mixin';
 import { inject } from '@ember/service';
 import $ from 'jquery';
+import { later } from '@ember/runloop'
 
 export default Route.extend(AuthenticatedRouteMixin, {
     account: inject('account'),
@@ -34,15 +35,15 @@ export default Route.extend(AuthenticatedRouteMixin, {
 
         let canViewLogs = this.get('store').peekRecord('permission', this.get('account').getUserId()).get('view_logs');
         this.controllerFor('folders.folder.passwords.password').set('canViewLogs', canViewLogs);
-        
+
         // Show folders/passwords list
         this.controllerFor('folders').send('showFoldersList');
         this.controllerFor('folders.folder').send('showPasswordsList');
         this.controllerFor('folders.index').send('showPasswordsList');
-        
+
         // Clear search result
         this.controllerFor('folders').set('searchResults', null);
-        
+
         // Retrieve all users for edit purposes
         // Save to store
         let self = this;
@@ -60,12 +61,6 @@ export default Route.extend(AuthenticatedRouteMixin, {
                     self.get('store').createRecord('user', user);
                 }
             });
-        }).fail((adapterError) => {
-            this.get('growl').errorShowRaw(adapterError.responseJSON.title, adapterError.responseJSON.detail);
-            if (adapterError.responseJSON.status == 401) {
-                self.get('session').invalidate();
-                return this.transitionTo('sorry-page');
-            }
         });
 
         // Return folder data as Model
@@ -74,8 +69,13 @@ export default Route.extend(AuthenticatedRouteMixin, {
                 this.controllerFor('folders').send('buildTree', { folders: results });
                 return results;
             })
-            .catch(() => {
-                this.get('growl').error('Error', 'Error while retrieving folders');
+            .catch((error) => {
+                this.get('growl').errorShowRaw(error.title, error.message);
+                if (error.code == 401) {
+                    later((function () {
+                        self.get('session').invalidate();
+                    }), 2000);
+                }
             });
     },
     afterModel() {
