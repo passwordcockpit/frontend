@@ -24,6 +24,23 @@ export default Component.extend(formValidation, {
     localTempPasswordDecrypted: null,
     failureLimit: ENV.passwordEncryptionConfig.failureLimit,
 
+    copyStringToClipboard (str) {
+        // Create new element
+        var el = document.createElement('textarea');
+        // Set value (string to be copied)
+        el.value = str;
+        // Set non-editable to avoid focus and move outside of view
+        el.setAttribute('readonly', '');
+        el.style = {position: 'absolute', left: '-9999px'};
+        document.body.appendChild(el);
+        // Select text inside element
+        el.select();
+        // Copy text to clipboard
+        document.execCommand('copy');
+        // Remove temporary element
+        document.body.removeChild(el);
+    },
+
     actions: {
         /**
          * Toggle Password's visibility
@@ -131,11 +148,15 @@ export default Component.extend(formValidation, {
         /**
          * Highlight password
          */
-        selectPassword() {
+        selectPassword(password) {
             let sel, range;
             let el = $('#password-read')[0];
+            this.copyStringToClipboard(el);
             if (window.getSelection && document.createRange) { //Browser compatibility
                 sel = window.getSelection();
+                this.copyStringToClipboard(password);
+                // show growl success notification
+                this.get('growl').notice('Success','Password copied');
                 if (sel.toString() == '') { //no text selection
                     window.setTimeout(function () {
                         range = document.createRange(); //range object
@@ -146,6 +167,9 @@ export default Component.extend(formValidation, {
                 }
             } else if (document.selection) { //older ie
                 sel = document.selection.createRange();
+                this.copyStringToClipboard(password);
+                // show growl success notification
+                this.get('growl').notice('Success','Password copied');
                 if (sel.text == '') { //no text selection
                     range = document.body.createTextRange();//Creates TextRange object
                     range.moveToElementText(el);//sets Range
@@ -161,12 +185,14 @@ export default Component.extend(formValidation, {
         showConfirm() {
             $('#deletePasswordConfirm').modal('show');
         },
+
         /**
          * close Delete password confirmation dialog box
          */
         cancelFormConfirm() {
             $('#deletePasswordConfirm').modal('hide');
         },
+        
         /**
          * Confirm the password's deletion
          * Notify to passwords (controller) to delete password
