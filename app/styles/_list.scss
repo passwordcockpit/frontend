@@ -8,12 +8,14 @@
 ***********************************************************************************
 ***********************************************************************************
 - folder permissions
+- folder toggle
 - media
 ***********************************************************************************/
 
 .password-menu ul .fa {
     width: 1em;
 }
+
 ul.list {
     padding: 0;
     margin: 0;
@@ -123,7 +125,7 @@ ul.list {
         overflow: hidden;
         cursor: not-allowed;
     }
-
+    
     .actions {
         height: 35px;
         padding: 6px $padding;
@@ -225,4 +227,25 @@ ul.list {
 
 .power-select-container {
     vertical-align: bottom;
+}
+/* folder toggle */
+.folder-menu{
+    .chevron{
+        position: absolute;
+        top: 0;
+        left: 0;
+        height: 35px;
+        width: 25px;
+        text-align: center;
+        background: transparent;
+        padding: 0;
+        border: 0;
+    }
+    ul.list{
+        li{
+            a.read{
+                padding-left: 25px;
+            }
+        }
+    }
 }
