@@ -100,7 +100,7 @@ export default {
     "Action": "Azione",
     "Date": "Data",
     "Password's title":  "Titolo password",
-    "Password copied": "Password copiata",
+    "Copied to clipboard": "Copiato nella clipboard",
     "Reset": "Ripristina",
     "Update": "Aggiorna",
     "File deletion": "Elimina documento",

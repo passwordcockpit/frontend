@@ -99,7 +99,7 @@ export default {
     "Action": "Action",
     "Date": "Date",
     "Password's title": "Nome password",
-    "Password copied": "Password copied",
+    "Copied to clipboard": "Copied to clipboard",
     "Reset": "Reset",
     "Update": "Update",
     "File deletion": "File deletion",

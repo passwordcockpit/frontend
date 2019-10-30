@@ -39,6 +39,9 @@ export default Component.extend(formValidation, {
         document.execCommand('copy');
         // Remove temporary element
         document.body.removeChild(el);
+
+        // show growl success notification
+        this.get('growl').notice('Success','Copied to clipboard');
     },
 
     actions: {
@@ -146,17 +149,16 @@ export default Component.extend(formValidation, {
         },
 
         /**
-         * Highlight password
+         * Highlight password and copy it in clipboard
+         * * @param {*} password 
          */
         selectPassword(password) {
             let sel, range;
             let el = $('#password-read')[0];
-            this.copyStringToClipboard(el);
             if (window.getSelection && document.createRange) { //Browser compatibility
                 sel = window.getSelection();
                 this.copyStringToClipboard(password);
-                // show growl success notification
-                this.get('growl').notice('Success','Password copied');
+                
                 if (sel.toString() == '') { //no text selection
                     window.setTimeout(function () {
                         range = document.createRange(); //range object
@@ -168,8 +170,36 @@ export default Component.extend(formValidation, {
             } else if (document.selection) { //older ie
                 sel = document.selection.createRange();
                 this.copyStringToClipboard(password);
-                // show growl success notification
-                this.get('growl').notice('Success','Password copied');
+                if (sel.text == '') { //no text selection
+                    range = document.body.createTextRange();//Creates TextRange object
+                    range.moveToElementText(el);//sets Range
+                    range.select(); //make selection.
+                }
+            }
+        },
+
+        /**
+         * Highlight username and copy it in clipboard
+         * @param {*} username 
+         */
+        selectUsername(username){
+            let sel, range;
+            let el = $('#username-read')[0];
+            if (window.getSelection && document.createRange) { //Browser compatibility
+                sel = window.getSelection();
+                this.copyStringToClipboard(username);
+                
+                if (sel.toString() == '') { //no text selection
+                    window.setTimeout(function () {
+                        range = document.createRange(); //range object
+                        range.selectNodeContents(el); //sets Range
+                        sel.removeAllRanges(); //remove all ranges from selection
+                        sel.addRange(range);//add Range to a Selection.
+                    }, 1);
+                }
+            } else if (document.selection) { //older ie
+                sel = document.selection.createRange();
+                this.copyStringToClipboard(username);
                 if (sel.text == '') { //no text selection
                     range = document.body.createTextRange();//Creates TextRange object
                     range.moveToElementText(el);//sets Range
