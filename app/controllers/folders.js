@@ -100,6 +100,14 @@ export default Controller.extend({
 
     },
     actions: {
+        slideAllUp(){
+            $('div[data-id^=collapse]').slideUp();
+            $("button[id^=collapse-icon").html('<i class="fas fa-chevron-right"></i>');
+        },
+        slideAllDown(){
+            $('div[data-id^=collapse]').slideDown();
+            $("button[id^=collapse-icon").html('<i class="fas fa-chevron-down"></i>');
+        },
         /**
          * Toggle folders list visibility (only for mobile)
          */

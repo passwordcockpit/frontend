@@ -15,7 +15,19 @@ export default Component.extend(formValidation,{
     growl: inject('growl'),
     isManage: false,
     errors: null,
+
+    init(){
+        this._super(...arguments);
+    },
+
+    didInsertElement(){
+        this.send('collapseFolder', this.folder.id);
+    },
+
     actions: {
+        addPassword(data){
+
+        },
         /**
          * Close New folder form and notify to folders about the creation of new folder
          * Is called by new-folder-element on creating new Folder
