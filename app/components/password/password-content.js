@@ -39,7 +39,6 @@ export default Component.extend(formValidation, {
         document.execCommand('copy');
         // Remove temporary element
         document.body.removeChild(el);
-
         // show growl success notification
         this.get('growl').notice('Success','Copied to clipboard');
     },
