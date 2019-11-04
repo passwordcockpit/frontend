@@ -19,6 +19,12 @@ export default Component.extend(formValidation, {
     icons: ENV.passwordFormConfig.icons,
     options: ENV.passwordFormConfig.options,
 
+    init(){
+        this._super(...arguments);
+        // set default icon as key
+        this.set('icon', 'key');
+    },
+
     actions: {
         /**
          * Is called on Random-password's refresh button clicking
