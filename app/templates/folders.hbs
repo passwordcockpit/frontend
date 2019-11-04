@@ -116,6 +116,7 @@
             {{/if}}
             {{#each [roots] as |folderId|}}
                 {{folder/folder-element
+                    removePassword="removePassword"
                     folder=(get indexedFolders folderId) 
                     indexedFolders=indexedFolders 
                     tree=tree

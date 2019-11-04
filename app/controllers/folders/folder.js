@@ -15,6 +15,17 @@ export default Controller.extend({
     folderController: controller('folders.folder'),
     showList: true,
     actions: {
+
+        removePassword(passwordId){
+            let newPass = [];
+            this.get('passwords').forEach((el) =>{
+                if(el.password_id != passwordId){
+                    newPass.push(el);
+                }
+            });
+            this.set('passwords', newPass);      
+        },
+
         /**
          * Load selected folder's passwords data
          * Is called by folder (route) on generating folder model data

@@ -10,6 +10,7 @@ import $ from 'jquery';
 import RSVP from 'rsvp';
 
 export default Controller.extend({
+    folderController: Ember.inject.controller('folders.folder'),
     isAdd: false,
     // Show Folder list option for mobile mode
     showList: true,
@@ -100,6 +101,10 @@ export default Controller.extend({
 
     },
     actions: {
+
+        removePassword(passwordId){
+            this.get('folderController').send('removePassword', passwordId);
+        },
         slideAllUp(){
             $('div[data-id^=collapse]').slideUp();
             $("button[id^=collapse-icon").html('<i class="fas fa-chevron-right"></i>');

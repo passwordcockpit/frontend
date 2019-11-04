@@ -11,6 +11,7 @@ import $ from 'jquery';
 
 export default Component.extend(formValidation,{
     store: inject('store'),
+    session: inject('session'),
     closeFoldersInputs: inject('close-folders-inputs'),
     growl: inject('growl'),
     isManage: false,
@@ -25,7 +26,54 @@ export default Component.extend(formValidation,{
     },
 
     actions: {
-        addPassword(data){
+        removePassword(passwordId){
+            this.sendAction('removePassword', passwordId);
+        },
+        addPassword(event){
+            let data = JSON.parse(event.dataTransfer.getData('text/data'));
+            
+            let passwordId = data.passwordId;
+            let fromFolder = data.folderId;
+
+            let self = this;
+
+            var href = event.target.href;
+            var folderId = href.match(/\d+$/);
+            folderId = folderId[0];
+
+            let bodyData = {
+                "passwordId": passwordId,
+                "originalFolder": fromFolder,
+                "destinationFolder": folderId
+            };
+
+            // ajax call to  move password
+            // if 200 -> sendAction, if not show Error
+            $('#loading').show();
+            $.ajax({
+                url:
+                    window.APP.host +
+                    "/" +
+                    window.APP.namespace +
+                    "/passwords",
+                data: JSON.stringify(bodyData),
+                headers: {
+                    Authorization:
+                        "Bearer " + this.get("session.session.content.authenticated.token")
+                },
+                cache: false,
+                contentType: 'application/json',
+                processData: false,
+                type: "PATCH"
+            }).then(function (response) {
+                $('#loading').hide();
+                self.sendAction('removePassword', passwordId);
+                self.get('growl').notice('Success', 'Password moved successfully');  
+            }).catch(function (error) {
+                $('#loading').hide();
+                self.get('growl').error('Error', 'Unauthorized');
+            });
+            
 
         },
         /**
