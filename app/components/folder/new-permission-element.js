@@ -56,6 +56,10 @@ export default Component.extend(formValidation, {
                 });
         },
 
+        changeSelectedUser(user){
+            this.set('selectedUser', user);
+        },
+
         handleFocus() {
             this.set('errors', null);
         },
