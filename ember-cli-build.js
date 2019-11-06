@@ -9,13 +9,6 @@ module.exports = function (defaults) {
         SRI: {
             enabled: false,
         },
-        outputPaths: {
-            app: {
-                css: {
-                    'styles': '/assets/styles.css'
-                }
-            }
-        },
         fingerprint: {
             exclude: [
                 'assets/skins/**/*.*'

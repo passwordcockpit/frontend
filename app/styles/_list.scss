@@ -9,7 +9,7 @@
 ***********************************************************************************
 - folder permissions
 - folder toggle
-- media
+- drag & drop
 ***********************************************************************************/
 
 .password-menu ul .fa {
@@ -77,7 +77,6 @@ ul.list {
     a:not(.btn){
         height: 35px;
         width: 100%;
-        padding: 5px 97px 5px $padding;
         display: block;
         line-height: 25px;
         color: #000;
@@ -87,8 +86,11 @@ ul.list {
 
         &.active,
         &:hover {
-            background: #eee;
+            background: $highlight;
             text-decoration: none;
+            .draggable-item{
+                background: $highlight;
+            }
         }
         &.active{
             .fa-folder{
@@ -228,7 +230,8 @@ ul.list {
 .power-select-container {
     vertical-align: bottom;
 }
-/* folder toggle */
+
+/* folder */
 .folder-menu{
     .chevron{
         position: absolute;
@@ -250,5 +253,28 @@ ul.list {
                 padding-left: 25px;
             }
         }
+        a:not(.btn){
+            padding: 5px 97px 5px $padding;
+        }
     }
+}
+/* password */
+.password-menu{
+    a:not(.btn){
+        padding: 0px 92px 0px ($padding - 5);
+    }
+}
+/* drag & drop */
+.draggable-dropzone{
+    &.activated{
+        background: $highlight;
+        a:not(.btn){
+            color: $brand-primary;
+        }
+    }
+}
+.draggable-item{
+    background: #fff;
+    border-radius: 5px;
+    padding: 5px;
 }

@@ -1,7 +1,7 @@
 import Component from '@ember/component';
 
 export default Component.extend({
-  classNames        : [ 'draggableItem' ],
+  classNames        : [ 'draggable-item' ],
   attributeBindings : [ 'draggable' ],
   draggable         : 'true',
   
