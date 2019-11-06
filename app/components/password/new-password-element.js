@@ -24,7 +24,10 @@ export default Component.extend(formValidation, {
         // set default icon as key
         this.set('icon', 'key');
     },
-
+    didRender(){
+        // init bootstrap tooltip
+        $('[data-toggle="tooltip"]').tooltip();
+    },
     actions: {
         /**
          * Is called on Random-password's refresh button clicking

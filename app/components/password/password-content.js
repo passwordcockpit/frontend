@@ -24,6 +24,11 @@ export default Component.extend(formValidation, {
     localTempPasswordDecrypted: null,
     failureLimit: ENV.passwordEncryptionConfig.failureLimit,
 
+    didRender(){
+        // init bootstrap tooltip
+        $('[data-toggle="tooltip"]').tooltip();
+    },
+
     copyStringToClipboard (str) {
         // Create new element
         var el = document.createElement('textarea');

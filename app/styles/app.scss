@@ -10,8 +10,9 @@
 - variable
 - import
 - base
-- layout
+- layout (@import)
 - growl (@import)
+- tooltip
 - grid
 - power select
 - table
@@ -131,6 +132,21 @@ h1 {
 *********************************************************************************/
 @import "growl";
 
+/* tooltip
+*********************************************************************************/
+.btn-tooltip{
+    position: absolute;
+    top: 0;
+    right: -2px;
+}
+.tooltip{
+    width: 200px;
+    .tooltip-inner{
+        text-align: left;
+        padding: 10px;
+
+    }
+}
 /* alert 
 *********************************************************************************/
 p.alert{
