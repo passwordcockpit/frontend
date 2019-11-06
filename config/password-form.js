@@ -17,6 +17,7 @@ module.exports = {
             , 'volume-up', 'qrcode', 'barcode', 'tag', 'book'
             , 'bookmark', 'print', 'camera'],
         options: {
+            content_css: '/tinymce.css',
             menubar: false,
             plugins: 'lists',
             toolbar1: 'bold italic underline | bullist numlist',
