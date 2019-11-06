@@ -136,7 +136,7 @@ export default {
     "The password is procteted with a PIN:": "La password è protetta da una PIN:",
     "visiblePassword": "Le passwords senza PIN sono visibili da admin e utenti che hanno accesso alla cartella.",
 
-    "Please change your password for the first time you logged in": "Cambia la tua password per la prima volta che hai effettuato il login",
+    "Please change your password for the first time you logged in": "Modifica la tua password dopo che hai effettuato il login per la prima volta",
     "You exceeded the maximum allowed number of descryption attempts": "Hai superato il numero massimo consentito di tentativi di decriptazione",
     "Wrong PIN": "PIN sbagliato",
     "Form not saved": "Form not saved",
