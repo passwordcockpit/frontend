@@ -136,7 +136,7 @@ export default {
     "visiblePassword": "Passwords without a PIN are visible to admins and users who have access to the folder.",
 
     "Please change your password for the first time you logged in": "Please change your password for the first time you logged in",
-    "You exceeded the maximum allowed number of descryption attempts": "You exceeded the maximum allowed number of descryption attempts",
+    "You exceeded the maximum allowed number of decryption attempts": "You exceeded the maximum allowed number of decryption attempts",
     "Wrong PIN": "Wrong PIN",
     "Form not saved": "Form not saved",
     "Validation error": "Validation error",

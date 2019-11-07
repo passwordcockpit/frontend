@@ -137,7 +137,7 @@ export default {
     "visiblePassword": "Le password senza PIN sono visibili dagli utenti che hanno accesso alla cartella e utenti con ruolo admin.",
 
     "Please change your password for the first time you logged in": "Modifica la tua password dopo che hai effettuato il login per la prima volta",
-    "You exceeded the maximum allowed number of descryption attempts": "Hai superato il numero massimo consentito di tentativi di decriptazione",
+    "You exceeded the maximum allowed number of decryption attempts": "Hai superato il numero massimo consentito di tentativi di decriptazione",
     "Wrong PIN": "PIN sbagliato",
     "Form not saved": "Form not saved",
     "Validation error": "Validation error",
