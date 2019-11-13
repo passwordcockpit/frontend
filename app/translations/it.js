@@ -52,6 +52,7 @@ export default {
     "Incorrect username or password" : "Username o password errati",
     "Language": "Lingua",
     "Last password modification": "Ultima modifica della password",
+    "lastPermissionDelete": "Cancellare l'ultimo permesso su una cartella la rende editabile solo dall'admin.",
     "Logout": "Logout",
     "Manage": "Gestione",
     "Manage users": "Gestione utenti",

@@ -51,6 +51,7 @@ export default {
     "Incorrect username or password": "Incorrect username or password",
     "Language": "Language",
     "Last password modification": "Last password modification",
+    "lastPermissionDelete": "Deleting the last permission on a folder makes it only manageable by the admin.",
     "Logout": "Logout",
     "Manage": "Manage",
     "Manage users": "Manage users",
