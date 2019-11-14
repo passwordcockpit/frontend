@@ -108,10 +108,12 @@ export default Controller.extend({
         slideAllUp(){
             $('div[data-id^=collapse]').slideUp();
             $("button[id^=collapse-icon").html('<i class="fas fa-chevron-right"></i>');
+            this.send('showFoldersList');
         },
         slideAllDown(){
             $('div[data-id^=collapse]').slideDown();
             $("button[id^=collapse-icon").html('<i class="fas fa-chevron-down"></i>');
+            this.send('showFoldersList');
         },
         /**
          * Toggle folders list visibility (only for mobile)
@@ -121,7 +123,6 @@ export default Controller.extend({
         },
         hideFoldersList() {
             this.set('showList', false);
-
         },
         /**
          * Show New ROOT-folder's form
@@ -130,6 +131,7 @@ export default Controller.extend({
         addFolder() {
             this.get('closeFoldersInputs').closeAllInputs();
             this.set('isAdd', true);
+            this.send('showFoldersList');
         },
         /**
          * Close New ROOT-folder's form
