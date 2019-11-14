@@ -18,10 +18,11 @@ export default Route.extend(AuthenticatedRouteMixin, {
         this._super(...arguments);
         $('#loading').show();
     },
-    model(params, transition) {
+    model(params) {
+        let folder_id = this.modelFor("folders.folder").folder.id;
         let result = {
             password: this.get('store').findRecord('password', params.password_id),
-            folder: this.get('store').peekRecord('folder', transition.params['folders.folder'].folder_id),
+            folder: this.get('store').peekRecord('folder', folder_id),
             passwordId: params.password_id,
             isPasswordVisible: false,
             isEdit: false,
