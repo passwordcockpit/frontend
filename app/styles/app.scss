@@ -249,6 +249,15 @@ input.number {
         height: 35px;
     }
 }
+#icons-wormhole{
+    .ember-power-select-option{
+        width: 50px;
+        float: left;
+        line-height: 50px;
+        text-align: center;
+    }
+}
+
 
 /* password generator */
 .password-generator,

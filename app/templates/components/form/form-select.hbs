@@ -1,8 +1,9 @@
 {{#if isPowerSelect}}
     {{#power-select
         options=selectOptions
-        allowClear=true
+        allowClear=allowClear
         onchange=(action 'selectOptionChange')
+        destination=destination
         selected=value
         as |icon|}}
         {{print-select-values-handle icon (action 'printSelectValuesHandle')}}
