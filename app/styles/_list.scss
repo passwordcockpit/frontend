@@ -37,12 +37,15 @@ ul.list {
         }
 
         .edit {
-            padding: 6px 208px 6px $padding;
+            padding: 6px $padding 6px $padding;
             display: none;
             position: relative;
 
             form {
+                width: 100%;
                 height: 100%;
+                display: flex;
+                flex-wrap: nowrap;
             }
 
             input.form-control {
@@ -52,10 +55,11 @@ ul.list {
             }
 
             .form-btn {
-                padding: 6px $padding;
-                position: absolute;
-                top: 0;
-                right: 0;
+                white-space: nowrap;
+                padding: 0 0 0 5px;
+                button{
+                    display: inline-block;
+                }
             }
         }
 
