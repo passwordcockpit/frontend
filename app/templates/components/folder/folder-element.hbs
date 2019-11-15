@@ -5,7 +5,7 @@
         </button>
     {{/unless}}
     {{#if (or canAccessAllFolders (eq folder.access 1) (eq folder.access 2))}}
-        {{#folder/draggable-dropzone dropped="addPassword"}}
+        {{#folder/draggable-dropzone dropped=(action 'addPassword')}}
             {{#link-to "folders.folder" folder.id class="read"}}
                 <i class="fas fa-folder"></i>
                 <i class="fas fa-folder-open"></i>
@@ -13,7 +13,7 @@
             {{/link-to}}
         {{/folder/draggable-dropzone}}
     {{else}}
-        {{#folder/draggable-dropzone dropped="addPassword" value-id="folder-{{folder.id}}"}}
+        {{#folder/draggable-dropzone dropped=(action 'addPassword') value-id="folder-{{folder.id}}"}}
             <span class="read">
                 <i class="fas fa-folder"></i>
                 {{folder.name}}

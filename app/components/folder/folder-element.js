@@ -9,7 +9,7 @@ import { inject } from '@ember/service';
 import formValidation from '../../mixins/form/form-validation';
 import $ from 'jquery';
 
-export default Component.extend(formValidation,{
+export default Component.extend(formValidation, {
     store: inject('store'),
     session: inject('session'),
     closeFoldersInputs: inject('close-folders-inputs'),
@@ -17,21 +17,24 @@ export default Component.extend(formValidation,{
     isManage: false,
     errors: null,
 
-    init(){
+    init() {
         this._super(...arguments);
     },
 
-    didInsertElement(){
+    didInsertElement() {
         this.send('collapseFolder', this.folder.id);
     },
 
     actions: {
-        removePassword(passwordId){
+        removePassword(passwordId) {
             this.sendAction('removePassword', passwordId);
         },
-        addPassword(event){
+        addPassword(event) {
+            if (event.dataTransfer.getData('text/data') === '') {
+                return;
+            }
             let data = JSON.parse(event.dataTransfer.getData('text/data'));
-            
+
             let passwordId = data.passwordId;
             let fromFolder = data.folderId;
 
@@ -68,12 +71,12 @@ export default Component.extend(formValidation,{
             }).then(function (response) {
                 $('#loading').hide();
                 self.sendAction('removePassword', passwordId);
-                self.get('growl').notice('Success', 'Password moved successfully');  
+                self.get('growl').notice('Success', 'Password moved successfully');
             }).catch(function (error) {
                 $('#loading').hide();
                 self.get('growl').error('Error', 'Unauthorized');
             });
-            
+
 
         },
         /**
@@ -114,18 +117,20 @@ export default Component.extend(formValidation,{
             $('#deleteFolderConfirm' + folderId).appendTo('body');  //To prevent modal from being shown behind other divs and backdrop
         },
 
-        collapseFolder(folderId){
+        collapseFolder(folderId) {
             // this variable can be used to know if it is a slideUp or slideDown animation
             let toggleUp = $('[data-id=collapse-' + folderId + ']').is(':visible');
-            $('[data-id=collapse-' + folderId + ']').slideToggle({complete: function (){
-                if(toggleUp){
-                    $("#collapse-icon-" + folderId).html('<i class="fas fa-chevron-right"></i>');
+            $('[data-id=collapse-' + folderId + ']').slideToggle({
+                complete: function () {
+                    if (toggleUp) {
+                        $("#collapse-icon-" + folderId).html('<i class="fas fa-chevron-right"></i>');
+                    }
+                    else {
+                        $("#collapse-icon-" + folderId).html('<i class="fas fa-chevron-down"></i>');
+                    }
                 }
-                else{
-                    $("#collapse-icon-" + folderId).html('<i class="fas fa-chevron-down"></i>');
-                }
-            }});
-            
+            });
+
         },
         /**
          * Close Delete folder confirmation dialog box
