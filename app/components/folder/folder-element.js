@@ -17,12 +17,11 @@ export default Component.extend(formValidation, {
     isManage: false,
     errors: null,
 
-    init() {
-        this._super(...arguments);
-    },
 
     didInsertElement() {
-        this.send('collapseFolder', this.folder.id);
+        if (!this.folder.isShow) {
+            this.slideUp(this.folder);
+        }
     },
 
     actions: {
@@ -117,20 +116,12 @@ export default Component.extend(formValidation, {
             $('#deleteFolderConfirm' + folderId).appendTo('body');  //To prevent modal from being shown behind other divs and backdrop
         },
 
-        collapseFolder(folderId) {
-            // this variable can be used to know if it is a slideUp or slideDown animation
-            let toggleUp = $('[data-id=collapse-' + folderId + ']').is(':visible');
-            $('[data-id=collapse-' + folderId + ']').slideToggle({
-                complete: function () {
-                    if (toggleUp) {
-                        $("#collapse-icon-" + folderId).html('<i class="fas fa-chevron-right"></i>');
-                    }
-                    else {
-                        $("#collapse-icon-" + folderId).html('<i class="fas fa-chevron-down"></i>');
-                    }
-                }
-            });
+        collapseFolder(folder) {
+            this.collapseFolder(folder);
 
+        },
+        slideUp(folder) {
+            this.slideUp(folder);
         },
         /**
          * Close Delete folder confirmation dialog box

@@ -15,12 +15,13 @@ export default Route.extend(AuthenticatedRouteMixin, {
     growl: inject('growl'),
     session: inject('session'),
     closeFoldersInputs: inject('close-folders-inputs'),
-
+    transition: null,
     beforeModel() {
         this._super(...arguments);
         $('#loading').show();
     },
     model(params, transition) {
+        this.transition = transition;
         this.get('store').unloadAll('folder');
         // Save current transition to folders
         this.controllerFor('folders').set('transitionData', transition);
@@ -67,6 +68,18 @@ export default Route.extend(AuthenticatedRouteMixin, {
         return this.get('store').findAll('folder', { reload: true })
             .then((results) => {
                 this.controllerFor('folders').send('buildTree', { folders: results });
+
+                // set folder.isShow for selected folder
+                // if transition contains 'folders.folder' params
+                if (this.transition.params['folders.folder'] != undefined) {
+                    let folderId = this.transition.params['folders.folder'].folder_id;
+                    while (folderId !== null) {
+                        let folder = this.get('store').peekRecord('folder', folderId);
+                        folder.set('isShow', true);
+                        folderId = folder.parent_id;
+                    }
+                }
+
                 return results;
             })
             .catch((error) => {

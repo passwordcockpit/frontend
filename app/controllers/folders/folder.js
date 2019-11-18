@@ -16,14 +16,14 @@ export default Controller.extend({
     showList: true,
     actions: {
 
-        removePassword(passwordId){
+        removePassword(passwordId) {
             let newPass = [];
-            this.get('passwords').forEach((el) =>{
-                if(el.password_id != passwordId){
+            this.get('passwords').forEach((el) => {
+                if (el.password_id != passwordId) {
                     newPass.push(el);
                 }
             });
-            this.set('passwords', newPass);      
+            this.set('passwords', newPass);
         },
 
         /**
@@ -48,9 +48,9 @@ export default Controller.extend({
             }).done((result) => {
                 this.set('passwords', result._embedded.passwords);
                 this.set('selectFolder', true);
-                // Hide folders list on Folder selecting
+                // Hide folders list on Folder selecting // mobile only
                 this.get('foldersController').send('hideFoldersList');
-                // show passwords list on Folder selecting
+                // show passwords list on Folder selecting // mobile only
                 this.get('folderController').send('showPasswordsList');
 
                 $('#loading').hide();

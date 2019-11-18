@@ -4,13 +4,14 @@
 * @license https://github.com/passwordcockpit/frontend/blob/master/LICENSE.md BSD 3-Clause License 
 */
 
-import Controller from '@ember/controller';
+import Controller, { inject as controller } from '@ember/controller';
 import { inject } from '@ember/service';
 import $ from 'jquery';
 import RSVP from 'rsvp';
 
 export default Controller.extend({
-    folderController: Ember.inject.controller('folders.folder'),
+    foldersController: controller('folders'),
+    folderController: controller('folders.folder'),
     isAdd: false,
     // Show Folder list option for mobile mode
     showList: true,
@@ -19,7 +20,6 @@ export default Controller.extend({
     closeFoldersInputs: inject('close-folders-inputs'),
 
     searchResults: null,
-
     /**
      * Retrieve the list of folders starting from the child folder
      */
@@ -102,18 +102,8 @@ export default Controller.extend({
     },
     actions: {
 
-        removePassword(passwordId){
+        removePassword(passwordId) {
             this.get('folderController').send('removePassword', passwordId);
-        },
-        slideAllUp(){
-            $('div[data-id^=collapse]').slideUp();
-            $("button[id^=collapse-icon").html('<i class="fas fa-chevron-right"></i>');
-            this.send('showFoldersList');
-        },
-        slideAllDown(){
-            $('div[data-id^=collapse]').slideDown();
-            $("button[id^=collapse-icon").html('<i class="fas fa-chevron-down"></i>');
-            this.send('showFoldersList');
         },
         /**
          * Toggle folders list visibility (only for mobile)
@@ -123,6 +113,51 @@ export default Controller.extend({
         },
         hideFoldersList() {
             this.set('showList', false);
+        },
+        /**
+         * Interactive show/hile folder
+         * @param {*} folder 
+         */
+        slideAllUp() {
+            // let indexedFolders = this.get('indexedFolders');
+            this.get('indexedFolders').forEach(function (folder) {
+                folder.set('isShow', false);
+            });
+            $('div[data-id^=collapse]').slideUp();
+            $("button[id^=collapse-icon").html('<i class="fas fa-chevron-right"></i>');
+            // Show collapsed folders tree for mobile
+            this.send('showFoldersList');
+        },
+        slideAllDown() {
+            // let indexedFolders = this.get('indexedFolders');
+            this.get('indexedFolders').forEach(function (folder) {
+                folder.set('isShow', true);
+            });
+            $('div[data-id^=collapse]').slideDown();
+            $("button[id^=collapse-icon").html('<i class="fas fa-chevron-down"></i>');
+            // Show collapsed folders tree for mobile
+            this.send('showFoldersList');
+        },
+        slideUp(folder) {
+            folder.set('isShow', false);
+            $('[data-id=collapse-' + folder.id + ']').slideUp();
+            $("#collapse-icon-" + folder.id).html('<i class="fas fa-chevron-right"></i>');
+        },
+        slideDown(folder) {
+            folder.set('isShow', true);
+            $('[data-id=collapse-' + folder.id + ']').slideDown();
+            $("#collapse-icon-" + folder.id).html('<i class="fas fa-chevron-down"></i>');
+        },
+        collapseFolder(folder) {
+            // this variable can be used to know if it is a slideUp or slideDown animation,
+            // if folderVisible (before) is true => show folder's children
+            let folderVisible = !folder.isShow;
+            if (folderVisible) {
+                this.get('foldersController').send('slideDown', folder);
+            } else {
+                this.get('foldersController').send('slideUp', folder);
+            }
+
         },
         /**
          * Show New ROOT-folder's form

@@ -12,4 +12,5 @@ export default DS.Model.extend({
     access: DS.attr(),
     isAdd: DS.attr('boolean', { defaultValue: false }),
     isEdit: DS.attr('boolean', { defaultValue: false }),
+    isShow: DS.attr('boolean', { defaultValue: false })
 });

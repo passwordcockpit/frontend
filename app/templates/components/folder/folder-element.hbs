@@ -1,7 +1,7 @@
 <li class="{{if folder.isEdit 'edit-view'}}">
     {{#unless (eq (get tree (concat "" folder.id)) undefined)}}
-        <button id="collapse-icon-{{folder.id}}" class="chevron" {{action 'collapseFolder' folder.id}} >
-            <i class="fas fa-chevron-down"></i>
+        <button id="collapse-icon-{{folder.id}}" class="chevron" {{action 'collapseFolder' folder}} >
+            <i class="fas {{if folder.isShow 'fa-chevron-down' 'fa-chevron-right'}}"></i>
         </button>
     {{/unless}}
     {{#if (or canAccessAllFolders (eq folder.access 1) (eq folder.access 2))}}
@@ -81,6 +81,8 @@
                     onCreateFolder=(action "onCreateFolder")
                     onUpdateFolder=(action "onUpdateFolder")
                     onDeleteFolder=(action "onDeleteFolder")
+                    collapseFolder=(action "collapseFolder")
+                    slideUp=(action "slideUp")
                     canAccessAllFolders=canAccessAllFolders
                 }}
             {{/each}}
