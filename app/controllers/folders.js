@@ -124,7 +124,6 @@ export default Controller.extend({
                 folder.set('isShow', false);
             });
             $('div[data-id^=collapse]').slideUp();
-            $("button[id^=collapse-icon").html('<i class="fas fa-chevron-right"></i>');
             // Show collapsed folders tree for mobile
             this.send('showFoldersList');
         },
@@ -134,19 +133,16 @@ export default Controller.extend({
                 folder.set('isShow', true);
             });
             $('div[data-id^=collapse]').slideDown();
-            $("button[id^=collapse-icon").html('<i class="fas fa-chevron-down"></i>');
             // Show collapsed folders tree for mobile
             this.send('showFoldersList');
         },
         slideUp(folder) {
             folder.set('isShow', false);
             $('[data-id=collapse-' + folder.id + ']').slideUp();
-            $("#collapse-icon-" + folder.id).html('<i class="fas fa-chevron-right"></i>');
         },
         slideDown(folder) {
             folder.set('isShow', true);
             $('[data-id=collapse-' + folder.id + ']').slideDown();
-            $("#collapse-icon-" + folder.id).html('<i class="fas fa-chevron-down"></i>');
         },
         collapseFolder(folder) {
             // this variable can be used to know if it is a slideUp or slideDown animation,
