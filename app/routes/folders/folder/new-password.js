@@ -14,7 +14,7 @@ export default Route.extend({
         this._super(...arguments);
         $('#loading').show();
     },
-    model(params, transition) {
+    model() {
         let folder_id = this.modelFor("folders.folder").folder.id;
 
         let folder = this.get('store').peekRecord('folder', folder_id);

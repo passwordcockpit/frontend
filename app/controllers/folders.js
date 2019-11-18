@@ -119,7 +119,6 @@ export default Controller.extend({
          * @param {*} folder 
          */
         slideAllUp() {
-            // let indexedFolders = this.get('indexedFolders');
             this.get('indexedFolders').forEach(function (folder) {
                 folder.set('isShow', false);
             });
@@ -128,7 +127,6 @@ export default Controller.extend({
             this.send('showFoldersList');
         },
         slideAllDown() {
-            // let indexedFolders = this.get('indexedFolders');
             this.get('indexedFolders').forEach(function (folder) {
                 folder.set('isShow', true);
             });

@@ -26,7 +26,7 @@ export default Component.extend(formValidation, {
 
     actions: {
         removePassword(passwordId) {
-            this.sendAction('removePassword', passwordId);
+            this.removePassword(passwordId);
         },
         addPassword(event) {
             if (event.dataTransfer.getData('text/data') === '') {
@@ -67,11 +67,11 @@ export default Component.extend(formValidation, {
                 contentType: 'application/json',
                 processData: false,
                 type: "PATCH"
-            }).then(function (response) {
+            }).then(function () {
                 $('#loading').hide();
                 self.sendAction('removePassword', passwordId);
                 self.get('growl').notice('Success', 'Password moved successfully');
-            }).catch(function (error) {
+            }).catch(function () {
                 $('#loading').hide();
                 self.get('growl').error('Error', 'Unauthorized');
             });

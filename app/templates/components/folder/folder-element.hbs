@@ -74,7 +74,7 @@
         <div data-id="collapse-{{folder.id}}">
             {{#each (get tree (concat "" folder.id)) as |folderId|}}
                 {{folder/folder-element 
-                    removePassword="removePassword"
+                    removePassword=(action "removePassword")
                     folder=(get indexedFolders folderId) 
                     indexedFolders=indexedFolders 
                     tree=tree 
