@@ -1,6 +1,6 @@
 FROM danlynn/ember-cli:3.13.0-node_10.16
 # passwordcockpit variables
-ENV PASSWORDCOCKPIT_BASEHOST https://10.0.3.150:4344
+ENV PASSWORDCOCKPIT_BASEHOST https://[YOUR-IP]:4344
 
 # clone the source of the frontend
 RUN set -ex; \
