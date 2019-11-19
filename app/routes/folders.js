@@ -71,8 +71,8 @@ export default Route.extend(AuthenticatedRouteMixin, {
 
                 // set folder.isShow for selected folder
                 // if transition contains 'folders.folder' params
-                if (this.transition.params['folders.folder'] != undefined) {
-                    let folderId = this.transition.params['folders.folder'].folder_id;
+                if (this.modelFor("folders.folder") != undefined) {
+                    let folderId = this.modelFor("folders.folder").folder.id;
                     while (folderId !== null) {
                         let folder = this.get('store').peekRecord('folder', folderId);
                         folder.set('isShow', true);
