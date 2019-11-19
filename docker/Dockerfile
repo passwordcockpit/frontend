@@ -14,6 +14,10 @@ WORKDIR /myapp/passwordcockpit
 
 RUN npm install
 
+# fix timezone
+RUN rm -rf /etc/localtime \
+ && ln -s /usr/share/zoneinfo/Europe/Berlin /etc/localtime
+
 VOLUME /var/www/html
 WORKDIR /var/www/html
 
