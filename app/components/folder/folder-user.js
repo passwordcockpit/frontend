@@ -53,19 +53,19 @@ export default Component.extend({
          * @param {*} folderId 
          */
         updatePermission(folderUser, folderId) {
-            $('#loading').show();
+            window.loading.showLoading();
             this._super(...arguments);
             folderUser.setAccess(this.get('access'));
             folderUser.save({ adapterOptions: { folder_id: folderId } }).then(() => {
                 this.folderUser.set('isEdit', false);
                 this.set('isManage', false);
                 this.onUpdatePermission();
-                $('#loading').hide();
+                window.loading.hideLoading();
 
                 this.get('growl').notice('Success', 'Permission updated');
             })
                 .catch((adapterError) => {
-                    $('#loading').hide();
+                    window.loading.hideLoading();
                     this.get('growl').errorShowRaw(adapterError.title, adapterError.message);
                 });
         },
@@ -106,7 +106,7 @@ export default Component.extend({
             this._super(...arguments);
             $('#deletePermissionConfirm').modal('hide');
             $('#lastPermissionConfirm').modal('hide');
-            $('#loading').show();
+            window.loading.showLoading();
             folderUser.destroyRecord({ adapterOptions: { folder_id: folderId } }).then(() => {
                 $('#deletePermissionConfirm' + folderUser.id).modal('hide');
                 $('#lastPermissionConfirm' + folderUser.id).modal('hide');
@@ -117,11 +117,11 @@ export default Component.extend({
                     this.get('router').transitionTo('folders');
                 }
                 this.onDeletePermission();
-                $('#loading').hide();
+                window.loading.hideLoading();
             })
                 .catch((adapterError) => {
                     $('#deletePermissionConfirm' + folderUser.id).modal('hide');
-                    $('#loading').hide();
+                    window.loading.hideLoading();
                     this.get('growl').errorShowRaw(adapterError.title, adapterError.message);
                 });
         }

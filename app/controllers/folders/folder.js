@@ -33,7 +33,7 @@ export default Controller.extend({
          * @param {*} params 
          */
         onSelectFolder(params) {
-            $('#loading').show();
+            window.loading.showLoading();
             let folderId = params.folderId;
             this.set('folderId', folderId);
 
@@ -53,11 +53,11 @@ export default Controller.extend({
                 // show passwords list on Folder selecting // mobile only
                 this.get('folderController').send('showPasswordsList');
 
-                $('#loading').hide();
+                window.loading.hideLoading();
             }).fail((adapterError) => {
                 this.set('passwords', null);
                 this.set('selectFolder', false);
-                $('#loading').hide();
+                window.loading.hideLoading();
                 this.get('growl').errorShowRaw(adapterError.responseJSON.title, adapterError.responseJSON.detail);
             });
 
@@ -67,7 +67,7 @@ export default Controller.extend({
          * Is called by new-password/password (controller) on updating/creating new password
          */
         onUpdatePassword() {
-            $('#loading').show();
+            window.loading.showLoading();
 
             $.ajax({
                 url: window.APP.host + '/' + window.APP.namespace + '/folders/' + this.get('folderId') + '/passwords',
@@ -80,10 +80,10 @@ export default Controller.extend({
             }).done((result) => {
                 this.set('passwords', result._embedded.passwords);
                 this.set('selectFolder', true);
-                $('#loading').hide();
+                window.loading.hideLoading();
             }).fail((adapterError) => {
                 this.set('passwords', null);
-                $('#loading').hide();
+                window.loading.hideLoading();
                 this.get('growl').errorShowRaw(adapterError.responseJSON.title, adapterError.responseJSON.detail);
             });
         },

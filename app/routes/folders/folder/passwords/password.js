@@ -8,15 +8,12 @@ import Route from '@ember/routing/route';
 import AuthenticatedRouteMixin from 'ember-simple-auth/mixins/authenticated-route-mixin';
 import { inject } from '@ember/service';
 import RSVP from 'rsvp';
-import $ from 'jquery';
 
 export default Route.extend(AuthenticatedRouteMixin, {
-
     growl: inject('growl'),
-
     beforeModel() {
         this._super(...arguments);
-        $('#loading').show();
+        window.loading.showLoading();
     },
     model(params) {
         let folder_id = this.modelFor("folders.folder").folder.id;
@@ -49,7 +46,7 @@ export default Route.extend(AuthenticatedRouteMixin, {
     },
     afterModel() {
         this._super(...arguments);
-        $('#loading').hide();
+        window.loading.hideLoading();
     },
 
     setupController(controller, model) {

@@ -6,7 +6,6 @@
 
 import Component from '@ember/component';
 import { inject } from '@ember/service';
-import $ from 'jquery';
 
 export default Component.extend({
     store: inject('store'),
@@ -28,7 +27,7 @@ export default Component.extend({
          * after the creation of a new permission
          */
         reloadFolderUser() {
-            $('#loading').show();
+            window.loading.showLoading();
             let folder = this.get('folder');
             this.get('store').unloadAll('folderuser');
             this.get('store').query('folderuser', { folderId: folder.get('id') })
@@ -45,10 +44,10 @@ export default Component.extend({
                         return !(folderUsersIndexesList.includes(user.id));
                     });
                     this.set('filteredUsers', filteredUsers);
-                    $('#loading').hide();
+                    window.loading.hideLoading();
                 })
                 .catch((adapterError) => {
-                    $('#loading').hide();
+                    window.loading.hideLoading();
                     if (adapterError.code != 401) {
                         this.get('growl').errorsDatabase(adapterError.errors);
                     }

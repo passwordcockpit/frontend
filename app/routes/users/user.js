@@ -8,14 +8,13 @@ import Route from '@ember/routing/route';
 import RSVP from 'rsvp';
 import AuthenticatedRouteMixin from 'ember-simple-auth/mixins/authenticated-route-mixin';
 import { inject } from '@ember/service';
-import $ from 'jquery';
 
 export default Route.extend(AuthenticatedRouteMixin, {
     account: inject('account'),
 
     beforeModel() {
         this._super(...arguments);
-        $('#loading').show();
+        window.loading.showLoading();
     },
     model(params) {
         let user = this.get('store').peekRecord('user', params.user_id);
@@ -48,7 +47,7 @@ export default Route.extend(AuthenticatedRouteMixin, {
     },
     afterModel() {
         this._super(...arguments);
-        $('#loading').hide();
+        window.loading.hideLoading();
     },
 
     setupController(controller, model) {

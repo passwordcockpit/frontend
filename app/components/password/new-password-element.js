@@ -100,7 +100,7 @@ export default Component.extend(formValidation, {
          * 
          */
         save() {
-            $('#loading').show();
+            window.loading.showLoading();
             let folderId = this.get('folderId');
             // reset errors data
             this.set('errors', null);
@@ -163,16 +163,16 @@ export default Component.extend(formValidation, {
                     self.get('store').createRecord('password', success);
                     self.onCreatePassword();
                     self.get('growl').notice('Success', 'Password created');
-                    $('#loading').hide();
+                    window.loading.hideLoading();
                     self.get('router').transitionTo('folders.folder.passwords.password', success.password_id);
                 }).fail(adapterError => {
                     let errors = this.get('growl').errorsDatabaseToArray(adapterError);
                     this.set('errors', errors);
-                    $('#loading').hide();
+                    window.loading.hideLoading();
                     self.get('growl').error('Error', 'Error while creating the password');
                 });
             } else {
-                $('#loading').hide();
+                window.loading.hideLoading();
             }
 
         },

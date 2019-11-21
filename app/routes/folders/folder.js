@@ -6,16 +6,14 @@
 
 import Route from '@ember/routing/route';
 import { inject } from '@ember/service';
-import $ from 'jquery'
 
 export default Route.extend({
     account: inject('account'),
     session: inject('session'),
     closeFoldersInputs: inject('close-folders-inputs'),
-
     beforeModel() {
         this._super(...arguments);
-        $('#loading').show();
+        window.loading.showLoading();
     },
     model(params, transition) {
         // Save current transition

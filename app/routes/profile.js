@@ -7,7 +7,6 @@
 import Route from '@ember/routing/route';
 import jwtDecode from 'ember-cli-jwt-decode';
 import AuthenticatedRouteMixin from 'ember-simple-auth/mixins/authenticated-route-mixin';
-import $ from 'jquery';
 import RSVP from 'rsvp';
 import { inject } from '@ember/service';
 
@@ -15,7 +14,7 @@ export default Route.extend(AuthenticatedRouteMixin, {
     session: inject('session'),
     beforeModel() {
         this._super(...arguments);
-        $('#loading').show();
+        window.loading.showLoading(false);
     },
     model() {
         let isLdap = jwtDecode(this.get('session.data.authenticated.token')).data.ldap;
@@ -39,7 +38,7 @@ export default Route.extend(AuthenticatedRouteMixin, {
     },
     afterModel() {
         this._super(...arguments);
-        $('#loading').hide();
+        window.loading.hideLoading();
     },
 
     actions: {

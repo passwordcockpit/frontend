@@ -12,7 +12,6 @@ export default Controller.extend({
     store: inject('store'),
     folderController: controller('folders.folder'),
     growl: inject('growl'),
-
     actions: {
         /**
          * Is called by password-contents on deleting the password
@@ -20,13 +19,13 @@ export default Controller.extend({
          * @param {*} passwordId 
          */
         onDeletePassword(passwordId) {
-            $('#loading').show();
+            window.loading.showLoading();
             let password = this.get('store').peekRecord('password', passwordId);
             let folderId = password.data.folder_id
             password.destroyRecord()
                 .then(() => {
                     $('#deletePasswordConfirm').modal('hide');
-                    $('#loading').hide();
+                    window.loading.hideLoading();
                     this.get('folderController').send('onUpdatePassword');
 
                     this.get('growl').notice('Success', 'Password deleted');
@@ -35,7 +34,7 @@ export default Controller.extend({
                 })
                 .catch((adapterError) => {
                     $('#deletePasswordConfirm').modal('hide');
-                    $('#loading').hide();
+                    window.loading.hideLoading();
                     $('.modal-dialog').hide();
                     this.get('growl').errorShowRaw(adapterError.title, adapterError.message);
                 });
@@ -61,7 +60,7 @@ export default Controller.extend({
 
             let page = this.get('page');
             let self = this
-            $('#loading').show();
+            window.loading.showLoading();
             this.get('store').query('log', { passwordId: passwordId, page: page }).then((logs) => {
                 self.get('store').peekAll('log').forEach((storedLog) => {
                     let found = false;
@@ -80,9 +79,9 @@ export default Controller.extend({
                 self.set('page', page);
                 self.set('pageCount', logs.get('meta')._page_count);
                 self.set('logs', logs);
-                $('#loading').hide();
+                window.loading.hideLoading();
             }).catch((adapterError) => {
-                $('#loading').hide();
+                window.loading.hideLoading();
                 this.get('growl').errorShowRaw(adapterError.title, adapterError.message);
             });
         },

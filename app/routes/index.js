@@ -6,14 +6,11 @@
 
 import Route from '@ember/routing/route';
 import { inject } from '@ember/service';
-import $ from 'jquery';
-
 export default Route.extend({
     session: inject('session'),
-
     beforeModel: function () {
         this._super(...arguments);
-        $('#loading').show();
+        window.loading.showLoading(false);
 
         // Replace index route with folders one, which will be the application
         this.replaceWith('folders');

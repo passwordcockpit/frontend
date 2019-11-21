@@ -211,7 +211,7 @@ export default Controller.extend({
          * @param {*} folderId 
          */
         onCreateFolder(folderId) {
-            $('#loading').show();
+            window.loading.showLoading();
             this.get('store').query("folder", {})
                 .then((results) => {
                     // Rebuild the tree
@@ -219,11 +219,11 @@ export default Controller.extend({
 
                     // Open the recently created folder
                     this.transitionToRoute('folders.folder', folderId);
-                    $('#loading').hide();
+                    window.loading.hideLoading();
                 })
                 .catch(() => {
                     this.get('growl').error('Error', 'Error while retrieving folders');
-                    $('#loading').hide();
+                    window.loading.hideLoading();
                 });
         },
         /**
@@ -247,7 +247,7 @@ export default Controller.extend({
          * @param {*} folderId 
          */
         onDeleteFolder(folderId) {
-            $('#loading').show();
+            window.loading.showLoading();
             $('#deleteFolderConfirm' + folderId).modal('hide');
 
             $.ajax({
@@ -265,10 +265,10 @@ export default Controller.extend({
                     .then((results) => {
                         // Rebuild the tree
                         this.send('buildTree', { folders: results });
-                        $('#loading').hide();
+                        window.loading.hideLoading();
                     })
                     .catch(() => {
-                        $('#loading').hide();
+                        window.loading.hideLoading();
                         $('#deleteFolderConfirm' + folderId).modal('hide');
                         this.get('growl').error('Error', 'Error while retrieving folders');
                     });
@@ -281,7 +281,7 @@ export default Controller.extend({
                     }
                 }
             }).fail((adapterError) => {
-                $('#loading').hide();
+                window.loading.hideLoading();
                 this.get('growl').errorShowRaw(adapterError.responseJSON.title, adapterError.responseJSON.detail);
             });
 
@@ -304,7 +304,7 @@ export default Controller.extend({
          * Submit search
          */
         searchSubmit() {
-            $('#loading').show();
+            window.loading.showLoading();
             let keywords = $('#search-keywords').val();
             let target = $('#search-target').val();
 
@@ -347,10 +347,10 @@ export default Controller.extend({
                     target: hash.target
                 })
 
-                $('#loading').hide();
+                window.loading.hideLoading();
                 return resultsSearch;
             }).catch((adapterError) => {
-                $('#loading').hide();
+                window.loading.hideLoading();
 
                 if (adapterError.hasOwnProperty('code')) {
                     this.get('growl').errorShowRaw(adapterError.title, adapterError.message);

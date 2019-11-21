@@ -18,7 +18,7 @@ export default Route.extend(AuthenticatedRouteMixin, {
     transition: null,
     beforeModel() {
         this._super(...arguments);
-        $('#loading').show();
+        window.loading.showLoading();
     },
     model(params, transition) {
         this.transition = transition;
@@ -93,7 +93,7 @@ export default Route.extend(AuthenticatedRouteMixin, {
     },
     afterModel() {
         this._super(...arguments);
-        $('#loading').hide();
+        window.loading.hideLoading();
     },
     actions: {
         willTransition: function () {

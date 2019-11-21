@@ -270,7 +270,7 @@ export default Component.extend(formValidation, {
          */
         deletePasswordFile() {
             $('#deleteFilePermissionConfirm').modal('hide');
-            $('#loading').show();
+            window.loading.showLoading();
             let self = this;
 
             $.ajax({
@@ -290,10 +290,10 @@ export default Component.extend(formValidation, {
                 self.set('password', dataPassword);
                 self.set('localTempPassword', self.get('password').serialize());
 
-                $('#loading').hide();
+                window.loading.hideLoading();
                 self.get('growl').notice('Success', 'File deleted');
             }).fail((adapterError) => {
-                $('#loading').hide();
+                window.loading.hideLoading();
                 this.get('growl').errorShowRaw(adapterError.responseJSON.title, adapterError.responseJSON.detail);
             });
         },
@@ -314,7 +314,7 @@ export default Component.extend(formValidation, {
          * Notify to passwords (controller) about the operation
          */
         save() {
-            $('#loading').show();
+            window.loading.showLoading();
             // reset errors data
             this.set('errors', null);
             // protect password
@@ -361,14 +361,15 @@ export default Component.extend(formValidation, {
 
                             this.set('isEdit', false);
 
-                            $('#loading').hide();
+                            window.loading.hideLoading();
                             this.get('growl').notice('Success', 'File uploaded');
                         }).fail(adapterError => {
                             this.set('isEdit', false);
-                            $('#loading').hide();
+                            window.loading.hideLoading();
                             this.get('growl').errorShowRaw(adapterError.responseJSON.title, adapterError.responseJSON.detail);
                         });
                     } else {
+                        window.loading.hideLoading();
                         this.set('isEdit', false);
                     }
                     this.onSavePassword(self.password.id);
@@ -377,7 +378,7 @@ export default Component.extend(formValidation, {
                 .catch((adapterError) => {
                     let errors = this.get('growl').errorsDatabaseToArray(adapterError);
                     this.set('errors', errors);
-                    $('#loading').hide();
+                    window.loading.hideLoading();
                     this.get('growl').errorShowRaw(adapterError.title, adapterError.message);
                 });
         },

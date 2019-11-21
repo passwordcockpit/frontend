@@ -11,18 +11,19 @@ import ApplicationRouteMixin from 'ember-simple-auth/mixins/application-route-mi
 import jwtDecode from 'ember-cli-jwt-decode';
 import ENV from '../config/environment';
 import RSVP from 'rsvp';
-import $ from 'jquery';
 
 export default Route.extend(ApplicationRouteMixin, {
     session: inject('session'),
     account: inject('account'),
     growl: inject('growl'),
     intl: inject('intl'),
+    loading: inject('loading'),
     closeFoldersInputs: inject('close-folders-inputs'),
 
     beforeModel() {
         this._super(...arguments);
-        $('#loading').show();
+        window.loading = this.loading;
+        window.loading.showLoading(false);
         this.set('intl.locale', ENV.APP.languages);
     },
     model() {
@@ -64,7 +65,7 @@ export default Route.extend(ApplicationRouteMixin, {
     },
     afterModel() {
         this._super(...arguments);
-        $('#loading').hide();
+        window.loading.hideLoading();
     },
 
     /**

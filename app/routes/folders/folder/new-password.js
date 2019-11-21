@@ -6,13 +6,13 @@
 
 import Route from '@ember/routing/route';
 import { inject } from '@ember/service';
-import $ from 'jquery';
 
 export default Route.extend({
     account: inject('account'),
+
     beforeModel() {
         this._super(...arguments);
-        $('#loading').show();
+        window.loading.showLoading();
     },
     model() {
         let folder_id = this.modelFor("folders.folder").folder.id;
@@ -33,7 +33,7 @@ export default Route.extend({
     },
     afterModel() {
         this._super(...arguments);
-        $('#loading').hide();
+        window.loading.hideLoading();
     },
     actions: {
         willTransition: function () {

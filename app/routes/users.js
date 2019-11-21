@@ -8,15 +8,13 @@ import Route from '@ember/routing/route';
 import Object from '@ember/object';
 import AuthenticatedRouteMixin from 'ember-simple-auth/mixins/authenticated-route-mixin';
 import { inject } from '@ember/service';
-import $ from 'jquery';
 
 export default Route.extend(AuthenticatedRouteMixin, {
     account: inject('account'),
     growl: inject('growl'),
-
     beforeModel() {
         this._super(...arguments);
-        $('#loading').show();
+        window.loading.showLoading(false);
     },
     model() {
         //User can access to this route only with manage_users permission
@@ -41,7 +39,7 @@ export default Route.extend(AuthenticatedRouteMixin, {
     },
     afterModel() {
         this._super(...arguments);
-        $('#loading').hide();
+        window.loading.hideLoading();
     },
 
     setupController(controller, model) {
