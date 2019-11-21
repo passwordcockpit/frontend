@@ -2,20 +2,21 @@
     <div class="edit {{if errors.selectUser 'has-error'}}">
         <form {{action 'submit' folderId selectedUser on='submit' }}>
             <div class="user-select-container">
-
-                {{form/form-select
-                    isPowerSelect=true
-                    selectOptions=filteredUsers
-                    value=selectedUser
-                    printSelectValuesHandle=(action 'printSelectValuesHandle')
+                {{#power-select 
+                    selected=selectedUser
+                    printSelectValuesHandle=(action 'printSelectValuesHandle')  
+                    options=filteredUsers 
                     isFormValid=isFormValid
                     showMessage=showMessage
+                    onchange=(action 'changeSelectedUser')
+                    searchField="fullName"
                     validator=(validation-parameters
                         required=true
                         type='select'
                         )
-                }}
-                
+                    as |user|}}
+                    {{print-select-values-handle user (action 'printSelectValuesHandle')}}
+                {{/power-select}}    
             </div>
             <label class="user-edit-container">
                 {{input type="checkbox" id='access' checked=access}}{{t 'Manage' }}

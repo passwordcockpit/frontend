@@ -74,7 +74,7 @@ export default Component.extend(formValidation, {
          * Edit user
          */
         save() {
-            $('#loading').show();
+            window.loading.showLoading();
             let self = this;
             let user = this.get('user');
             user.set('actual_password', null);
@@ -128,7 +128,7 @@ export default Component.extend(formValidation, {
 
                     this.resetPasswordForms();
                     this.get('growl').notice('Success', 'User updated');
-                    $('#loading').hide();
+                    window.loading.hideLoading();
                     // Redirect user to login page in case that the user token became unvalid
                     if (userData.get('forceLogin') !== undefined && userData.get('forceLogin')) {
                         $('#forceLogoutModal').modal('show');
@@ -139,7 +139,7 @@ export default Component.extend(formValidation, {
                     let errors = this.get('growl').errorsDatabaseToArray(adapterError);
                     this.set('errors', errors);
                     this.get('growl').errorShowRaw(adapterError.title, adapterError.message);
-                    $('#loading').hide();
+                    window.loading.hideLoading();
                 });
         },
         /**

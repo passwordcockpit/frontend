@@ -4,12 +4,14 @@
 * @license https://github.com/passwordcockpit/frontend/blob/master/LICENSE.md BSD 3-Clause License 
 */
 
-import Controller from '@ember/controller';
+import Controller, { inject as controller } from '@ember/controller';
 import { inject } from '@ember/service';
 import $ from 'jquery';
 import RSVP from 'rsvp';
 
 export default Controller.extend({
+    foldersController: controller('folders'),
+    folderController: controller('folders.folder'),
     isAdd: false,
     // Show Folder list option for mobile mode
     showList: true,
@@ -18,7 +20,6 @@ export default Controller.extend({
     closeFoldersInputs: inject('close-folders-inputs'),
 
     searchResults: null,
-
     /**
      * Retrieve the list of folders starting from the child folder
      */
@@ -100,6 +101,10 @@ export default Controller.extend({
 
     },
     actions: {
+
+        removePassword(passwordId) {
+            this.get('folderController').send('removePassword', passwordId);
+        },
         /**
          * Toggle folders list visibility (only for mobile)
          */
@@ -108,6 +113,44 @@ export default Controller.extend({
         },
         hideFoldersList() {
             this.set('showList', false);
+        },
+        /**
+         * Interactive show/hile folder
+         * @param {*} folder 
+         */
+        slideAllUp() {
+            this.get('indexedFolders').forEach(function (folder) {
+                folder.set('isShow', false);
+            });
+            $('div[data-id^=collapse]').slideUp();
+            // Show collapsed folders tree for mobile
+            this.send('showFoldersList');
+        },
+        slideAllDown() {
+            this.get('indexedFolders').forEach(function (folder) {
+                folder.set('isShow', true);
+            });
+            $('div[data-id^=collapse]').slideDown();
+            // Show collapsed folders tree for mobile
+            this.send('showFoldersList');
+        },
+        slideUp(folder) {
+            folder.set('isShow', false);
+            $('[data-id=collapse-' + folder.id + ']').slideUp();
+        },
+        slideDown(folder) {
+            folder.set('isShow', true);
+            $('[data-id=collapse-' + folder.id + ']').slideDown();
+        },
+        collapseFolder(folder) {
+            // this variable can be used to know if it is a slideUp or slideDown animation,
+            // if folderVisible (before) is true => show folder's children
+            let folderVisible = !folder.isShow;
+            if (folderVisible) {
+                this.get('foldersController').send('slideDown', folder);
+            } else {
+                this.get('foldersController').send('slideUp', folder);
+            }
 
         },
         /**
@@ -117,6 +160,7 @@ export default Controller.extend({
         addFolder() {
             this.get('closeFoldersInputs').closeAllInputs();
             this.set('isAdd', true);
+            this.send('showFoldersList');
         },
         /**
          * Close New ROOT-folder's form
@@ -167,7 +211,7 @@ export default Controller.extend({
          * @param {*} folderId 
          */
         onCreateFolder(folderId) {
-            $('#loading').show();
+            window.loading.showLoading();
             this.get('store').query("folder", {})
                 .then((results) => {
                     // Rebuild the tree
@@ -175,11 +219,11 @@ export default Controller.extend({
 
                     // Open the recently created folder
                     this.transitionToRoute('folders.folder', folderId);
-                    $('#loading').hide();
+                    window.loading.hideLoading();
                 })
                 .catch(() => {
                     this.get('growl').error('Error', 'Error while retrieving folders');
-                    $('#loading').hide();
+                    window.loading.hideLoading();
                 });
         },
         /**
@@ -203,7 +247,7 @@ export default Controller.extend({
          * @param {*} folderId 
          */
         onDeleteFolder(folderId) {
-            $('#loading').show();
+            window.loading.showLoading();
             $('#deleteFolderConfirm' + folderId).modal('hide');
 
             $.ajax({
@@ -221,10 +265,10 @@ export default Controller.extend({
                     .then((results) => {
                         // Rebuild the tree
                         this.send('buildTree', { folders: results });
-                        $('#loading').hide();
+                        window.loading.hideLoading();
                     })
                     .catch(() => {
-                        $('#loading').hide();
+                        window.loading.hideLoading();
                         $('#deleteFolderConfirm' + folderId).modal('hide');
                         this.get('growl').error('Error', 'Error while retrieving folders');
                     });
@@ -237,7 +281,7 @@ export default Controller.extend({
                     }
                 }
             }).fail((adapterError) => {
-                $('#loading').hide();
+                window.loading.hideLoading();
                 this.get('growl').errorShowRaw(adapterError.responseJSON.title, adapterError.responseJSON.detail);
             });
 
@@ -260,7 +304,7 @@ export default Controller.extend({
          * Submit search
          */
         searchSubmit() {
-            $('#loading').show();
+            window.loading.showLoading();
             let keywords = $('#search-keywords').val();
             let target = $('#search-target').val();
 
@@ -303,10 +347,10 @@ export default Controller.extend({
                     target: hash.target
                 })
 
-                $('#loading').hide();
+                window.loading.hideLoading();
                 return resultsSearch;
             }).catch((adapterError) => {
-                $('#loading').hide();
+                window.loading.hideLoading();
 
                 if (adapterError.hasOwnProperty('code')) {
                     this.get('growl').errorShowRaw(adapterError.title, adapterError.message);

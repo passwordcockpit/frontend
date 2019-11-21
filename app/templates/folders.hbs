@@ -90,6 +90,12 @@
         {{/if}}
         <div class="pull-right">
             <div class="btn-group">
+                <a class="btn btn-default btn-xs" {{action 'slideAllDown'}}>
+                    <i class="fas fa-expand"></i>
+                </a>
+                <a class="btn btn-default btn-xs" {{action 'slideAllUp'}}>
+                    <i class="fas fa-compress"></i>
+                </a>
                 {{#if canCreateFolders}}
                     <a class="btn btn-default btn-xs" {{action 'addFolder'}}>
                         <i class="fas fa-plus"></i>
@@ -110,12 +116,15 @@
             {{/if}}
             {{#each [roots] as |folderId|}}
                 {{folder/folder-element
+                    removePassword=(action "removePassword")
                     folder=(get indexedFolders folderId) 
                     indexedFolders=indexedFolders 
                     tree=tree
                     onCreateFolder=(action "onCreateFolder")
                     onUpdateFolder=(action "onUpdateFolder")
                     onDeleteFolder=(action "onDeleteFolder")
+                    collapseFolder=(action "collapseFolder")
+                    slideUp=(action "slideUp")
                     canAccessAllFolders=canAccessAllFolders
                 }}
                 {{else}}

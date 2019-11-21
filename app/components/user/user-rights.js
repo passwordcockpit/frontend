@@ -6,12 +6,10 @@
 
 import Component from '@ember/component';
 import { inject } from '@ember/service';
-import $ from 'jquery'
 
 export default Component.extend({
     store: inject('store'),
     growl: inject('growl'),
-
     actions: {
 
         /**
@@ -31,18 +29,18 @@ export default Component.extend({
          * Edit user-rights
          */
         submit() {
-            $('#loading').show();
+            window.loading.showLoading();
             let permission = this.get('permission');
             permission.save()
                 .then(() => {
                     this.set('isEdit', false);
                     this.onUpdateUserRight(permission.id);
                     this.get('growl').notice('Success', 'Permission updated');
-                    $('#loading').hide();
+                    window.loading.hideLoading();
                 })
                 .catch((adapterError) => {
                     this.get('growl').errorShowRaw(adapterError.title, adapterError.message);
-                    $('#loading').hide();
+                    window.loading.hideLoading();
                 });
         }
     }

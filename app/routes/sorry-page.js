@@ -5,15 +5,15 @@
 */
 
 import Route from '@ember/routing/route';
-import $ from 'jquery';
+import { inject } from '@ember/service';
 
 export default Route.extend({
     beforeModel() {
         this._super(...arguments);
-        $('#loading').show();
+        window.loading.showLoading(false);
     },
     afterModel(){
         this._super(...arguments);
-        $('#loading').hide();
+        window.loading.hideLoading();
     }
 });

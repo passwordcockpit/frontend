@@ -8,18 +8,20 @@ import Route from '@ember/routing/route';
 import AuthenticatedRouteMixin from 'ember-simple-auth/mixins/authenticated-route-mixin';
 import { inject } from '@ember/service';
 import $ from 'jquery';
+import { later } from '@ember/runloop'
 
 export default Route.extend(AuthenticatedRouteMixin, {
     account: inject('account'),
     growl: inject('growl'),
     session: inject('session'),
     closeFoldersInputs: inject('close-folders-inputs'),
-
+    transition: null,
     beforeModel() {
         this._super(...arguments);
-        $('#loading').show();
+        window.loading.showLoading();
     },
     model(params, transition) {
+        this.transition = transition;
         this.get('store').unloadAll('folder');
         // Save current transition to folders
         this.controllerFor('folders').set('transitionData', transition);
@@ -34,15 +36,15 @@ export default Route.extend(AuthenticatedRouteMixin, {
 
         let canViewLogs = this.get('store').peekRecord('permission', this.get('account').getUserId()).get('view_logs');
         this.controllerFor('folders.folder.passwords.password').set('canViewLogs', canViewLogs);
-        
+
         // Show folders/passwords list
         this.controllerFor('folders').send('showFoldersList');
         this.controllerFor('folders.folder').send('showPasswordsList');
         this.controllerFor('folders.index').send('showPasswordsList');
-        
+
         // Clear search result
         this.controllerFor('folders').set('searchResults', null);
-        
+
         // Retrieve all users for edit purposes
         // Save to store
         let self = this;
@@ -60,27 +62,38 @@ export default Route.extend(AuthenticatedRouteMixin, {
                     self.get('store').createRecord('user', user);
                 }
             });
-        }).fail((adapterError) => {
-            this.get('growl').errorShowRaw(adapterError.responseJSON.title, adapterError.responseJSON.detail);
-            if (adapterError.responseJSON.status == 401) {
-                self.get('session').invalidate();
-                return this.transitionTo('sorry-page');
-            }
         });
 
         // Return folder data as Model
         return this.get('store').findAll('folder', { reload: true })
             .then((results) => {
                 this.controllerFor('folders').send('buildTree', { folders: results });
+
+                // set folder.isShow for selected folder
+                // if transition contains 'folders.folder' params
+                if (this.modelFor("folders.folder") != undefined) {
+                    let folderId = this.modelFor("folders.folder").folder.id;
+                    while (folderId !== null) {
+                        let folder = this.get('store').peekRecord('folder', folderId);
+                        folder.set('isShow', true);
+                        folderId = folder.parent_id;
+                    }
+                }
+
                 return results;
             })
-            .catch(() => {
-                this.get('growl').error('Error', 'Error while retrieving folders');
+            .catch((error) => {
+                this.get('growl').errorShowRaw(error.title, error.message);
+                if (error.code == 401) {
+                    later((function () {
+                        self.get('session').invalidate();
+                    }), 2000);
+                }
             });
     },
     afterModel() {
         this._super(...arguments);
-        $('#loading').hide();
+        window.loading.hideLoading();
     },
     actions: {
         willTransition: function () {

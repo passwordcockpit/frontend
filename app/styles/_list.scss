@@ -8,12 +8,14 @@
 ***********************************************************************************
 ***********************************************************************************
 - folder permissions
-- media
+- folder toggle
+- drag & drop
 ***********************************************************************************/
 
 .password-menu ul .fa {
     width: 1em;
 }
+
 ul.list {
     padding: 0;
     margin: 0;
@@ -35,12 +37,15 @@ ul.list {
         }
 
         .edit {
-            padding: 6px 166px 6px $padding;
+            padding: 6px $padding 6px $padding;
             display: none;
             position: relative;
 
             form {
+                width: 100%;
                 height: 100%;
+                display: flex;
+                flex-wrap: nowrap;
             }
 
             input.form-control {
@@ -50,10 +55,11 @@ ul.list {
             }
 
             .form-btn {
-                padding: 6px $padding;
-                position: absolute;
-                top: 0;
-                right: 0;
+                white-space: nowrap;
+                padding: 0 0 0 5px;
+                button{
+                    display: inline-block;
+                }
             }
         }
 
@@ -71,11 +77,13 @@ ul.list {
             }
         }
     }
+    div.read{
+        padding: 5px 97px 5px $padding;
+    }
     div.read,
     a:not(.btn){
         height: 35px;
         width: 100%;
-        padding: 5px 97px 5px $padding;
         display: block;
         line-height: 25px;
         color: #000;
@@ -85,8 +93,11 @@ ul.list {
 
         &.active,
         &:hover {
-            background: #eee;
+            background: $highlight;
             text-decoration: none;
+            .draggable-item{
+                background: $highlight;
+            }
         }
         &.active{
             .fa-folder{
@@ -123,7 +134,7 @@ ul.list {
         overflow: hidden;
         cursor: not-allowed;
     }
-
+    
     .actions {
         height: 35px;
         padding: 6px $padding;
@@ -172,6 +183,14 @@ ul.list {
     background: #fff;
     p.alert {
         margin: 15px;
+    }
+}
+
+.user-menu{
+    .scroll-container{
+        a{
+            padding: 5px 15px 5px 15px;
+        }
     }
 }
 
@@ -225,4 +244,52 @@ ul.list {
 
 .power-select-container {
     vertical-align: bottom;
+}
+
+/* folder */
+.folder-menu{
+    .chevron{
+        position: absolute;
+        top: 0;
+        left: 0;
+        height: 35px;
+        width: 25px;
+        text-align: center;
+        background: transparent;
+        padding: 0;
+        border: 0;
+    }
+    ul.list{
+        li{
+            span {
+                padding-left: 25px;
+            }
+            a.read{
+                padding-left: 25px;
+            }
+        }
+        a:not(.btn){
+            padding: 5px 97px 5px $padding;
+        }
+    }
+}
+/* password */
+.password-menu{
+    a:not(.btn){
+        padding: 0px 92px 0px ($padding - 5);
+    }
+}
+/* drag & drop */
+.draggable-dropzone{
+    &.activated{
+        background: $highlight;
+        a:not(.btn){
+            color: $brand-primary;
+        }
+    }
+}
+.draggable-item{
+    background: #fff;
+    border-radius: 5px;
+    padding: 5px;
 }

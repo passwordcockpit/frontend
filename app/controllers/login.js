@@ -8,7 +8,6 @@ import Controller from '@ember/controller';
 import { inject } from '@ember/service';
 import jwtDecode from 'ember-cli-jwt-decode';
 import formValidation from '../mixins/form/form-validation';
-import $ from 'jquery';
 
 export default Controller.extend(formValidation, {
     intl: inject('intl'),
@@ -29,14 +28,14 @@ export default Controller.extend(formValidation, {
          * Perform authentication
          */
         save() {
-            $('#loading').show();
+            window.loading.showLoading();
             this.get('session').authenticate('authenticator:jwt', { username: this.get('username'), password: this.get('password') }).then(() => {
                 this.set('errorMessage', null);
                 var language = jwtDecode(this.get('session.data.authenticated.token'));
 
                 //set language received from token
                 this.set('intl.locale', language.data.language);
-                $('#loading').hide();
+                window.loading.hideLoading();
 
                 this.transitionToRoute('folders');
             })
@@ -45,7 +44,7 @@ export default Controller.extend(formValidation, {
                     this.set('username', '');
                     this.set('password', '');
 
-                    $('#loading').hide();
+                    window.loading.hideLoading();
 
                     if (loginErrors.hasOwnProperty('json')) {
                         this.get('growl').errorShowRaw(loginErrors.json.title, loginErrors.json.detail);

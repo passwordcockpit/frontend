@@ -7,10 +7,12 @@
 /* CONTENT
 ***********************************************************************************
 ***********************************************************************************
+- variable
 - import
 - base
-- layout
+- layout (@import)
 - growl (@import)
+- tooltip
 - grid
 - power select
 - table
@@ -32,6 +34,30 @@
 - error page    
 - media (@import)
 ***********************************************************************************/
+
+/* Variable
+*********************************************************************************/
+$highlight: #eee;
+$header-height: 50px;
+$global-search-height: 65px;
+$padding: 15px;
+$border-color: #e7e7e7;
+
+/* bootstrap */
+$bootstrap-sass-asset-helper: false;
+$logoHeight: 35px;
+$ray-darker: lighten(#000, 13.5%);
+$gray-dark: lighten(#000, 20%);
+$gray: lighten(#000, 33.5%);
+$gray-light: #db901b;
+$gray-lighter: lighten(#000, 93.5%);
+$gray-lightest: lighten(#000, 97.25%);
+$brand-primary: #db901b;
+$brand-success: #1da41d;
+$brand-info: #5bc0de;
+$brand-warning: #f0ad4e;
+$brand-danger: #d9534f;
+$weekend: #e2e2e2;
 
 /* Import
 *********************************************************************************/
@@ -88,7 +114,7 @@ h1 {
 
 .btn-group {
     .btn {
-        margin: 0 5px 0 0;
+        margin: 0 6px 0 0;
 
         &:last-child {
             margin-right: 0;
@@ -106,6 +132,21 @@ h1 {
 *********************************************************************************/
 @import "growl";
 
+/* tooltip
+*********************************************************************************/
+.btn-tooltip{
+    position: absolute;
+    top: 0;
+    right: 0;
+}
+.tooltip{
+    width: 200px;
+    .tooltip-inner{
+        text-align: left;
+        padding: 10px;
+
+    }
+}
 /* alert 
 *********************************************************************************/
 p.alert{
@@ -207,6 +248,17 @@ input.number {
     button {
         height: 35px;
     }
+}
+#icons-wormhole{
+    .ember-power-select-option{
+        width: 50px;
+        float: left;
+        line-height: 50px;
+        text-align: center;
+    }
+}
+.control-label.with-tooltip{
+    padding-right: 20px;
 }
 
 /* password generator */
@@ -375,7 +427,6 @@ td.path{
         max-width: 0;
         overflow: hidden;
         text-overflow: ellipsis;
-        white-space: nowrap;
         }
 }
 

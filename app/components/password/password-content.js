@@ -24,6 +24,30 @@ export default Component.extend(formValidation, {
     localTempPasswordDecrypted: null,
     failureLimit: ENV.passwordEncryptionConfig.failureLimit,
 
+    didRender(){
+        // init bootstrap tooltip
+        $('[data-toggle="tooltip"]').tooltip();
+    },
+
+    copyStringToClipboard (str) {
+        // Create new element
+        var el = document.createElement('textarea');
+        // Set value (string to be copied)
+        el.value = str;
+        // Set non-editable to avoid focus and move outside of view
+        el.setAttribute('readonly', '');
+        el.style = {position: 'absolute', left: '-9999px'};
+        document.body.appendChild(el);
+        // Select text inside element
+        el.select();
+        // Copy text to clipboard
+        document.execCommand('copy');
+        // Remove temporary element
+        document.body.removeChild(el);
+        // show growl success notification
+        this.get('growl').notice('Success','Copied to clipboard');
+    },
+
     actions: {
         /**
          * Toggle Password's visibility
@@ -129,13 +153,16 @@ export default Component.extend(formValidation, {
         },
 
         /**
-         * Highlight password
+         * Highlight password and copy it in clipboard
+         * * @param {*} password 
          */
-        selectPassword() {
+        selectPassword(password) {
             let sel, range;
             let el = $('#password-read')[0];
             if (window.getSelection && document.createRange) { //Browser compatibility
                 sel = window.getSelection();
+                this.copyStringToClipboard(password);
+                
                 if (sel.toString() == '') { //no text selection
                     window.setTimeout(function () {
                         range = document.createRange(); //range object
@@ -146,6 +173,37 @@ export default Component.extend(formValidation, {
                 }
             } else if (document.selection) { //older ie
                 sel = document.selection.createRange();
+                this.copyStringToClipboard(password);
+                if (sel.text == '') { //no text selection
+                    range = document.body.createTextRange();//Creates TextRange object
+                    range.moveToElementText(el);//sets Range
+                    range.select(); //make selection.
+                }
+            }
+        },
+
+        /**
+         * Highlight username and copy it in clipboard
+         * @param {*} username 
+         */
+        selectUsername(username){
+            let sel, range;
+            let el = $('#username-read')[0];
+            if (window.getSelection && document.createRange) { //Browser compatibility
+                sel = window.getSelection();
+                this.copyStringToClipboard(username);
+                
+                if (sel.toString() == '') { //no text selection
+                    window.setTimeout(function () {
+                        range = document.createRange(); //range object
+                        range.selectNodeContents(el); //sets Range
+                        sel.removeAllRanges(); //remove all ranges from selection
+                        sel.addRange(range);//add Range to a Selection.
+                    }, 1);
+                }
+            } else if (document.selection) { //older ie
+                sel = document.selection.createRange();
+                this.copyStringToClipboard(username);
                 if (sel.text == '') { //no text selection
                     range = document.body.createTextRange();//Creates TextRange object
                     range.moveToElementText(el);//sets Range
@@ -161,12 +219,14 @@ export default Component.extend(formValidation, {
         showConfirm() {
             $('#deletePasswordConfirm').modal('show');
         },
+
         /**
          * close Delete password confirmation dialog box
          */
         cancelFormConfirm() {
             $('#deletePasswordConfirm').modal('hide');
         },
+        
         /**
          * Confirm the password's deletion
          * Notify to passwords (controller) to delete password
@@ -210,7 +270,7 @@ export default Component.extend(formValidation, {
          */
         deletePasswordFile() {
             $('#deleteFilePermissionConfirm').modal('hide');
-            $('#loading').show();
+            window.loading.showLoading();
             let self = this;
 
             $.ajax({
@@ -230,10 +290,10 @@ export default Component.extend(formValidation, {
                 self.set('password', dataPassword);
                 self.set('localTempPassword', self.get('password').serialize());
 
-                $('#loading').hide();
+                window.loading.hideLoading();
                 self.get('growl').notice('Success', 'File deleted');
             }).fail((adapterError) => {
-                $('#loading').hide();
+                window.loading.hideLoading();
                 this.get('growl').errorShowRaw(adapterError.responseJSON.title, adapterError.responseJSON.detail);
             });
         },
@@ -254,7 +314,7 @@ export default Component.extend(formValidation, {
          * Notify to passwords (controller) about the operation
          */
         save() {
-            $('#loading').show();
+            window.loading.showLoading();
             // reset errors data
             this.set('errors', null);
             // protect password
@@ -301,14 +361,15 @@ export default Component.extend(formValidation, {
 
                             this.set('isEdit', false);
 
-                            $('#loading').hide();
+                            window.loading.hideLoading();
                             this.get('growl').notice('Success', 'File uploaded');
                         }).fail(adapterError => {
                             this.set('isEdit', false);
-                            $('#loading').hide();
+                            window.loading.hideLoading();
                             this.get('growl').errorShowRaw(adapterError.responseJSON.title, adapterError.responseJSON.detail);
                         });
                     } else {
+                        window.loading.hideLoading();
                         this.set('isEdit', false);
                     }
                     this.onSavePassword(self.password.id);
@@ -317,7 +378,7 @@ export default Component.extend(formValidation, {
                 .catch((adapterError) => {
                     let errors = this.get('growl').errorsDatabaseToArray(adapterError);
                     this.set('errors', errors);
-                    $('#loading').hide();
+                    window.loading.hideLoading();
                     this.get('growl').errorShowRaw(adapterError.title, adapterError.message);
                 });
         },

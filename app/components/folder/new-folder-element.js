@@ -7,7 +7,6 @@
 import Component from '@ember/component';
 import { inject } from '@ember/service';
 import formValidation from '../../mixins/form/form-validation';
-import $ from 'jquery'
 
 export default Component.extend(formValidation, {
     store: inject('store'),
@@ -30,7 +29,7 @@ export default Component.extend(formValidation, {
          * Create new folder
          */
         save() {
-            $('#loading').show();
+            window.loading.showLoading();
             let folderToCreate = this.get('store')
                 .createRecord('folder', {
                     name: this.get('folderName'),
@@ -46,10 +45,10 @@ export default Component.extend(formValidation, {
                         this.cancelAddFolder();
                     }
                     this.onCreateFolder(result.id);
-                    $('#loading').hide();
+                    window.loading.hideLoading();
                 })
                 .catch((adapterError) => {
-                    $('#loading').hide();
+                    window.loading.hideLoading();
                     folderToCreate.deleteRecord();
                     let errors = this.get('growl').errorsDatabaseToArray(adapterError);
                     this.set('errors', errors);

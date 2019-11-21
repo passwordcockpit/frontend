@@ -53,19 +53,19 @@ export default Component.extend({
          * @param {*} folderId 
          */
         updatePermission(folderUser, folderId) {
-            $('#loading').show();
+            window.loading.showLoading();
             this._super(...arguments);
             folderUser.setAccess(this.get('access'));
             folderUser.save({ adapterOptions: { folder_id: folderId } }).then(() => {
                 this.folderUser.set('isEdit', false);
                 this.set('isManage', false);
                 this.onUpdatePermission();
-                $('#loading').hide();
+                window.loading.hideLoading();
 
                 this.get('growl').notice('Success', 'Permission updated');
             })
                 .catch((adapterError) => {
-                    $('#loading').hide();
+                    window.loading.hideLoading();
                     this.get('growl').errorShowRaw(adapterError.title, adapterError.message);
                 });
         },
@@ -77,7 +77,14 @@ export default Component.extend({
          * @param {*} id 
          */
         showConfirm(id) {
-            $('#deletePermissionConfirm' + id).modal('show');
+            let permissions = this.get('store').peekAll('folderuser');
+
+            if(permissions.length == 1){
+                $('#lastPermissionConfirm'+ id).modal('show');
+            }
+            else{
+                $('#deletePermissionConfirm' + id).modal('show');
+            }
         },
         /**
          * Close Delete permission confirmation dialog box
@@ -86,6 +93,7 @@ export default Component.extend({
          */
         cancelFormConfirm(id) {
             $('#deletePermissionConfirm' + id).modal('hide');
+            $('#lastPermissionConfirm' + id).modal('hide');
         },
         /**
          * Delete permission
@@ -94,13 +102,14 @@ export default Component.extend({
          * @param {*} folderId 
          */
         deletePermission(folderUser, folderId) {
-
             var userId = jwtDecode(this.get('session.session.content.authenticated.token'));
             this._super(...arguments);
             $('#deletePermissionConfirm').modal('hide');
-            $('#loading').show();
+            $('#lastPermissionConfirm').modal('hide');
+            window.loading.showLoading();
             folderUser.destroyRecord({ adapterOptions: { folder_id: folderId } }).then(() => {
                 $('#deletePermissionConfirm' + folderUser.id).modal('hide');
+                $('#lastPermissionConfirm' + folderUser.id).modal('hide');
                 this.get('growl').notice('Success', 'Permission deleted');
 
                 // if user delete the permission of him/her-self
@@ -108,11 +117,11 @@ export default Component.extend({
                     this.get('router').transitionTo('folders');
                 }
                 this.onDeletePermission();
-                $('#loading').hide();
+                window.loading.hideLoading();
             })
                 .catch((adapterError) => {
                     $('#deletePermissionConfirm' + folderUser.id).modal('hide');
-                    $('#loading').hide();
+                    window.loading.hideLoading();
                     this.get('growl').errorShowRaw(adapterError.title, adapterError.message);
                 });
         }

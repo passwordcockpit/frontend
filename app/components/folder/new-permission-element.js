@@ -7,7 +7,6 @@
 import Component from '@ember/component';
 import { inject } from '@ember/service';
 import formValidation from '../../mixins/form/form-validation';
-import $ from 'jquery';
 
 export default Component.extend(formValidation, {
     router: inject('router'),
@@ -31,7 +30,7 @@ export default Component.extend(formValidation, {
          * Create new permission
          */
         save() {
-            $('#loading').show();
+            window.loading.showLoading();
 
             let access = 1;
             if (this.get('access')) {
@@ -45,15 +44,19 @@ export default Component.extend(formValidation, {
                 })
                 .save()
                 .then(() => {
-                    $('#loading').hide();
+                    window.loading.hideLoading();
                     this.get('growl').notice('Success', 'Permission created');
                     this.set('isAdd', false);
                     this.reloadFolderUser();
                 })
                 .catch((adapterError) => {
-                    $('#loading').hide();
+                    window.loading.hideLoading();
                     this.get('growl').errorShowRaw(adapterError.title, adapterError.message);
                 });
+        },
+
+        changeSelectedUser(user){
+            this.set('selectedUser', user);
         },
 
         handleFocus() {

@@ -6,16 +6,18 @@
 
 import Route from '@ember/routing/route';
 import { inject } from '@ember/service';
-import $ from 'jquery';
 
 export default Route.extend({
     account: inject('account'),
+
     beforeModel() {
         this._super(...arguments);
-        $('#loading').show();
+        window.loading.showLoading();
     },
-    model(params, transition) {
-        let folder = this.get('store').peekRecord('folder', transition.params['folders.folder'].folder_id);
+    model() {
+        let folder_id = this.modelFor("folders.folder").folder.id;
+
+        let folder = this.get('store').peekRecord('folder', folder_id);
         let canAccessAllFolders = this.get('store').peekRecord('permission', this.get('account').getUserId()).get('access_all_folders');
 
         // Hide passwords list on creating new Password
@@ -23,7 +25,7 @@ export default Route.extend({
         
         //Check that folder exists and that user has permission to access
         if (folder && (canAccessAllFolders || folder.get('access') === 2)) {
-            return { folderId: transition.params['folders.folder'].folder_id };
+            return { folderId: folder_id };
         }
         else {
             return this.transitionTo('sorry-page');
@@ -31,7 +33,7 @@ export default Route.extend({
     },
     afterModel() {
         this._super(...arguments);
-        $('#loading').hide();
+        window.loading.hideLoading();
     },
     actions: {
         willTransition: function () {

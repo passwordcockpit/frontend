@@ -40,7 +40,7 @@ export default Component.extend(formValidation, {
          * Notify to users (passing by new-users) about the operation
          */
         save() {
-            $('#loading').show();
+            window.loading.showLoading();
             let newUserRecord = this.get('store')
                 .createRecord('user', {
                     username: this.get('username'),
@@ -57,7 +57,7 @@ export default Component.extend(formValidation, {
             newUserRecord.save()
                 .then((result) => {
                     this.onCreateUser();
-                    $('#loading').hide();
+                    window.loading.hideLoading();
                     this.get('growl').notice('Success', 'User created');
                     this.get('router').transitionTo('users.user', result.get('id'));
                 })
@@ -66,7 +66,7 @@ export default Component.extend(formValidation, {
 
                     let errors = this.get('growl').errorsDatabaseToArray(adapterError);
                     this.set('errors', errors);
-                    $('#loading').hide();
+                    window.loading.hideLoading();
                     this.get('growl').errorShowRaw(adapterError.title, adapterError.message);
                 });
         },

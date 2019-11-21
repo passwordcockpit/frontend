@@ -15,6 +15,17 @@ export default Controller.extend({
     folderController: controller('folders.folder'),
     showList: true,
     actions: {
+
+        removePassword(passwordId) {
+            let newPass = [];
+            this.get('passwords').forEach((el) => {
+                if (el.password_id != passwordId) {
+                    newPass.push(el);
+                }
+            });
+            this.set('passwords', newPass);
+        },
+
         /**
          * Load selected folder's passwords data
          * Is called by folder (route) on generating folder model data
@@ -22,7 +33,7 @@ export default Controller.extend({
          * @param {*} params 
          */
         onSelectFolder(params) {
-            $('#loading').show();
+            window.loading.showLoading();
             let folderId = params.folderId;
             this.set('folderId', folderId);
 
@@ -37,16 +48,16 @@ export default Controller.extend({
             }).done((result) => {
                 this.set('passwords', result._embedded.passwords);
                 this.set('selectFolder', true);
-                // Hide folders list on Folder selecting
+                // Hide folders list on Folder selecting // mobile only
                 this.get('foldersController').send('hideFoldersList');
-                // show passwords list on Folder selecting
+                // show passwords list on Folder selecting // mobile only
                 this.get('folderController').send('showPasswordsList');
 
-                $('#loading').hide();
+                window.loading.hideLoading();
             }).fail((adapterError) => {
                 this.set('passwords', null);
                 this.set('selectFolder', false);
-                $('#loading').hide();
+                window.loading.hideLoading();
                 this.get('growl').errorShowRaw(adapterError.responseJSON.title, adapterError.responseJSON.detail);
             });
 
@@ -56,7 +67,7 @@ export default Controller.extend({
          * Is called by new-password/password (controller) on updating/creating new password
          */
         onUpdatePassword() {
-            $('#loading').show();
+            window.loading.showLoading();
 
             $.ajax({
                 url: window.APP.host + '/' + window.APP.namespace + '/folders/' + this.get('folderId') + '/passwords',
@@ -69,10 +80,10 @@ export default Controller.extend({
             }).done((result) => {
                 this.set('passwords', result._embedded.passwords);
                 this.set('selectFolder', true);
-                $('#loading').hide();
+                window.loading.hideLoading();
             }).fail((adapterError) => {
                 this.set('passwords', null);
-                $('#loading').hide();
+                window.loading.hideLoading();
                 this.get('growl').errorShowRaw(adapterError.responseJSON.title, adapterError.responseJSON.detail);
             });
         },
