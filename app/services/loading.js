@@ -10,7 +10,6 @@ import { later, cancel } from '@ember/runloop';
 export default Service.extend({
     showLoadingDelay: 1000,
     showLoadingAfterDelay: false,
-    delayOn: false,
     showLoadingLater: null,
     /**
      * show loading after delay
