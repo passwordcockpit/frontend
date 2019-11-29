@@ -7,6 +7,7 @@
 import Component from '@ember/component';
 import { inject } from '@ember/service';
 import formValidation from '../../mixins/form/form-validation';
+import ENV from '../../config/environment';
 import $ from 'jquery';
 
 export default Component.extend(formValidation, {
@@ -18,20 +19,7 @@ export default Component.extend(formValidation, {
     init() {
         this._super(...arguments);
         // Language options
-        this.userLanguages = [
-            {
-                value: '',
-                text: '-'
-            },
-            {
-                value: 'en',
-                text: 'English'
-            },
-            {
-                value: 'it',
-                text: 'Italiano'
-            }
-        ];
+        this.userLanguages = ENV.APP.userLanguages;
     },
 
     actions: {
