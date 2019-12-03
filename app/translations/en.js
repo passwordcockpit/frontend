@@ -101,7 +101,7 @@ export default {
     "Actual password is empty": "Actual password is empty",
     "Action": "Action",
     "Date": "Date",
-    "Password's title": "Nome password",
+    "Password's title": "Password's title",
     "Copied to clipboard": "Copied to clipboard",
     "Reset": "Reset",
     "Update": "Update",
