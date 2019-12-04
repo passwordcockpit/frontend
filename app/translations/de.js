@@ -136,6 +136,7 @@ export default {
     "PIN": "PIN",
     "The password is procteted with a PIN:": "Das Passwort ist mit einem PIN geschützt:",
     "Passwords without PIN are visible to users who have access to the folder and users with admin role.": "Passwörter ohne PIN sind für Benutzer mit Zugriff auf den Ordner und Benutzer mit Administratorrolle sichtbar.",
+    "visiblePassword": "Passwörter ohne PIN sind für Benutzer mit Zugriff auf den Ordner und Benutzer mit Administratorrechte sichtbar.",
 
     "Please change your password for the first time you logged in": "Ändern Sie Ihr Passwort, nachdem Sie sich zum ersten Mal angemeldet haben.",
     "You exceeded the maximum allowed number of decryption attempts": "Sie haben die maximal zulässige Anzahl von Entschlüsselungsversuchen überschritten",
