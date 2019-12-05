@@ -32,7 +32,29 @@ module.exports = function (environment) {
         APP: {
             host: local.baseHost,
             namespace: 'api/v1',
-            languages: ['en', 'it']
+            languages: ['en', 'it', 'de', 'fr'],
+            userLanguages: [
+                {
+                    value: '',
+                    text: '-'
+                },
+                {
+                    value: 'en',
+                    text: 'English'
+                },
+                {
+                    value: 'it',
+                    text: 'Italiano'
+                },
+                {
+                    value: 'de',
+                    text: 'Deutsch'
+                },
+                {
+                    value: 'fr',
+                    text: 'Français'
+                }
+            ]
         },
         passwordFormConfig: passwordForm.passwordFormConfig,
         passwordEncryptionConfig: passwordEncryption.passwordEncryptionConfig
