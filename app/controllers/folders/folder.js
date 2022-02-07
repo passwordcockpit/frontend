@@ -35,6 +35,7 @@ export default Controller.extend({
         onSelectFolder(params) {
             window.loading.showLoading();
             let folderId = params.folderId;
+            let path = params.folderPath;
             this.set('folderId', folderId);
 
             $.ajax({
@@ -52,6 +53,10 @@ export default Controller.extend({
                 this.get('foldersController').send('hideFoldersList');
                 // show passwords list on Folder selecting // mobile only
                 this.get('folderController').send('showPasswordsList');
+                // Opens the related folders of the selected folder
+                for (let i = 0; i < path.length; i++) {
+                    this.get('foldersController').send('slideDown', path[i]);
+                }
 
                 window.loading.hideLoading();
             }).fail((adapterError) => {

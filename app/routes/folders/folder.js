@@ -21,10 +21,20 @@ export default Route.extend({
         
         let folder = this.get('store').peekRecord('folder', params.folder_id);
         let canAccessAllFolders = this.get('store').peekRecord('permission', this.get('account').getUserId()).get('access_all_folders');
+
+        // Prepares the folder's path to send to the 'onSelectFolder' action
+        let folderPath = [];
+        let parentId = folder.parent_id;
+        while (parentId != null) {
+            let parentFolder = this.get('store').peekRecord('folder', parentId);
+            folderPath.push(parentFolder);
+            parentId = parentFolder.get('parent_id');
+        }
+        folderPath = folderPath.reverse();
         
         //Check that folder exists and that user has permission to access
         if (folder && (canAccessAllFolders || folder.get('access') === 2 || folder.get('access') === 1)) {
-            this.controllerFor('folders.folder').send('onSelectFolder', { folderId: params.folder_id });
+            this.controllerFor('folders.folder').send('onSelectFolder', { folderId: params.folder_id, folderPath: folderPath });
             folder.set('canAccessAllFolders', canAccessAllFolders);
             // Return model
             return {
