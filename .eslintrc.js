@@ -4,7 +4,7 @@ module.exports = {
   },
   root: true,
   parserOptions: {
-    ecmaVersion: 2017,
+    ecmaVersion: 2018,
     sourceType: 'module'
   },
   plugins: [
@@ -26,7 +26,10 @@ module.exports = {
       files: [
         'testem.js',
         'ember-cli-build.js',
-        'config/**/*.js'
+        'blueprints/*/index.js',
+        'config/**/*.js',
+        'lib/*/index.js',
+        'server/**/*.js'
       ],
       parserOptions: {
         sourceType: 'script',
@@ -44,7 +47,15 @@ module.exports = {
       excludedFiles: ['tests/dummy/**/*.js'],
       env: {
         embertest: true
-      }
+      },
+      plugins: ['node'],
+      rules: Object.assign({}, require('eslint-plugin-node').configs.recommended.rules, {
+        // add your custom rules and overrides for node files here
+
+        // this can be removed once the following is fixed
+        // https://github.com/mysticatea/eslint-plugin-node/issues/77
+        'node/no-unpublished-require': 'off'
+      })
     }
   ]
 };
