@@ -21,8 +21,8 @@ export default Service.extend({
         let self = this;
         if(delay){
             this.set('showLoadingAfterDelay', true);
-            if(this.get('showLoadingLater')){
-                cancel(this.get('showLoadingLater'));
+            if(this.showLoadingLater){
+                cancel(this.showLoadingLater);
             }
             this.set('showLoadingLater', 
                 later(self, function() {

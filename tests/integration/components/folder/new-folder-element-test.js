@@ -21,7 +21,7 @@ module('Integration | Component | folder/new-folder-element', function (hooks) {
 
         await render(hbs`{{folder/new-folder-element}}`);
 
-        assert.equal($.trim(this.$().text().trim().replace(/\s\s+/g, ' ')), 'Cancel Add');
+        assert.equal($.trim(this.element.textContent.trim().replace(/\s\s+/g, ' ')), 'Cancel Add');
 
         // Template block usage:
         await render(hbs`
@@ -30,6 +30,6 @@ module('Integration | Component | folder/new-folder-element', function (hooks) {
           {{/folder/new-folder-element}}
         `);
 
-        assert.equal($.trim(this.$().text().trim().replace(/\s\s+/g, ' ')), 'Cancel Add');
+        assert.equal($.trim(this.element.textContent.trim().replace(/\s\s+/g, ' ')), 'Cancel Add');
     });
 });

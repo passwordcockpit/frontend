@@ -39,7 +39,7 @@ export default Component.extend({
          * Redirect to home page
          */
         transitionToHomePage() {
-            this.get('router').transitionTo('application');
+            this.router.transitionTo('application');
         }
     }
 });

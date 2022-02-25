@@ -22,19 +22,19 @@ export default Route.extend(AuthenticatedRouteMixin, {
     },
     model(params, transition) {
         this.transition = transition;
-        this.get('store').unloadAll('folder');
+        this.store.unloadAll('folder');
         // Save current transition to folders
         this.controllerFor('folders').set('transitionData', transition);
 
         // Get all permissions and send them to specific controllers
-        let canCreateFolders = this.get('store').peekRecord('permission', this.get('account').getUserId()).get('create_folders');
+        let canCreateFolders = this.store.peekRecord('permission', this.account.getUserId()).get('create_folders');
         this.controllerFor('folders').set('canCreateFolders', canCreateFolders);
 
-        let canAccessAllFolders = this.get('store').peekRecord('permission', this.get('account').getUserId()).get('access_all_folders');
+        let canAccessAllFolders = this.store.peekRecord('permission', this.account.getUserId()).get('access_all_folders');
         this.controllerFor('folders').set('canAccessAllFolders', canAccessAllFolders);
         this.controllerFor('folders.folder.passwords.password').set('canAccessAllFolders', canAccessAllFolders);
 
-        let canViewLogs = this.get('store').peekRecord('permission', this.get('account').getUserId()).get('view_logs');
+        let canViewLogs = this.store.peekRecord('permission', this.account.getUserId()).get('view_logs');
         this.controllerFor('folders.folder.passwords.password').set('canViewLogs', canViewLogs);
 
         // Show folders/passwords list
@@ -65,7 +65,7 @@ export default Route.extend(AuthenticatedRouteMixin, {
         });
 
         // Return folder data as Model
-        return this.get('store').findAll('folder', { reload: true })
+        return this.store.findAll('folder', { reload: true })
             .then((results) => {
                 this.controllerFor('folders').send('buildTree', { folders: results });
 
@@ -74,7 +74,7 @@ export default Route.extend(AuthenticatedRouteMixin, {
                 if (this.modelFor("folders.folder") != undefined) {
                     let folderId = this.modelFor("folders.folder").folder.id;
                     while (folderId !== null) {
-                        let folder = this.get('store').peekRecord('folder', folderId);
+                        let folder = this.store.peekRecord('folder', folderId);
                         folder.set('isShow', true);
                         folderId = folder.parent_id;
                     }
@@ -83,7 +83,7 @@ export default Route.extend(AuthenticatedRouteMixin, {
                 return results;
             })
             .catch((error) => {
-                this.get('growl').errorShowRaw(error.title, error.message);
+                this.growl.errorShowRaw(error.title, error.message);
                 if (error.code == 401) {
                     later((function () {
                         self.get('session').invalidate();
@@ -97,7 +97,7 @@ export default Route.extend(AuthenticatedRouteMixin, {
     },
     actions: {
         willTransition: function () {
-            this.get('closeFoldersInputs').closeAllInputs();
+            this.closeFoldersInputs.closeAllInputs();
             this.controllerFor('folders').set('searchResults', null);
         },
     },

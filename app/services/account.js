@@ -13,7 +13,7 @@ export default Service.extend({
     },
 
     getUserId() {
-        return this.get('user').id;
+        return this.user.id;
     }
 
 });

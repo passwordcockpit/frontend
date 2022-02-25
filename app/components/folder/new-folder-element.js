@@ -18,8 +18,8 @@ export default Component.extend(formValidation, {
          * Exit the creation of a folder
          */
         cancel() {
-            if (this.get('parentId') != null) {
-                this.get('store').peekRecord('folder', this.get('parentId')).set('isAdd', false);
+            if (this.parentId != null) {
+                this.store.peekRecord('folder', this.parentId).set('isAdd', false);
             }
             else {
                 this.cancelAddFolder();
@@ -30,18 +30,18 @@ export default Component.extend(formValidation, {
          */
         save() {
             window.loading.showLoading();
-            let folderToCreate = this.get('store')
+            let folderToCreate = this.store
                 .createRecord('folder', {
-                    name: this.get('folderName'),
-                    parent_id: this.get('parentId')
+                    name: this.folderName,
+                    parent_id: this.parentId
                 });
             folderToCreate
                 .save()
                 .then((result) => {
 
-                    this.get('growl').notice('Success', 'Folder created');
+                    this.growl.notice('Success', 'Folder created');
 
-                    if (this.get('parentId') == null) {
+                    if (this.parentId == null) {
                         this.cancelAddFolder();
                     }
                     this.onCreateFolder(result.id);
@@ -50,9 +50,9 @@ export default Component.extend(formValidation, {
                 .catch((adapterError) => {
                     window.loading.hideLoading();
                     folderToCreate.deleteRecord();
-                    let errors = this.get('growl').errorsDatabaseToArray(adapterError);
+                    let errors = this.growl.errorsDatabaseToArray(adapterError);
                     this.set('errors', errors);
-                    this.get('growl').errorShowRaw(adapterError.title, adapterError.message);
+                    this.growl.errorShowRaw(adapterError.title, adapterError.message);
                 });
         },
     }

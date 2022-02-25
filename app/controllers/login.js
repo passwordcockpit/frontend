@@ -17,7 +17,7 @@ export default Controller.extend(formValidation, {
     password: null,
     init: function () {
         this._super(...arguments);
-        this.set('error', [this.get('intl').t('This is a required field')]);
+        this.set('error', [this.intl.t('This is a required field')]);
         this.clearOnSubmitError = this.clearOnSubmitError || ['username', 'password'];
         if (this.get('session.data.authenticated.authenticator') != undefined) {
             this.transitionToRoute('folders');
@@ -29,7 +29,7 @@ export default Controller.extend(formValidation, {
          */
         save() {
             window.loading.showLoading();
-            this.get('session').authenticate('authenticator:jwt', { username: this.get('username'), password: this.get('password') }).then(() => {
+            this.session.authenticate('authenticator:jwt', { username: this.username, password: this.password }).then(() => {
                 this.set('errorMessage', null);
                 var language = jwtDecode(this.get('session.data.authenticated.token'));
 
@@ -47,10 +47,10 @@ export default Controller.extend(formValidation, {
                     window.loading.hideLoading();
 
                     if (loginErrors.hasOwnProperty('json')) {
-                        this.get('growl').errorShowRaw(loginErrors.json.title, loginErrors.json.detail);
+                        this.growl.errorShowRaw(loginErrors.json.title, loginErrors.json.detail);
                     }
                     else {
-                        this.get('growl').errorShowRaw(loginErrors.title, loginErrors.detail);
+                        this.growl.errorShowRaw(loginErrors.title, loginErrors.detail);
                     }
                 });
         }

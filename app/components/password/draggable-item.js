@@ -15,8 +15,8 @@ export default Component.extend({
     // var img = new Image(); 
     // img.src = '../../../assets/images/gearwheel_black.png';
     // event.dataTransfer.setDragImage(img, 0, 0);
-    let pwId = this.get('content');
-    let fldId = this.get('folder');
+    let pwId = this.content;
+    let fldId = this.folder;
     let data = {
         "passwordId":pwId, 
         "folderId":fldId

@@ -20,15 +20,15 @@ export default Controller.extend({
          */
         onDeletePassword(passwordId) {
             window.loading.showLoading();
-            let password = this.get('store').peekRecord('password', passwordId);
+            let password = this.store.peekRecord('password', passwordId);
             let folderId = password.data.folder_id
             password.destroyRecord()
                 .then(() => {
                     $('#deletePasswordConfirm').modal('hide');
                     window.loading.hideLoading();
-                    this.get('folderController').send('onUpdatePassword');
+                    this.folderController.send('onUpdatePassword');
 
-                    this.get('growl').notice('Success', 'Password deleted');
+                    this.growl.notice('Success', 'Password deleted');
 
                     this.transitionToRoute('folders.folder', folderId);
                 })
@@ -36,7 +36,7 @@ export default Controller.extend({
                     $('#deletePasswordConfirm').modal('hide');
                     window.loading.hideLoading();
                     $('.modal-dialog').hide();
-                    this.get('growl').errorShowRaw(adapterError.title, adapterError.message);
+                    this.growl.errorShowRaw(adapterError.title, adapterError.message);
                 });
         },
         /**
@@ -45,8 +45,8 @@ export default Controller.extend({
          * @param {*} passwordId 
          */
         onSavePassword(passwordId) {
-            this.get('folderController').send('onUpdatePassword');
-            if (this.get('canViewLogs')) {
+            this.folderController.send('onUpdatePassword');
+            if (this.canViewLogs) {
                 this.send('refreshLog', passwordId);
             }
         },
@@ -58,10 +58,10 @@ export default Controller.extend({
          */
         refreshLog(passwordId) {
 
-            let page = this.get('page');
+            let page = this.page;
             let self = this
             window.loading.showLoading();
-            this.get('store').query('log', { passwordId: passwordId, page: page }).then((logs) => {
+            this.store.query('log', { passwordId: passwordId, page: page }).then((logs) => {
                 self.get('store').peekAll('log').forEach((storedLog) => {
                     let found = false;
                     logs.forEach((responseLog) => {
@@ -82,7 +82,7 @@ export default Controller.extend({
                 window.loading.hideLoading();
             }).catch((adapterError) => {
                 window.loading.hideLoading();
-                this.get('growl').errorShowRaw(adapterError.title, adapterError.message);
+                this.growl.errorShowRaw(adapterError.title, adapterError.message);
             });
         },
 

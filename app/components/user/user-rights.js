@@ -23,23 +23,23 @@ export default Component.extend({
          */
         cancel() {
             this.set('isEdit', false);
-            this.get('permission').rollbackAttributes();
+            this.permission.rollbackAttributes();
         },
         /**
          * Edit user-rights
          */
         submit() {
             window.loading.showLoading();
-            let permission = this.get('permission');
+            let permission = this.permission;
             permission.save()
                 .then(() => {
                     this.set('isEdit', false);
                     this.onUpdateUserRight(permission.id);
-                    this.get('growl').notice('Success', 'Permission updated');
+                    this.growl.notice('Success', 'Permission updated');
                     window.loading.hideLoading();
                 })
                 .catch((adapterError) => {
-                    this.get('growl').errorShowRaw(adapterError.title, adapterError.message);
+                    this.growl.errorShowRaw(adapterError.title, adapterError.message);
                     window.loading.hideLoading();
                 });
         }

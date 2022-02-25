@@ -1,3 +1,4 @@
+import { click } from '@ember/test-helpers';
 /** 
 * @see https://github.com/passwordcockpit/frontend for the canonical source repository 
 * @copyright Copyright (c) 2018 Blackpoints AG (https://www.blackpoints.ch) 
@@ -33,7 +34,7 @@ module('Integration | Component | folder/folder element', function (hooks) {
 
         this.render(hbs`{{folder/folder-element}}`);
 
-        assert.equal(this.$().text().trim(), '');
+        assert.dom(this.element).hasText('');
 
         // Render component passing unuses varaible
         this.render(hbs`
@@ -42,11 +43,11 @@ module('Integration | Component | folder/folder element', function (hooks) {
           {{/folder/folder-element}}
       `);
 
-        assert.equal(this.$().text().trim(), '');
+        assert.dom(this.element).hasText('');
     });
-    skip('onCreateFolder', function (assert) {
+    skip('onCreateFolder', async function(assert) {
         //check init variable
-        assert.notOk(this.get('functionCalled'));
+        assert.notOk(this.functionCalled);
         assert.equal(this.folder.get('isAdd'), false);
 
         this.folder.set('isAdd', true);
@@ -58,7 +59,7 @@ module('Integration | Component | folder/folder element', function (hooks) {
 
         this.render(hbs`{{folder/new-folder-element parentId=1 onCreateFolder=(action onClick)}}`);
 
-        this.$('.action-save').click();
+        await click('.action-save');
         //assert.ok(this.get('functionCalled'));
         assert.equal(this.folder.get('isAdd'), false);
     });

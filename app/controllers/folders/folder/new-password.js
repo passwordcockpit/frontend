@@ -15,7 +15,7 @@ export default Controller.extend({
          * Notify to folders.folder about the operation
          */
         onCreatePassword() {
-            this.get('folderController').send('onUpdatePassword');
+            this.folderController.send('onUpdatePassword');
         }
     }
 });

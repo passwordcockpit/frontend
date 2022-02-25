@@ -14,7 +14,7 @@ export default DS.Model.extend({
     name: DS.attr(),
     surname: DS.attr(),
     fullName: computed('name', 'surname', function() {
-        return this.get('name') + ' ' + this.get('surname');
+        return this.name + ' ' + this.surname;
     }),
     phone: DS.attr(),
     email: DS.attr(),

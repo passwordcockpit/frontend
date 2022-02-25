@@ -28,19 +28,19 @@ export default Route.extend(ApplicationRouteMixin, {
     },
     model() {
         let self = this;
-        let session = this.get('session');
+        let session = this.session;
         if (session.get('isAuthenticated')) {
-            this.get('closeFoldersInputs').init(this);
+            this.closeFoldersInputs.init(this);
             var userID = jwtDecode(this.get('session.session.content.authenticated.token'));
 
             let result = {
-                user: this.get('store').findRecord('user', userID.sub),
+                user: this.store.findRecord('user', userID.sub),
             };
 
             if (userID.data.change_password) {
                 this.transitionTo('profile');
             } else {
-                result.permission = this.get('store').queryRecord('permission', { userId: userID.sub });
+                result.permission = this.store.queryRecord('permission', { userId: userID.sub });
             }
             return RSVP.hash(result).then((hash) => {
                 self.get('account').setUser(hash.user);
