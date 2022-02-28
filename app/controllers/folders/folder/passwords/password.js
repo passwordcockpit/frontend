@@ -21,7 +21,7 @@ export default Controller.extend({
         onDeletePassword(passwordId) {
             window.loading.showLoading();
             let password = this.store.peekRecord('password', passwordId);
-            let folderId = password.data.folder_id
+            let folderId = password.folder_id
             password.destroyRecord()
                 .then(() => {
                     $('#deletePasswordConfirm').modal('hide');

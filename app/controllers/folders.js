@@ -44,11 +44,11 @@ export default Controller.extend({
         let self = this;
         folders.forEach(function (folder) {
             let folderId = folder.id;
-            let folderName = folder.data.name;
-            let folderAccess = folder.data.access;
+            let folderName = folder.name;
+            let folderAccess = folder.access;
             let folderPath = [];
             let folderPathToString = '/';
-            let parentId = folder.data.parent_id;
+            let parentId = folder.parent_id;
             if (parentId) {
                 folderPath = self.get('retrieveParentFolders').call(self, parentId);
 
@@ -78,13 +78,13 @@ export default Controller.extend({
         let self = this;
         passwords.forEach(function (password) {
             let passwordId = password.id;
-            let passwordTitle = password.data.title;
+            let passwordTitle = password.title;
             let passwordPath = [];
             let passwordPathToString = '/';
-            let parentId = password.data.folder_id;
+            let parentId = password.folder_id;
             passwordPath = self.get('retrieveParentFolders').call(self, parentId);
             passwordPathToString = passwordPath.join(' / ');
-            let icon = password.data.icon;
+            let icon = password.icon;
 
             result.push({
                 valueToSort: [passwordPath, 1, passwordTitle],
@@ -182,7 +182,7 @@ export default Controller.extend({
             params.folders.forEach(function (folder) {
                 // Retrieve parameters
                 let folderId = folder.id;
-                let parentId = folder.data.parent_id;
+                let parentId = folder.parent_id;
 
                 // Add the folder to the indexed array
                 indexedFolders[folderId] = folder;
