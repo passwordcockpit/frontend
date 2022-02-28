@@ -1,14 +1,8 @@
 {{#if isPowerSelect}}
-    {{#power-select
-        options=selectOptions
-        allowClear=allowClear
-        onchange=(action 'selectOptionChange')
-        destination=destination
-        selected=value
-        as |icon|}}
+    <PowerSelect @options={{selectOptions}} @allowClear={{allowClear}} @onchange={{action "selectOptionChange"}} @destination={{destination}} @selected={{value}} as |icon|>
         {{print-select-values-handle icon (action 'printSelectValuesHandle')}}
         {{!--<i class="fas fa-{{icon}}"></i>--}}
-    {{/power-select}}
+    </PowerSelect>
 {{else}}
     <select 
         class={{class}} 

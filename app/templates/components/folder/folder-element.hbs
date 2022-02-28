@@ -5,38 +5,25 @@
         </button>
     {{/unless}}
     {{#if (or canAccessAllFolders (eq folder.access 1) (eq folder.access 2))}}
-        {{#folder/draggable-dropzone dropped=(action 'addPassword')}}
-            {{#link-to "folders.folder" folder.id class="read"}}
+        <Folder::DraggableDropzone @dropped={{action "addPassword"}}>
+            <LinkTo @route="folders.folder" @model={{folder.id}} class="read">
                 <i class="fas fa-folder"></i>
                 <i class="fas fa-folder-open"></i>
                 {{folder.name}}
-            {{/link-to}}
-        {{/folder/draggable-dropzone}}
+            </LinkTo>
+        </Folder::DraggableDropzone>
     {{else}}
-        {{#folder/draggable-dropzone dropped=(action 'addPassword') value-id="folder-{{folder.id}}"}}
+        <Folder::DraggableDropzone @dropped={{action "addPassword"}} @value-id="folder-{{folder.id}}">
             <span class="read">
                 <i class="fas fa-folder"></i>
                 {{folder.name}}
             </span>
-        {{/folder/draggable-dropzone}}
+        </Folder::DraggableDropzone>
     {{/if}}
     {{#if folder.isEdit}}
         <div class="edit {{if errors.name 'has-error'}}" data-id="data-{{folder.id}}">
             <form {{action 'submit' on='submit' }}>
-                {{form/form-text
-                    type="text" 
-                    name="folder"
-                    viewId=(concat "folderEditName" folder.id)
-                    class="form-control" 
-                    value=folder.name 
-                    isFormValid=isFormValid
-                    showMessage=showMessage
-                    validator=(validation-parameters
-                                    required=true
-                                    minLength=2
-                                    maxLength=45
-                                )
-                }}
+                <Form::FormText @type="text" @name="folder" @viewId={{concat "folderEditName" folder.id}} @class="form-control" @value={{folder.name}} @isFormValid={{isFormValid}} @showMessage={{showMessage}} @validator={{validation-parameters required=true minLength=2 maxLength=45 }} />
                 <div class="form-btn">
                     <button style="display: none;">
                     </button>
@@ -66,25 +53,11 @@
     {{/if}}
     <ul>
         {{#if folder.isAdd}}
-            {{folder/new-folder-element
-                parentId=folder.id
-                onCreateFolder=(action "onCreateFolder")
-            }}
+            <Folder::NewFolderElement @parentId={{folder.id}} @onCreateFolder={{action "onCreateFolder"}} />
         {{/if}}
         <div data-id="collapse-{{folder.id}}">
             {{#each (get tree (concat "" folder.id)) as |folderId|}}
-                {{folder/folder-element 
-                    removePassword=(action "removePassword")
-                    folder=(get indexedFolders folderId) 
-                    indexedFolders=indexedFolders 
-                    tree=tree 
-                    onCreateFolder=(action "onCreateFolder")
-                    onUpdateFolder=(action "onUpdateFolder")
-                    onDeleteFolder=(action "onDeleteFolder")
-                    collapseFolder=(action "collapseFolder")
-                    slideUp=(action "slideUp")
-                    canAccessAllFolders=canAccessAllFolders
-                }}
+                <Folder::FolderElement @removePassword={{action "removePassword"}} @folder={{get indexedFolders folderId}} @indexedFolders={{indexedFolders}} @tree={{tree}} @onCreateFolder={{action "onCreateFolder"}} @onUpdateFolder={{action "onUpdateFolder"}} @onDeleteFolder={{action "onDeleteFolder"}} @collapseFolder={{action "collapseFolder"}} @slideUp={{action "slideUp"}} @canAccessAllFolders={{canAccessAllFolders}} />
             {{/each}}
         </div>
     </ul>

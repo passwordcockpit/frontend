@@ -1,11 +1,6 @@
 {{#if session.isAuthenticated}} 
-	{{head-navigation 
-        session=session 
-        user=model.user 
-        permission=model.permission 
-        isLdap=model.isLdap
-    }} 
+	<HeadNavigation @session={{session}} @user={{model.user}} @permission={{model.permission}} @isLdap={{model.isLdap}} /> 
 {{/if}}
 {{outlet}}
 
-{{browser-error}}
+<BrowserError />

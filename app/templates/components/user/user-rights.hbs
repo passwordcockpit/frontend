@@ -14,22 +14,22 @@
             <form class="form-horizontal" {{action 'submit' permission.id on='submit' }}>
                 <div class="checkbox">
                     <label>
-                        {{input type="checkbox" checked=permission.manage_users}} {{t 'Create and manage users'}}
+                        <Input @type="checkbox" @checked={{permission.manage_users}} /> {{t 'Create and manage users'}}
                     </label>
                 </div>
                 <div class="checkbox">
                     <label>
-                        {{input type="checkbox" checked=permission.create_folders}} {{t 'Create folders'}}
+                        <Input @type="checkbox" @checked={{permission.create_folders}} /> {{t 'Create folders'}}
                     </label>
                 </div>
                 <div class="checkbox">
                     <label>
-                        {{input type="checkbox" checked=permission.access_all_folders}} {{t 'Access to all directiories'}}
+                        <Input @type="checkbox" @checked={{permission.access_all_folders}} /> {{t 'Access to all directiories'}}
                     </label>
                 </div>
                 <div class="checkbox">
                     <label>
-                        {{input type="checkbox" checked=permission.view_logs}} {{t 'Can view log'}}
+                        <Input @type="checkbox" @checked={{permission.view_logs}} /> {{t 'Can view log'}}
                     </label>
                 </div>
                 <br>

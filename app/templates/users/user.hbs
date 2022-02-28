@@ -1,20 +1,5 @@
-{{user/user-details 
-    user=model.user
-    isEdit=model.isDetailEdit
-    errors=updatingUserErrors
-    isManageUsers=true
-}}
-{{user/user-rights 
-    permission=model.permission
-    isEdit=model.isPermissionEdit
-    onUpdateUserRight=(action "onUpdateUserRight")
-}}
+<User::UserDetails @user={{model.user}} @isEdit={{model.isDetailEdit}} @errors={{updatingUserErrors}} @isManageUsers={{true}} />
+<User::UserRights @permission={{model.permission}} @isEdit={{model.isPermissionEdit}} @onUpdateUserRight={{action "onUpdateUserRight"}} />
 
-{{user/user-logs 
-    logs=logs 
-    user=model.user 
-    canViewLog=canViewLog
-    page=model.page
-    pageCount=model.pageCount
-}}
+<User::UserLogs @logs={{logs}} @user={{model.user}} @canViewLog={{canViewLog}} @page={{model.page}} @pageCount={{model.pageCount}} />
 {{outlet}}

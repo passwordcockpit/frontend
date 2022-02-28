@@ -18,7 +18,7 @@
                 {{folderUser.name}} {{folderUser.surname}}
             </div>
             <label class="user-edit-container">
-                {{input type="checkbox" checked=access}}{{t 'Manage'}}
+                <Input @type="checkbox" @checked={{access}} />{{t 'Manage'}}
             </label>
             <div class="form-btn">
                 <button class="btn btn-default btn-xs action-close" {{action 'cancelEdit'}}>

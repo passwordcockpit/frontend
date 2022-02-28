@@ -3,17 +3,5 @@
     {{model.folderName}}
 </h1>
 
-{{folder/folder-users 
-    folder=model.folder 
-    users=model.users 
-    filteredUsers=model.filteredUsers
-    folderUsers=model.folderUsers
-    folderId=model.folderId
-    canAccessAllFolders=model.folder.canAccessAllFolders
-    isAdd=isAdd
-    errors=errors
-    controller=this 
-    onUpdatePermission = (action 'onUpdatePermission')
-    onDeletePermission = (action 'onDeletePermission')
-}}
+<Folder::FolderUsers @folder={{model.folder}} @users={{model.users}} @filteredUsers={{model.filteredUsers}} @folderUsers={{model.folderUsers}} @folderId={{model.folderId}} @canAccessAllFolders={{model.folder.canAccessAllFolders}} @isAdd={{isAdd}} @errors={{errors}} @controller={{this}} @onUpdatePermission={{action "onUpdatePermission"}} @onDeletePermission={{action "onDeletePermission"}} />
 {{outlet}}

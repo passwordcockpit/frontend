@@ -2,16 +2,7 @@
     <main class='main-password'>
     </main>
 {{else}}
-    {{password/password-list
-        passwords=passwords
-        folderId=folderId
-        folder=model.folder
-        selectFolder=selectFolder
-        tagName=''
-        showPasswordsList=(action 'showPasswordsList')
-        hidePasswordsList=(action 'hidePasswordsList')
-        showList=showList
-    }}
+    <Password::PasswordList @passwords={{passwords}} @folderId={{folderId}} @folder={{model.folder}} @selectFolder={{selectFolder}} @tagName="" @showPasswordsList={{action "showPasswordsList"}} @hidePasswordsList={{action "hidePasswordsList"}} @showList={{showList}} />
     <main class='main-password'>
         {{outlet}}
     </main>
