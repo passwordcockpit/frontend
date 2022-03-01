@@ -30,7 +30,7 @@ export default Mixin.create({
             "name",
             this.name
         ).length === 0) {
-            this.isFormValid.pushObject({
+            this.isFormValid.push({
                 name: this.name,
                 isElementValid: this.isElementValid,
                 element: this
