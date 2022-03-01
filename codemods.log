@@ -10,3 +10,9 @@
 2022-03-01T11:22:46.346Z [warn] WARNING: {{print-select-values-handle}} was not converted as it has positional parameters which can't be automatically converted. Source: app/templates/components/form/form-select.hbs
 2022-03-01T11:22:46.347Z [warn] WARNING: {{print-select-values-handle}} was not converted as it has positional parameters which can't be automatically converted. Source: app/templates/components/form/form-select.hbs
 2022-03-01T11:22:46.516Z [warn] WARNING: {{display-errors}} was not converted as it has positional parameters which can't be automatically converted. Source: app/templates/components/password/new-password-element.hbs
+2022-03-01T13:19:50.131Z [warn] WARNING: {{print-select-values-handle}} was not converted as it has positional parameters which can't be automatically converted. Source: app/templates/components/folder/new-permission-element.hbs
+2022-03-01T13:19:50.132Z [warn] WARNING: {{display-errors}} was not converted as it has positional parameters which can't be automatically converted. Source: app/templates/components/folder/new-permission-element.hbs
+2022-03-01T13:19:50.313Z [warn] WARNING: {{print-select-values-handle}} was not converted as it has positional parameters which can't be automatically converted. Source: app/templates/components/form/form-select.hbs
+2022-03-01T13:19:50.314Z [warn] WARNING: {{print-select-values-handle}} was not converted as it has positional parameters which can't be automatically converted. Source: app/templates/components/form/form-select.hbs
+2022-03-01T13:19:50.314Z [warn] WARNING: {{print-select-values-handle}} was not converted as it has positional parameters which can't be automatically converted. Source: app/templates/components/form/form-select.hbs
+2022-03-01T13:19:51.071Z [warn] WARNING: {{display-errors}} was not converted as it has positional parameters which can't be automatically converted. Source: app/templates/components/password/new-password-element.hbs
