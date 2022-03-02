@@ -9,7 +9,7 @@ import { inject } from '@ember/service';
 import ENV from './../../config/environment';
 import formValidation from '../../mixins/form/form-validation';
 import $ from 'jquery';
-import { htmlSafe } from '@ember/string'
+import { htmlSafe } from '@ember/template'
 
 export default Component.extend(formValidation, {
     store: inject('store'),
