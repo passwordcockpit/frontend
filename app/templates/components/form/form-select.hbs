@@ -1,5 +1,5 @@
 {{#if isPowerSelect}}
-    <PowerSelect @options={{selectOptions}} @allowClear={{allowClear}} @onChange={{action "selectOptionChange"}} @destination={{destination}} @selected={{value}} as |icon|>
+    <PowerSelect @options={{selectOptions}} @allowClear={{allowClear}} @onchange={{action "selectOptionChange"}} @destination={{destination}} @selected={{value}} as |icon|>
         {{print-select-values-handle icon (action 'printSelectValuesHandle')}}
         {{!--<i class="fas fa-{{icon}}"></i>--}}
     </PowerSelect>
@@ -7,7 +7,7 @@
     <select 
         class={{class}} 
         name={{name}}
-        onChange={{action 'selectOptionChange' value="target.value"}}
+        onchange={{action 'selectOptionChange' value="target.value"}}
     >
         {{#each selectOptions as |selectOption|}}
             {{#if (eq selectOption.value value)}}
