@@ -4,13 +4,13 @@
 * @license https://github.com/passwordcockpit/frontend/blob/master/LICENSE.md BSD 3-Clause License 
 */
 
-import DS from 'ember-data';
+import Model, { attr } from '@ember-data/model';
 
-export default DS.Model.extend({
-    name: DS.attr(),
-    parent_id: DS.attr(),
-    access: DS.attr(),
-    isAdd: DS.attr('boolean', { defaultValue: false }),
-    isEdit: DS.attr('boolean', { defaultValue: false }),
-    isShow: DS.attr('boolean', { defaultValue: false })
+export default Model.extend({
+    name: attr(),
+    parent_id: attr(),
+    access: attr(),
+    isAdd: attr('boolean', { defaultValue: false }),
+    isEdit: attr('boolean', { defaultValue: false }),
+    isShow: attr('boolean', { defaultValue: false })
 });

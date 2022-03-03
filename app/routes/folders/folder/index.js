@@ -18,13 +18,13 @@ export default Route.extend(AuthenticatedRouteMixin, {
     },
     model() {
         let modelData = this.modelFor("folders.folder");
-        this.get('store').unloadAll('folderuser');
+        this.store.unloadAll('folderuser');
         let results = {
             folder: modelData.folder,
             folderName: modelData.folder.get('name'),
             folderId: modelData.folder.get('id'),
             users: modelData.users,
-            folderUsers: this.get('store').query('folderuser', { folderId: modelData.folder.get('id') })
+            folderUsers: this.store.query('folderuser', { folderId: modelData.folder.get('id') })
         }
         return RSVP.hash(results).then((hash) => {
             if (results.users != undefined) {
@@ -40,8 +40,8 @@ export default Route.extend(AuthenticatedRouteMixin, {
                 return hash;
             }
         }).catch(() => {
-            this.get('growl').error('Error', "Error while retrieving users's folder permissions");
-        })
+            this.growl.error('Error', "Error while retrieving users's folder permissions");
+        });
     },
     afterModel() {
         this._super(...arguments);

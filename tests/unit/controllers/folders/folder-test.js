@@ -38,7 +38,7 @@ module('Unit | Controller | folders/folder', function (hooks) {
 
     skip('onSelectFolder', function (assert) {
         let controller = this.owner.lookup('controller:folders.folder');
-        assert.equal(controller.get('folderId'), 5);
+        assert.equal(controller.folderId, 5);
     });
 
 });

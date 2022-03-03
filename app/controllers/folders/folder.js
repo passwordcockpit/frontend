@@ -18,7 +18,7 @@ export default Controller.extend({
 
         removePassword(passwordId) {
             let newPass = [];
-            this.get('passwords').forEach((el) => {
+            this.passwords.forEach((el) => {
                 if (el.password_id != passwordId) {
                     newPass.push(el);
                 }
@@ -50,12 +50,12 @@ export default Controller.extend({
                 this.set('passwords', result._embedded.passwords);
                 this.set('selectFolder', true);
                 // Hide folders list on Folder selecting // mobile only
-                this.get('foldersController').send('hideFoldersList');
+                this.foldersController.send('hideFoldersList');
                 // show passwords list on Folder selecting // mobile only
-                this.get('folderController').send('showPasswordsList');
+                this.folderController.send('showPasswordsList');
                 // Opens the related folders of the selected folder
                 for (let i = 0; i < path.length; i++) {
-                    this.get('foldersController').send('slideDown', path[i]);
+                    this.foldersController.send('slideDown', path[i]);
                 }
 
                 window.loading.hideLoading();
@@ -63,7 +63,7 @@ export default Controller.extend({
                 this.set('passwords', null);
                 this.set('selectFolder', false);
                 window.loading.hideLoading();
-                this.get('growl').errorShowRaw(adapterError.responseJSON.title, adapterError.responseJSON.detail);
+                this.growl.errorShowRaw(adapterError.responseJSON.title, adapterError.responseJSON.detail);
             });
 
         },
@@ -75,7 +75,7 @@ export default Controller.extend({
             window.loading.showLoading();
 
             $.ajax({
-                url: window.APP.host + '/' + window.APP.namespace + '/folders/' + this.get('folderId') + '/passwords',
+                url: window.APP.host + '/' + window.APP.namespace + '/folders/' + this.folderId + '/passwords',
                 method: 'GET',
                 headers: {
                     "Content-Type": 'application/json',
@@ -89,7 +89,7 @@ export default Controller.extend({
             }).fail((adapterError) => {
                 this.set('passwords', null);
                 window.loading.hideLoading();
-                this.get('growl').errorShowRaw(adapterError.responseJSON.title, adapterError.responseJSON.detail);
+                this.growl.errorShowRaw(adapterError.responseJSON.title, adapterError.responseJSON.detail);
             });
         },
         /**

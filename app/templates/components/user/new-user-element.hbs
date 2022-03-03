@@ -3,9 +3,9 @@
         {{t 'Personal data'}}
         <div class="pull-right">
             <div class="btn-group">
-                {{#link-to "users.index" class="edit btn btn-default btn-xs" }}
+                <LinkTo @route="users.index" class="edit btn btn-default btn-xs">
                     {{t 'Cancel'}} <i class="fas fa-times"></i>
-                {{/link-to}}
+                </LinkTo>
             </div>
         </div>
     </div>
@@ -17,19 +17,7 @@
                     {{t 'Username'}}
                 </label>
                 <div class="col-sm-10">
-                    {{form/form-text
-                        type="text"
-                        class='form-control'
-                        name='username'
-                        value=username 
-                        isFormValid=isFormValid
-                        showMessage=showMessage
-                        validator=(validation-parameters
-                                    required=true
-                                    minLength=2
-                                    maxLength=45
-                                    )
-                        }}
+                    <Form::FormText @type="text" @class="form-control" @name="username" @value={{username}} @isFormValid={{isFormValid}} @showMessage={{showMessage}} @validator={{validation-parameters required=true minLength=2 maxLength=45 }} />
                 </div>
             </div>
             <div class="form-group">
@@ -37,21 +25,7 @@
                     {{t 'Password'}}
                 </label>
                 <div class="col-sm-10">
-                    {{form/form-text
-                        type='password' 
-                        class='form-control'
-                        id='actual_password'
-                        name="actual_password"
-                        value=password 
-                        isFormValid=isFormValid
-                        showMessage=showMessage
-                        validator=(validation-parameters
-                                    required=true
-                                    minLength=8
-                                    maxLength=200
-                                    type='password'
-                                    )
-                        }}
+                    <Form::FormText @type="password" @class="form-control" @id="actual_password" @name="actual_password" @value={{password}} @isFormValid={{isFormValid}} @showMessage={{showMessage}} @validator={{validation-parameters required=true minLength=8 maxLength=200 type="password" }} />
                 </div>
             </div>
             <div class="form-group">
@@ -59,19 +33,7 @@
                     {{t 'Name'}}
                 </label>
                 <div class="col-sm-10">
-                    {{form/form-text
-                        type="text"
-                        class='form-control'
-                        name='name'
-                        value=name 
-                        isFormValid=isFormValid
-                        showMessage=showMessage
-                        validator=(validation-parameters
-                                    required=true
-                                    minLength=1
-                                    maxLength=45
-                                    )
-                        }}
+                    <Form::FormText @type="text" @class="form-control" @name="name" @value={{name}} @isFormValid={{isFormValid}} @showMessage={{showMessage}} @validator={{validation-parameters required=true minLength=1 maxLength=45 }} />
                 </div>
             </div>
             <div class="form-group">
@@ -79,19 +41,7 @@
                     {{t 'Surname'}}
                 </label>
                 <div class="col-sm-10">
-                     {{form/form-text
-                        type="text"
-                        class='form-control'
-                        name='surname'
-                        value=surname 
-                        isFormValid=isFormValid
-                        showMessage=showMessage
-                        validator=(validation-parameters
-                                    required=true
-                                    minLength=1
-                                    maxLength=45
-                                    )
-                        }}
+                     <Form::FormText @type="text" @class="form-control" @name="surname" @value={{surname}} @isFormValid={{isFormValid}} @showMessage={{showMessage}} @validator={{validation-parameters required=true minLength=1 maxLength=45 }} />
                 </div>
             </div>
             <div class="form-group">
@@ -99,19 +49,7 @@
                     {{t 'Phone'}}
                 </label>
                 <div class="col-sm-10">
-                    {{form/form-text
-                        type="text"
-                        class='form-control'
-                        name='phone'
-                        value=phone
-                        isFormValid=isFormValid
-                        showMessage=showMessage
-                        validator=(validation-parameters
-                                    minLength=1
-                                    maxLength=45
-                                    type='phone'
-                                    )
-                        }}
+                    <Form::FormText @type="text" @class="form-control" @name="phone" @value={{phone}} @isFormValid={{isFormValid}} @showMessage={{showMessage}} @validator={{validation-parameters minLength=1 maxLength=45 type="phone" }} />
                 </div>
             </div>
             <div class="form-group {{if errors.email 'has-error'}}">
@@ -119,20 +57,7 @@
                     {{t 'Email'}}
                 </label>
                 <div class="col-sm-10">
-                    {{form/form-text
-                        type="text"
-                        class='form-control'
-                        name='email'
-                        value=email
-                        isFormValid=isFormValid
-                        showMessage=showMessage
-                        validator=(validation-parameters
-                                    required=true
-                                    minLength=0
-                                    maxLength=45
-                                    type='email'
-                                    )
-                        }}
+                    <Form::FormText @type="text" @class="form-control" @name="email" @value={{email}} @isFormValid={{isFormValid}} @showMessage={{showMessage}} @validator={{validation-parameters required=true minLength=0 maxLength=45 type="email" }} />
                 </div>
             </div>
             <div class="form-group">
@@ -140,7 +65,7 @@
                     {{t 'Enabled'}}
                 </label>
                 <div class="col-sm-10">
-                    {{input type="checkbox" checked=enabled}}
+                    <Input @type="checkbox" @checked={{enabled}} />
                 </div>
             </div>
             <div class="form-group">
@@ -148,23 +73,7 @@
                     {{t 'Language'}}
                 </label>
                 <div class="col-sm-10">
-                    {{form/form-select
-                            class='language-select form-control'
-                            name='language'
-                            isPowerSelect=false
-                            selectOptions=userLanguages
-                            value=language
-                            allowClear=true
-                            isFormValid=isFormValid
-                            showMessage=showMessage
-                            printSelectValuesHandle=(action 'printSelectValuesHandle')
-                            validator=(validation-parameters
-                                    required=true
-                                    minLength=2
-                                    maxLength=2
-                                    type='select'
-                                    )
-                        }}
+                    <Form::FormSelect @class="language-select form-control" @name="language" @isPowerSelect={{false}} @selectOptions={{userLanguages}} @value={{language}} @allowClear={{true}} @isFormValid={{isFormValid}} @showMessage={{showMessage}} @printSelectValuesHandle={{action "printSelectValuesHandle"}} @validator={{validation-parameters required=true minLength=2 maxLength=2 type="select" }} />
                 </div>
             </div>
             <div class="form-group">

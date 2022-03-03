@@ -3,9 +3,9 @@
         {{t 'Users list'}}
         <div class="pull-right">
             <div class="btn-group">
-                {{#link-to "users.new-user" class="edit btn btn-default btn-xs" }}
+                <LinkTo @route="users.new-user" class="edit btn btn-default btn-xs">
                     <i class="fas fa-plus"></i>
-                {{/link-to}}
+                </LinkTo>
             </div>
         </div>
     </div>
@@ -19,10 +19,10 @@
                 <ul class="list">
                     {{#each users as |user|}}
                         <li style="{{unless user.enabled 'opacity:0.6'}}"> <!-- TODO -->
-                            {{#link-to "users.user" user.id class="read" }}
+                            <LinkTo @route="users.user" @model={{user.id}} class="read">
                                 <i class="fas fa-user"></i>
                                 {{user.username}}
-                            {{/link-to}}
+                            </LinkTo>
                             <div class="edit">
                                 <input type="text" class="form-control" value="User 1">
                                 <div class="form-btn">

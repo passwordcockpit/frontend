@@ -14,25 +14,10 @@
     <div class="scroll-container">
         <ul class="list">
             {{#if isAdd}}
-                {{folder/new-permission-element
-                    isAdd=isAdd 
-                    errors=errors
-                    filteredUsers=filteredUsers
-                    folderUsers=folderUsers
-                    folderId=folderId
-                    reloadFolderUser = (action 'reloadFolderUser')
-                }}
+                <Folder::NewPermissionElement @isAdd={{isAdd}} @errors={{errors}} @filteredUsers={{filteredUsers}} @folderUsers={{folderUsers}} @folderId={{folderId}} @reloadFolderUser={{action "reloadFolderUser"}} />
             {{/if}}
             {{#each folderUsers as |folderUser|}}
-                {{folder/folder-user
-                    folderUser=folderUser
-                    folderId=folderId
-                    folder=folder
-                    canAccessAllFolders=canAccessAllFolders
-                    reloadFolderUser = (action 'reloadFolderUser')
-                    onUpdatePermission = (action 'onUpdatePermission')
-                    onDeletePermission = (action 'onDeletePermission')
-                }}
+                <Folder::FolderUser @folderUser={{folderUser}} @folderId={{folderId}} @folder={{folder}} @canAccessAllFolders={{canAccessAllFolders}} @reloadFolderUser={{action "reloadFolderUser"}} @onUpdatePermission={{action "onUpdatePermission"}} @onDeletePermission={{action "onDeletePermission"}} />
             {{/each}}
         </ul>
     </div>

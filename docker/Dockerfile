@@ -1,4 +1,4 @@
-FROM danlynn/ember-cli:3.13.0-node_10.16
+FROM danlynn/ember-cli:3.28.2-node_14.18
 # passwordcockpit variables
 ENV PASSWORDCOCKPIT_BASEHOST https://[YOUR-IP]:4344
 

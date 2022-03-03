@@ -13,9 +13,9 @@ export default Component.extend({
 
     didReceiveAttrs() {
         this._super(...arguments);
-        let page = this.get('page');
-        let pageCount = this.get('pageCount');
-        let pageRange = this.get('pageRange');
+        let page = this.page;
+        let pageCount = this.pageCount;
+        let pageRange = this.pageRange;
         let min = null;
         let max = null;
         if (page > 1) {

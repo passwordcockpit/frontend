@@ -33,25 +33,25 @@ export default Component.extend(formValidation, {
             window.loading.showLoading();
 
             let access = 1;
-            if (this.get('access')) {
+            if (this.access) {
                 access = 2;
             }
-            this.get('store')
+            this.store
                 .createRecord('folderuser', {
-                    folder_id: this.get('folderId'),
-                    userId: this.get('selectedUser').get('id'),
+                    folder_id: this.folderId,
+                    userId: this.selectedUser.get('id'),
                     access: access
                 })
                 .save()
                 .then(() => {
                     window.loading.hideLoading();
-                    this.get('growl').notice('Success', 'Permission created');
+                    this.growl.notice('Success', 'Permission created');
                     this.set('isAdd', false);
                     this.reloadFolderUser();
                 })
                 .catch((adapterError) => {
                     window.loading.hideLoading();
-                    this.get('growl').errorShowRaw(adapterError.title, adapterError.message);
+                    this.growl.errorShowRaw(adapterError.title, adapterError.message);
                 });
         },
 

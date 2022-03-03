@@ -50,10 +50,7 @@
             {{/if}}
         </div>
         {{#if logs}}
-            {{log-paginator page=page 
-                pageCount=pageCount 
-                changePage = (action 'submit') 
-            }}
+            <LogPaginator @page={{page}} @pageCount={{pageCount}} @changePage={{action "submit"}} />
         {{/if}}
     </div>
 {{/if}}

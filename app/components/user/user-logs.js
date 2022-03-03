@@ -23,7 +23,7 @@ export default Component.extend({
             this.set('loading', true);
             window.loading.showLoading();
             self.get('store').unloadAll('userlog');
-            this.get('store').query('userlog', { userId: this.get('user').id, page: page }).then((logs) => {
+            this.store.query('userlog', { userId: this.user.id, page: page }).then((logs) => {
                 self.set('page', page);
                 self.set('pageCount', logs.get('meta')._page_count);
                 self.set('logs', logs);
@@ -32,7 +32,7 @@ export default Component.extend({
             }).catch((adapterError) => {
                 this.set('loading', false);
                 window.loading.hideLoading();
-                this.get('growl').errorShowRaw(adapterError.title, adapterError.message);
+                this.growl.errorShowRaw(adapterError.title, adapterError.message);
             });
         }
     }

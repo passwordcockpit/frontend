@@ -14,7 +14,7 @@ export default Component.extend(formElementValidation, {
             this.send('keyUp');
         },
         printSelectValuesHandle(value) {
-            if (this.get('printSelectValuesHandle') !== undefined) {
+            if (this.printSelectValuesHandle !== undefined) {
                 return this.printSelectValuesHandle(value);
             }
             else{

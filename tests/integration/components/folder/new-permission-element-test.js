@@ -20,7 +20,7 @@ module('Integration | Component | browser error', function (hooks) {
     test('it renders', async function (assert) {
         await render(hbs`{{folder/new-permission-element}}`);
 
-        assert.equal($.trim(this.$().text().trim().replace(/\s\s+/g, ' ')), 'Manage Cancel Add');
+        assert.equal($.trim(this.element.textContent.trim().replace(/\s\s+/g, ' ')), 'Manage Cancel Add');
 
         // Template block usage:
         await render(hbs`
@@ -29,6 +29,6 @@ module('Integration | Component | browser error', function (hooks) {
         {{/folder/new-permission-element}}
       `);
 
-        assert.equal($.trim(this.$().text().trim().replace(/\s\s+/g, ' ')), 'Manage Cancel Add');
+        assert.equal($.trim(this.element.textContent.trim().replace(/\s\s+/g, ' ')), 'Manage Cancel Add');
     });
 });

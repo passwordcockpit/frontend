@@ -18,16 +18,18 @@ export default HalAdapter.extend(DataAdapterMixin, {
         this._super(...arguments);
         this.host = ENV.APP.host;
         this.namespace = ENV.APP.namespace;
+        let { token } = this.get('session.data.authenticated');
         this.headers = {
+            "Authorization": `Bearer ${token}`,
             "Content-Type": 'application/json',
             "Accept": "application/json"
         };
     },
 
-    authorize(xhr) {
-        let { token } = this.get('session.data.authenticated');
-        xhr.setRequestHeader('Authorization', `Bearer ${token}`);
-    },
+    // authorize(xhr) {
+    //     let { token } = this.get('session.data.authenticated');
+    //     xhr.setRequestHeader('Authorization', `Bearer ${token}`);
+    // },
 
     handleResponse(status, headers, payload) {
         if (this.isSuccess(status, headers, payload)) {

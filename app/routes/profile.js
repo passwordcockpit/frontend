@@ -27,13 +27,13 @@ export default Route.extend(AuthenticatedRouteMixin, {
         }
 
         let result = {
-            user: this.get('store').findRecord('user', logedUserId),
+            user: this.store.findRecord('user', logedUserId),
             isDetailEdit: false,
         };
         return RSVP.hash(result).then((hash) => {
             return hash
         }).catch(() => {
-            this.get('growl').error('Error', 'Error while retrieving user');
+            this.growl.error('Error', 'Error while retrieving user');
         });
     },
     afterModel() {

@@ -101,7 +101,7 @@ export default Component.extend(formValidation, {
          */
         save() {
             window.loading.showLoading();
-            let folderId = this.get('folderId');
+            let folderId = this.folderId;
             // reset errors data
             this.set('errors', null);
 
@@ -110,33 +110,33 @@ export default Component.extend(formValidation, {
             var fd = new FormData();
             let isFormValid = true;
             fd.append("folder_id", folderId);
-            if (this.get('title')) {
-                fd.append("title", this.get('title'));
+            if (this.title) {
+                fd.append("title", this.title);
             }
-            if (this.get('icon')) {
-                fd.append("icon", this.get('icon'));
+            if (this.icon) {
+                fd.append("icon", this.icon);
             }
-            if (this.get('description')) {
-                fd.append("description", this.get('description'));
+            if (this.description) {
+                fd.append("description", this.description);
             }
-            if (this.get('username')) {
-                fd.append("username", this.get('username'));
+            if (this.username) {
+                fd.append("username", this.username);
             }
 
-            if (this.get('url')) {
-                fd.append("url", this.get('url'));
+            if (this.url) {
+                fd.append("url", this.url);
             }
-            if (this.get('tags')) {
-                fd.append("tags", this.get('tags'));
+            if (this.tags) {
+                fd.append("tags", this.tags);
             }
             // plain password
-            if (this.get('password') && !this.get('frontendCrypted')) {
-                fd.append("password", this.get('password'));
+            if (this.password && !this.frontendCrypted) {
+                fd.append("password", this.password);
             }
             // password with pin encryption
-            if (this.get('frontendCrypted')) {
-                fd.append("frontendCrypted", this.get('frontendCrypted'));
-                fd.append("password", this.get('passwordEncrypt').encryptPassword(this.get('pin'), this.get('password')));
+            if (this.frontendCrypted) {
+                fd.append("frontendCrypted", this.frontendCrypted);
+                fd.append("password", this.passwordEncrypt.encryptPassword(this.pin, this.password));
             }
             if (file) {
                 fd.append("file", file);
@@ -166,7 +166,7 @@ export default Component.extend(formValidation, {
                     window.loading.hideLoading();
                     self.get('router').transitionTo('folders.folder.passwords.password', success.password_id);
                 }).fail(adapterError => {
-                    let errors = this.get('growl').errorsDatabaseToArray(adapterError);
+                    let errors = this.growl.errorsDatabaseToArray(adapterError);
                     this.set('errors', errors);
                     window.loading.hideLoading();
                     self.get('growl').error('Error', 'Error while creating the password');
@@ -181,7 +181,7 @@ export default Component.extend(formValidation, {
          * 
          */
         resetPin() {
-            if (!this.get('password')) {
+            if (!this.password) {
                 this.set('frontendCrypted', false)
             }
         },

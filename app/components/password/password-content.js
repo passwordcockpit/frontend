@@ -9,7 +9,7 @@ import { inject } from '@ember/service';
 import ENV from './../../config/environment';
 import formValidation from '../../mixins/form/form-validation';
 import $ from 'jquery';
-import { htmlSafe } from '@ember/string'
+import { htmlSafe } from '@ember/template'
 
 export default Component.extend(formValidation, {
     store: inject('store'),
@@ -45,7 +45,7 @@ export default Component.extend(formValidation, {
         // Remove temporary element
         document.body.removeChild(el);
         // show growl success notification
-        this.get('growl').notice('Success','Copied to clipboard');
+        this.growl.notice('Success','Copied to clipboard');
     },
 
     actions: {
@@ -62,8 +62,8 @@ export default Component.extend(formValidation, {
          */
         editPassword() {
             this.set('isEdit', true);
-            this.set('localTempPassword', this.get('password').serialize());
-            this.set('localTempPasswordDecrypted', this.get('passwordDecrypted'));
+            this.set('localTempPassword', this.password.serialize());
+            this.set('localTempPasswordDecrypted', this.passwordDecrypted);
         },
         /**
          * Cancel editing Password
@@ -77,7 +77,7 @@ export default Component.extend(formValidation, {
             Object.keys(this.localTempPassword).forEach(function (key) {
                 self.get('password').set(key, self.localTempPassword[key]);
             });
-            this.set('passwordDecrypted', this.get('localTempPasswordDecrypted'));
+            this.set('passwordDecrypted', this.localTempPasswordDecrypted);
             // reset errors data
             this.set('errors', null);
 
@@ -294,7 +294,7 @@ export default Component.extend(formValidation, {
                 self.get('growl').notice('Success', 'File deleted');
             }).fail((adapterError) => {
                 window.loading.hideLoading();
-                this.get('growl').errorShowRaw(adapterError.responseJSON.title, adapterError.responseJSON.detail);
+                this.growl.errorShowRaw(adapterError.responseJSON.title, adapterError.responseJSON.detail);
             });
         },
         /**
@@ -321,7 +321,7 @@ export default Component.extend(formValidation, {
             this.set('pinDecrypt', null);
             this.set('isPinValid', false);
 
-            let password = this.get('password');
+            let password = this.password;
             if (this.localTempPassword.icon != null && password.get('icon') == null) {
                 password.set('icon', '');
             }
@@ -354,32 +354,32 @@ export default Component.extend(formValidation, {
                             processData: false,
                             type: "POST"
                         }).done(fileCreatedResult => {
-                            let passwordData = this.get('store').peekRecord('password', fileCreatedResult.password_id);
+                            let passwordData = this.store.peekRecord('password', fileCreatedResult.password_id);
                             passwordData.set('fileId', fileCreatedResult.file_id);
                             passwordData.set('fileName', fileCreatedResult.name);
-                            this.set('password', this.get('store').peekRecord('password', fileCreatedResult.password_id));
+                            this.set('password', this.store.peekRecord('password', fileCreatedResult.password_id));
 
                             this.set('isEdit', false);
 
                             window.loading.hideLoading();
-                            this.get('growl').notice('Success', 'File uploaded');
+                            this.growl.notice('Success', 'File uploaded');
                         }).fail(adapterError => {
                             this.set('isEdit', false);
                             window.loading.hideLoading();
-                            this.get('growl').errorShowRaw(adapterError.responseJSON.title, adapterError.responseJSON.detail);
+                            this.growl.errorShowRaw(adapterError.responseJSON.title, adapterError.responseJSON.detail);
                         });
                     } else {
                         window.loading.hideLoading();
                         this.set('isEdit', false);
                     }
                     this.onSavePassword(self.password.id);
-                    this.get('growl').notice('Success', 'Password updated');
+                    this.growl.notice('Success', 'Password updated');
                 })
                 .catch((adapterError) => {
-                    let errors = this.get('growl').errorsDatabaseToArray(adapterError);
+                    let errors = this.growl.errorsDatabaseToArray(adapterError);
                     this.set('errors', errors);
                     window.loading.hideLoading();
-                    this.get('growl').errorShowRaw(adapterError.title, adapterError.message);
+                    this.growl.errorShowRaw(adapterError.title, adapterError.message);
                 });
         },
 
@@ -388,20 +388,20 @@ export default Component.extend(formValidation, {
          * descrypt password.password
          */
         decryptPassword() {
-            if (this.get('passwordEncrypt').decryptPassword(this.get('pinDecrypt'), this.get('password.password'))) {
+            if (this.passwordEncrypt.decryptPassword(this.pinDecrypt, this.get('password.password'))) {
                 // decrypt password for edit read password
-                this.set('passwordDecrypted', this.get('passwordEncrypt').decryptPassword(this.get('pinDecrypt'), this.get('password.password')));
+                this.set('passwordDecrypted', this.passwordEncrypt.decryptPassword(this.pinDecrypt, this.get('password.password')));
                 // fill the pin field for edit password
-                this.set('pinEncrypt', this.get('pinDecrypt'));
+                this.set('pinEncrypt', this.pinDecrypt);
 
                 this.set('isPinValid', true);
                 this.set('failureCounted', 0);
                 return
             }
 
-            this.set('failureCounted', this.get('failureCounted') + 1);
-            this.get('growl').error('Error', 'Wrong PIN');
-            this.set('passwordDescryptionBlocked', (this.get('failureCounted') >= this.get('failureLimit')));
+            this.set('failureCounted', this.failureCounted + 1);
+            this.growl.error('Error', 'Wrong PIN');
+            this.set('passwordDescryptionBlocked', (this.failureCounted >= this.failureLimit));
             this.set('isPinValid', false);
         },
         /**
@@ -417,7 +417,7 @@ export default Component.extend(formValidation, {
         * 
         */
         resetPin() {
-            if (!this.get('passwordDecrypted')) {
+            if (!this.passwordDecrypted) {
                 this.set('password.frontendCrypted', false)
             }
             this.send('setPassword');
@@ -431,15 +431,15 @@ export default Component.extend(formValidation, {
             if (toggleFrontendCrypted) {
                 this.set('password.frontendCrypted', !this.get('password.frontendCrypted'))
             }
-            if (this.get('isEdit')) {
+            if (this.isEdit) {
                 if (this.get('password.frontendCrypted')) {
                     // with PIN
-                    let passwordEncrypted = this.get('passwordEncrypt').encryptPassword(this.get('pinEncrypt'), this.get('passwordDecrypted'));
+                    let passwordEncrypted = this.passwordEncrypt.encryptPassword(this.pinEncrypt, this.passwordDecrypted);
                     this.set('password.password', passwordEncrypted);
-                    this.set('pinDecrypt', this.get('pinEncrypt'));
+                    this.set('pinDecrypt', this.pinEncrypt);
                 } else {
                     // without PIN
-                    this.set('password.password', this.get('passwordDecrypted'));
+                    this.set('password.password', this.passwordDecrypted);
                     this.set('pinEncrypt', null);
                 }
             }

@@ -29,33 +29,33 @@ export default Component.extend(formValidation, {
          */
         save() {
             window.loading.showLoading();
-            let newUserRecord = this.get('store')
+            let newUserRecord = this.store
                 .createRecord('user', {
-                    username: this.get('username'),
-                    name: this.get('name'),
-                    surname: this.get('surname'),
-                    phone: this.get('phone'),
-                    email: this.get('email'),
-                    enabled: this.get('enabled') ? true : false,
+                    username: this.username,
+                    name: this.name,
+                    surname: this.surname,
+                    phone: this.phone,
+                    email: this.email,
+                    enabled: this.enabled ? true : false,
                     language: $('select[name=language] option:selected').val()
                 });
-            if (this.get('password') !== undefined && this.get('password') != '') {
-                newUserRecord.set('password', this.get('password'));
+            if (this.password !== undefined && this.password != '') {
+                newUserRecord.set('password', this.password);
             }
             newUserRecord.save()
                 .then((result) => {
                     this.onCreateUser();
                     window.loading.hideLoading();
-                    this.get('growl').notice('Success', 'User created');
-                    this.get('router').transitionTo('users.user', result.get('id'));
+                    this.growl.notice('Success', 'User created');
+                    this.router.transitionTo('users.user', result.get('id'));
                 })
                 .catch((adapterError) => {
                     newUserRecord.deleteRecord();
 
-                    let errors = this.get('growl').errorsDatabaseToArray(adapterError);
+                    let errors = this.growl.errorsDatabaseToArray(adapterError);
                     this.set('errors', errors);
                     window.loading.hideLoading();
-                    this.get('growl').errorShowRaw(adapterError.title, adapterError.message);
+                    this.growl.errorShowRaw(adapterError.title, adapterError.message);
                 });
         },
         /**

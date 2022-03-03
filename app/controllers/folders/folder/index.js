@@ -21,14 +21,14 @@ export default Controller.extend({
          * Is called by folder-user on updating permission
          */
         onUpdatePermission() {
-            this.get('foldersController').send('onUpdatePemission');
+            this.foldersController.send('onUpdatePemission');
         },
         /**
          * Notify to folders about the operation
          * Is called by folder-user on deleting permission
          */
         onDeletePermission() {
-            this.get('foldersController').send('onUpdatePemission');
+            this.foldersController.send('onUpdatePemission');
         }
     }
 });

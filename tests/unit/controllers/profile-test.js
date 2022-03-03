@@ -1,17 +1,18 @@
+import { module, test } from 'qunit';
 /** 
 * @see https://github.com/passwordcockpit/frontend for the canonical source repository 
 * @copyright Copyright (c) 2018 Blackpoints AG (https://www.blackpoints.ch) 
 * @license https://github.com/passwordcockpit/frontend/blob/master/LICENSE.md BSD 3-Clause License 
 */
 
-import { moduleFor, test } from 'ember-qunit';
+import { setupTest } from 'ember-qunit';
 
-moduleFor('controller:profile', 'Unit | Controller | profile', {
-    integration: true
-});
+module('Unit | Controller | profile', function(hooks) {
+  setupTest(hooks);
 
-// Replace this with your real tests.
-test('it exists', function(assert) {
-  let controller = this.subject();
-  assert.ok(controller);
+  // Replace this with your real tests.
+  test('it exists', function(assert) {
+    let controller = this.owner.lookup('controller:profile');
+    assert.ok(controller);
+  });
 });

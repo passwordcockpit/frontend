@@ -18,8 +18,8 @@ export default Route.extend(AuthenticatedRouteMixin, {
     model(params) {
         let folder_id = this.modelFor("folders.folder").folder.id;
         let result = {
-            password: this.get('store').findRecord('password', params.password_id),
-            folder: this.get('store').peekRecord('folder', folder_id),
+            password: this.store.findRecord('password', params.password_id),
+            folder: this.store.peekRecord('folder', folder_id),
             passwordId: params.password_id,
             isPasswordVisible: false,
             isEdit: false,
@@ -30,7 +30,7 @@ export default Route.extend(AuthenticatedRouteMixin, {
         return RSVP.hash(result).then((hash) => {
             // Load password's logs
             if (canViewLogs) {
-                hash.logs = this.get('store').query('log', { passwordId: params.password_id, page: 1 });
+                hash.logs = this.store.query('log', { passwordId: params.password_id, page: 1 });
                 return RSVP.hash(hash).then((hashHash) => {
                     hashHash.page = hashHash.logs.get('meta')._page;
                     hashHash.pageCount = hashHash.logs.get('meta')._page_count;
@@ -40,7 +40,7 @@ export default Route.extend(AuthenticatedRouteMixin, {
                 return hash;
             }
         }).catch((adapterError) => {
-            this.get('growl').errorShowRaw(adapterError.title, adapterError.message);
+            this.growl.errorShowRaw(adapterError.title, adapterError.message);
             return this.transitionTo('sorry-page');
         });
     },

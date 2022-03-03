@@ -27,7 +27,7 @@ export default Controller.extend({
         let folderPath = [];
         let parentId = firstParentFolderId;
         while (parentId != null) {
-            let parentFolderData = this.get('store').peekRecord('folder', parentId);
+            let parentFolderData = this.store.peekRecord('folder', parentId);
             folderPath.push(parentFolderData.get('name'));
             parentId = parentFolderData.get('parent_id');
         }
@@ -44,11 +44,11 @@ export default Controller.extend({
         let self = this;
         folders.forEach(function (folder) {
             let folderId = folder.id;
-            let folderName = folder.data.name;
-            let folderAccess = folder.data.access;
+            let folderName = folder.name;
+            let folderAccess = folder.access;
             let folderPath = [];
             let folderPathToString = '/';
-            let parentId = folder.data.parent_id;
+            let parentId = folder.parent_id;
             if (parentId) {
                 folderPath = self.get('retrieveParentFolders').call(self, parentId);
 
@@ -78,13 +78,13 @@ export default Controller.extend({
         let self = this;
         passwords.forEach(function (password) {
             let passwordId = password.id;
-            let passwordTitle = password.data.title;
+            let passwordTitle = password.title;
             let passwordPath = [];
             let passwordPathToString = '/';
-            let parentId = password.data.folder_id;
+            let parentId = password.folder_id;
             passwordPath = self.get('retrieveParentFolders').call(self, parentId);
             passwordPathToString = passwordPath.join(' / ');
-            let icon = password.data.icon;
+            let icon = password.icon;
 
             result.push({
                 valueToSort: [passwordPath, 1, passwordTitle],
@@ -103,7 +103,7 @@ export default Controller.extend({
     actions: {
 
         removePassword(passwordId) {
-            this.get('folderController').send('removePassword', passwordId);
+            this.folderController.send('removePassword', passwordId);
         },
         /**
          * Toggle folders list visibility (only for mobile)
@@ -119,7 +119,7 @@ export default Controller.extend({
          * @param {*} folder 
          */
         slideAllUp() {
-            this.get('indexedFolders').forEach(function (folder) {
+            this.indexedFolders.forEach(function (folder) {
                 folder.set('isShow', false);
             });
             $('div[data-id^=collapse]').slideUp();
@@ -127,7 +127,7 @@ export default Controller.extend({
             this.send('showFoldersList');
         },
         slideAllDown() {
-            this.get('indexedFolders').forEach(function (folder) {
+            this.indexedFolders.forEach(function (folder) {
                 folder.set('isShow', true);
             });
             $('div[data-id^=collapse]').slideDown();
@@ -147,9 +147,9 @@ export default Controller.extend({
             // if folderVisible (before) is true => show folder's children
             let folderVisible = !folder.isShow;
             if (folderVisible) {
-                this.get('foldersController').send('slideDown', folder);
+                this.foldersController.send('slideDown', folder);
             } else {
-                this.get('foldersController').send('slideUp', folder);
+                this.foldersController.send('slideUp', folder);
             }
 
         },
@@ -158,7 +158,7 @@ export default Controller.extend({
          * Close the other opened inputs
          */
         addFolder() {
-            this.get('closeFoldersInputs').closeAllInputs();
+            this.closeFoldersInputs.closeAllInputs();
             this.set('isAdd', true);
             this.send('showFoldersList');
         },
@@ -182,7 +182,7 @@ export default Controller.extend({
             params.folders.forEach(function (folder) {
                 // Retrieve parameters
                 let folderId = folder.id;
-                let parentId = folder.data.parent_id;
+                let parentId = folder.parent_id;
 
                 // Add the folder to the indexed array
                 indexedFolders[folderId] = folder;
@@ -212,7 +212,7 @@ export default Controller.extend({
          */
         onCreateFolder(folderId) {
             window.loading.showLoading();
-            this.get('store').query("folder", {})
+            this.store.query("folder", {})
                 .then((results) => {
                     // Rebuild the tree
                     this.send('buildTree', { folders: results });
@@ -222,7 +222,7 @@ export default Controller.extend({
                     window.loading.hideLoading();
                 })
                 .catch(() => {
-                    this.get('growl').error('Error', 'Error while retrieving folders');
+                    this.growl.error('Error', 'Error while retrieving folders');
                     window.loading.hideLoading();
                 });
         },
@@ -231,13 +231,13 @@ export default Controller.extend({
          * Is called by folder-element on updating Folder
          */
         onUpdateFolder() {
-            this.get('store').query("folder", {})
+            this.store.query("folder", {})
                 .then((results) => {
                     // Rebuild the tree
                     this.send('buildTree', { folders: results });
                 })
                 .catch(() => {
-                    this.get('growl').error('Error', 'Error while retrieving folders');
+                    this.growl.error('Error', 'Error while retrieving folders');
                 });
         },
         /**
@@ -259,9 +259,9 @@ export default Controller.extend({
                     "Authorization": "Bearer " + this.get('session.data.authenticated.token')
                 }
             }).done(() => {
-                this.get('growl').notice('Success', 'Folder deleted');
+                this.growl.notice('Success', 'Folder deleted');
                 //  Recreate the tree
-                this.get('store').query("folder", {})
+                this.store.query("folder", {})
                     .then((results) => {
                         // Rebuild the tree
                         this.send('buildTree', { folders: results });
@@ -270,19 +270,19 @@ export default Controller.extend({
                     .catch(() => {
                         window.loading.hideLoading();
                         $('#deleteFolderConfirm' + folderId).modal('hide');
-                        this.get('growl').error('Error', 'Error while retrieving folders');
+                        this.growl.error('Error', 'Error while retrieving folders');
                     });
 
                 // redirect to "folders" if current select forlder is the one deleted
-                if (this.get('transitionData').params['folders.folder'] != undefined) {
-                    let transitionFolderId = this.get('transitionData').params['folders.folder'].folder_id;
+                if (this.transitionData.params['folders.folder'] != undefined) {
+                    let transitionFolderId = this.transitionData.params['folders.folder'].folder_id;
                     if (transitionFolderId == folderId) {
                         this.transitionToRoute('folders');
                     }
                 }
             }).fail((adapterError) => {
                 window.loading.hideLoading();
-                this.get('growl').errorShowRaw(adapterError.responseJSON.title, adapterError.responseJSON.detail);
+                this.growl.errorShowRaw(adapterError.responseJSON.title, adapterError.responseJSON.detail);
             });
 
         },
@@ -291,13 +291,13 @@ export default Controller.extend({
          * Is called by folder-user on updating/deleting permission
          */
         onUpdatePemission() {
-            this.get('store').query("folder", {})
+            this.store.query("folder", {})
                 .then((results) => {
                     // Rebuild the tree
                     this.send('buildTree', { folders: results });
                 })
                 .catch(() => {
-                    this.get('growl').error('Error', 'Error while retrieving folders');
+                    this.growl.error('Error', 'Error while retrieving folders');
                 });
         },
         /**
@@ -313,19 +313,19 @@ export default Controller.extend({
             };
 
             if (target === 'Folder' || target === 'All') {
-                result.folders = this.get('store').query('folder', { q: keywords })
+                result.folders = this.store.query('folder', { q: keywords })
             }
             if (target === 'Password' || target === 'All') {
-                result.passwords = this.get('store').query('password', { q: keywords })
+                result.passwords = this.store.query('password', { q: keywords })
             }
 
             return RSVP.hash(result).then((hash) => {
                 let resultsSearch = [];
                 if (hash.target === 'Folder' || hash.target === 'All') {
-                    resultsSearch = this.get('buildSearchFoldersResult').call(this, hash.folders, resultsSearch);
+                    resultsSearch = this.buildSearchFoldersResult.call(this, hash.folders, resultsSearch);
                 }
                 if (hash.target === 'Password' || hash.target === 'All') {
-                    resultsSearch = this.get('buildSearchPasswordsResult').call(this, hash.passwords, resultsSearch);
+                    resultsSearch = this.buildSearchPasswordsResult.call(this, hash.passwords, resultsSearch);
                 }
 
                 resultsSearch = resultsSearch.sort(function (a, b) {
@@ -353,7 +353,7 @@ export default Controller.extend({
                 window.loading.hideLoading();
 
                 if (adapterError.hasOwnProperty('code')) {
-                    this.get('growl').errorShowRaw(adapterError.title, adapterError.message);
+                    this.growl.errorShowRaw(adapterError.title, adapterError.message);
                 }
             });
         },

@@ -35,19 +35,19 @@
                     <tr>
                         {{#if searchResult.isFolder}}
                         <td>
-                            {{#link-to 'folders.folder' searchResult.folderId}}
+                            <LinkTo @route="folders.folder" @model={{searchResult.folderId}}>
                                 <span {{action 'onSelectSearchFolderElement' searchResult.folderId}}>
                                     <i class='fa fa-folder'></i>
                                     {{searchResult.folderName}}
                                 </span>
-                            {{/link-to}}
+                            </LinkTo>
                         </td>
 						<td class='path'>
                             {{searchResult.folderPathToString}}
 						</td>
                         {{else}}
                         <td>
-                            {{#link-to 'folders.folder.passwords.password' searchResult.folderId searchResult.passwordId}}
+                            <LinkTo @route="folders.folder.passwords.password" @models={{array searchResult.folderId searchResult.passwordId}}>
                                 <span {{action 'onSelectSearchPasswordElement' searchResult.folderId searchResult.passwordId}}>
                                     {{#if (eq searchResults.target 'Password')}}
                                         <i class='fa fa-{{searchResult.icon}}'></i>
@@ -56,7 +56,7 @@
                                     {{/if}}
                                     {{searchResult.passwordTitle}}
                                 </span>
-                            {{/link-to}}
+                            </LinkTo>
                         </td>
 						<td class='path'>
                             {{searchResult.passwordPathToString}}
@@ -107,26 +107,10 @@
     <div class="scroll-container {{unless showList 'listHidden'}}">
         <ul class="list">
             {{#if isAdd}}
-                {{folder/new-folder-element 
-                    isAdd=isAdd 
-                    parentId=null 
-                    cancelAddFolder=(action "cancelAddFolder")
-                    onCreateFolder=(action "onCreateFolder")
-                }}
+                <Folder::NewFolderElement @isAdd={{isAdd}} @parentId={{null}} @cancelAddFolder={{action "cancelAddFolder"}} @onCreateFolder={{action "onCreateFolder"}} />
             {{/if}}
             {{#each [roots] as |folderId|}}
-                {{folder/folder-element
-                    removePassword=(action "removePassword")
-                    folder=(get indexedFolders folderId) 
-                    indexedFolders=indexedFolders 
-                    tree=tree
-                    onCreateFolder=(action "onCreateFolder")
-                    onUpdateFolder=(action "onUpdateFolder")
-                    onDeleteFolder=(action "onDeleteFolder")
-                    collapseFolder=(action "collapseFolder")
-                    slideUp=(action "slideUp")
-                    canAccessAllFolders=canAccessAllFolders
-                }}
+                <Folder::FolderElement @removePassword={{action "removePassword"}} @folder={{get indexedFolders folderId}} @indexedFolders={{indexedFolders}} @tree={{tree}} @onCreateFolder={{action "onCreateFolder"}} @onUpdateFolder={{action "onUpdateFolder"}} @onDeleteFolder={{action "onDeleteFolder"}} @collapseFolder={{action "collapseFolder"}} @slideUp={{action "slideUp"}} @canAccessAllFolders={{canAccessAllFolders}} />
                 {{else}}
                     <p class="alert alert-info">
                         <i class="fas fa-info-circle"></i>
