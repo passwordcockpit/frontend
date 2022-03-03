@@ -31,7 +31,7 @@
     "ember-auto-import": "^2.4.0",
     "ember-cli": "^3.28.5",
     "ember-cli-app-version": "^5.0.0",
-    "ember-cli-babel": "^7.26.10",
+    "ember-cli-babel": "^7.26.11",
     "ember-cli-dependency-checker": "^3.2.0",
     "ember-cli-htmlbars": "^5.7.2",
     "ember-cli-inject-live-reload": "^2.1.0",
@@ -73,7 +73,7 @@
   },
   "dependencies": {
     "@fortawesome/fontawesome-free": "^6.0.0",
-    "bootstrap-sass": "^3.3.6",
+    "bootstrap-sass": "^3.4.0",
     "ember-cli-tinymce": "git://github.com/marucjmar/ember-cli-tinymce.git#load-from-assets",
     "ember-data-hal-9000": "git://github.com/blackpoints-forks/ember-data-hal-9000.git",
     "ember-simple-auth": "^4.2.0",
