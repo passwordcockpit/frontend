@@ -76,7 +76,6 @@
     "bootstrap-sass": "^3.3.6",
     "ember-cli-tinymce": "git://github.com/marucjmar/ember-cli-tinymce.git#load-from-assets",
     "ember-data-hal-9000": "git://github.com/blackpoints-forks/ember-data-hal-9000.git",
-    "ember-jwt-decode": "^0.1.1",
     "ember-simple-auth": "^1.6.0",
     "ember-simple-auth-token": "^4.0.6",
     "file-saver": "^2.0.0",
