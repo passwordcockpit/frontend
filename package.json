@@ -72,7 +72,7 @@
     "node": "12.* || 14.* || >= 16"
   },
   "dependencies": {
-    "@fortawesome/fontawesome-free": "^5.15.4",
+    "@fortawesome/fontawesome-free": "^6.0.0",
     "bootstrap-sass": "^3.3.6",
     "ember-cli-tinymce": "git://github.com/marucjmar/ember-cli-tinymce.git#load-from-assets",
     "ember-data-hal-9000": "git://github.com/blackpoints-forks/ember-data-hal-9000.git",
