@@ -65,7 +65,7 @@
     "loader.js": "^4.7.0",
     "npm-run-all": "^4.1.5",
     "prettier": "^2.5.1",
-    "qunit": "^2.17.2",
+    "qunit": "^2.18.0",
     "webpack": "^5.69.1"
   },
   "engines": {
@@ -78,9 +78,9 @@
     "ember-data-hal-9000": "git://github.com/blackpoints-forks/ember-data-hal-9000.git",
     "ember-simple-auth": "^4.2.0",
     "ember-simple-auth-token": "^5.3.0",
-    "file-saver": "^2.0.0",
+    "file-saver": "^2.0.5",
     "jquery.growl": "^1.3.5",
-    "sass": "^1.16.0",
+    "sass": "^1.49.9",
     "whatwg-fetch": "^3.0.0"
   }
 }
