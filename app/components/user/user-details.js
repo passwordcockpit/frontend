@@ -125,6 +125,7 @@ export default Component.extend(formValidation, {
                     if (userData.get('forceLogin') !== undefined && userData.get('forceLogin')) {
                         $('#forceLogoutModal').modal('show');
                     }
+                    location.reload(true);
                 })
                 .catch(adapterError => {
                     this.resetPasswordForms();
