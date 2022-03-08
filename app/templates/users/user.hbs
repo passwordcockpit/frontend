@@ -2,4 +2,5 @@
 <User::UserRights @permission={{model.permission}} @isEdit={{model.isPermissionEdit}} @onUpdateUserRight={{action "onUpdateUserRight"}} />
 
 <User::UserLogs @logs={{logs}} @user={{model.user}} @canViewLog={{canViewLog}} @page={{model.page}} @pageCount={{model.pageCount}} />
+<User::UserAccessibleFolders @folderusers={{folderusers}} />
 {{outlet}}

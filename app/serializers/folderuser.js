@@ -7,5 +7,12 @@
 import HalSerializer from "ember-data-hal-9000/serializer";
 
 export default HalSerializer.extend({
-    primaryKey: 'user_id'
+
+    extractId(modelClass, resourceHash) {
+        let id = this._super(...arguments);
+        if (modelClass.modelName == "folderuser") {
+            id = resourceHash['user_id'] + '_' + resourceHash['folder_id'];
+        }
+        return id + "";
+    },
 });

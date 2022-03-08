@@ -10,6 +10,7 @@ export default Model.extend({
     username: attr(),
     name: attr(),
     surname: attr(),
+    folder_name: attr(),
     access: attr(),
     enabled: attr(),
     isEdit: attr('boolean', { defaultValue: false }),

@@ -38,7 +38,11 @@ export default HalAdapter.extend(DataAdapterMixin, {
             if (this.sortQueryParams) {
                 query = this.sortQueryParams(query);
             }
-
+            
+            return this.ajax(url, 'GET');
+        } else if(query.userId){
+            let url = this.buildURL('users/' + query.userId + '/folders/permissions', null, null, 'query', query);
+            
             return this.ajax(url, 'GET');
         } else {
             let url = this.buildURL(type.modelName, null, null, 'query', query);

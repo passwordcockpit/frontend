@@ -4,13 +4,9 @@
 * @license https://github.com/passwordcockpit/frontend/blob/master/LICENSE.md BSD 3-Clause License 
 */
 
-import Model, { attr } from '@ember-data/model';
+import Component from '@ember/component';
+import { inject } from '@ember/service';
 
-export default Model.extend({
-    password_id: attr(),
-    password_title: attr(),
-    user_id: attr(),
-    username: attr('string'),
-    action_date: attr(),
-    action: attr(),
+export default Component.extend({
+    
 });

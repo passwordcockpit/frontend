@@ -31,6 +31,8 @@ export default Route.extend(AuthenticatedRouteMixin, {
             if (canViewLog) {
                 result.logs = this.store.query('userlog', { userId: params.user_id, page: 1 });
             }
+            result.folderusers = this.store.query('folderuser', { userId: params.user_id, page: 1 });
+
             return RSVP.hash(result).then((hash) => {
                 if (canViewLog) {
                     hash.page = hash.logs.get('meta')._page;
@@ -56,6 +58,7 @@ export default Route.extend(AuthenticatedRouteMixin, {
         // Implement your custom setup after
         this.controllerFor('users.user').set('canViewLog', model.canViewLog);
         this.controllerFor('users.user').set('logs', model.logs);
+        this.controllerFor('users.user').set('folderusers', model.folderusers);
         this.controllerFor('users.user').set('updatingUserErrors', null);
     },
 
