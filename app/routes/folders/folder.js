@@ -27,10 +27,9 @@ export default Route.extend({
         let parentId = folder.parent_id;
         while (parentId != null) {
             let parentFolder = this.store.peekRecord('folder', parentId);
-            folderPath.push(parentFolder);
+            folderPath.unshift(parentFolder);
             parentId = parentFolder.get('parent_id');
         }
-        folderPath = folderPath.reverse();
         
         //Check that folder exists and that user has permission to access
         if (folder && (canAccessAllFolders || folder.get('access') === 2 || folder.get('access') === 1)) {
