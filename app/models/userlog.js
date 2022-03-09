@@ -9,7 +9,7 @@ import Model, { attr } from '@ember-data/model';
 export default Model.extend({
     password_id: attr(),
     password_title: attr(),
-    password_folder: attr(),
+    password_folder: attr('string'),
     user_id: attr(),
     action_date: attr(),
     action: attr()
