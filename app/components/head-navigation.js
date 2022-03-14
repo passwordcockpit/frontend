@@ -14,8 +14,6 @@ import $ from 'jquery';
 export default Component.extend(formValidation, {
     router: inject('router'),
     session: inject('session'),
-    intl: inject('intl'),
-    growl: inject('growl'),
 
     init() {
         this._super(...arguments);
@@ -59,47 +57,6 @@ export default Component.extend(formValidation, {
         printSelectValuesHandle(userLanguage) {
             return userLanguage.text
         },
-        /**
-         * Edit user's language
-         */
-        save() {
-            window.loading.showLoading();
-            let self = this;
-            let user = this.user;
-            
-            // set language
-            user.set('language', $('select[name=language] option:selected').val());
-
-            user.save()
-                .then((userData) => {
-
-                    var userId = jwtDecode(self.get('session.session.content.authenticated.token'));
-
-                    // If user edit him/her self
-                    if (userId.sub == parseInt(userData.id, 10)) {
-                        if (!userData.get('enabled')) {
-                            this.session.invalidate();
-                        } else {
-                            //Update language
-                            this.set('intl.locale', user.get('language'));
-                            // Update token
-                            if (userData.get('token') !== undefined && userData.get('token') !== '') {
-                                this.set('session.data.authenticated.token', userData.get('token'));
-                            }
-                            let sessionData = self.get('session.data');
-                            self.get('session.store').persist(sessionData);
-                        }
-                    }
-
-                    window.loading.hideLoading();
-                    location.reload(true);
-                })
-                .catch(adapterError => {
-                    let errors = this.growl.errorsDatabaseToArray(adapterError);
-                    this.set('errors', errors);
-                    this.growl.errorShowRaw(adapterError.title, adapterError.message);
-                    window.loading.hideLoading();
-                });
-        },
     }
+
 });

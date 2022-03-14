@@ -55,14 +55,9 @@
             </ul>
         </li>
         <li>
-            <form {{action 'submit' on='submit' }}>
+            <form {{action 'submit' on='submit'}}>
                 <div>
-                    <div class="col-sm-9">
-                        <Form::FormSelect @class="language-select form-control" @name="language" @isPowerSelect={{false}} @selectOptions={{userLanguages}} @allowClear={{true}} @value={{user.language}} @isFormValid={{isFormValid}} @showMessage={{showMessage}} @printSelectValuesHandle={{action "printSelectValuesHandle"}} @validator={{validation-parameters required=true minLength=2 maxLength=2 type="select" }} />
-                    </div>
-                    <button type="submit" name="submit" class="btn btn-primary col-sm-3">
-                            <i class="fas fa-save"></i>
-                    </button>
+                    <Form::FormSelect @class="language-select form-control" @name="language" @user={{user}} @isHeaderLanguage={{true}} @isPowerSelect={{false}} @selectOptions={{userLanguages}} @allowClear={{true}} @value={{user.language}} @isFormValid={{isFormValid}} @showMessage={{showMessage}} @printSelectValuesHandle={{action "printSelectValuesHandle"}} @validator={{validation-parameters required=true minLength=2 maxLength=2 type="select" }} />
                 </div>
             </form>
         </li>
