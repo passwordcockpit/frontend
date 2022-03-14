@@ -9,9 +9,8 @@ import { inject } from '@ember/service';
 import jwtDecode from 'ember-cli-jwt-decode';
 import ENV from '../../config/environment';
 import formElementValidation from '../../mixins/form/form-element-validation';
-import formValidation from '../../mixins/form/form-validation';
 
-export default Component.extend(formElementValidation, formValidation, {
+export default Component.extend(formElementValidation, {
     session: inject('session'),
     intl: inject('intl'),
     growl: inject('growl'),
@@ -19,14 +18,14 @@ export default Component.extend(formElementValidation, formValidation, {
     init() {
         this._super(...arguments);
         // Language options
-        this.userLanguages = ENV.APP.userLanguages;
+        this.userLanguages = ENV.APP.userLanguages.shift();
     },
 
     actions: {
         selectOptionChange(value) {
             this.set('value', value);
             if(this.isHeaderLanguage){
-                this.send('submit');
+                this.send('saveLang');
             }else{
                 this.send('keyUp');
             }
@@ -42,7 +41,7 @@ export default Component.extend(formElementValidation, formValidation, {
         /**
          * Edit user's language in header-navigation
          */
-        save() {
+        saveLang() {
             window.loading.showLoading();
             let self = this;
             let user = this.user;
