@@ -98,15 +98,15 @@ export default Mixin.create({
             isElementValid = false;
         } else if (this.get('validator.minLength') && !this.checkMinLength(this.get("validator.minLength"))) {
             // min length
-            this.set("errorMessage", this.intl.t("Minimum length: ") + this.get("validator.minLength"));
+            this.set("errorMessage", this.intl.t("Minimum length:") + this.get("validator.minLength"));
             isElementValid = false;
         } else if (this.get('validator.maxLength') && !this.checkMaxLength(this.get("validator.maxLength"))) {
             // max length
-            this.set("errorMessage", this.intl.t("Maximum length: ") + this.get("validator.maxLength"));
+            this.set("errorMessage", this.intl.t("Maximum length:") + this.get("validator.maxLength"));
             isElementValid = false;
         } else if (this.get('validator.type') && this.value && !this.checkType()) {
             // type (email, url, ...)
-            this.set("errorMessage", this.intl.t("Field type: " + this.get("validator.type")));
+            this.set("errorMessage", this.intl.t("Field type:" + this.get("validator.type")));
             isElementValid = false;
         } else if (this.get('validator.equalTo') && this.value !== this.get('validator.equalTo')) {
             // type (email, url, ...)
