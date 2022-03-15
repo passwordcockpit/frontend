@@ -112,8 +112,10 @@ export default Component.extend({
                 $('#lastPermissionConfirm' + folderUser.id).modal('hide');
                 this.growl.notice('Success', 'Permission deleted');
 
+                // Extracting the userId because of the customized id in the serializer (userId_folderId)
+                var id = folderUser.id.substring(0, folderUser.id.indexOf('_'));
                 // if user delete the permission of him/her-self
-                if (userId.sub == parseInt(folderUser.id, 10)) {
+                if (userId.sub == parseInt(id, 10)) {
                     this.router.transitionTo('folders');
                 }
                 this.onDeletePermission();

@@ -40,6 +40,7 @@ export default HalAdapter.extend(DataAdapterMixin, {
             }
             
             return this.ajax(url, 'GET');
+        // Check if there is the "userId" param
         } else if(query.userId){
             let url = this.buildURL('users/' + query.userId + '/folders/permissions', null, null, 'query', query);
             
@@ -54,7 +55,8 @@ export default HalAdapter.extend(DataAdapterMixin, {
         }
     },
     updateRecord(store, type, snapshot) {
-        let id = snapshot.id;
+        // Extracting the userId because of the customized id in the serializer (userId_folderId)
+        let id = snapshot.id.substring(0,snapshot.id.indexOf('_'));
         let url = this.buildURL(
             'folders/' + snapshot.adapterOptions.folder_id + '/users/' + id
         );
@@ -76,9 +78,9 @@ export default HalAdapter.extend(DataAdapterMixin, {
         });
     },
     deleteRecord(store, type, snapshot) {
-
         let data = this.serialize(snapshot, { includeId: true });
-        let id = snapshot.id;
+        // Extracting the userId because of the customized id in the serializer (userId_folderId)
+        let id = snapshot.id.substring(0,snapshot.id.indexOf('_'));
         let url = this.buildURL(
             'folders/' + snapshot.adapterOptions.folder_id + '/users/' + id
         );
