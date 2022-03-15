@@ -18,7 +18,9 @@ export default Component.extend(formElementValidation, {
     init() {
         this._super(...arguments);
         // Language options
-        this.userLanguages = ENV.APP.userLanguages.shift();
+        this.userLanguages = (ENV.APP.userLanguages[0].text === '-') ? 
+                             ENV.APP.userLanguages.shift() : 
+                             ENV.APP.userLanguages;
     },
 
     actions: {
