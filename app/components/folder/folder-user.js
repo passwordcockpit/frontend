@@ -104,12 +104,10 @@ export default Component.extend({
         deletePermission(folderUser, folderId) {
             var userId = jwtDecode(this.get('session.session.content.authenticated.token'));
             this._super(...arguments);
-            $('#deletePermissionConfirm').modal('hide');
-            $('#lastPermissionConfirm').modal('hide');
+            $('#deletePermissionConfirm' + folderUser.id).modal('hide');
+            $('#lastPermissionConfirm' + folderUser.id).modal('hide');
             window.loading.showLoading();
             folderUser.destroyRecord({ adapterOptions: { folder_id: folderId } }).then(() => {
-                $('#deletePermissionConfirm' + folderUser.id).modal('hide');
-                $('#lastPermissionConfirm' + folderUser.id).modal('hide');
                 this.growl.notice('Success', 'Permission deleted');
 
                 // Extracting the userId because of the customized id in the serializer (userId_folderId)
