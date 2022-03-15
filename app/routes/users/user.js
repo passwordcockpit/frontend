@@ -38,6 +38,8 @@ export default Route.extend(AuthenticatedRouteMixin, {
                     hash.page = hash.logs.get('meta')._page;
                     hash.pageCount = hash.logs.get('meta')._page_count;
                 }
+                hash.pageFu = hash.folderusers.get('meta')._page;
+                hash.pageCountFu = hash.folderusers.get('meta')._page_count;
                 hash.userId = params.user_id;
                 hash.canViewLog = canViewLog;
                 return hash;
