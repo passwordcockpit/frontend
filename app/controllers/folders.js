@@ -274,8 +274,8 @@ export default Controller.extend({
                     });
 
                 // redirect to "folders" if current select forlder is the one deleted
-                if (this.transitionData.params['folders.folder'] != undefined) {
-                    let transitionFolderId = this.transitionData.params['folders.folder'].folder_id;
+                if (this.transitionData.to.attributes != undefined) {
+                    let transitionFolderId = this.transitionData.to.attributes['folderId'];
                     if (transitionFolderId == folderId) {
                         this.transitionToRoute('folders');
                     }
