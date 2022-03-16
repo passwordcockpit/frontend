@@ -13,13 +13,15 @@
     </div>
     {{#if (or canAccessAllFolders (eq folder.access 2))}}
     <div class="edit">
-        <form {{action 'submit' on='submit' }}>
-            <div class="user-select-container">
-                {{folderUser.name}} {{folderUser.surname}}
+        <form class="form-folder-settings" {{action 'submit' on='submit' }}>
+            <div class="folder-settings-container">
+                <div class="user-select-container">
+                    {{folderUser.name}} {{folderUser.surname}}
+                </div>
+                <label class="user-edit-container">
+                    <Input @type="checkbox" @checked={{access}} />{{t 'Manage'}}
+                </label>
             </div>
-            <label class="user-edit-container">
-                <Input @type="checkbox" @checked={{access}} />{{t 'Manage'}}
-            </label>
             <div class="form-btn">
                 <button class="btn btn-default btn-xs action-close" {{action 'cancelEdit'}}>
                     {{t 'Cancel'}}
