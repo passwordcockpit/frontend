@@ -5,11 +5,18 @@
 */
 
 import Route from '@ember/routing/route';
+import { inject } from '@ember/service';
 
 export default Route.extend({
+    session: inject('session'),
+    router: inject('router'),
+
     beforeModel() {
         this._super(...arguments);
         window.loading.showLoading(false);
+        if (this.session.get('isAuthenticated')) {
+            this.router.transitionTo('folders');
+        }
     },
     afterModel() {
         this._super(...arguments);

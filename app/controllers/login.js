@@ -19,9 +19,6 @@ export default Controller.extend(formValidation, {
         this._super(...arguments);
         this.set('error', [this.intl.t('This is a required field')]);
         this.clearOnSubmitError = this.clearOnSubmitError || ['username', 'password'];
-        if (this.get('session.data.authenticated.authenticator') != undefined) {
-            this.transitionToRoute('folders');
-        }
     },
     actions: {
         /**
@@ -36,7 +33,6 @@ export default Controller.extend(formValidation, {
                 //set language received from token
                 this.set('intl.locale', language.data.language);
                 window.loading.hideLoading();
-
                 this.transitionToRoute('folders');
             })
                 .catch((loginErrors) => {
