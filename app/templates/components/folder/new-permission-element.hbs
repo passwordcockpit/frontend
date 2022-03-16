@@ -14,7 +14,7 @@
                 <button class="btn btn-default btn-xs action-close" {{action 'cancel'}}>
                     {{t 'Cancel'}} <i class="fas fa-times"></i>
                 </button>
-                <button class="btn btn-primary btn-xs action-save">
+                <button class="btn btn-primary btn-xs action-save" disabled="{{unless selectedUser true}}">
                     {{t 'Add'}} <i class="fas fa-plus"></i>
                 </button>
             </div>
