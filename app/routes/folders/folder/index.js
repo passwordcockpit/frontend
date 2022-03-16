@@ -31,7 +31,9 @@ export default Route.extend(AuthenticatedRouteMixin, {
                 // List of users with no right    
                 var folderUsersIndexesList = [];
                 hash.folderUsers.forEach(folderUser => {
-                    folderUsersIndexesList.push(folderUser.id);
+                    // Extracting the userId because of the customized id in the serializer (userId_folderId)
+                    var id = folderUser.id.substring(0,folderUser.id.indexOf('_'));
+                    folderUsersIndexesList.push(id);
                 });
                 var filteredUsers = results.users.filter(function (user) {
                     return !(folderUsersIndexesList.includes(user.id));

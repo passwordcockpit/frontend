@@ -34,11 +34,12 @@ export default Component.extend({
                 .then((result) => {
                     this.set('folderUsers', result);
                     this.set('folderId', folder.get('id'));
-
                     // List of users with no right  
                     var folderUsersIndexesList = [];
                     result.forEach(folderUser => {
-                        folderUsersIndexesList.push(folderUser.id);
+                        // Extracting the userId because of the customized id in the serializer (userId_folderId)
+                        var id = folderUser.id.substring(0,folderUser.id.indexOf('_'));
+                        folderUsersIndexesList.push(id);
                     });
                     var filteredUsers = this.users.filter(function (user) {
                         return !(folderUsersIndexesList.includes(user.id));
