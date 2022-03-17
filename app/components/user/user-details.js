@@ -26,6 +26,8 @@ export default Component.extend(formValidation, {
         this._super(...arguments);
         // Language options
         this.userLanguages = ENV.APP.userLanguages;
+        this.userName = this.user.name;
+        this.userSurname = this.user.surname;
     },
     /**
      * Reset password form's fields
@@ -70,6 +72,8 @@ export default Component.extend(formValidation, {
             let self = this;
             let user = this.user;
             user.set('actual_password', null);
+            user.set('name', this.userName);
+            user.set('surname', this.userSurname);
             this.set('errors', null);
 
             if (this.isManageUsers) {
