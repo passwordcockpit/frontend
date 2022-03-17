@@ -124,7 +124,7 @@ export default Component.extend(formValidation, {
             var lowercase = false;
             var numbers = false;
             var specialchars = false;
-            if ($('input[name="password-length"]').val() > 0) {
+            if ($('input[name="password-length"]').val() > 0 && $('input[name="password-length"]').val() <= 100) {
                 passwordLength = $('input[name="password-length"]').val();
             }
             if ($('input[name="uppercase"]').is(':checked')) {
