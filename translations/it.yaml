@@ -135,9 +135,9 @@ You exceeded the maximum allowed number of decryption attempts: "Hai superato il
 Wrong PIN: "PIN sbagliato"
 Form not saved: "Formulario non salvato"
 Validation error: "Errore di validazione"
-Minimum_length: "Lunghezza minima: "
-Maximum_length: "Lunghezza massima: "
-Field_type:
+Minimum length: "Lunghezza minima"
+Maximum length: "Lunghezza massima"
+Field type:
   email: "Campo di tipo: email"
   password: "La password deve avere almeno 1 maiuscola 1 minuscola 1 numero e 1 carattere speciale"
   phone: "Campo di tipo: telefono"

@@ -135,9 +135,9 @@ You exceeded the maximum allowed number of decryption attempts: "Sie haben die m
 Wrong PIN: "Falscher PIN"
 Form not saved: "Formular nicht gespeichert"
 Validation error: "Validierungsfehler"
-Minimum_length: "Minimale Länge: "
-Maximum_length: "Maximale Länge: "
-Field_type:
+Minimum length: "Minimale Länge"
+Maximum length: "Maximale Länge"
+Field type:
   email: "Feldtyp: E-Mail"
   password: "Das Passwort muss mindestens 1 Grossbuchstabe 1 Kleinbuchstabe 1 Zahl und 1 Sonderzeichen enthalten"
   phone: "Feldtyp: Telefon"
