@@ -120,7 +120,6 @@ export default Component.extend({
                 window.loading.hideLoading();
             })
                 .catch((adapterError) => {
-                    $('#deletePermissionConfirm' + folderUser.id).modal('hide');
                     window.loading.hideLoading();
                     this.growl.errorShowRaw(adapterError.title, adapterError.message);
                 });
