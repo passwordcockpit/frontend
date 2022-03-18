@@ -23,6 +23,9 @@ export default Component.extend(formValidation, {
     pinEncrypt: null,
     localTempPasswordDecrypted: null,
     failureLimit: ENV.passwordEncryptionConfig.failureLimit,
+    passwordDescritpion: Ember.computed('password.description', function() {
+        return Ember.String.htmlSafe(this.get('password.description'));
+    }),
 
     didRender(){
         // init bootstrap tooltip
