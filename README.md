@@ -6,7 +6,7 @@ This markdown shows information related to the frontend side of the project. For
 ## Language
 Current supported languages are: `'en', 'it', 'de', 'fr'`.
 
-To add your own language, please create your translation file `xx.js` under `app/translations/` folder.<br>
+To add your own language, please create your translation file `xx.yaml` under `translations/` folder.<br>
 `xx` should be the ISO 639-1 code of the language.
 
 Modify in `config/environment.js` the following line:
