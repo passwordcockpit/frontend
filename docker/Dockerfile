@@ -6,7 +6,7 @@ ENV PASSWORDCOCKPIT_BASEHOST https://[YOUR-IP]:4344
 RUN set -ex; \
 mkdir /myapp/passwordcockpit; \
 cd /myapp/passwordcockpit; \
-git clone -v git://github.com/passwordcockpit/frontend.git /myapp/passwordcockpit; \
+git clone -v https://github.com/passwordcockpit/frontend.git /myapp/passwordcockpit; \
 git checkout 1.2.0.dev; \
 git pull origin 1.2.0.dev
 

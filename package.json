@@ -74,8 +74,8 @@
   "dependencies": {
     "@fortawesome/fontawesome-free": "^6.0.0",
     "bootstrap-sass": "^3.4.3",
-    "ember-cli-tinymce": "ssh://github.com/marucjmar/ember-cli-tinymce.git#load-from-assets",
-    "ember-data-hal-9000": "ssh://github.com/blackpoints-forks/ember-data-hal-9000.git",
+    "ember-cli-tinymce": "https://github.com/marucjmar/ember-cli-tinymce.git#load-from-assets",
+    "ember-data-hal-9000": "https://github.com/blackpoints-forks/ember-data-hal-9000.git",
     "ember-simple-auth": "^4.2.0",
     "ember-simple-auth-token": "^5.3.0",
     "file-saver": "^2.0.5",
