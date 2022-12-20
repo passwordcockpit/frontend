@@ -10,7 +10,7 @@ export default Controller.extend({
     actions: {
         /**
          * Update users list
-         * Is called by new-user-element on Creating a new user
+         * It's called by new-user-element on creating a new user
          */
         onCreateUser() {
             this.store.query("user", {})
