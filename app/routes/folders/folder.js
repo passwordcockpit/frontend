@@ -19,18 +19,27 @@ export default Route.extend({
         // Save current transition
         this.controllerFor('folders').set('transitionData', transition);
         
-        let folder = this.get('store').peekRecord('folder', params.folder_id);
-        let canAccessAllFolders = this.get('store').peekRecord('permission', this.get('account').getUserId()).get('access_all_folders');
+        let folder = this.store.peekRecord('folder', params.folder_id);
+        let canAccessAllFolders = this.store.peekRecord('permission', this.account.getUserId()).get('access_all_folders');
+
+        // Prepares the folder's path to send to the 'onSelectFolder' action
+        let folderPath = [];
+        let parentId = folder.parent_id;
+        while (parentId != null) {
+            let parentFolder = this.store.peekRecord('folder', parentId);
+            folderPath.unshift(parentFolder);
+            parentId = parentFolder.get('parent_id');
+        }
         
         //Check that folder exists and that user has permission to access
         if (folder && (canAccessAllFolders || folder.get('access') === 2 || folder.get('access') === 1)) {
-            this.controllerFor('folders.folder').send('onSelectFolder', { folderId: params.folder_id });
+            this.controllerFor('folders.folder').send('onSelectFolder', { folderId: params.folder_id, folderPath: folderPath });
             folder.set('canAccessAllFolders', canAccessAllFolders);
             // Return model
             return {
                 folder: folder,
-                users: this.get('store').peekAll('user')
-            }
+                users: this.store.peekAll('user')
+            };
         }
         else {
             return this.transitionTo('sorry-page');
@@ -38,7 +47,7 @@ export default Route.extend({
     },
     actions: {
         willTransition: function () {
-            this.get('closeFoldersInputs').closeAllInputs();
+            this.closeFoldersInputs.closeAllInputs();
         }
     },
 });

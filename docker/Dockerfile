@@ -1,4 +1,4 @@
-FROM danlynn/ember-cli:3.13.0-node_10.16
+FROM danlynn/ember-cli:3.28.2-node_14.18
 # passwordcockpit variables
 ENV PASSWORDCOCKPIT_BASEHOST https://[YOUR-IP]:4344
 
@@ -6,9 +6,9 @@ ENV PASSWORDCOCKPIT_BASEHOST https://[YOUR-IP]:4344
 RUN set -ex; \
 mkdir /myapp/passwordcockpit; \
 cd /myapp/passwordcockpit; \
-git clone -v git://github.com/passwordcockpit/frontend.git /myapp/passwordcockpit; \
-git checkout develop; \
-git pull origin develop
+git clone -v https://github.com/passwordcockpit/frontend.git /myapp/passwordcockpit; \
+git checkout 1.2.0.dev; \
+git pull origin 1.2.0.dev
 
 WORKDIR /myapp/passwordcockpit
 

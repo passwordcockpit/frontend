@@ -139,7 +139,7 @@ export default Component.extend(formValidation, {
          * Close the other opened inputs and reset the related data
          */
         showAdd() {
-            this.get('closeFoldersInputs').closeAllInputs();
+            this.closeFoldersInputs.closeAllInputs();
             this.folder.set('isAdd', true);
             this.set('isManage', false);
             this.set('errors', null);
@@ -152,7 +152,7 @@ export default Component.extend(formValidation, {
          * Close the other opened inputs and reset the related data
          */
         showEdit() {
-            this.get('closeFoldersInputs').closeAllInputs();
+            this.closeFoldersInputs.closeAllInputs();
             this.folder.set('isEdit', true);
             this.set('errors', null);
         },
@@ -164,7 +164,7 @@ export default Component.extend(formValidation, {
         cancelEdit() {
             this.set('isManage', false);
             this.folder.set('isEdit', false);
-            this.get('folder').rollbackAttributes();
+            this.folder.rollbackAttributes();
         },
 
         /**
@@ -172,18 +172,18 @@ export default Component.extend(formValidation, {
          */
         save() {
             $('#loading').show();
-            let folder = this.get('folder');
+            let folder = this.folder;
             folder.save()
                 .then(() => {
                     this.folder.set('isEdit', false);
-                    this.get('growl').notice('Success', 'Folder updated');
+                    this.growl.notice('Success', 'Folder updated');
                     this.onUpdateFolder();
                     $('#loading').hide();
                 })
                 .catch((adapterError) => {
-                    let errors = this.get('growl').errorsDatabaseToArray(adapterError);
+                    let errors = this.growl.errorsDatabaseToArray(adapterError);
                     this.set('errors', errors);
-                    this.get('growl').errorShowRaw(adapterError.title, adapterError.message);
+                    this.growl.errorShowRaw(adapterError.title, adapterError.message);
                     $('#loading').hide();
                 });
         },

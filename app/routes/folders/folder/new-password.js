@@ -17,8 +17,8 @@ export default Route.extend({
     model() {
         let folder_id = this.modelFor("folders.folder").folder.id;
 
-        let folder = this.get('store').peekRecord('folder', folder_id);
-        let canAccessAllFolders = this.get('store').peekRecord('permission', this.get('account').getUserId()).get('access_all_folders');
+        let folder = this.store.peekRecord('folder', folder_id);
+        let canAccessAllFolders = this.store.peekRecord('permission', this.account.getUserId()).get('access_all_folders');
 
         // Hide passwords list on creating new Password
         this.controllerFor('folders.folder').send('hidePasswordsList');

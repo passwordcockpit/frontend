@@ -18,6 +18,9 @@
                                     {{t 'Date'}}
                                 </th>
                                 <th>
+                                    {{t 'Folder\'s name'}}
+                                </th>
+                                <th>
                                     {{t 'Password\'s title'}}
                                 </th>
                                 <th>
@@ -30,6 +33,9 @@
                                 <tr>
                                     <td class="grid-150">
                                         {{log.action_date}}
+                                    </td>
+                                    <td>
+                                        {{log.password_folder}}
                                     </td>
                                     <td>
                                         {{log.password_title}}
@@ -50,10 +56,7 @@
             {{/if}}
         </div>
         {{#if logs}}
-            {{log-paginator page=page 
-                pageCount=pageCount 
-                changePage = (action 'submit') 
-            }}
+            <LogPaginator @page={{page}} @pageCount={{pageCount}} @changePage={{action "submit"}} />
         {{/if}}
     </div>
 {{/if}}

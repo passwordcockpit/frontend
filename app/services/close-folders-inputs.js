@@ -25,7 +25,7 @@ export default Service.extend({
      */
     closeFoldersInputs: function(){
         this.route.controllerFor('folders').set('isAdd', false);
-        this.get('store').peekAll('folder').forEach((item) => {
+        this.store.peekAll('folder').forEach((item) => {
             if (item.get('isEdit')) {
                 item.rollbackAttributes();
             }
@@ -38,7 +38,7 @@ export default Service.extend({
      */
     closeFolderUserInputs: function () {
         this.route.controllerFor('folders.folder.index').set('isAdd', false);
-        this.get('store').peekAll('folderuser').forEach((item) => {
+        this.store.peekAll('folderuser').forEach((item) => {
             if (item.get('isEdit')) {
                 item.rollbackAttributes();
             }

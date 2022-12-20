@@ -23,7 +23,7 @@ module('Integration | Component | folder/folder-users', function (hooks) {
 
         await render(hbs`{{folder/folder-users}}`);
 
-        assert.equal(this.$().text().trim(), 'Rights on folder');
+        assert.dom(this.element).hasText('Rights on folder');
 
         // Template block usage:
         await render(hbs`
@@ -32,6 +32,6 @@ module('Integration | Component | folder/folder-users', function (hooks) {
         {{/folder/folder-users}}
       `);
 
-        assert.equal($.trim(this.$().text().trim().replace(/\s\s+/g, ' ')), 'Rights on folder');
+        assert.equal($.trim(this.element.textContent.trim().replace(/\s\s+/g, ' ')), 'Rights on folder');
     });
 });

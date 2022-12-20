@@ -18,7 +18,7 @@ module('Integration | Component | browser error', function (hooks) {
     });
     test('it renders', async function (assert) {
         await render(hbs`{{browser-error}}`);
-        assert.equal(this.$().text().trim(), 'This page requires Java script to display all functions correctly.');
+        assert.dom(this.element).hasText('This page requires Java script to display all functions correctly.');
 
         // Render component passing unuses varaible
         await render(hbs`
@@ -27,6 +27,6 @@ module('Integration | Component | browser error', function (hooks) {
         {{/browser-error}}
       `);
 
-        assert.equal(this.$().text().trim(), 'This page requires Java script to display all functions correctly.');
+        assert.dom(this.element).hasText('This page requires Java script to display all functions correctly.');
     });
 });

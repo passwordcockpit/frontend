@@ -41,37 +41,37 @@ module('Unit | Controller | folders', function (hooks) {
 
     test('showFoldersList', function (assert) {
         let controller = this.owner.lookup('controller:folders');
-        assert.equal(controller.get('showList'), true);
+        assert.equal(controller.showList, true);
         controller.set('showList', false);
-        assert.equal(controller.get('showList'), false);
+        assert.equal(controller.showList, false);
         controller.send('showFoldersList');
-        assert.equal(controller.get('showList'), true);
+        assert.equal(controller.showList, true);
     });
     test('hideFoldersList', function (assert) {
         let controller = this.owner.lookup('controller:folders');
-        assert.equal(controller.get('showList'), true);
+        assert.equal(controller.showList, true);
         controller.send('hideFoldersList');
-        assert.equal(controller.get('showList'), false);
+        assert.equal(controller.showList, false);
     });
     test('addFolder', function (assert) {
         let controller = this.owner.lookup('controller:folders');
         let closeFoldersInputs= {
-            closeAllInputs: this.get('functionTocall') 
+            closeAllInputs: this.functionTocall 
         }
         controller.set('closeFoldersInputs', closeFoldersInputs);
 
-        assert.equal(controller.get('isAdd'), false);
-        assert.equal(this.get('functionCalled'), false);
+        assert.equal(controller.isAdd, false);
+        assert.equal(this.functionCalled, false);
 
         controller.send('addFolder');
-        assert.equal(controller.get('isAdd'), true);
-        assert.equal(this.get('functionCalled'), true);
+        assert.equal(controller.isAdd, true);
+        assert.equal(this.functionCalled, true);
     });
     test('cancelAddFolder', function (assert) {
         let controller = this.owner.lookup('controller:folders');
-        assert.equal(controller.get('isAdd'), false);
+        assert.equal(controller.isAdd, false);
         controller.set('isAdd', true);
         controller.send('cancelAddFolder');
-        assert.equal(controller.get('isAdd'), false);
+        assert.equal(controller.isAdd, false);
     });
 });

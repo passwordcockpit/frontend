@@ -14,7 +14,7 @@ export default Controller.extend({
          * Is called by new-user-element on Creating a new user
          */
         onCreateUser() {
-            this.get('usersController').send('onCreateUser');
+            this.usersController.send('onCreateUser');
         }
     }
 });

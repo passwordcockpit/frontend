@@ -11,7 +11,7 @@ const passwordEncryption = require('./password-encryption.js');
 module.exports = function (environment) {
     let ENV = {
         tinyMCE: {
-            load: 'assets'
+            load: false
         },
 
         modulePrefix: 'passwordcockpit_frontend',

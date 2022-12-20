@@ -1,9 +1,4 @@
-{{tinymce-editor 
-    options=options 
-    name=name
-    value=value
-    onValueChanged=(action "onChange")
-    }} 
+<TinymceEditor @options={{options}} @name={{name}} @value={{value}} @onValueChanged={{action "onChange"}} /> 
 {{#if (or (and showElementMessage (not isElementValid)) (and showMessage (not isElementValid)))}}
     <div class="errors-list">
         {{errorMessage}}

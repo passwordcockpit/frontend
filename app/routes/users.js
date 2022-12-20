@@ -18,8 +18,8 @@ export default Route.extend(AuthenticatedRouteMixin, {
     },
     model() {
         //User can access to this route only with manage_users permission
-        if (this.get('store').peekRecord('permission', this.get('account').getUserId()).get('manage_users')) {
-            return this.get('store').query('user', {}).then(
+        if (this.store.peekRecord('permission', this.account.getUserId()).get('manage_users')) {
+            return this.store.query('user', {}).then(
                 (results) => {
                     return Object.create({
                         users: results,
@@ -29,7 +29,7 @@ export default Route.extend(AuthenticatedRouteMixin, {
                 }
             )
                 .catch((adapterError) => {
-                    this.get('growl').errorShowRaw(adapterError.title, adapterError.message);
+                    this.growl.errorShowRaw(adapterError.title, adapterError.message);
                     return this.transitionTo('sorry-page');
                 });
         }

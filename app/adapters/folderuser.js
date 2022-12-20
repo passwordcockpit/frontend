@@ -18,16 +18,18 @@ export default HalAdapter.extend(DataAdapterMixin, {
         this._super(...arguments);
         this.host = ENV.APP.host;
         this.namespace = ENV.APP.namespace;
+        let { token } = this.get('session.data.authenticated');
         this.headers = {
+            "Authorization": `Bearer ${token}`,
             "Content-Type": 'application/json',
             "Accept": "application/json"
         };
     },
 
-    authorize(xhr) {
-        let { token } = this.get('session.data.authenticated');
-        xhr.setRequestHeader('Authorization', `Bearer ${token}`);
-    },
+    // authorize(xhr) {
+    //     let { token } = this.get('session.data.authenticated');
+    //     xhr.setRequestHeader('Authorization', `Bearer ${token}`);
+    // },
 
     query: function (store, type, query) {
         // Check if there is the "folderId" param
@@ -36,8 +38,16 @@ export default HalAdapter.extend(DataAdapterMixin, {
             if (this.sortQueryParams) {
                 query = this.sortQueryParams(query);
             }
-
+            
             return this.ajax(url, 'GET');
+        // Check if there is the "userId" param
+        } else if(query.userId){
+            let url = this.buildURL('users/' + query.userId + '/folders/permissions', null, null, 'query', query);
+            if (this.sortQueryParams) {
+                query = this.sortQueryParams(query);
+            }
+            
+            return this.ajax(url, 'GET', { data: query });
         } else {
             let url = this.buildURL(type.modelName, null, null, 'query', query);
             if (this.sortQueryParams) {
@@ -48,7 +58,8 @@ export default HalAdapter.extend(DataAdapterMixin, {
         }
     },
     updateRecord(store, type, snapshot) {
-        let id = snapshot.id;
+        // Extracting the userId because of the customized id in the serializer (userId_folderId)
+        let id = snapshot.id.substring(0,snapshot.id.indexOf('_'));
         let url = this.buildURL(
             'folders/' + snapshot.adapterOptions.folder_id + '/users/' + id
         );
@@ -70,9 +81,9 @@ export default HalAdapter.extend(DataAdapterMixin, {
         });
     },
     deleteRecord(store, type, snapshot) {
-
         let data = this.serialize(snapshot, { includeId: true });
-        let id = snapshot.id;
+        // Extracting the userId because of the customized id in the serializer (userId_folderId)
+        let id = snapshot.id.substring(0,snapshot.id.indexOf('_'));
         let url = this.buildURL(
             'folders/' + snapshot.adapterOptions.folder_id + '/users/' + id
         );

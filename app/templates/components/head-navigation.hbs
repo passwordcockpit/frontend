@@ -22,10 +22,10 @@
             </a>
             <ul class="dropdown-menu dropdown-user">
                 <li>
-                    {{#link-to 'users'}}
+                    <LinkTo @route="users">
                     <i class="fas fa-users"></i>
                     {{t 'Manage users'}}
-                    {{/link-to}}
+                    </LinkTo>
                 </li>
             </ul>
         </li>
@@ -39,10 +39,10 @@
             <ul class="dropdown-menu dropdown-user">
                 {{#unless isLdap}}
                 <li>
-                    {{#link-to "profile"}}
+                    <LinkTo @route="profile">
                     <i class="fas fa-cog"></i>
                     {{t 'Change profile'}}
-                    {{/link-to}}
+                    </LinkTo>
                 </li>
                 <li class="divider"></li>
                 {{/unless}}
@@ -54,23 +54,28 @@
                 </li>
             </ul>
         </li>
+        {{#if (eq this.router.currentRoute.name 'folders.index') }}
+            <li>
+                <Form::FormSelect @class="language-select form-control" @name="language" @user={{user}} @isHeaderLanguage={{true}} @isPowerSelect={{false}} @selectOptions={{userLanguages}} @allowClear={{true}} @value={{user.language}} @isFormValid={{isFormValid}} @showMessage={{showMessage}} @printSelectValuesHandle={{action "printSelectValuesHandle"}} @validator={{validation-parameters required=true minLength=2 maxLength=2 type="select" }} />
+            </li>
+        {{/if}}
     </ul>
     <div class="hidden-md hidden-lg" role="navigation">
         <div id="navbar" class="collapse navbar-collapse">
             <ul class="nav navbar-nav navbar-right">
                 {{#if permission.manage_users}}
                 <li class="manage-users">
-                    {{#link-to 'users'}}
+                    <LinkTo @route="users">
                     <i class="fas fa-users"></i>
                     {{t 'Manage users'}}
-                    {{/link-to}}
+                    </LinkTo>
                 </li>
                 {{/if}}
                 <li>
-                    {{#link-to "profile"}}
+                    <LinkTo @route="profile">
                     <i class="fas fa-cog"></i>
                     {{t 'Change profile'}}
-                    {{/link-to}}
+                    </LinkTo>
                 </li>
                 <li>
                     <a {{action 'invalidateSession'}} href="#">

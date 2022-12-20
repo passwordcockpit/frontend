@@ -26,12 +26,14 @@ export default Component.extend(formValidation, {
         this._super(...arguments);
         // Language options
         this.userLanguages = ENV.APP.userLanguages;
+        this.userName = this.user.name;
+        this.userSurname = this.user.surname;
     },
     /**
      * Reset password form's fields
      */
     resetPasswordForms() {
-        this.get('user').rollbackAttributes();
+        this.user.rollbackAttributes();
         this.set('actual_password', null);
         this.set('newpass', null);
         this.set('repeatnewpass', null);
@@ -45,7 +47,7 @@ export default Component.extend(formValidation, {
          */
         cancel() {
             this.set('isEdit', false);
-            this.get('user').rollbackAttributes();
+            this.user.rollbackAttributes();
 
             this.set('actual_password', null);
             this.set('newpass', null);
@@ -68,18 +70,20 @@ export default Component.extend(formValidation, {
         save() {
             window.loading.showLoading();
             let self = this;
-            let user = this.get('user');
+            let user = this.user;
             user.set('actual_password', null);
+            user.set('name', this.userName);
+            user.set('surname', this.userSurname);
             this.set('errors', null);
 
-            if (this.get('isManageUsers')) {
+            if (this.isManageUsers) {
                 if (user.get('password') == '') {
                     user.set('password', undefined);
                 }
             } else {
-                let actual_password = this.get('actual_password');
-                let newpass = this.get('newpass');
-                let repeatnewpass = this.get('repeatnewpass');
+                let actual_password = this.actual_password;
+                let newpass = this.newpass;
+                let repeatnewpass = this.repeatnewpass;
 
                 if ((newpass == '' || newpass == null) && (repeatnewpass == '' || repeatnewpass == null) && (actual_password == '' || actual_password == null)) {
                     user.set('password', undefined);
@@ -96,7 +100,7 @@ export default Component.extend(formValidation, {
                 .then((userData) => {
 
                     // cancel Editing mode
-                    if (this.get('isManageUsers')) {
+                    if (this.isManageUsers) {
                         this.send('cancel');
                     }
 
@@ -105,7 +109,7 @@ export default Component.extend(formValidation, {
                     // If user edit him/her self
                     if (userId.sub == parseInt(userData.id, 10)) {
                         if (!userData.get('enabled')) {
-                            this.get('session').invalidate();
+                            this.session.invalidate();
                         } else {
                             //Update language
                             this.set('intl.locale', user.get('language'));
@@ -119,18 +123,19 @@ export default Component.extend(formValidation, {
                     }
 
                     this.resetPasswordForms();
-                    this.get('growl').notice('Success', 'User updated');
+                    this.growl.notice('Success', 'User updated');
                     window.loading.hideLoading();
                     // Redirect user to login page in case that the user token became unvalid
                     if (userData.get('forceLogin') !== undefined && userData.get('forceLogin')) {
                         $('#forceLogoutModal').modal('show');
                     }
+                    location.reload(true);
                 })
                 .catch(adapterError => {
                     this.resetPasswordForms();
-                    let errors = this.get('growl').errorsDatabaseToArray(adapterError);
+                    let errors = this.growl.errorsDatabaseToArray(adapterError);
                     this.set('errors', errors);
-                    this.get('growl').errorShowRaw(adapterError.title, adapterError.message);
+                    this.growl.errorShowRaw(adapterError.title, adapterError.message);
                     window.loading.hideLoading();
                 });
         },
@@ -139,9 +144,9 @@ export default Component.extend(formValidation, {
          * on changing password inputs
          */
         onPasswordChange(type) {
-            if (this.get('errors') !== undefined && this.get('errors') !== null && this.get('errors')[type] !== undefined) {
-                delete this.get('errors')[type];
-                if (Object.keys(this.get('errors')).length == 0) {
+            if (this.errors !== undefined && this.errors !== null && this.errors[type] !== undefined) {
+                delete this.errors[type];
+                if (Object.keys(this.errors).length == 0) {
                     this.set('errors', null);
                 }
             }
@@ -151,7 +156,7 @@ export default Component.extend(formValidation, {
          * redirect to login page because useer token became unvalid
          */
         CloseForceLogoutModal() {
-            this.get('session').invalidate();
+            this.session.invalidate();
         },
         /**
          * How to handle printed value of select

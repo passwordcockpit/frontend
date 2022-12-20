@@ -75,6 +75,10 @@ $fa-font-path: "/fonts/" !default;
 
 /* Base
 *********************************************************************************/
+body {
+    font-weight: 400;
+}
+
 .logo {
     height: $logoHeight;
 }
@@ -418,6 +422,9 @@ td.path{
         right: 2px;
         width: 70px;
     }
+}
+.password-read-container > #password-read {
+    font-family: Consolas;
 }
 .table-password-content{ 
     th{

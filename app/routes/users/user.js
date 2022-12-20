@@ -17,25 +17,29 @@ export default Route.extend(AuthenticatedRouteMixin, {
         window.loading.showLoading();
     },
     model(params) {
-        let user = this.get('store').peekRecord('user', params.user_id);
+        let user = this.store.peekRecord('user', params.user_id);
 
         //Check that user exists
         if (user) {
             let result = {
                 user: user,
-                permission: this.get('store').queryRecord('permission', { userId: params.user_id })
+                permission: this.store.queryRecord('permission', { userId: params.user_id })
             };
-            let canViewLog = this.get('store').peekRecord('permission', this.get('account').getUserId()).get('view_logs');
+            let canViewLog = this.store.peekRecord('permission', this.account.getUserId()).get('view_logs');
             // Load logs data
             result.logs = {};
             if (canViewLog) {
-                result.logs = this.get('store').query('userlog', { userId: params.user_id, page: 1 });
+                result.logs = this.store.query('userlog', { userId: params.user_id, page: 1 });
             }
+            result.folderusers = this.store.query('folderuser', { userId: params.user_id, page: 1 });
+
             return RSVP.hash(result).then((hash) => {
                 if (canViewLog) {
                     hash.page = hash.logs.get('meta')._page;
                     hash.pageCount = hash.logs.get('meta')._page_count;
                 }
+                hash.pageFu = hash.folderusers.get('meta')._page;
+                hash.pageCountFu = hash.folderusers.get('meta')._page_count;
                 hash.userId = params.user_id;
                 hash.canViewLog = canViewLog;
                 return hash;
@@ -56,6 +60,7 @@ export default Route.extend(AuthenticatedRouteMixin, {
         // Implement your custom setup after
         this.controllerFor('users.user').set('canViewLog', model.canViewLog);
         this.controllerFor('users.user').set('logs', model.logs);
+        this.controllerFor('users.user').set('folderusers', model.folderusers);
         this.controllerFor('users.user').set('updatingUserErrors', null);
     },
 

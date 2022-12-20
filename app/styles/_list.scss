@@ -46,6 +46,10 @@ ul.list {
                 height: 100%;
                 display: flex;
                 flex-wrap: nowrap;
+                &.form-folder-settings {
+                    justify-content: space-between;
+                    flex-wrap: wrap;
+                }
             }
 
             input.form-control {
@@ -210,19 +214,26 @@ ul.list {
     ul.list{
         .edit{
             position: relative;
-            padding-right: 330px;
+            // padding-right: 330px;
         }
     }
     .user-edit-container{
-        position: absolute;
         width: 150px;
-        top: 7px;
-        right: 170px;
-    }    
+        white-space: nowrap;
+    }
+    
+    .folder-settings-container{
+        display: flex;
+        flex-wrap: wrap;
+        max-width: 100%;
+    }
+
 }
 
 .user-select-container {
-    width: 100%;
+    width: auto;
+    min-width: 150px;
+    flex-grow: 1;
     display: inline-block;
 }
 .edit-view{

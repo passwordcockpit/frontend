@@ -1,26 +1,14 @@
 <li class="new-folder edit-view">
     <div class="edit {{if errors.name 'has-error'}}">
         <form {{action 'submit' on='submit' }}>
-            {{form/form-text
-                type="text" 
-                class="form-control" 
-                value=folderName 
-                placeholder=(t "New folder")
-                isFormValid=isFormValid
-                showMessage=showMessage
-                validator=(validation-parameters
-                                required=true
-                                minLength=2
-                                maxLength=45
-                            )
-            }}
+            <Form::FormText @type="text" @class="form-control" @value={{folderName}} @placeholder={{t "New folder"}} @isFormValid={{isFormValid}} @showMessage={{showMessage}} @validator={{validation-parameters required=true minLength=2 maxLength=45 }} />
             <div class="form-btn">
                 <button style="display: none;">
                 </button>
-                <button class="btn btn-default btn-xs action-close" {{action 'cancel'}}>
+                <button type="button" class="btn btn-default btn-xs action-close" {{action 'cancel'}}>
                     {{t 'Cancel'}} <i class="fas fa-times"></i>
                 </button>
-                <button class="btn btn-primary btn-xs action-save">
+                <button type="submit" class="btn btn-primary btn-xs action-save">
                     {{t 'Add'}} <i class="fas fa-plus"></i>
                 </button>
             </div>

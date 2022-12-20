@@ -19,8 +19,8 @@ export default Service.extend({
      */
     notice(title, message) {
         $.growl.notice({
-            title: this.get('intl').t('Success'),
-            message: this.get('intl').t(message)
+            title: this.intl.t('Success'),
+            message: this.intl.t(message)
         });
     },
 
@@ -32,8 +32,8 @@ export default Service.extend({
      */
     warning(title, message) {
         $.growl.warning({
-            title: this.get('intl').t('Warning'),
-            message: this.get('intl').t(message)
+            title: this.intl.t('Warning'),
+            message: this.intl.t(message)
         });
     },
 
@@ -45,8 +45,8 @@ export default Service.extend({
      */
     error(title, message) {
         $.growl.error({
-            title: this.get('intl').t('Error'),
-            message: this.get('intl').t(message),
+            title: this.intl.t('Error'),
+            message: this.intl.t(message),
             fixed: true
         });
     },
@@ -58,7 +58,7 @@ export default Service.extend({
      */
     errorShowRaw(title, message) {
         $.growl.error({
-            title: this.get('intl').t('Error'),
+            title: this.intl.t('Error'),
             message: message,
             fixed: true
         });
@@ -70,7 +70,7 @@ export default Service.extend({
      */
     errorsDatabase(errors) {
         Object.keys(errors).forEach(key => {
-            this.errorShowRaw(this.get('intl').t('Error'), errors[key].messages.join('. '));
+            this.errorShowRaw(this.intl.t('Error'), errors[key].messages.join('. '));
         });
     },
     /**

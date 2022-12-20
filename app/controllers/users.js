@@ -13,12 +13,12 @@ export default Controller.extend({
          * Is called by new-user-element on Creating a new user
          */
         onCreateUser() {
-            this.get('store').query("user", {})
+            this.store.query("user", {})
                 .then((results) => {
                     this.set('users', results)
                 })
                 .catch((adapterError) => {
-                    this.get('growl').errorShowRaw(adapterError.title, adapterError.message);
+                    this.growl.errorShowRaw(adapterError.title, adapterError.message);
                 });
         }
     }

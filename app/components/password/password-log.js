@@ -19,7 +19,7 @@ export default Component.extend({
          */
         submit(page) {
             this.changeLogPage(page);
-            this.refreshLog(this.get('password').id);
+            this.refreshLog(this.password.id);
         },
     }
 });

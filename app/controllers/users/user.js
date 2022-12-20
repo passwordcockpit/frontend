@@ -21,14 +21,14 @@ export default Controller.extend({
         onUpdateUserRight(userId) {
             let logedUserId = jwtDecode(this.get('session.data.authenticated.token')).sub;
             if (logedUserId == userId) {
-                if (this.model.permission.get('view_logs') && !this.get('canViewLog')) {
-                    this.get('store').query('userlog', { userId: userId, page: 1 })
+                if (this.model.permission.get('view_logs') && !this.canViewLog) {
+                    this.store.query('userlog', { userId: userId, page: 1 })
                         .then((result) => {
                             this.set('logs', result);
                             this.set('canViewLog', this.model.permission.get('view_logs'));
                         })
                         .catch(() => {
-                            this.get('growl').error('Error', 'Error while retrieving logs');
+                            this.growl.error('Error', 'Error while retrieving logs');
                         });
                 } else {
                     this.set('canViewLog', this.model.permission.get('view_logs'));

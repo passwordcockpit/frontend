@@ -7,10 +7,5 @@
             {{t "Please change your password for the first time you logged in"}}
         </p>
     {{/if}}
-    {{user/user-details 
-        user=model.user
-        isEdit=true
-        errors=updatingUserErrors
-        isManageUsers=false
-    }}
+    <User::UserDetails @user={{model.user}} @isEdit={{true}} @errors={{updatingUserErrors}} @isManageUsers={{false}} />
 </div>

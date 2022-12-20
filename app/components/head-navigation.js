@@ -6,11 +6,20 @@
 
 import Component from '@ember/component';
 import { inject } from '@ember/service';
+import formValidation from '../mixins/form/form-validation';
+import ENV from '../config/environment';
 import $ from 'jquery';
 
-export default Component.extend({
+export default Component.extend(formValidation, {
     router: inject('router'),
     session: inject('session'),
+
+    init() {
+        this._super(...arguments);
+        // Language options
+        this.userLanguages = ENV.APP.userLanguages;
+    },
+
     actions: {
         /**
          * Destroy user's session on logout
@@ -39,7 +48,14 @@ export default Component.extend({
          * Redirect to home page
          */
         transitionToHomePage() {
-            this.get('router').transitionTo('application');
-        }
+            this.router.transitionTo('application');
+        },
+        /**
+         * How to handle printed value of select
+         */
+        printSelectValuesHandle(userLanguage) {
+            return userLanguage.text
+        },
     }
+
 });

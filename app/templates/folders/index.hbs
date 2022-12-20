@@ -2,11 +2,7 @@
     <main class="main-password">
     </main>
 {{else}}
-    {{password/password-list
-        showPasswordsList=(action 'showPasswordsList')
-        hidePasswordsList=(action 'hidePasswordsList')
-        showList=showList
-    }}
+    <Password::PasswordList @showPasswordsList={{action "showPasswordsList"}} @hidePasswordsList={{action "hidePasswordsList"}} @showList={{showList}} />
     <main class="main-password">
         {{outlet}}
     </main>

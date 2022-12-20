@@ -17,7 +17,7 @@ export default Component.extend({
          * Close the other opened inputs and clear errors data
          */
         addPermission() {
-            this.get('closeFoldersInputs').closeAllInputs();
+            this.closeFoldersInputs.closeAllInputs();
             this.set('isAdd', true);
             this.set('errors', null);
         },
@@ -28,17 +28,18 @@ export default Component.extend({
          */
         reloadFolderUser() {
             window.loading.showLoading();
-            let folder = this.get('folder');
-            this.get('store').unloadAll('folderuser');
-            this.get('store').query('folderuser', { folderId: folder.get('id') })
+            let folder = this.folder;
+            this.store.unloadAll('folderuser');
+            this.store.query('folderuser', { folderId: folder.get('id') })
                 .then((result) => {
                     this.set('folderUsers', result);
                     this.set('folderId', folder.get('id'));
-
                     // List of users with no right  
                     var folderUsersIndexesList = [];
                     result.forEach(folderUser => {
-                        folderUsersIndexesList.push(folderUser.id);
+                        // Extracting the userId because of the customized id in the serializer (userId_folderId)
+                        var id = folderUser.id.substring(0,folderUser.id.indexOf('_'));
+                        folderUsersIndexesList.push(id);
                     });
                     var filteredUsers = this.users.filter(function (user) {
                         return !(folderUsersIndexesList.includes(user.id));
@@ -49,7 +50,7 @@ export default Component.extend({
                 .catch((adapterError) => {
                     window.loading.hideLoading();
                     if (adapterError.code != 401) {
-                        this.get('growl').errorsDatabase(adapterError.errors);
+                        this.growl.errorsDatabase(adapterError.errors);
                     }
                 });
         },

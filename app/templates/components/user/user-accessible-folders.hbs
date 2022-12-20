@@ -1,0 +1,53 @@
+<div class="panel panel-default log">
+        <div class="panel-heading">
+            {{t 'User\'s accessible folders'}}
+        </div>
+        <div class="panel-body">
+            {{#if loading}}
+                <p class="alert alert-info">
+                    <i class="fas fa-info-circle"></i>
+                    {{t 'Loading ...'}}
+                </p>
+            {{else if folderusers}}
+                <div class="table-responsive">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>
+                                    {{t 'Folder\'s name'}}
+                                </th>
+                                <th>
+                                    {{t 'Rights on folder'}}
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {{#each folderusers as |folderUser|}}
+                                <tr>
+                                    <td class="grid-150">
+                                        {{folderUser.folder_name}}
+                                    </td>
+                                    <td>
+                                        {{#if (eq folderUser.access 2)}}
+                                            <i class="fas fa-pencil-alt"></i>
+                                        {{else}}
+                                            <i class="fas fa-eye"></i>
+                                        {{/if}}
+                                    </td>
+                                </tr>
+                            {{/each}}
+                        </tbody>
+                    </table>
+                </div>
+            {{else}}
+                <p class="alert alert-info">
+                    <i class="fas fa-info-circle"></i>
+                    {{t 'There are no accessible folders'}}
+                </p>
+            {{/if}}
+        </div>
+        {{#if folderusers}}
+            <LogPaginator @page={{page}} @pageCount={{pageCount}} @changePage={{action "submit"}} />
+        {{/if}}
+    </div>
+{{yield}}

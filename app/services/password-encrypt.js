@@ -13,7 +13,7 @@ export default Service.extend({
 
     encryptPassword(pin, password) {
         try {
-            return sjcl.encrypt(pin, password, this.get('parameters'));
+            return sjcl.encrypt(pin, password, this.parameters);
         }
         catch (err) {
             return false
