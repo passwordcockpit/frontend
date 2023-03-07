@@ -34,5 +34,6 @@ else
     echo >&2 "local.js updated"
 fi
 
-exec 'ember serve --port 4200'
+npm run start
+
 exec "$@"
