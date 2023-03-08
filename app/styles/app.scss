@@ -395,6 +395,7 @@ td.path{
 .blur {
     color: transparent;
     text-shadow: 0 0 12px rgba(0, 0, 0, 0.5); 
+    user-select: none !important;
 }
 .action{
     margin: 0 0 0 5px;
