@@ -30,7 +30,9 @@ module.exports = {
             toolbar1: 'bold italic underline | bullist numlist',
             formats: {
                 underline: { inline: 'u' },
-            }
+            },
+            branding: false,
+            base_url: '/tinymce'
         },
     }
 };
