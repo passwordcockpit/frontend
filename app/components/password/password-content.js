@@ -30,11 +30,6 @@ export default Component.extend(formValidation, {
     didRender(){
         // init bootstrap tooltip
         $('[data-toggle="tooltip"]').tooltip();
-
-        if (this.password && this.password.id) {
-            console.log('redirect)', this.password)
-            window.history.replaceState( {} , `folders`, `/folders/${this.password.folder_id}/passwords/${this.password.id}`)
-        }
     },
 
     copyStringToClipboard (str) {

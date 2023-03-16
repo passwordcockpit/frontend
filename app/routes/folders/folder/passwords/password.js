@@ -44,8 +44,13 @@ export default Route.extend(AuthenticatedRouteMixin, {
             return this.transitionTo('sorry-page');
         });
     },
-    afterModel() {
+    afterModel(model) {
         this._super(...arguments);
+
+        if (model.folder.id != model.password.folder_id) {
+            this.replaceWith('folders.folder.passwords.password', model.password.folder_id, model.password.id)
+        }
+
         window.loading.hideLoading();
     },
 
