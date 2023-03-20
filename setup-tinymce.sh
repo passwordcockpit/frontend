@@ -1,10 +1,10 @@
 echo 'Copying TinyMCE assets from node_modules to public'
 
-cp -R node_modules/tinymce/icons public/tinymce
-cp -R node_modules/tinymce/models public/tinymce
-cp -R node_modules/tinymce/plugins public/tinymce
-cp -R node_modules/tinymce/skins public/tinymce
-cp -R node_modules/tinymce/themes public/tinymce
+cp -R node_modules/tinymce/icons public/assets/tinymce
+cp -R node_modules/tinymce/models public/assets/tinymce
+cp -R node_modules/tinymce/plugins public/assets/tinymce
+cp -R node_modules/tinymce/skins public/assets/tinymce
+cp -R node_modules/tinymce/themes public/assets/tinymce
 
 LANGDIR=public/assets/langs
 if [ -d "$LANGDIR" ];

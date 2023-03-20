@@ -3,7 +3,6 @@
   {{editor config=@options content=@value onEditorContentChange=(action 'onChange')}}
 ></textarea>
 
-{{log option}}
 {{#if (or (and showElementMessage (not isElementValid)) (and showMessage (not isElementValid)))}}
     <div class="errors-list">
         {{errorMessage}}

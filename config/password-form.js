@@ -32,7 +32,7 @@ module.exports = {
                 underline: { inline: 'u' },
             },
             branding: false,
-            base_url: '/tinymce'
+            base_url: '/assets/tinymce'
         },
     }
 };
