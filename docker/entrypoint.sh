@@ -34,4 +34,6 @@ else
     echo >&2 "local.js updated"
 fi
 
+npm run start
+
 exec "$@"

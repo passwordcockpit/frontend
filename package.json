@@ -74,13 +74,25 @@
   "dependencies": {
     "@fortawesome/fontawesome-free": "^6.0.0",
     "bootstrap-sass": "^3.4.3",
-    "ember-cli-tinymce": "https://github.com/marucjmar/ember-cli-tinymce.git#load-from-assets",
     "ember-data-hal-9000": "https://github.com/blackpoints-forks/ember-data-hal-9000.git",
     "ember-simple-auth": "^4.2.0",
     "ember-simple-auth-token": "^5.3.0",
     "file-saver": "^2.0.5",
     "jquery.growl": "^1.3.5",
+    "json5": "^1.0.2",
+    "minimist": "^1.2.6",
     "sass": "^1.49.9",
+    "tinymce": "^6.3.2",
+    "tinymce-ember": "^4.2.0-0",
+    "tinymce-i18n": "^23.1.23",
     "whatwg-fetch": "^3.6.2"
+  },
+  "overrides": {
+    "minimist": "$minimist",
+    "json5": "$json5",
+    "ansi-html": "^0.0.8",
+    "glob-parent": "^5.1.2",
+    "merge": "^2.1.1",
+    "markdown-it": "^12.3.2"
   }
 }

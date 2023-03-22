@@ -54,11 +54,9 @@
                 </li>
             </ul>
         </li>
-        {{#if (eq this.router.currentRoute.name 'folders.index') }}
-            <li>
-                <Form::FormSelect @class="language-select form-control" @name="language" @user={{user}} @isHeaderLanguage={{true}} @isPowerSelect={{false}} @selectOptions={{userLanguages}} @allowClear={{true}} @value={{user.language}} @isFormValid={{isFormValid}} @showMessage={{showMessage}} @printSelectValuesHandle={{action "printSelectValuesHandle"}} @validator={{validation-parameters required=true minLength=2 maxLength=2 type="select" }} />
-            </li>
-        {{/if}}
+        <li>
+            <Form::FormSelect @class="language-select form-control" @name="language" @user={{user}} @isHeaderLanguage={{true}} @isPowerSelect={{false}} @selectOptions={{userLanguages}} @allowClear={{true}} @value={{user.language}} @isFormValid={{isFormValid}} @showMessage={{showMessage}} @printSelectValuesHandle={{action "printSelectValuesHandle"}} @validator={{validation-parameters required=true minLength=2 maxLength=2 type="select" }} />
+        </li>
     </ul>
     <div class="hidden-md hidden-lg" role="navigation">
         <div id="navbar" class="collapse navbar-collapse">

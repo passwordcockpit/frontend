@@ -11,7 +11,7 @@ module.exports = function (defaults) {
         },
         fingerprint: {
             exclude: [
-                'assets/skins/**/*.*'
+                'assets/tinymce/**/*.*'
             ]
         }
     });
