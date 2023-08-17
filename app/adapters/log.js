@@ -34,8 +34,11 @@ export default HalAdapter.extend(DataAdapterMixin, {
     query: function (store, type, query) {
         // Check if there is the "passwordId" param
         let url;
-        if (query.passwordId) {
-            url = this.buildURL('passwords/' + query.passwordId + '/logs', null, null, 'query', query);
+
+        const { passwordId, ...queryParams } = query
+
+        if (query.passwordId) {    
+            url = this.buildURL('passwords/' + passwordId + '/logs', null, null, 'query', queryParams);
             if (this.sortQueryParams) {
                 query = this.sortQueryParams(query);
             }
@@ -45,7 +48,7 @@ export default HalAdapter.extend(DataAdapterMixin, {
                 query = this.sortQueryParams(query);
             }
         }
-        return this.ajax(url, 'GET', { data: query });
+        return this.ajax(url, 'GET', { data: queryParams });
     },
     handleResponse(status, headers, payload) {
         if (this.isSuccess(status, headers, payload)) {
