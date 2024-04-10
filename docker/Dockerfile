@@ -1,4 +1,4 @@
-FROM node:18.3
+FROM node:20.12
 
 # passwordcockpit variables
 ENV PASSWORDCOCKPIT_BASEHOST https://[YOUR-IP]:4344
