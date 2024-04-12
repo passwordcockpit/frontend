@@ -8,7 +8,7 @@ import Application from '@ember/application';
 import Resolver from 'ember-resolver';
 import loadInitializers from 'ember-load-initializers';
 import config from './config/environment';
-import TextField from '@ember/component/text-field';
+import Component from '@ember/component';
 
 export default class App extends Application {
   modulePrefix = config.modulePrefix;
@@ -18,6 +18,6 @@ export default class App extends Application {
 
 loadInitializers(App, config.modulePrefix);
 
-TextField.reopen({
+Component.reopen({
     attributeBindings: ['data-validation', 'data-validation-length']
 });
