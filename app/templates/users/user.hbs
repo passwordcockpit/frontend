@@ -1,6 +1,6 @@
-<User::UserDetails @user={{model.user}} @isEdit={{model.isDetailEdit}} @errors={{updatingUserErrors}} @isManageUsers={{true}} />
-<User::UserRights @permission={{model.permission}} @isEdit={{model.isPermissionEdit}} @onUpdateUserRight={{action "onUpdateUserRight"}} />
+<User::UserDetails @user={{this.model.user}} @isEdit={{this.model.isDetailEdit}} @errors={{this.updatingUserErrors}} @isManageUsers={{true}} />
+<User::UserRights @permission={{this.model.permission}} @isEdit={{this.model.isPermissionEdit}} @onUpdateUserRight={{action "onUpdateUserRight"}} />
 
-<User::UserLogs @logs={{logs}} @user={{model.user}} @canViewLog={{canViewLog}} @page={{model.page}} @pageCount={{model.pageCount}} />
-<User::UserAccessibleFolders @folderusers={{folderusers}} @user={{model.user}} @page={{model.pageFu}} @pageCount={{model.pageCountFu}}/>
+<User::UserLogs @logs={{this.logs}} @user={{this.model.user}} @canViewLog={{this.canViewLog}} @page={{this.model.page}} @pageCount={{this.model.pageCount}} />
+<User::UserAccessibleFolders @folderusers={{this.folderusers}} @user={{this.model.user}} @page={{this.model.pageFu}} @pageCount={{this.model.pageCountFu}}/>
 {{outlet}}

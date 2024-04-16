@@ -1,7 +1,7 @@
 <h1>
     <i class="fas fa-folder"></i>
-    {{model.folderName}}
+    {{this.model.folderName}}
 </h1>
 
-<Folder::FolderUsers @folder={{model.folder}} @users={{model.users}} @filteredUsers={{model.filteredUsers}} @folderUsers={{model.folderUsers}} @folderId={{model.folderId}} @canAccessAllFolders={{model.folder.canAccessAllFolders}} @isAdd={{isAdd}} @errors={{errors}} @controller={{this}} @onUpdatePermission={{action "onUpdatePermission"}} @onDeletePermission={{action "onDeletePermission"}} />
+<Folder::FolderUsers @folder={{this.model.folder}} @users={{this.model.users}} @filteredUsers={{this.model.filteredUsers}} @folderUsers={{this.model.folderUsers}} @folderId={{this.model.folderId}} @canAccessAllFolders={{this.model.folder.canAccessAllFolders}} @isAdd={{this.isAdd}} @errors={{this.errors}} @controller={{this}} @onUpdatePermission={{action "onUpdatePermission"}} @onDeletePermission={{action "onDeletePermission"}} />
 {{outlet}}

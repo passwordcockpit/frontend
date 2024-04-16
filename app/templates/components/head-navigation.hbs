@@ -13,7 +13,7 @@
         </a>
     </div>
     <ul class="nav navbar-top-links navbar-right hidden-xs hidden-sm">
-        {{#if permission.manage_users}}
+        {{#if this.permission.manage_users}}
         <li class="dropdown">
             <a class="dropdown-toggle" data-toggle="dropdown" href="#">
                 <i class="fas fa-cog"></i>
@@ -33,11 +33,11 @@
         <li class="dropdown">
             <a class="dropdown-toggle" data-toggle="dropdown" href="#">
                 <i class="fas fa-user"></i>
-                {{user.name}} {{user.surname}}
+                {{this.user.name}} {{this.user.surname}}
                 <i class="fas fa-caret-down"></i>
             </a>
             <ul class="dropdown-menu dropdown-user">
-                {{#unless isLdap}}
+                {{#unless this.isLdap}}
                 <li>
                     <LinkTo @route="profile">
                     <i class="fas fa-cog"></i>
@@ -55,13 +55,13 @@
             </ul>
         </li>
         <li>
-            <Form::FormSelect @class="language-select form-control" @name="language" @user={{user}} @isHeaderLanguage={{true}} @isPowerSelect={{false}} @selectOptions={{userLanguages}} @allowClear={{true}} @value={{user.language}} @isFormValid={{isFormValid}} @showMessage={{showMessage}} @printSelectValuesHandle={{action "printSelectValuesHandle"}} @validator={{validation-parameters required=true minLength=2 maxLength=2 type="select" }} />
+            <Form::FormSelect @class="language-select form-control" @name="language" @user={{this.user}} @isHeaderLanguage={{true}} @isPowerSelect={{false}} @selectOptions={{this.userLanguages}} @allowClear={{true}} @value={{this.user.language}} @isFormValid={{this.isFormValid}} @showMessage={{this.showMessage}} @printSelectValuesHandle={{action "printSelectValuesHandle"}} @validator={{validation-parameters required=true minLength=2 maxLength=2 type="select" }} />
         </li>
     </ul>
     <div class="hidden-md hidden-lg" role="navigation">
         <div id="navbar" class="collapse navbar-collapse">
             <ul class="nav navbar-nav navbar-right">
-                {{#if permission.manage_users}}
+                {{#if this.permission.manage_users}}
                 <li class="manage-users">
                     <LinkTo @route="users">
                     <i class="fas fa-users"></i>

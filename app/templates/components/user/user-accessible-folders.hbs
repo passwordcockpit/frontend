@@ -3,7 +3,7 @@
             {{t 'User\'s accessible folders'}}
         </div>
         <div class="panel-body">
-            {{#if loading}}
+            {{#if this.loading}}
                 <p class="alert alert-info">
                     <i class="fas fa-info-circle"></i>
                     {{t 'Loading ...'}}
@@ -22,7 +22,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            {{#each folderusers as |folderUser|}}
+                            {{#each this.folderusers as |folderUser|}}
                                 <tr>
                                     <td class="grid-150">
                                         {{folderUser.folder_name}}
@@ -46,8 +46,8 @@
                 </p>
             {{/if}}
         </div>
-        {{#if folderusers}}
-            <LogPaginator @page={{page}} @pageCount={{pageCount}} @changePage={{action "submit"}} />
+        {{#if this.folderusers}}
+            <LogPaginator @page={{this.page}} @pageCount={{this.pageCount}} @changePage={{action "submit"}} />
         {{/if}}
     </div>
 {{yield}}
