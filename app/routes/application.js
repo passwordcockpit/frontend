@@ -19,6 +19,7 @@ export default Route.extend(ApplicationRouteMixin, {
     intl: inject('intl'),
     loading: inject('loading'),
     closeFoldersInputs: inject('close-folders-inputs'),
+    store: inject('store'),
 
     beforeModel() {
         this._super(...arguments);

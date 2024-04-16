@@ -12,6 +12,7 @@ import { inject } from '@ember/service';
 
 export default Route.extend(AuthenticatedRouteMixin, {
     session: inject('session'),
+    store: inject('store'),
     beforeModel() {
         this._super(...arguments);
         window.loading.showLoading(false);

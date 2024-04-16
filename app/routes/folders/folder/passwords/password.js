@@ -11,6 +11,7 @@ import RSVP from 'rsvp';
 
 export default Route.extend(AuthenticatedRouteMixin, {
     growl: inject('growl'),
+    store: inject('store'),
     beforeModel() {
         this._super(...arguments);
         window.loading.showLoading();

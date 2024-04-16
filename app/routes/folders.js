@@ -16,6 +16,7 @@ export default Route.extend(AuthenticatedRouteMixin, {
     session: inject('session'),
     closeFoldersInputs: inject('close-folders-inputs'),
     transition: null,
+    store: inject('store'),
     beforeModel() {
         this._super(...arguments);
         window.loading.showLoading();
