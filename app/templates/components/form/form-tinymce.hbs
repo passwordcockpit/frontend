@@ -5,6 +5,6 @@
 
 {{#if (or (and this.showElementMessage (not this.isElementValid)) (and this.showMessage (not this.isElementValid)))}}
     <div class="errors-list">
-        {{errorMessage}}
+        {{this.errorMessage}}
     </div>
 {{/if}}    

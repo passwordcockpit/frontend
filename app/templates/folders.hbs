@@ -109,7 +109,7 @@
             {{#if this.isAdd}}
                 <Folder::NewFolderElement @isAdd={{this.isAdd}} @parentId={{null}} @cancelAddFolder={{action "cancelAddFolder"}} @onCreateFolder={{action "onCreateFolder"}} />
             {{/if}}
-            {{#each [this.roots] as |folderId|}}
+            {{#each this.roots as |folderId|}}
                 <Folder::FolderElement @removePassword={{action "removePassword"}} @folder={{get this.indexedFolders folderId}} @indexedFolders={{this.indexedFolders}} @tree={{this.tree}} @onCreateFolder={{action "onCreateFolder"}} @onUpdateFolder={{action "onUpdateFolder"}} @onDeleteFolder={{action "onDeleteFolder"}} @collapseFolder={{action "collapseFolder"}} @slideUp={{action "slideUp"}} @canAccessAllFolders={{this.canAccessAllFolders}} />
                 {{else}}
                     <p class="alert alert-info">

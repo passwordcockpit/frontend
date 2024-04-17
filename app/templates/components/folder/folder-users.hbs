@@ -17,7 +17,7 @@
                 <Folder::NewPermissionElement @isAdd={{this.isAdd}} @errors={{this.errors}} @filteredUsers={{this.filteredUsers}} @folderUsers={{this.folderUsers}} @folderId={{this.folderId}} @reloadFolderUser={{action "reloadFolderUser"}} />
             {{/if}}
             {{#each this.folderUsers as |folderUser|}}
-                <Folder::FolderUser @folderUser={{this.folderUser}} @folderId={{this.folderId}} @folder={{this.folder}} @canAccessAllFolders={{this.canAccessAllFolders}} @reloadFolderUser={{action "reloadFolderUser"}} @onUpdatePermission={{action "onUpdatePermission"}} @onDeletePermission={{action "onDeletePermission"}} />
+                <Folder::FolderUser @folderUser={{folderUser}} @folderId={{this.folderId}} @folder={{this.folder}} @canAccessAllFolders={{this.canAccessAllFolders}} @reloadFolderUser={{action "reloadFolderUser"}} @onUpdatePermission={{action "onUpdatePermission"}} @onDeletePermission={{action "onDeletePermission"}} />
             {{/each}}
         </ul>
     </div>
