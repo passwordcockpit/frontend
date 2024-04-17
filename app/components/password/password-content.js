@@ -5,6 +5,7 @@
 */
 
 import Component from '@ember/component';
+import { computed } from '@ember/object';
 import { inject } from '@ember/service';
 import ENV from './../../config/environment';
 import formValidation from '../../mixins/form/form-validation';
@@ -23,8 +24,8 @@ export default Component.extend(formValidation, {
     pinEncrypt: null,
     localTempPasswordDecrypted: null,
     failureLimit: ENV.passwordEncryptionConfig.failureLimit,
-    passwordDescritpion: Ember.computed('password.description', function() {
-        return Ember.String.htmlSafe(this.get('password.description'));
+    passwordDescritpion: computed('password.description', function() {
+        return htmlSafe(this.get('password.description'));
     }),
 
     didRender(){
