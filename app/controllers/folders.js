@@ -18,6 +18,7 @@ export default Controller.extend({
     growl: inject('growl'),
     session: inject('session'),
     closeFoldersInputs: inject('close-folders-inputs'),
+    store: inject('store'),
 
     searchResults: null,
     /**

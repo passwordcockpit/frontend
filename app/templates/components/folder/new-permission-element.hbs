@@ -4,7 +4,7 @@
             <div class="folder-settings-container">
                 <div class="user-select-container">
                     <PowerSelect @selected={{this.selectedUser}} @printSelectValuesHandle={{action "printSelectValuesHandle"}} @options={{this.filteredUsers}} @isFormValid={{this.isFormValid}} @showMessage={{this.showMessage}} @onChange={{action "changeSelectedUser"}} @searchField="fullName" @validator={{validation-parameters required=true type="select"}} as |user|>
-                        {{print-select-values-handle this.user (action 'printSelectValuesHandle')}}
+                        {{print-select-values-handle user (action 'printSelectValuesHandle')}}
                     </PowerSelect>    
                 </div>
                 <label class="user-edit-container">

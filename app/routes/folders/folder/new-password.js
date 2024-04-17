@@ -9,7 +9,7 @@ import { inject } from '@ember/service';
 
 export default Route.extend({
     account: inject('account'),
-
+    store: inject('store'),
     beforeModel() {
         this._super(...arguments);
         window.loading.showLoading();

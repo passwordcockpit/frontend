@@ -10,6 +10,7 @@ import { inject } from '@ember/service';
 export default Route.extend({
     account: inject('account'),
     session: inject('session'),
+    store: inject('store'),
     closeFoldersInputs: inject('close-folders-inputs'),
     beforeModel() {
         this._super(...arguments);
