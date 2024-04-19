@@ -99,8 +99,6 @@
     "edition": "octane"
   },
   "overrides": {
-    "minimist": "$minimist",
-    "json5": "$json5",
     "ansi-html": "^0.0.8",
     "glob-parent": "^5.1.2",
     "merge": "^2.1.1",
