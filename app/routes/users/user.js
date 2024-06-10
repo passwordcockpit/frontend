@@ -12,6 +12,7 @@ import { inject } from '@ember/service';
 export default Route.extend(AuthenticatedRouteMixin, {
     account: inject('account'),
     store: inject('store'),
+    router: inject('router'),
     beforeModel() {
         this._super(...arguments);
         window.loading.showLoading();
@@ -46,7 +47,7 @@ export default Route.extend(AuthenticatedRouteMixin, {
             });
         }
         else {
-            return this.transitionTo('sorry-page');
+            return this.router.transitionTo('sorry-page');
         }
     },
     afterModel() {

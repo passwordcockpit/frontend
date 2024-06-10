@@ -15,6 +15,8 @@ export default Controller.extend(formValidation, {
     growl: inject('growl'),
     username: null,
     password: null,
+    router: inject('router'),
+
     init: function () {
         this._super(...arguments);
         this.set('error', [this.intl.t('This is a required field')]);
@@ -33,7 +35,7 @@ export default Controller.extend(formValidation, {
                 //set language received from token
                 this.set('intl.locale', language.data.language);
                 window.loading.hideLoading();
-                this.transitionToRoute('folders');
+                this.router.transitionTo('folders');
             })
                 .catch((loginErrors) => {
                     //Empty form

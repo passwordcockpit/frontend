@@ -13,6 +13,7 @@ import { inject } from '@ember/service';
 export default Route.extend(AuthenticatedRouteMixin, {
     session: inject('session'),
     store: inject('store'),
+    router: inject('router'),
     beforeModel() {
         this._super(...arguments);
         window.loading.showLoading(false);
@@ -24,7 +25,7 @@ export default Route.extend(AuthenticatedRouteMixin, {
 
         // If is ldap, user cannot change password
         if (isLdap) {
-            return this.transitionTo('sorry-page');
+            return this.router.transitionTo('sorry-page');
         }
 
         let result = {

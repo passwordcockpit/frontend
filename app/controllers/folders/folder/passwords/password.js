@@ -12,6 +12,7 @@ export default Controller.extend({
     store: inject('store'),
     folderController: controller('folders.folder'),
     growl: inject('growl'),
+    router: inject('router'),
     actions: {
         /**
          * Is called by password-contents on deleting the password
@@ -30,7 +31,7 @@ export default Controller.extend({
 
                     this.growl.notice('Success', 'Password deleted');
 
-                    this.transitionToRoute('folders.folder', folderId);
+                    this.router.transitionTo('folders.folder', folderId);
                 })
                 .catch((adapterError) => {
                     $('#deletePasswordConfirm').modal('hide');

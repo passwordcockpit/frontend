@@ -20,8 +20,9 @@ export default Route.extend(ApplicationRouteMixin, {
     loading: inject('loading'),
     closeFoldersInputs: inject('close-folders-inputs'),
     store: inject('store'),
-
-    beforeModel() {
+    router: inject('router'),
+   async beforeModel() {
+    await this.session.setup();
         this._super(...arguments);
         window.loading = this.loading;
         window.loading.showLoading(false);
@@ -39,7 +40,7 @@ export default Route.extend(ApplicationRouteMixin, {
             };
 
             if (userID.data.change_password) {
-                this.transitionTo('profile');
+                this.router.transitionTo('profile');
             } else {
                 result.permission = this.store.queryRecord('permission', { userId: userID.sub });
             }
@@ -84,6 +85,6 @@ export default Route.extend(ApplicationRouteMixin, {
     */
     sessionAuthenticated() {
         this.refresh();
-        this.transitionTo('folders');
+        this.router.transitionTo('folders');
     }
 });

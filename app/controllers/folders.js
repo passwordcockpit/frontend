@@ -19,6 +19,7 @@ export default Controller.extend({
     session: inject('session'),
     closeFoldersInputs: inject('close-folders-inputs'),
     store: inject('store'),
+    router: inject('router'),
 
     searchResults: null,
     /**
@@ -219,7 +220,7 @@ export default Controller.extend({
                     this.send('buildTree', { folders: results });
 
                     // Open the recently created folder
-                    this.transitionToRoute('folders.folder', folderId);
+                    this.router.transitionToRoute('folders.folder', folderId);
                     window.loading.hideLoading();
                 })
                 .catch(() => {
@@ -278,7 +279,7 @@ export default Controller.extend({
                 if (this.transitionData.to.attributes != undefined) {
                     let transitionFolderId = this.transitionData.to.attributes['folderId'];
                     if (transitionFolderId == folderId) {
-                        this.transitionToRoute('folders');
+                        this.router.transitionToRoute('folders');
                     }
                 }
             }).fail((adapterError) => {
@@ -368,7 +369,7 @@ export default Controller.extend({
          */
         onSelectSearchFolderElement(folderId) {
             this.set('searchResults', null);
-            this.transitionToRoute('folders.folder', folderId);
+            this.router.transitionToRoute('folders.folder', folderId);
         },
         /**
          * Transition to the page of the selected result's password 
@@ -379,7 +380,7 @@ export default Controller.extend({
          */
         onSelectSearchPasswordElement(folderId, passwordId) {
             this.set('searchResults', null);
-            this.transitionToRoute('folders.folder.passwords.password', folderId, passwordId);
+            this.router.transitionToRoute('folders.folder.passwords.password', folderId, passwordId);
         },
         /**
          * Close search results

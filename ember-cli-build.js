@@ -13,6 +13,9 @@ module.exports = function (defaults) {
             exclude: [
                 'assets/tinymce/**/*.*'
             ]
+        },
+        'ember-simple-auth': {
+            useSessionSetupMethod: true,
         }
     });
 

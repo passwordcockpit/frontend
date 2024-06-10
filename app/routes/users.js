@@ -13,6 +13,7 @@ export default Route.extend(AuthenticatedRouteMixin, {
     account: inject('account'),
     growl: inject('growl'),
     store: inject('store'),
+    router: inject('router'),
     beforeModel() {
         this._super(...arguments);
         window.loading.showLoading(false);
@@ -31,11 +32,11 @@ export default Route.extend(AuthenticatedRouteMixin, {
             )
                 .catch((adapterError) => {
                     this.growl.errorShowRaw(adapterError.title, adapterError.message);
-                    return this.transitionTo('sorry-page');
+                    return this.router.transitionTo('sorry-page');
                 });
         }
         else {
-            return this.transitionTo('sorry-page');
+            return this.router.transitionTo('sorry-page');
         }
     },
     afterModel() {

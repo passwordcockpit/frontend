@@ -11,6 +11,7 @@ import { inject } from '@ember/service';
 export default Controller.extend({
     session: inject('session'),
     growl: inject('growl'),
+    router: inject('router'),
     actions: {
         /**
          * Reload logs data and canViewLog permission
@@ -34,7 +35,7 @@ export default Controller.extend({
                     this.set('canViewLog', this.model.permission.get('view_logs'));
                 }
                 if (!this.model.permission.get('manage_users')) {
-                    this.transitionToRoute('folders');
+                    this.router.transitionTo('folders');
                 }
             }
         }

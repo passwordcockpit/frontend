@@ -12,6 +12,8 @@ import RSVP from 'rsvp';
 export default Route.extend(AuthenticatedRouteMixin, {
     growl: inject('growl'),
     store: inject('store'),
+    router: inject('router'),
+
     beforeModel() {
         this._super(...arguments);
         window.loading.showLoading();
@@ -42,14 +44,14 @@ export default Route.extend(AuthenticatedRouteMixin, {
             }
         }).catch((adapterError) => {
             this.growl.errorShowRaw(adapterError.title, adapterError.message);
-            return this.transitionTo('sorry-page');
+            return this.router.transitionTo('sorry-page');
         });
     },
     afterModel(model) {
         this._super(...arguments);
 
         if (model.folder.id != model.password.folder_id) {
-            this.replaceWith('folders.folder.passwords.password', model.password.folder_id, model.password.id)
+            this.router.replaceWith('folders.folder.passwords.password', model.password.folder_id, model.password.id)
         }
 
         window.loading.hideLoading();
