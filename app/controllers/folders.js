@@ -220,7 +220,7 @@ export default Controller.extend({
                     this.send('buildTree', { folders: results });
 
                     // Open the recently created folder
-                    this.router.transitionToRoute('folders.folder', folderId);
+                    this.router.transitionTo('folders.folder', folderId);
                     window.loading.hideLoading();
                 })
                 .catch(() => {
@@ -279,7 +279,7 @@ export default Controller.extend({
                 if (this.transitionData.to.attributes != undefined) {
                     let transitionFolderId = this.transitionData.to.attributes['folderId'];
                     if (transitionFolderId == folderId) {
-                        this.router.transitionToRoute('folders');
+                        this.router.transitionTo('folders');
                     }
                 }
             }).fail((adapterError) => {
@@ -369,7 +369,7 @@ export default Controller.extend({
          */
         onSelectSearchFolderElement(folderId) {
             this.set('searchResults', null);
-            this.router.transitionToRoute('folders.folder', folderId);
+            this.router.transitionTo('folders.folder', folderId);
         },
         /**
          * Transition to the page of the selected result's password 
@@ -380,7 +380,7 @@ export default Controller.extend({
          */
         onSelectSearchPasswordElement(folderId, passwordId) {
             this.set('searchResults', null);
-            this.router.transitionToRoute('folders.folder.passwords.password', folderId, passwordId);
+            this.router.transitionTo('folders.folder.passwords.password', folderId, passwordId);
         },
         /**
          * Close search results
