@@ -25,7 +25,7 @@ export default Component.extend({
             self.get('store').unloadAll('userlog');
             this.store.query('userlog', { userId: this.user.id, page: page }).then((logs) => {
                 self.set('page', page);
-                self.set('pageCount', logs.get('meta')._page_count);
+                self.set('pageCount', logs.meta._page_count);
                 self.set('logs', logs);
                 this.set('loading', false);
                 window.loading.hideLoading();

@@ -6,14 +6,15 @@
 
 import Route from '@ember/routing/route';
 import RSVP from 'rsvp';
-import AuthenticatedRouteMixin from 'ember-simple-auth/mixins/authenticated-route-mixin';
 import { inject } from '@ember/service';
 
-export default Route.extend(AuthenticatedRouteMixin, {
+export default Route.extend({
     account: inject('account'),
     store: inject('store'),
     router: inject('router'),
-    beforeModel() {
+    session: inject('session'),
+    beforeModel(transition) {
+        this.session.requireAuthentication(transition, 'login');
         this._super(...arguments);
         window.loading.showLoading();
     },
@@ -36,11 +37,11 @@ export default Route.extend(AuthenticatedRouteMixin, {
 
             return RSVP.hash(result).then((hash) => {
                 if (canViewLog) {
-                    hash.page = hash.logs.get('meta')._page;
-                    hash.pageCount = hash.logs.get('meta')._page_count;
+                    hash.page = hash.logs.meta._page;
+                    hash.pageCount = hash.logs.meta._page_count;
                 }
-                hash.pageFu = hash.folderusers.get('meta')._page;
-                hash.pageCountFu = hash.folderusers.get('meta')._page_count;
+                hash.pageFu = hash.folderusers.meta._page;
+                hash.pageCountFu = hash.folderusers.meta._page_count;
                 hash.userId = params.user_id;
                 hash.canViewLog = canViewLog;
                 return hash;

@@ -78,7 +78,7 @@ export default Controller.extend({
                     log.set('userName', self.get('store').peekRecord('user', log.get('user_id')).get('username'));
                 });
                 self.set('page', page);
-                self.set('pageCount', logs.get('meta')._page_count);
+                self.set('pageCount', logs.meta._page_count);
                 self.set('logs', logs);
                 window.loading.hideLoading();
             }).catch((adapterError) => {

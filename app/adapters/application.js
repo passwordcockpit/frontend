@@ -5,11 +5,12 @@
 */
 
 import HalAdapter from "ember-data-hal-9000/adapter";
-import DataAdapterMixin from "ember-simple-auth/mixins/data-adapter-mixin";
+// import DataAdapterMixin from "ember-simple-auth/mixins/data-adapter-mixin";
 import ENV from '../config/environment';
 import { inject } from '@ember/service';
 
-export default HalAdapter.extend(DataAdapterMixin, {
+// export default HalAdapter.extend(DataAdapterMixin, {
+export default HalAdapter.extend({
     session: inject('session'),
 
     init() {
@@ -28,5 +29,4 @@ export default HalAdapter.extend(DataAdapterMixin, {
     //     let { token } = this.get('session.data.authenticated');
     //     xhr.setRequestHeader('Authorization', `Bearer ${token}`);
     // },
-
 });

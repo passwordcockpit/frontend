@@ -6,15 +6,16 @@
 
 import Route from '@ember/routing/route';
 import Object from '@ember/object';
-import AuthenticatedRouteMixin from 'ember-simple-auth/mixins/authenticated-route-mixin';
 import { inject } from '@ember/service';
 
-export default Route.extend(AuthenticatedRouteMixin, {
+export default Route.extend( {
     account: inject('account'),
     growl: inject('growl'),
     store: inject('store'),
     router: inject('router'),
-    beforeModel() {
+    session: inject('session'),
+    beforeModel(transition) {
+        this.session.requireAuthentication(transition, 'login');
         this._super(...arguments);
         window.loading.showLoading(false);
     },

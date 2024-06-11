@@ -5,15 +5,15 @@
 */
 
 import Route from '@ember/routing/route';
-import AuthenticatedRouteMixin from 'ember-simple-auth/mixins/authenticated-route-mixin';
 import { inject } from '@ember/service';
 import RSVP from 'rsvp';
 
-export default Route.extend(AuthenticatedRouteMixin, {
+export default Route.extend( {
     growl: inject('growl'),
     store: inject('store'),
-
-    beforeModel() {
+    session: inject('session'),
+    beforeModel(transition) {
+        this.session.requireAuthentication(transition, 'login');
         this._super(...arguments);
         window.loading.showLoading();
     },

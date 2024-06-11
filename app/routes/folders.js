@@ -5,19 +5,19 @@
 */
 
 import Route from '@ember/routing/route';
-import AuthenticatedRouteMixin from 'ember-simple-auth/mixins/authenticated-route-mixin';
 import { inject } from '@ember/service';
 import $ from 'jquery';
 import { later } from '@ember/runloop'
 
-export default Route.extend(AuthenticatedRouteMixin, {
+export default Route.extend({
     account: inject('account'),
     growl: inject('growl'),
     session: inject('session'),
     closeFoldersInputs: inject('close-folders-inputs'),
     transition: null,
     store: inject('store'),
-    beforeModel() {
+    beforeModel(transition) {
+        this.session.requireAuthentication(transition, 'login');
         this._super(...arguments);
         window.loading.showLoading();
     },

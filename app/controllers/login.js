@@ -35,6 +35,7 @@ export default Controller.extend(formValidation, {
                 //set language received from token
                 this.set('intl.locale', language.data.language);
                 window.loading.hideLoading();
+                this.router.refresh();
                 this.router.transitionTo('folders');
             })
                 .catch((loginErrors) => {

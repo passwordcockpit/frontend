@@ -25,7 +25,7 @@ export default Component.extend({
             self.get('store').unloadAll('folderuser');
             this.store.query('folderuser', { userId: this.user.id, page: page }).then((folderusers) => {
                 self.set('page', page);
-                self.set('pageCount', folderusers.get('meta')._page_count);
+                self.set('pageCount', folderusers.meta._page_count);
                 self.set('folderusers', folderusers);
                 this.set('loading', false);
                 window.loading.hideLoading();

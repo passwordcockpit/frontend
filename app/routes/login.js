@@ -12,11 +12,9 @@ export default Route.extend({
     router: inject('router'),
 
     beforeModel() {
+        this.session.prohibitAuthentication('folders');
         this._super(...arguments);
         window.loading.showLoading(false);
-        if (this.session.get('isAuthenticated')) {
-            this.router.transitionTo('folders');
-        }
     },
     afterModel() {
         this._super(...arguments);

@@ -5,16 +5,16 @@
 */
 
 import Route from '@ember/routing/route';
-import AuthenticatedRouteMixin from 'ember-simple-auth/mixins/authenticated-route-mixin';
 import { inject } from '@ember/service';
 import RSVP from 'rsvp';
 
-export default Route.extend(AuthenticatedRouteMixin, {
+export default Route.extend( {
     growl: inject('growl'),
     store: inject('store'),
     router: inject('router'),
-
-    beforeModel() {
+    session: inject('session'),
+    beforeModel(transition) {
+        this.session.requireAuthentication(transition, 'login');
         this._super(...arguments);
         window.loading.showLoading();
     },
@@ -28,15 +28,15 @@ export default Route.extend(AuthenticatedRouteMixin, {
             isEdit: false,
         };
         // Check user vier_logs permission
-        let canViewLogs = this.controllerFor('folders.folder.passwords.password').get('canViewLogs');
+        let canViewLogs = this.controllerFor('folders.folder.passwords.password').canViewLogs;
 
         return RSVP.hash(result).then((hash) => {
             // Load password's logs
             if (canViewLogs) {
                 hash.logs = this.store.query('log', { passwordId: params.password_id, page: 1 });
                 return RSVP.hash(hash).then((hashHash) => {
-                    hashHash.page = hashHash.logs.get('meta')._page;
-                    hashHash.pageCount = hashHash.logs.get('meta')._page_count;
+                    hashHash.page = hashHash.logs.meta._page;
+                    hashHash.pageCount = hashHash.logs.meta._page_count;
                     return hashHash;
                 });
             } else {
