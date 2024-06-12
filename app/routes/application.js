@@ -20,8 +20,8 @@ export default Route.extend({
     closeFoldersInputs: inject('close-folders-inputs'),
     store: inject('store'),
     router: inject('router'),
-    beforeModel() {
-        this.session.setup();
+    async beforeModel() {
+        await this.session.setup();
         this._super(...arguments);
         window.loading = this.loading;
         window.loading.showLoading(false);
