@@ -19,8 +19,12 @@ export default HalAdapter.extend({
         this._super(...arguments);
         this.host = ENV.APP.host;
         this.namespace = ENV.APP.namespace;
+    },
+
+    // Dynamically set the headers before each request
+    get headers() {
         let { token } = this.get('session.data.authenticated');
-        this.headers = {
+        return {
             "Authorization": `Bearer ${token}`,
             "Content-Type": 'application/json',
             "Accept": "application/json"
