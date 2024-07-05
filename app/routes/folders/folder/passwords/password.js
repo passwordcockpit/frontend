@@ -82,7 +82,12 @@ export default Route.extend( {
 
     actions: {
         willTransition: function () {
-            this.currentModel.password.rollbackAttributes();
+            let password = this.currentModel.password;
+                if (!password.isDeleted) {
+                    password.rollbackAttributes();
+                } else {
+                    console.log('isdeleted')
+                }
         },
     },
 });
