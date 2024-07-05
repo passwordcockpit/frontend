@@ -334,10 +334,9 @@ export default Component.extend(formValidation, {
             password.save()
                 .then(() => {
                     // upload file
-                    if ($('#file')[0] && $('#file')[0].files[0]) {
-
+                    if ($('input[type="file"]')[0] && $('input[type="file"]')[0].files[0]) {
                         var fd = new FormData();
-                        let file = $('#file')[0].files[0];
+                        let file = $('input[type="file"]')[0].files[0];
                         fd.append("file", file);
                         $.ajax({
                             url:
@@ -368,9 +367,10 @@ export default Component.extend(formValidation, {
                             window.loading.hideLoading();
                             this.growl.notice('Success', 'File uploaded');
                         }).fail(adapterError => {
-                            this.set('isEdit', false);
+                            let errors = this.growl.errorsDatabaseToArray(adapterError);
+                            this.set('errors', errors);
                             window.loading.hideLoading();
-                            this.growl.errorShowRaw(adapterError.responseJSON.title, adapterError.responseJSON.detail);
+                            this.growl.error('Error', 'Error while updating the password');
                         });
                     } else {
                         window.loading.hideLoading();
