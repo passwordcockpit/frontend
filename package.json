@@ -76,6 +76,7 @@
     "ember-modifier": "^4.1.0",
     "ember-page-title": "^8.2.3",
     "ember-power-select": "^8.1.0",
+    "ember-qunit": "^8.1.0",
     "ember-resolver": "^11.0.1",
     "ember-source": "~5.8.0",
     "ember-template-lint": "^5.13.0",
@@ -90,6 +91,7 @@
     "loader.js": "^4.7.0",
     "prettier": "^3.2.5",
     "qunit": "^2.20.1",
+    "qunit-dom": "^3.2.0",
     "tracked-built-ins": "^3.3.0",
     "webpack": "^5.91.0"
   },
