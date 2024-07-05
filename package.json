@@ -103,6 +103,7 @@
   },
   "overrides": {
     "ansi-html": "^0.0.8",
+    "braces": "^3.0.3",
     "glob-parent": "^5.1.2",
     "merge": "^2.1.1",
     "markdown-it": "^12.3.2",
