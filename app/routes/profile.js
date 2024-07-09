@@ -5,7 +5,7 @@
 */
 
 import Route from '@ember/routing/route';
-import jwtDecode from 'ember-cli-jwt-decode';
+import { jwtDecode } from 'jwt-decode';
 import RSVP from 'rsvp';
 import { inject } from '@ember/service';
 

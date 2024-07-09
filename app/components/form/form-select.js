@@ -6,7 +6,7 @@
 
 import Component from '@ember/component';
 import { inject } from '@ember/service';
-import jwtDecode from 'ember-cli-jwt-decode';
+import { jwtDecode } from 'jwt-decode';
 import ENV from '../../config/environment';
 import formElementValidation from '../../mixins/form/form-element-validation';
 

@@ -5,7 +5,7 @@
 */
 
 import Controller from '@ember/controller';
-import jwtDecode from 'ember-cli-jwt-decode';
+import { jwtDecode } from 'jwt-decode';
 import { inject } from '@ember/service';
 
 export default Controller.extend({

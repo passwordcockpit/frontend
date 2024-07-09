@@ -7,7 +7,8 @@
 // app/routes/application.js
 import Route from '@ember/routing/route';
 import { inject } from '@ember/service';
-import jwtDecode from 'ember-cli-jwt-decode';
+import { jwtDecode } from 'jwt-decode';
+import DS from 'ember-data';
 import ENV from '../config/environment';
 import RSVP from 'rsvp';
 
