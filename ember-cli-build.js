@@ -24,6 +24,9 @@ module.exports = function (defaults) {
               },
             },
         },
+        emberData: {
+            polyfillUUID: true
+        },
     });
 
     // Import Bootstrap JS
