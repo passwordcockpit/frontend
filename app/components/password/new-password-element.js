@@ -159,7 +159,7 @@ export default Component.extend(formValidation, {
                     type: "POST"
                 }).done(success => {
                     // Add new file to the store
-                    success.id = success.password_id;
+                    success.id = success.password_id.toString();
                     self.get('store').createRecord('password', success);
                     self.onCreatePassword();
                     self.get('growl').notice('Success', 'Password created');

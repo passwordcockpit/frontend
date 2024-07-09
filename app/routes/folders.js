@@ -59,7 +59,7 @@ export default Route.extend({
             results._embedded.users.forEach(user => {
                 let storeUser = self.get('store').peekRecord('user', user.user_id);
                 if (storeUser == null) {
-                    user.id = user.user_id;
+                    user.id = user.user_id.toString();
                     self.get('store').createRecord('user', user);
                 }
             });
