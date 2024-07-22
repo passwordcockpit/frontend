@@ -352,7 +352,7 @@ export default Component.extend(formValidation, {
 
       let password = this.password;
 
-      this.send('setPassword', password.frontendCrypted);
+      this.send('setPassword', false);
 
       if (this.localTempPassword.icon != null && password.get('icon') == null) {
         password.set('icon', '');
