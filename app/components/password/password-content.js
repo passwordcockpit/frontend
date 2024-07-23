@@ -346,13 +346,14 @@ export default Component.extend(formValidation, {
       window.loading.showLoading();
       // reset errors data
       this.set('errors', null);
-      // protect password
-      this.set('pinDecrypt', null);
-      this.set('isPinValid', false);
 
       let password = this.password;
 
       this.send('setPassword', false);
+
+      // protect password
+      this.set('pinDecrypt', null);
+      this.set('isPinValid', false);
 
       if (this.localTempPassword.icon != null && password.get('icon') == null) {
         password.set('icon', '');
