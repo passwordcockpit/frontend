@@ -38,7 +38,7 @@
     "jwt-decode": "^4.0.0",
     "minimist": "^1.2.6",
     "sass": "^1.49.9",
-    "tinymce": "^6.3.2",
+    "tinymce": "^7.2.0",
     "tinymce-ember": "^4.2.0-0",
     "tinymce-i18n": "^23.1.23",
     "whatwg-fetch": "^3.6.2"
