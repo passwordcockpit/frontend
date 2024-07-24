@@ -8,7 +8,7 @@ import Application from '@ember/application';
 import Resolver from 'ember-resolver';
 import loadInitializers from 'ember-load-initializers';
 import config from './config/environment';
-import TextField from '@ember/component/text-field';
+import { TextField } from '@ember/legacy-built-in-components';
 
 export default class App extends Application {
   modulePrefix = config.modulePrefix;

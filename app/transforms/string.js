@@ -4,14 +4,4 @@
 * @license https://github.com/passwordcockpit/frontend/blob/master/LICENSE.md BSD 3-Clause License 
 */
 
-import Route from '@ember/routing/route';
-import { inject } from '@ember/service';
-
-export default Route.extend({
-    router: inject('router'),
-
-    beforeModel() {
-        this._super(...arguments);
-        this.router.replaceWith('sorry-page');
-    }
-});
+export { StringTransform as default } from '@ember-data/serializer/transform';

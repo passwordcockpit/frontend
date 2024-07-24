@@ -5,13 +5,16 @@
 */
 
 import Route from '@ember/routing/route';
-import AuthenticatedRouteMixin from 'ember-simple-auth/mixins/authenticated-route-mixin';
 import { inject } from '@ember/service';
 import RSVP from 'rsvp';
 
-export default Route.extend(AuthenticatedRouteMixin, {
+export default Route.extend( {
     growl: inject('growl'),
-    beforeModel() {
+    store: inject('store'),
+    router: inject('router'),
+    session: inject('session'),
+    beforeModel(transition) {
+        this.session.requireAuthentication(transition, 'login');
         this._super(...arguments);
         window.loading.showLoading();
     },
@@ -25,15 +28,15 @@ export default Route.extend(AuthenticatedRouteMixin, {
             isEdit: false,
         };
         // Check user vier_logs permission
-        let canViewLogs = this.controllerFor('folders.folder.passwords.password').get('canViewLogs');
+        let canViewLogs = this.controllerFor('folders.folder.passwords.password').canViewLogs;
 
         return RSVP.hash(result).then((hash) => {
             // Load password's logs
             if (canViewLogs) {
                 hash.logs = this.store.query('log', { passwordId: params.password_id, page: 1 });
                 return RSVP.hash(hash).then((hashHash) => {
-                    hashHash.page = hashHash.logs.get('meta')._page;
-                    hashHash.pageCount = hashHash.logs.get('meta')._page_count;
+                    hashHash.page = hashHash.logs.meta._page;
+                    hashHash.pageCount = hashHash.logs.meta._page_count;
                     return hashHash;
                 });
             } else {
@@ -41,14 +44,14 @@ export default Route.extend(AuthenticatedRouteMixin, {
             }
         }).catch((adapterError) => {
             this.growl.errorShowRaw(adapterError.title, adapterError.message);
-            return this.transitionTo('sorry-page');
+            return this.router.transitionTo('sorry-page');
         });
     },
     afterModel(model) {
         this._super(...arguments);
 
         if (model.folder.id != model.password.folder_id) {
-            this.replaceWith('folders.folder.passwords.password', model.password.folder_id, model.password.id)
+            this.router.replaceWith('folders.folder.passwords.password', model.password.folder_id, model.password.id)
         }
 
         window.loading.hideLoading();
@@ -79,7 +82,12 @@ export default Route.extend(AuthenticatedRouteMixin, {
 
     actions: {
         willTransition: function () {
-            this.currentModel.password.rollbackAttributes();
+            let password = this.currentModel.password;
+                if (!password.isDeleted) {
+                    password.rollbackAttributes();
+                } else {
+                    console.log('isdeleted')
+                }
         },
     },
 });

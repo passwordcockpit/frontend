@@ -5,21 +5,24 @@
 */
 
 import HalAdapter from "ember-data-hal-9000/adapter";
-import DataAdapterMixin from "ember-simple-auth/mixins/data-adapter-mixin";
 import ENV from '../config/environment';
 import { inject } from '@ember/service';
 
 import CustomError from '../errors/custom-error';
 
-export default HalAdapter.extend(DataAdapterMixin, {
+export default HalAdapter.extend( {
     session: inject('session'),
 
     init() {
         this._super(...arguments);
         this.host = ENV.APP.host;
         this.namespace = ENV.APP.namespace;
+    },
+
+    // Dynamically set the headers before each request
+    get headers() {
         let { token } = this.get('session.data.authenticated');
-        this.headers = {
+        return {
             "Authorization": `Bearer ${token}`,
             "Content-Type": 'application/json',
             "Accept": "application/json"
@@ -34,6 +37,10 @@ export default HalAdapter.extend(DataAdapterMixin, {
     handleResponse(status, headers, payload) {
         if (this.isSuccess(status, headers, payload)) {
             return payload;
+        }
+
+        if (status === 401 && this.get('session.isAuthenticated')) {
+            this.get('session').invalidate();
         }
 
         return new CustomError(status, payload);

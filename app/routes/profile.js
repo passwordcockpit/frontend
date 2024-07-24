@@ -5,14 +5,16 @@
 */
 
 import Route from '@ember/routing/route';
-import jwtDecode from 'ember-cli-jwt-decode';
-import AuthenticatedRouteMixin from 'ember-simple-auth/mixins/authenticated-route-mixin';
+import { jwtDecode } from 'jwt-decode';
 import RSVP from 'rsvp';
 import { inject } from '@ember/service';
 
-export default Route.extend(AuthenticatedRouteMixin, {
+export default Route.extend( {
     session: inject('session'),
-    beforeModel() {
+    store: inject('store'),
+    router: inject('router'),
+    beforeModel(transition) {
+        this.session.requireAuthentication(transition, 'login');
         this._super(...arguments);
         window.loading.showLoading(false);
     },
@@ -23,7 +25,7 @@ export default Route.extend(AuthenticatedRouteMixin, {
 
         // If is ldap, user cannot change password
         if (isLdap) {
-            return this.transitionTo('sorry-page');
+            return this.router.transitionTo('sorry-page');
         }
 
         let result = {

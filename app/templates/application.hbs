@@ -1,5 +1,5 @@
-{{#if session.isAuthenticated}} 
-	<HeadNavigation @session={{session}} @user={{model.user}} @permission={{model.permission}} @isLdap={{model.isLdap}} /> 
+{{#if this.session.isAuthenticated}} 
+	<HeadNavigation @session={{this.session}} @user={{this.model.user}} @permission={{this.model.permission}} @isLdap={{this.model.isLdap}} /> 
 {{/if}}
 {{outlet}}
 

@@ -5,14 +5,14 @@
             <div class="login-panel panel panel-default">
                 <div class="panel-body">
                     <form id="loginForm" class="form-horizontal" name="login" {{action 'submit' on='submit'}}>
-                        <div class="form-group {{if errors.username 'has-error'}}">
+                        <div class="form-group {{if this.errors.username 'has-error'}}">
                             <div class="col-sm-12">
-                                <Form::FormText @type="text" @viewId="username" @class="form-control" @name="username" @placeholder={{t "Username"}} @value={{username}} @isFormValid={{isFormValid}} @showMessage={{showMessage}} />
+                                <Form::FormText @type="text" @viewId="username" @class="form-control" @name="username" @placeholder={{t "Username"}} @value={{this.username}} @isFormValid={{this.isFormValid}} @showMessage={{this.showMessage}} />
                             </div>
                         </div>
-                        <div class="form-group {{if errors.password 'has-error'}}">
+                        <div class="form-group {{if this.errors.password 'has-error'}}">
                             <div class="col-sm-12">
-                                <Form::FormText @type="password" @viewId="password" @class="form-control" @name="password" @placeholder={{t "Password"}} @value={{password}} @isFormValid={{isFormValid}} @showMessage={{showMessage}} />
+                                <Form::FormText @type="password" @viewId="password" @class="form-control" @name="password" @placeholder={{t "Password"}} @value={{this.password}} @isFormValid={{this.isFormValid}} @showMessage={{this.showMessage}} />
                             </div>
                         </div>
                         <div class="form-group ">

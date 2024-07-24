@@ -5,12 +5,14 @@
 */
 
 import Route from '@ember/routing/route';
-import AuthenticatedRouteMixin from 'ember-simple-auth/mixins/authenticated-route-mixin';
+import { inject } from '@ember/service';
 
-export default Route.extend(AuthenticatedRouteMixin,{
-
-    beforeModel() {
+export default Route.extend({
+    router: inject('router'),
+    session: inject('session'),
+    beforeModel(transition) {
+        this.session.requireAuthentication(transition, 'login');
         this._super(...arguments);
-        this.replaceWith('sorry-page');
+        this.router.replaceWith('sorry-page');
     }
 });

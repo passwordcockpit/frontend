@@ -1,8 +1,8 @@
-{{#if foldersController.searchResults.hasResults}} 
+{{#if this.foldersController.searchResults.hasResults}} 
     <main class='main-password'>
     </main>
 {{else}}
-    <Password::PasswordList @passwords={{passwords}} @folderId={{folderId}} @folder={{model.folder}} @selectFolder={{selectFolder}} @tagName="" @showPasswordsList={{action "showPasswordsList"}} @hidePasswordsList={{action "hidePasswordsList"}} @showList={{showList}} />
+    <Password::PasswordList @passwords={{this.passwords}} @folderId={{this.folderId}} @folder={{this.model.folder}} @selectFolder={{this.selectFolder}} @tagName="" @showPasswordsList={{action "showPasswordsList"}} @hidePasswordsList={{action "hidePasswordsList"}} @showList={{this.showList}} />
     <main class='main-password'>
         {{outlet}}
     </main>

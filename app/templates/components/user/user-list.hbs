@@ -10,14 +10,14 @@
         </div>
     </div>
     <div class="scroll-container">
-        {{#unless users}}
+        {{#unless this.users}}
             <p class="alert alert-info">
                 <i class="fas fa-info-circle"></i>
                 {{t 'There are no users'}}
             </p>
             {{else}}
                 <ul class="list">
-                    {{#each users as |user|}}
+                    {{#each this.users as |user|}}
                         <li style="{{unless user.enabled 'opacity:0.6'}}"> <!-- TODO -->
                             <LinkTo @route="users.user" @model={{user.id}} class="read">
                                 <i class="fas fa-user"></i>

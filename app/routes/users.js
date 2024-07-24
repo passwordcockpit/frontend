@@ -6,13 +6,16 @@
 
 import Route from '@ember/routing/route';
 import Object from '@ember/object';
-import AuthenticatedRouteMixin from 'ember-simple-auth/mixins/authenticated-route-mixin';
 import { inject } from '@ember/service';
 
-export default Route.extend(AuthenticatedRouteMixin, {
+export default Route.extend( {
     account: inject('account'),
     growl: inject('growl'),
-    beforeModel() {
+    store: inject('store'),
+    router: inject('router'),
+    session: inject('session'),
+    beforeModel(transition) {
+        this.session.requireAuthentication(transition, 'login');
         this._super(...arguments);
         window.loading.showLoading(false);
     },
@@ -30,11 +33,11 @@ export default Route.extend(AuthenticatedRouteMixin, {
             )
                 .catch((adapterError) => {
                     this.growl.errorShowRaw(adapterError.title, adapterError.message);
-                    return this.transitionTo('sorry-page');
+                    return this.router.transitionTo('sorry-page');
                 });
         }
         else {
-            return this.transitionTo('sorry-page');
+            return this.router.transitionTo('sorry-page');
         }
     },
     afterModel() {

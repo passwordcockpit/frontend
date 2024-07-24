@@ -8,11 +8,12 @@ import Route from '@ember/routing/route';
 import { inject } from '@ember/service';
 export default Route.extend({
     session: inject('session'),
+    router: inject('router'),
     beforeModel: function () {
         this._super(...arguments);
         window.loading.showLoading(false);
 
         // Replace index route with folders one, which will be the application
-        this.replaceWith('folders');
+        this.router.replaceWith('folders');
     }
 });

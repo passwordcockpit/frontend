@@ -9,7 +9,8 @@ import { inject } from '@ember/service';
 
 export default Route.extend({
     account: inject('account'),
-
+    store: inject('store'),
+    router: inject('router'),
     beforeModel() {
         this._super(...arguments);
         window.loading.showLoading();
@@ -28,7 +29,7 @@ export default Route.extend({
             return { folderId: folder_id };
         }
         else {
-            return this.transitionTo('sorry-page');
+            return this.router.transitionTo('sorry-page');
         }
     },
     afterModel() {

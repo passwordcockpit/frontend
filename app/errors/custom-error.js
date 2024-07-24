@@ -4,7 +4,6 @@
 * @license https://github.com/passwordcockpit/frontend/blob/master/LICENSE.md BSD 3-Clause License 
 */
 
-import Error from '@ember/error';
 /**
 * Transform error received from the backend
 */

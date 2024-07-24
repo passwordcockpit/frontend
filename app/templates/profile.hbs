@@ -1,11 +1,11 @@
 
 
 <div class="profile-container">
-    {{#if showChangePasswordMessage}}
+    {{#if this.showChangePasswordMessage}}
         <p class="alert alert-warning">
             <i class="fas fa-exclamation-triangle"></i>
             {{t "Please change your password for the first time you logged in"}}
         </p>
     {{/if}}
-    <User::UserDetails @user={{model.user}} @isEdit={{true}} @errors={{updatingUserErrors}} @isManageUsers={{false}} />
+    <User::UserDetails @user={{this.model.user}} @isEdit={{true}} @errors={{this.updatingUserErrors}} @isManageUsers={{false}} />
 </div>

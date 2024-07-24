@@ -13,7 +13,20 @@ module.exports = function (defaults) {
             exclude: [
                 'assets/tinymce/**/*.*'
             ]
-        }
+        },
+        'ember-simple-auth': {
+            useSessionSetupMethod: true,
+        },
+        '@embroider/macros': {
+            setConfig: {
+              '@ember-data/store': {
+                polyfillUUID: true
+              },
+            },
+        },
+        emberData: {
+            polyfillUUID: true
+        },
     });
 
     // Import Bootstrap JS

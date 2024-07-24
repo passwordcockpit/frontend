@@ -106,7 +106,7 @@ export default Component.extend(formValidation, {
             this.set('errors', null);
 
             let self = this;
-            let file = $('#file')[0].files[0]
+            let file = $('input[type="file"]')[0].files[0];
             var fd = new FormData();
             let isFormValid = true;
             fd.append("folder_id", folderId);
@@ -159,7 +159,7 @@ export default Component.extend(formValidation, {
                     type: "POST"
                 }).done(success => {
                     // Add new file to the store
-                    success.id = success.password_id;
+                    success.id = success.password_id.toString();
                     self.get('store').createRecord('password', success);
                     self.onCreatePassword();
                     self.get('growl').notice('Success', 'Password created');

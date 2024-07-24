@@ -1,4 +1,4 @@
-<div class="panel panel-default read {{if isEdit 'hide'}}">
+<div class="panel panel-default read {{if this.isEdit 'hide'}}">
     <div class="panel-heading">
         {{t 'Personal data'}}
         <div class="pull-right">
@@ -18,7 +18,7 @@
                             {{t 'Username'}}
                         </th>
                         <td>
-                            {{user.username}}
+                            {{this.user.username}}
                         </td>
                     </tr>
                     <tr>
@@ -26,7 +26,7 @@
                             {{t 'Name'}}
                         </th>
                         <td>
-                            {{user.name}}
+                            {{this.user.name}}
                         </td>
                     </tr>
                     <tr>
@@ -34,7 +34,7 @@
                             {{t 'Surname'}}
                         </th>
                         <td>
-                            {{user.surname}}
+                            {{this.user.surname}}
                         </td>
                     </tr>
                     <tr>
@@ -42,7 +42,7 @@
                             {{t 'Phone'}}
                         </th>
                         <td>
-                            {{user.phone}}
+                            {{this.user.phone}}
                         </td>
                     </tr>
                     <tr>
@@ -50,18 +50,18 @@
                             {{t 'Email'}}
                         </th>
                         <td>
-                            <a href="mailto:{{user.email}}">
-                                {{user.email}}
+                            <a href="mailto:{{this.user.email}}">
+                                {{this.user.email}}
                             </a>
                         </td>
                     </tr>
-                    {{#if isManageUsers}}
+                    {{#if this.isManageUsers}}
                         <tr>
                             <th>
                                 {{t 'Enabled' }}
                             </th>
                             <td>
-                                {{#if user.enabled}}
+                                {{#if this.user.enabled}}
                                     <i class="fas fa-check"></i>
                                 {{else}}
                                     <i class="fas fa-times"></i>
@@ -74,10 +74,10 @@
         </div>
     </div>
 </div>
-<div class="panel panel-default edit {{unless isEdit 'hide'}}">
+<div class="panel panel-default edit {{unless this.isEdit 'hide'}}">
     <div class="panel-heading">
         {{t 'Personal data'}}
-        {{#if isManageUsers}}
+        {{#if this.isManageUsers}}
             <div class="pull-right">
                 <div class="btn-group">
                     <a class="btn btn-default btn-xs" {{action 'cancel'}}>
@@ -94,16 +94,16 @@
                     {{t 'Username'}}
                 </label>
                 <div class="col-sm-10">
-                    <Form::FormText @type="text" @class="form-control" @name="user-username" @value={{user.username}} @isFormValid={{isFormValid}} @showMessage={{showMessage}} @validator={{validation-parameters required=true minLength=2 maxLength=45}} />
+                    <Form::FormText @type="text" @class="form-control" @name="user-username" @value={{this.user.username}} @isFormValid={{this.isFormValid}} @showMessage={{this.showMessage}} @validator={{validation-parameters required=true minLength=2 maxLength=45}} />
                 </div>
             </div>
-            {{#if isManageUsers}}
+            {{#if this.isManageUsers}}
                 <div class="form-group">
                     <label class="control-label col-sm-2">
                         {{t 'Password'}}
                     </label>
                     <div class="col-sm-10">
-                        <Form::FormText @type="password" @class="form-control" @id="password" @name="password" @value={{user.password}} @isFormValid={{isFormValid}} @showMessage={{showMessage}} @validator={{validation-parameters required=(unless (or (not user.password) (eq user.password "")) true) minLength=8 maxLength=200 type="password"}}/>
+                        <Form::FormText @type="password" @class="form-control" @id="password" @name="password" @value={{this.user.password}} @isFormValid={{this.isFormValid}} @showMessage={{this.showMessage}} @validator={{validation-parameters required=(unless (or (not this.user.password) (eq this.user.password "")) true) minLength=8 maxLength=200 type="password"}}/>
                     </div>
                 </div>
             {{else}}
@@ -112,21 +112,21 @@
                         {{t 'Password'}}
                     </label>
                     <div class="col-sm-10">
-                        <Form::FormText @type="password" @class="form-control" @id="actual_password" @name="actual_password" @value={{actual_password}} @placeholder={{t "Current password"}} @isFormValid={{isFormValid}} @showMessage={{showMessage}} @validator={{validation-parameters required=(if (or newpass repeatnewpass) true) minLength=8 maxLength=200 type="password"}} />
+                        <Form::FormText @type="password" @class="form-control" @id="actual_password" @name="actual_password" @value={{this.actual_password}} @placeholder={{t "Current password"}} @isFormValid={{this.isFormValid}} @showMessage={{this.showMessage}} @validator={{validation-parameters required=(if (or this.newpass this.repeatnewpass) true) minLength=8 maxLength=200 type="password"}} />
                     </div>
                 </div>
                 <div class="form-group">
                     <label class="control-label col-sm-2">
                     </label>
                     <div class="col-sm-10">
-                        <Form::FormText @type="password" @class="form-control" @id="newpass" @name="newpass" @value={{newpass}} @placeholder={{t "New password"}} @isFormValid={{isFormValid}} @showMessage={{showMessage}} @validator={{validation-parameters required=(if actual_password true) minLength=8 maxLength=200 type="password" }} />
+                        <Form::FormText @type="password" @class="form-control" @id="newpass" @name="newpass" @value={{this.newpass}} @placeholder={{t "New password"}} @isFormValid={{this.isFormValid}} @showMessage={{this.showMessage}} @validator={{validation-parameters required=(if this.actual_password true) minLength=8 maxLength=200 type="password" }} />
                     </div>
                 </div>
                 <div class="form-group">
                     <label class="control-label col-sm-2">
                     </label>
                     <div class="col-sm-10">
-                        <Form::FormText @type="password" @class="form-control" @id="repeatnewpass" @name="repeatnewpass" @value={{repeatnewpass}} @placeholder={{t "Repeat new password"}} @isFormValid={{isFormValid}} @showMessage={{showMessage}} @validator={{validation-parameters required=(if actual_password true) minLength=8 maxLength=200 type="password" equalTo=newpass}} />
+                        <Form::FormText @type="password" @class="form-control" @id="repeatnewpass" @name="repeatnewpass" @value={{this.repeatnewpass}} @placeholder={{t "Repeat new password"}} @isFormValid={{this.isFormValid}} @showMessage={{this.showMessage}} @validator={{validation-parameters required=(if this.actual_password true) minLength=8 maxLength=200 type="password" equalTo=this.newpass}} />
                     </div>
                 </div>
             {{/if}}
@@ -135,7 +135,7 @@
                     {{t 'Name'}}
                 </label>
                 <div class="col-sm-10">
-                    <Form::FormText @type="text" @class="form-control" @name="user-name" @value={{userName}} @isFormValid={{isFormValid}} @showMessage={{showMessage}} @validator={{validation-parameters required=true minLength=1 maxLength=45}}/>
+                    <Form::FormText @type="text" @class="form-control" @name="user-name" @value={{this.userName}} @isFormValid={{this.isFormValid}} @showMessage={{this.showMessage}} @validator={{validation-parameters required=true minLength=1 maxLength=45}}/>
                 </div>
             </div>
             <div class="form-group">
@@ -143,7 +143,7 @@
                     {{t 'Surname'}}
                 </label>
                 <div class="col-sm-10">
-                    <Form::FormText @type="text" @class="form-control" @name="user-surname" @value={{userSurname}} @isFormValid={{isFormValid}} @showMessage={{showMessage}} @validator={{validation-parameters required=true minLength=1 maxLength=45}} />
+                    <Form::FormText @type="text" @class="form-control" @name="user-surname" @value={{this.userSurname}} @isFormValid={{this.isFormValid}} @showMessage={{this.showMessage}} @validator={{validation-parameters required=true minLength=1 maxLength=45}} />
                 </div>
             </div>
             <div class="form-group">
@@ -151,7 +151,7 @@
                     {{t 'Phone'}}
                 </label>
                 <div class="col-sm-10">
-                    <Form::FormText @type="text" @class="form-control" @name="phone" @value={{user.phone}} @isFormValid={{isFormValid}} @showMessage={{showMessage}} @validator={{validation-parameters minLength=1 maxLength=45 type="phone"}} />
+                    <Form::FormText @type="text" @class="form-control" @name="phone" @value={{this.user.phone}} @isFormValid={{this.isFormValid}} @showMessage={{this.showMessage}} @validator={{validation-parameters minLength=1 maxLength=45 type="phone"}} />
                 </div>
             </div>
             <div class="form-group">
@@ -159,16 +159,16 @@
                     {{t 'Email'}}
                 </label>
                 <div class="col-sm-10">
-                    <Form::FormText @type="text" @class="form-control" @name="email" @value={{user.email}} @isFormValid={{isFormValid}} @showMessage={{showMessage}} @validator={{validation-parameters required=true minLength=0 maxLength=45 type="email"}} />
+                    <Form::FormText @type="text" @class="form-control" @name="email" @value={{this.user.email}} @isFormValid={{this.isFormValid}} @showMessage={{this.showMessage}} @validator={{validation-parameters required=true minLength=0 maxLength=45 type="email"}} />
                 </div>
             </div>
-            {{#if isManageUsers}}
+            {{#if this.isManageUsers}}
             <div class="form-group">
                 <label class="control-label col-sm-2">
                     {{t 'Enabled'}}
                 </label>
                 <div class="col-sm-10">
-                    <Input @type="checkbox" @checked={{user.enabled}} />
+                    <Input @type="checkbox" @checked={{this.user.enabled}} />
                 </div>
             </div>
             {{/if}}           
@@ -177,7 +177,7 @@
                     {{t 'Language'}}
                 </label>
                 <div class="col-sm-10">
-                        <Form::FormSelect @class="language-select form-control" @name="language" @isPowerSelect={{false}} @selectOptions={{userLanguages}} @allowClear={{true}} @value={{user.language}} @isFormValid={{isFormValid}} @showMessage={{showMessage}} @printSelectValuesHandle={{action "printSelectValuesHandle"}} @validator={{validation-parameters required=true minLength=2 maxLength=2 type="select" }} />
+                        <Form::FormSelect @class="language-select form-control" @name="language" @isPowerSelect={{false}} @selectOptions={{this.userLanguages}} @allowClear={{true}} @value={{this.user.language}} @isFormValid={{this.isFormValid}} @showMessage={{this.showMessage}} @printSelectValuesHandle={{action "printSelectValuesHandle"}} @validator={{validation-parameters required=true minLength=2 maxLength=2 type="select" }} />
                 </div>
             </div>
             <div class="form-group">

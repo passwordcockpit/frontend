@@ -1,16 +1,16 @@
-{{#if isPowerSelect}}
-    <PowerSelect @options={{selectOptions}} @allowClear={{allowClear}} @onChange={{action "selectOptionChange"}} @destination={{destination}} @selected={{value}} as |icon|>
+{{#if this.isPowerSelect}}
+    <PowerSelect @options={{this.selectOptions}} @allowClear={{this.allowClear}} @onChange={{action "selectOptionChange"}} @destination={{this.destination}} @selected={{this.value}} as |icon|>
         {{print-select-values-handle icon (action 'printSelectValuesHandle')}}
         {{!--<i class="fas fa-{{icon}}"></i>--}}
     </PowerSelect>
 {{else}}
     <select 
-        class={{class}} 
-        name={{name}}
+        class={{this.class}} 
+        name={{this.name}}
         onChange={{action 'selectOptionChange' value="target.value"}}
     >
-        {{#each selectOptions as |selectOption|}}
-            {{#if (eq selectOption.value value)}}
+        {{#each this.selectOptions as |selectOption|}}
+            {{#if (eq selectOption.value this.value)}}
                 <option value="{{selectOption.value}}" selected>
                     {{print-select-values-handle selectOption (action 'printSelectValuesHandle')}}
                 </option>
@@ -22,8 +22,8 @@
         {{/each}}
     </select>
 {{/if}}
-{{#if (or (and showElementMessage (not isElementValid)) (and showMessage (not isElementValid)))}}
+{{#if (or (and this.showElementMessage (not this.isElementValid)) (and this.showMessage (not this.isElementValid)))}}
     <div class="errors-list">
-        {{errorMessage}}
+        {{this.errorMessage}}
     </div>
 {{/if}}

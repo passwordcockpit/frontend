@@ -1,15 +1,15 @@
-{{#if canViewLog}}
+{{#if this.canViewLog}}
     <div class="panel panel-default log">
         <div class="panel-heading">
             {{t 'User\'s log'}}
         </div>
         <div class="panel-body">
-            {{#if loading}}
+            {{#if this.loading}}
                 <p class="alert alert-info">
                     <i class="fas fa-info-circle"></i>
                     {{t 'Loading ...'}}
                 </p>
-            {{else if logs}}
+            {{else if this.logs}}
                 <div class="table-responsive">
                     <table class="table">
                         <thead>
@@ -29,7 +29,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            {{#each logs as |log|}}
+                            {{#each this.logs as |log|}}
                                 <tr>
                                     <td class="grid-150">
                                         {{log.action_date}}
@@ -55,8 +55,8 @@
                 </p>
             {{/if}}
         </div>
-        {{#if logs}}
-            <LogPaginator @page={{page}} @pageCount={{pageCount}} @changePage={{action "submit"}} />
+        {{#if this.logs}}
+            <LogPaginator @page={{this.page}} @pageCount={{this.pageCount}} @changePage={{action "submit"}} />
         {{/if}}
     </div>
 {{/if}}

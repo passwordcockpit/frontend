@@ -1,10 +1,10 @@
 <textarea
-  name={{name}}
+  name={{this.name}}
   {{editor config=@options content=(if @value @value '') onEditorContentChange=(action 'onChange')}}
 ></textarea>
 
-{{#if (or (and showElementMessage (not isElementValid)) (and showMessage (not isElementValid)))}}
+{{#if (or (and this.showElementMessage (not this.isElementValid)) (and this.showMessage (not this.isElementValid)))}}
     <div class="errors-list">
-        {{errorMessage}}
+        {{this.errorMessage}}
     </div>
 {{/if}}    

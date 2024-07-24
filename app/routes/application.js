@@ -7,20 +7,22 @@
 // app/routes/application.js
 import Route from '@ember/routing/route';
 import { inject } from '@ember/service';
-import ApplicationRouteMixin from 'ember-simple-auth/mixins/application-route-mixin';
-import jwtDecode from 'ember-cli-jwt-decode';
+import { jwtDecode } from 'jwt-decode';
+import DS from 'ember-data';
 import ENV from '../config/environment';
 import RSVP from 'rsvp';
 
-export default Route.extend(ApplicationRouteMixin, {
+export default Route.extend({
     session: inject('session'),
     account: inject('account'),
     growl: inject('growl'),
     intl: inject('intl'),
     loading: inject('loading'),
     closeFoldersInputs: inject('close-folders-inputs'),
-
-    beforeModel() {
+    store: inject('store'),
+    router: inject('router'),
+    async beforeModel() {
+        await this.session.setup();
         this._super(...arguments);
         window.loading = this.loading;
         window.loading.showLoading(false);
@@ -38,7 +40,7 @@ export default Route.extend(ApplicationRouteMixin, {
             };
 
             if (userID.data.change_password) {
-                this.transitionTo('profile');
+                this.router.transitionTo('profile');
             } else {
                 result.permission = this.store.queryRecord('permission', { userId: userID.sub });
             }
@@ -67,22 +69,4 @@ export default Route.extend(ApplicationRouteMixin, {
         this._super(...arguments);
         window.loading.hideLoading();
     },
-
-    /**
-    This method handles the session's
-    {{#crossLink "SessionService/authenticationSucceeded:event"}}{{/crossLink}}
-    event. If there is a transition that was previously intercepted by the
-    {{#crossLink "AuthenticatedRouteMixin/beforeModel:method"}}
-    AuthenticatedRouteMixin's `beforeModel` method{{/crossLink}} it will retry
-    it. If there is no such transition, the `ember_simple_auth-redirectTarget`
-    cookie will be checked for a url that represents an attemptedTransition
-    that was aborted in Fastboot mode, otherwise this action transitions to the
-    {{#crossLink "Configuration/routeAfterAuthentication:property"}}{{/crossLink}}.
-    @method sessionAuthenticated
-    @public
-    */
-    sessionAuthenticated() {
-        this.refresh();
-        this.transitionTo('folders');
-    }
 });
