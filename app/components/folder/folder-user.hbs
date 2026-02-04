@@ -13,7 +13,7 @@
     </div>
     {{#if (or this.canAccessAllFolders (eq this.folder.access 2))}}
     <div class="edit">
-        <form class="form-folder-settings" {{action 'submit' on='submit' }}>
+        <form class="form-folder-settings" {{on 'submit' this.submit}}>
             <div class="folder-settings-container">
                 <div class="user-select-container">
                     {{this.folderUser.name}} {{this.folderUser.surname}}
@@ -23,25 +23,25 @@
                 </label>
             </div>
             <div class="form-btn">
-                <button class="btn btn-default btn-xs action-close" {{action 'cancelEdit'}}>
+                <button type="button" class="btn btn-default btn-xs action-close" {{on "click" this.cancelEdit}}>
                     {{t 'Cancel'}}
                 </button>
-                <button class="btn btn-primary btn-xs action-save" {{action 'updatePermission' this.folderUser this.folderId}}>
+                <button type="button" class="btn btn-primary btn-xs action-save" {{on "click" (fn this.updatePermission this.folderUser this.folderId)}}>
                     {{t 'Save'}}
                 </button>
             </div>
         </form>
     </div>
     <div class="actions {{if this.isManage 'open'}}">
-        <a class="btn btn-default btn-xs open-actions" {{action 'showConfirm' this.folderUser.id}}>
+        <a class="btn btn-default btn-xs open-actions" {{on "click" (fn this.showConfirm this.folderUser.id)}}>
             <i class="fas fa-trash"></i>
         </a>
-        <a class="btn btn-default btn-xs open-actions" {{action 'showEdit'}}>
+        <a class="btn btn-default btn-xs open-actions" {{on "click" this.showEdit}}>
             <i class="fas fa-pencil-alt"></i>
         </a>
     </div>
     <div class="modal fade" id="deletePermissionConfirm{{this.folderUser.id}}" tabindex="-1" role="dialog" aria-labelledby="confirm action" aria-hidden="true">
-        <div class="modal-with-action" {{action "cancelFormConfirm"}}></div>
+        <div class="modal-with-action" {{on "click" this.cancelFormConfirm}}></div>
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
@@ -53,10 +53,10 @@
                     {{t "Are you sure you want to delete this permission?"}}
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-light" {{action "cancelFormConfirm" this.folderUser.id}}>
+                    <button type="button" class="btn btn-light" {{on "click" (fn this.cancelFormConfirm this.folderUser.id)}}>
                         {{t "Cancel"}}
                     </button>
-                    <button type="button" class="btn btn-danger" {{action "deletePermission" this.folderUser this.folderId}}>
+                    <button type="button" class="btn btn-danger" {{on "click" (fn this.deletePermission this.folderUser this.folderId)}}>
                         {{t "Delete"}}
                     </button>
                 </div>
@@ -64,7 +64,7 @@
         </div>
     </div>
     <div class="modal fade" id="lastPermissionConfirm{{this.folderUser.id}}" tabindex="-1" role="dialog" aria-labelledby="confirm action" aria-hidden="true">
-        <div class="modal-with-action" {{action "cancelFormConfirm"}}></div>
+        <div class="modal-with-action" {{on "click" this.cancelFormConfirm}}></div>
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
@@ -77,10 +77,10 @@
                     {{t "lastPermissionDelete"}}
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-light" {{action "cancelFormConfirm" this.folderUser.id}}>
+                    <button type="button" class="btn btn-light" {{on "click" (fn this.cancelFormConfirm this.folderUser.id)}}>
                         {{t "Cancel"}}
                     </button>
-                    <button type="button" class="btn btn-danger" {{action "deletePermission" this.folderUser this.folderId}}>
+                    <button type="button" class="btn btn-danger" {{on "click" (fn this.deletePermission this.folderUser this.folderId)}}>
                         {{t "Delete"}}
                     </button>
                 </div>

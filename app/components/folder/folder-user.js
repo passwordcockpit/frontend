@@ -8,8 +8,10 @@ import Component from '@ember/component';
 import { inject } from '@ember/service';
 import { jwtDecode } from 'jwt-decode';
 import $ from 'jquery';
+import {action} from '@ember/object';
+import formValidation from 'passwordcockpit_frontend/mixins/form/form-validation';
 
-export default Component.extend({
+export default Component.extend(formValidation,{
     router: inject('router'),
     store: inject('store'),
     growl: inject('growl'),
@@ -18,15 +20,14 @@ export default Component.extend({
     errors: null,
     isManage: false,
     access: null,
-    
-    actions: {
+
         // Edit folder-user-permission
         
         /**
          * Show Edit permission form
          * Close the other opened inputs and reset Folder-user permission data
          */
-        showEdit() {
+        showEdit: action(function() {
             this.closeFoldersInputs.closeAllInputs();
             // set Manage checkbox
             if (this.folderUser.get('access') === 2) {
@@ -36,15 +37,15 @@ export default Component.extend({
             }
 
             this.folderUser.set('isEdit', true);
-        },
+        }),
 
         /**
          * Close Edit permission form
          */
-        cancelEdit() {
+        cancelEdit: action(function() {
             this.folderUser.set('isEdit', false);
             this.set('isManage', false);
-        },
+        }),
         /**
          * Update permission
          * Notify to folders (passing by folder-users) about the operation
@@ -52,7 +53,7 @@ export default Component.extend({
          * @param {*} folderUser 
          * @param {*} folderId 
          */
-        updatePermission(folderUser, folderId) {
+        updatePermission: action(function(folderUser, folderId) {
             window.loading.showLoading();
             this._super(...arguments);
             folderUser.setAccess(this.access);
@@ -68,7 +69,7 @@ export default Component.extend({
                     window.loading.hideLoading();
                     this.growl.errorShowRaw(adapterError.title, adapterError.message);
                 });
-        },
+        }),
         // delete permission
 
         /**
@@ -76,7 +77,7 @@ export default Component.extend({
          * 
          * @param {*} id 
          */
-        showConfirm(id) {
+        showConfirm: action(function(id) {
             let permissions = this.store.peekAll('folderuser');
 
             if(permissions.length == 1){
@@ -85,23 +86,23 @@ export default Component.extend({
             else{
                 $('#deletePermissionConfirm' + id).modal('show');
             }
-        },
+        }),
         /**
          * Close Delete permission confirmation dialog box
          * 
          * @param {*} id 
          */
-        cancelFormConfirm(id) {
+        cancelFormConfirm: action(function(id) {
             $('#deletePermissionConfirm' + id).modal('hide');
             $('#lastPermissionConfirm' + id).modal('hide');
-        },
+        }),
         /**
          * Delete permission
          * 
          * @param {*} folderUser 
          * @param {*} folderId 
          */
-        deletePermission(folderUser, folderId) {
+        deletePermission: action(function(folderUser, folderId) {
             var userId = jwtDecode(this.get('session.session.content.authenticated.token'));
             this._super(...arguments);
             $('#deletePermissionConfirm' + folderUser.id).modal('hide');
@@ -123,6 +124,5 @@ export default Component.extend({
                     window.loading.hideLoading();
                     this.growl.errorShowRaw(adapterError.title, adapterError.message);
                 });
-        }
-    }
+        }),
 });

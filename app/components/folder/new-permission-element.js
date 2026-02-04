@@ -6,6 +6,7 @@
 
 import Component from '@ember/component';
 import { inject } from '@ember/service';
+import { action } from '@ember/object';
 import formValidation from '../../mixins/form/form-validation';
 
 export default Component.extend(formValidation, {
@@ -18,18 +19,18 @@ export default Component.extend(formValidation, {
     userId: null,
     access: false,
 
-    actions: {
+    
         /**
          * Exit the creation of a permission
          */
-        cancel() {
+        cancel: action(function() {
             this.set('isAdd', false);
             this.set('selectedUser', null)
-        },
+        }),
         /**
          * Create new permission
          */
-        save() {
+        save: action(function() {
             window.loading.showLoading();
 
             let access = 1;
@@ -53,20 +54,19 @@ export default Component.extend(formValidation, {
                     window.loading.hideLoading();
                     this.growl.errorShowRaw(adapterError.title, adapterError.message);
                 });
-        },
+        }),
 
-        changeSelectedUser(user){
+        changeSelectedUser: action(function(user){
             this.set('selectedUser', user);
-        },
+        }),
 
-        handleFocus() {
+        handleFocus: action(function() {
             this.set('errors', null);
-        },
+        }),
         /**
          * How to handle printed value of select
          */
-        printSelectValuesHandle(user) {
-            return user.name + ' ' + user.surname;
-        }
-    }
+        printSelectValuesHandle: action(function(user) {
+    		return `${user.name} ${user.surname}`;
+        })
 });

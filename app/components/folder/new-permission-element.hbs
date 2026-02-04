@@ -1,10 +1,18 @@
 <li class="edit-view">
     <div class="edit {{if this.errors.selectUser 'has-error'}}">
-        <form class="form-folder-settings" {{action 'submit' this.folderId this.selectedUser on='submit' }}>
+        <form class="form-folder-settings" {{on "submit" this.submit}}>
             <div class="folder-settings-container">
                 <div class="user-select-container">
-                    <PowerSelect @selected={{this.selectedUser}} @printSelectValuesHandle={{action "printSelectValuesHandle"}} @options={{this.filteredUsers}} @isFormValid={{this.isFormValid}} @showMessage={{this.showMessage}} @onChange={{action "changeSelectedUser"}} @searchField="fullName" @validator={{validation-parameters required=true type="select"}} as |user|>
-                        {{print-select-values-handle user (action 'printSelectValuesHandle')}}
+                    <PowerSelect 
+					@selected={{this.selectedUser}} 
+					@printSelectValuesHandle={{this.printSelectValuesHandle}} 
+					@options={{this.filteredUsers}} 
+					@isFormValid={{this.isFormValid}} 
+					@showMessage={{this.showMessage}} 
+					@onChange={{this.changeSelectedUser}} 
+					@searchField="fullName" 
+					@validator={{validation-parameters required=true type="select"}} as |user|>
+                        {{print-select-values-handle user this.printSelectValuesHandle}}
                     </PowerSelect>    
                 </div>
                 <label class="user-edit-container">
@@ -12,7 +20,7 @@
                 </label>
             </div>
             <div class="form-btn">
-                <button class="btn btn-default btn-xs action-close" {{action 'cancel'}}>
+                <button class="btn btn-default btn-xs action-close" {{on "click" this.cancel}}>
                     {{t 'Cancel'}} <i class="fas fa-times"></i>
                 </button>
                 <button class="btn btn-primary btn-xs action-save" disabled="{{unless this.selectedUser true}}">
