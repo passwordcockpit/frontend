@@ -7,28 +7,28 @@
 import Component from '@ember/component';
 import { inject } from '@ember/service';
 import formValidation from '../../mixins/form/form-validation';
+import {action} from '@ember/object'
 
 export default Component.extend(formValidation, {
     store: inject('store'),
     growl: inject('growl'),
     parentId: null,
-    
-    actions: {
+
         /**
          * Exit the creation of a folder
          */
-        cancel() {
+        cancel: action(function() {
             if (this.parentId != null) {
                 this.store.peekRecord('folder', this.parentId).set('isAdd', false);
             }
             else {
                 this.cancelAddFolder();
             }
-        },
+        }),
         /**
          * Create new folder
          */
-        save() {
+        save: action(function() {
             window.loading.showLoading();
             let folderToCreate = this.store
                 .createRecord('folder', {
@@ -54,6 +54,6 @@ export default Component.extend(formValidation, {
                     this.set('errors', errors);
                     this.growl.errorShowRaw(adapterError.title, adapterError.message);
                 });
-        },
-    }
+        }),
+    
 });

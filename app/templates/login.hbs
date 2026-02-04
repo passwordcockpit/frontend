@@ -4,7 +4,7 @@
             <img class="logo-login" src="/assets/images/logo.svg" alt="login">
             <div class="login-panel panel panel-default">
                 <div class="panel-body">
-                    <form id="loginForm" class="form-horizontal" name="login" {{action 'submit' on='submit'}}>
+                    <form id="loginForm" class="form-horizontal" name="login" {{on "submit" this.submit}}>
                         <div class="form-group {{if this.errors.username 'has-error'}}">
                             <div class="col-sm-12">
                                 <Form::FormText @type="text" @viewId="username" @class="form-control" @name="username" @placeholder={{t "Username"}} @value={{this.username}} @isFormValid={{this.isFormValid}} @showMessage={{this.showMessage}} />

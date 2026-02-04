@@ -7,6 +7,7 @@
 import Controller, { inject as controller } from '@ember/controller';
 import { inject } from '@ember/service';
 import $ from 'jquery';
+import {action} from '@ember/object';
 
 export default Controller.extend({
     session: inject('session'),
@@ -14,9 +15,8 @@ export default Controller.extend({
     foldersController: controller('folders'),
     folderController: controller('folders.folder'),
     showList: true,
-    actions: {
-
-        removePassword(passwordId) {
+    
+        removePassword: action(function(passwordId) {
             let newPass = [];
             this.passwords.forEach((el) => {
                 if (el.password_id != passwordId) {
@@ -24,7 +24,7 @@ export default Controller.extend({
                 }
             });
             this.set('passwords', newPass);
-        },
+        }),
 
         /**
          * Load selected folder's passwords data
@@ -32,7 +32,7 @@ export default Controller.extend({
          * 
          * @param {*} params 
          */
-        onSelectFolder(params) {
+        onSelectFolder: action(function(params) {
             window.loading.showLoading();
             let folderId = params.folderId;
             let path = params.folderPath;
@@ -66,12 +66,12 @@ export default Controller.extend({
                 this.growl.errorShowRaw(adapterError.responseJSON.title, adapterError.responseJSON.detail);
             });
 
-        },
+        }),
         /**
          * Update the passwords list of the current folder
          * Is called by new-password/password (controller) on updating/creating new password
          */
-        onUpdatePassword() {
+        onUpdatePassword: action(function() {
             window.loading.showLoading();
 
             $.ajax({
@@ -91,15 +91,14 @@ export default Controller.extend({
                 window.loading.hideLoading();
                 this.growl.errorShowRaw(adapterError.responseJSON.title, adapterError.responseJSON.detail);
             });
-        },
-        /**
+        }),
+		/**
          * Toggle passwords list visibility (only for mobile)
          */
-        showPasswordsList() {
+        showPasswordsList: action(function() {
             this.set('showList', true);
-        },
-        hidePasswordsList() {
+        }),
+        hidePasswordsList: action(function() {
             this.set('showList', false);
-        },
-    }
+        }),
 });

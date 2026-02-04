@@ -8,8 +8,8 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
         </button>
-        <a class="navbar-brand" href="#" {{action "transitionToHomePage"}}>
-            <img class="logo" src="/assets/images/logo.svg" alt="logo">
+        <a class="navbar-brand" href="#" {{on "click" this.transitionToHomePage}}>
+            <img class="logo" src="/assets/images/logo.svg" alt="logo_passwordcockpit">
         </a>
     </div>
     <ul class="nav navbar-top-links navbar-right hidden-xs hidden-sm">
@@ -47,7 +47,7 @@
                 <li class="divider"></li>
                 {{/unless}}
                 <li>
-                    <a {{action 'invalidateSession'}} href="#">
+                    <a {{on "click" this.invalidateSession}} href="#">
                         <i class="fas fa-sign-out-alt"></i>
                         {{t 'Logout'}}
                     </a>
@@ -55,7 +55,19 @@
             </ul>
         </li>
         <li>
-            <Form::FormSelect @class="language-select form-control" @name="language" @user={{this.user}} @isHeaderLanguage={{true}} @isPowerSelect={{false}} @selectOptions={{this.userLanguages}} @allowClear={{true}} @value={{this.user.language}} @isFormValid={{this.isFormValid}} @showMessage={{this.showMessage}} @printSelectValuesHandle={{action "printSelectValuesHandle"}} @validator={{validation-parameters required=true minLength=2 maxLength=2 type="select" }} />
+            <Form::FormSelect 
+			@class="language-select form-control" 
+			@name="language" 
+			@user={{this.user}} 
+			@isHeaderLanguage={{true}} 
+			@isPowerSelect={{false}} 
+			@selectOptions={{this.userLanguages}} 
+			@allowClear={{true}} 
+			@value={{this.user.language}} 
+			@isFormValid={{this.isFormValid}} 
+			@showMessage={{this.showMessage}} 
+			@printSelectValuesHandle={{this.printSelectValuesHandle}} 
+			@validator={{validation-parameters required=true minLength=2 maxLength=2 type="select" }} />
         </li>
     </ul>
     <div class="hidden-md hidden-lg" role="navigation">
@@ -76,7 +88,7 @@
                     </LinkTo>
                 </li>
                 <li>
-                    <a {{action 'invalidateSession'}} href="#">
+                    <a {{on "click" this.invalidateSession}} href="#">
                         <i class="fas fa-sign-out-alt"></i>
                         {{t 'Logout'}}
                     </a>
