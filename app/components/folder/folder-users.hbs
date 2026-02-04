@@ -4,7 +4,7 @@
         <div class="pull-right">
             {{#if (or this.canAccessAllFolders (eq this.folder.access 2))}}
                 <div class="btn-group">
-                    <a class="btn btn-default btn-xs" {{action 'addPermission' this.users}}>
+                    <a class="btn btn-default btn-xs" {{on "click" (fn this.addPermission this.users)}}>
                         <i class="fas fa-plus"></i>
                     </a>
                 </div>
@@ -14,10 +14,25 @@
     <div class="scroll-container">
         <ul class="list">
             {{#if this.isAdd}}
-                <Folder::NewPermissionElement @isAdd={{this.isAdd}} @errors={{this.errors}} @filteredUsers={{this.filteredUsers}} @folderUsers={{this.folderUsers}} @folderId={{this.folderId}} @reloadFolderUser={{action "reloadFolderUser"}} />
+                <Folder::NewPermissionElement 
+				@isAdd={{this.isAdd}} 
+				@errors={{this.errors}} 
+				@filteredUsers={{this.filteredUsers}} 
+				@folderUsers={{this.folderUsers}} 
+				@folderId={{this.folderId}} 
+				@reloadFolderUser={{this.reloadFolderUser}} 
+				/>
             {{/if}}
             {{#each this.folderUsers as |folderUser|}}
-                <Folder::FolderUser @folderUser={{folderUser}} @folderId={{this.folderId}} @folder={{this.folder}} @canAccessAllFolders={{this.canAccessAllFolders}} @reloadFolderUser={{action "reloadFolderUser"}} @onUpdatePermission={{action "onUpdatePermission"}} @onDeletePermission={{action "onDeletePermission"}} />
+                <Folder::FolderUser 
+				@folderUser={{folderUser}} 
+				@folderId={{this.folderId}} 
+				@folder={{this.folder}} 
+				@canAccessAllFolders={{this.canAccessAllFolders}} 
+				@reloadFolderUser={{this.reloadFolderUser}} 
+				@onUpdatePermission={{this.handleUpdatePermission}} 
+				@onDeletePermission={{this.handleDeletePermission}} 
+				/>
             {{/each}}
         </ul>
     </div>

@@ -6,27 +6,28 @@
 
 import Component from '@ember/component';
 import { inject } from '@ember/service';
+import { action } from '@ember/object';
 
 export default Component.extend({
     store: inject('store'),
     growl: inject('growl'),
     closeFoldersInputs: inject('close-folders-inputs'),
-    actions: {
+    
         /**
          * Show New permission form
          * Close the other opened inputs and clear errors data
          */
-        addPermission() {
+        addPermission: action(function() {
             this.closeFoldersInputs.closeAllInputs();
             this.set('isAdd', true);
             this.set('errors', null);
-        },
+        }),
 
         /**
          * Update the List of users with no-pemission 
          * after the creation of a new permission
          */
-        reloadFolderUser() {
+        reloadFolderUser: action(function() {
             window.loading.showLoading();
             let folder = this.folder;
             this.store.unloadAll('folderuser');
@@ -53,21 +54,20 @@ export default Component.extend({
                         this.growl.errorsDatabase(adapterError.errors);
                     }
                 });
-        },
+        }),
         /**
          * Is called by folder-user on updating a permission
          * Notify to folders (passing by folders.folder.index) about the operation
          */
-        onUpdatePermission() {
+        handleUpdatePermission: action(function() {
             this.onUpdatePermission();
-        },
+        }),
         /**
          * Is called by folder-user on deleting a permission
          * Notify to folders (passing by folders.folder.index) about the operation
          */
-        onDeletePermission() {
+        handleDeletePermission: action(function() {
             this.onDeletePermission();
             this.send('reloadFolderUser');
-        },
-    }
+        }),
 });
