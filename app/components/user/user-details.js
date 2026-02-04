@@ -6,6 +6,7 @@
 
 import Component from '@ember/component';
 import { inject } from '@ember/service';
+import { action } from '@ember/object';
 import { jwtDecode } from 'jwt-decode';
 import formValidation from '../../mixins/form/form-validation';
 import ENV from '../../config/environment';
@@ -56,14 +57,13 @@ export default Component.extend(formValidation, {
     this.set('newpass', null);
     this.set('repeatnewpass', null);
   },
-  actions: {
     // cancelEdit
 
     /**
      * Exit editing User
      * Reset user data end related data
      */
-    cancel() {
+    cancel: action(function() {
       this.set('isEdit', false);
       this.user.rollbackAttributes();
 
@@ -73,19 +73,19 @@ export default Component.extend(formValidation, {
 
       // reset errors data
       this.set('errors', null);
-    },
+    }),
     /**
      * Show Edit user form
      */
-    showEdit() {
+    showEdit: action(function() {
       this.set('isEdit', true);
       // reset errors data
       this.set('errors', null);
-    },
+    }),
     /**
      * Edit user
      */
-    save() {
+    save: action(function() {
       window.loading.showLoading();
       let self = this;
       let user = this.user;
@@ -171,12 +171,12 @@ export default Component.extend(formValidation, {
           this.growl.errorShowRaw(adapterError.title, adapterError.message);
           window.loading.hideLoading();
         });
-    },
+    }),
     /**
      * Delete password related error messages
      * on changing password inputs
      */
-    onPasswordChange(type) {
+    onPasswordChange: action(function(type) {
       if (
         this.errors !== undefined &&
         this.errors !== null &&
@@ -187,19 +187,18 @@ export default Component.extend(formValidation, {
           this.set('errors', null);
         }
       }
-    },
+    }),
     /**
      * close Force to login modal
      * redirect to login page because useer token became unvalid
      */
-    CloseForceLogoutModal() {
+    CloseForceLogoutModal: action(function() {
       this.session.invalidate();
-    },
+    }),
     /**
      * How to handle printed value of select
      */
-    printSelectValuesHandle(userLanguage) {
+    printSelectValuesHandle: action(function(userLanguage) {
       return userLanguage.text;
-    },
-  },
+    })
 });

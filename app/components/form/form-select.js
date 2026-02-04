@@ -6,6 +6,7 @@
 
 import Component from '@ember/component';
 import { inject } from '@ember/service';
+import { action } from '@ember/object';
 import { jwtDecode } from 'jwt-decode';
 import ENV from '../../config/environment';
 import formElementValidation from '../../mixins/form/form-element-validation';
@@ -23,27 +24,28 @@ export default Component.extend(formElementValidation, {
                              ENV.APP.userLanguages;
     },
 
-    actions: {
-        selectOptionChange(value) {
+
+        selectOptionChange: action(function (eventOrValue) {
+			let value = eventOrValue && eventOrValue.target? eventOrValue.target.value: eventOrValue;
             this.set('value', value);
             if(this.isHeaderLanguage){
-                this.send('saveLang');
+  				this.saveLang(value);
             }else{
                 this.send('keyUp');
             }
-        },
-        printSelectValuesHandle(value) {
+        }),
+        handlePrintSelectValuesHandle: action(function(value) {
             if (this.printSelectValuesHandle !== undefined) {
                 return this.printSelectValuesHandle(value);
             }
             else{
                 return value;
             }
-        },
+        }),
         /**
          * Edit user's language in header-navigation
          */
-        saveLang() {
+        saveLang: action(function() {
             window.loading.showLoading();
             let self = this;
             let user = this.user;
@@ -81,6 +83,5 @@ export default Component.extend(formElementValidation, {
                     this.growl.errorShowRaw(adapterError.title, adapterError.message);
                     window.loading.hideLoading();
                 });
-        },
-    }
+        })
 });

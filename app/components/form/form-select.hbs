@@ -1,22 +1,22 @@
 {{#if this.isPowerSelect}}
-    <PowerSelect @options={{this.selectOptions}} @allowClear={{this.allowClear}} @onChange={{action "selectOptionChange"}} @destination={{this.destination}} @selected={{this.value}} as |icon|>
-        {{print-select-values-handle icon (action 'printSelectValuesHandle')}}
+    <PowerSelect @options={{this.selectOptions}} @allowClear={{this.allowClear}} @onChange={{this.handleSelectOptionChange}} @destination={{this.destination}} @selected={{this.value}} as |icon|>
+        {{print-select-values-handle icon this.handlePrintSelectValuesHandle}}
         {{!--<i class="fas fa-{{icon}}"></i>--}}
     </PowerSelect>
 {{else}}
     <select 
         class={{this.class}} 
         name={{this.name}}
-        onChange={{action 'selectOptionChange' value="target.value"}}
+          {{on "change" this.selectOptionChange}}
     >
         {{#each this.selectOptions as |selectOption|}}
             {{#if (eq selectOption.value this.value)}}
                 <option value="{{selectOption.value}}" selected>
-                    {{print-select-values-handle selectOption (action 'printSelectValuesHandle')}}
+                    {{print-select-values-handle selectOption this.handlePrintSelectValuesHandle}}
                 </option>
             {{else}}
                 <option value="{{selectOption.value}}">
-                    {{print-select-values-handle selectOption (action 'printSelectValuesHandle')}}
+                    {{print-select-values-handle selectOption this.handlePrintSelectValuesHandle}}
                 </option>
             {{/if}}
         {{/each}}
