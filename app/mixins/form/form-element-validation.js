@@ -6,6 +6,7 @@
 
 import Mixin from '@ember/object/mixin';
 import { inject } from '@ember/service';
+import { action } from '@ember/object';
 
 /**
  * This Mixin manage the elements form validation
@@ -140,12 +141,11 @@ export default Mixin.create({
 
     return isElementValid;
   },
-  actions: {
-    keyUp() {
-      this.validation(true);
-      if (this.keyUpCustomAction !== undefined) {
+
+  handleKeyUp: action(function(){
+	this.validation(true);
+	if (this.keyUpCustomAction !== undefined) {
         this.keyUpCustomAction();
       }
-    },
-  },
+  })
 });

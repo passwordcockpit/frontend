@@ -1,4 +1,4 @@
-<Input @type={{this.type}} class={{this.class}} @id={{this.viewId}} @name={{this.name}} placeholder={{this.placeholder}} @value={{this.value}} @key-up={{action "keyUp"}} />
+<Input @type={{this.type}} class={{this.class}} @id={{this.viewId}} @name={{this.name}} placeholder={{this.placeholder}} @value={{this.value}} {{on "keyup" this.handleKeyUp}} />
 {{#if (or (and this.showElementMessage (not this.isElementValid)) (and this.showMessage (not this.isElementValid)))}}
     <div class="errors-list">
         {{this.errorMessage}}
