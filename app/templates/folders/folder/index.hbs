@@ -3,5 +3,5 @@
     {{this.model.folderName}}
 </h1>
 
-<Folder::FolderUsers @folder={{this.model.folder}} @users={{this.model.users}} @filteredUsers={{this.model.filteredUsers}} @folderUsers={{this.model.folderUsers}} @folderId={{this.model.folderId}} @canAccessAllFolders={{this.model.folder.canAccessAllFolders}} @isAdd={{this.isAdd}} @errors={{this.errors}} @controller={{this}} @onUpdatePermission={{action "onUpdatePermission"}} @onDeletePermission={{action "onDeletePermission"}} />
+<Folder::FolderUsers @folder={{this.model.folder}} @users={{this.model.users}} @filteredUsers={{this.model.filteredUsers}} @folderUsers={{this.model.folderUsers}} @folderId={{this.model.folderId}} @canAccessAllFolders={{this.model.folder.canAccessAllFolders}} @isAdd={{this.isAdd}} @errors={{this.errors}} @controller={{this}} @onUpdatePermission={{this.onUpdatePermission}} @onDeletePermission={{this.onDeletePermission}} />
 {{outlet}}

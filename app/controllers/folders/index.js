@@ -5,19 +5,19 @@
 */
 
 import Controller, { inject as controller } from '@ember/controller';
+import { action } from '@ember/object';
 
 export default Controller.extend({
     foldersController: controller('folders'),
     showList: true,
-    actions: {
+    
         /**
          * Toggle passwords list visibility (only for mobile)
          */
-        showPasswordsList() {
+        showPasswordsList: action(function() {
             this.set('showList', true);
-        },
-        hidePasswordsList() {
+        }),
+        hidePasswordsList: action(function() {
             this.set('showList', false);
-        },
-    }
+        }),
 });

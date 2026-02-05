@@ -5,7 +5,7 @@
  */
 
 import Component from '@ember/component';
-import { computed } from '@ember/object';
+import { computed, action } from '@ember/object';
 import { inject } from '@ember/service';
 import ENV from './../../config/environment';
 import formValidation from '../../mixins/form/form-validation';
@@ -52,28 +52,28 @@ export default Component.extend(formValidation, {
     this.growl.notice('Success', 'Copied to clipboard');
   },
 
-  actions: {
+  
     /**
      * Toggle Password's visibility
      */
-    togglePasswordVisibility() {
+    togglePasswordVisibility: action(function() {
       this.toggleProperty('isPasswordVisible');
-    },
+    }),
 
     /**
      * Show edit Password form
      * Store before-editing Password data
      */
-    editPassword() {
+    editPassword: action(function() {
       this.set('isEdit', true);
       this.set('localTempPassword', this.password.serialize());
       this.set('localTempPasswordDecrypted', this.passwordDecrypted);
-    },
+    }),
     /**
      * Cancel editing Password
      * Reset Password data using stored data
      */
-    cancel() {
+    cancel: action(function() {
       this.set('isEdit', false);
 
       let self = this;
@@ -88,41 +88,41 @@ export default Component.extend(formValidation, {
       // protect password
       this.set('pinDecrypt', null);
       this.set('isPinValid', false);
-    },
+    }),
 
     // Generate password functions
     /**
      * Is called on Random-password's refresh button clicking
      */
-    refreshPassword() {
+    refreshPassword: action(function() {
       this.send('GeneratorPassword');
-    },
+    }),
     /**
      * Show Random-password Options' panel
      */
-    showPasswordGeneratorOption() {
+    showPasswordGeneratorOption: action(function() {
       $('.password-options-form').slideDown();
-    },
+    }),
     /**
      * Close Random-password Options' panel
      */
-    showPasswordGeneratorOptionClose() {
+    showPasswordGeneratorOptionClose: action(function() {
       $('.password-options-form').slideUp();
-    },
+    }),
     /**
      * Reset Random-password Options
      */
-    ResetPasswordGenerator() {
+    ResetPasswordGenerator: action(function() {
       $('input[name="password-length"]').val('8');
       $('input[name="uppercase"]').prop('checked', true);
       $('input[name="lowercase"]').prop('checked', true);
       $('input[name="numbers"]').prop('checked', true);
       $('input[name="specialchars"]').prop('checked', false);
-    },
+    }),
     /**
      * Generate and put new Random-password into Password input
      */
-    GeneratorPassword() {
+    GeneratorPassword: action(function() {
       var passwordLength = 8;
       var uppercase = false;
       var lowercase = false;
@@ -157,13 +157,13 @@ export default Component.extend(formValidation, {
       // update password
       this.set('passwordDecrypted', newPassword);
       this.send('setPassword', false);
-    },
+    }),
 
     /**
      * Highlight password and copy it in clipboard
      * * @param {*} password
      */
-    selectPassword(password) {
+    selectPassword: action(function(password) {
       let sel, range;
       let el = $('#password-read')[0];
       if (window.getSelection && document.createRange) {
@@ -191,13 +191,13 @@ export default Component.extend(formValidation, {
           range.select(); //make selection.
         }
       }
-    },
+    }),
 
     /**
      * Highlight username and copy it in clipboard
      * @param {*} username
      */
-    selectUsername(username) {
+    selectUsername: action(function(username) {
       let sel, range;
       let el = $('#username-read')[0];
       if (window.getSelection && document.createRange) {
@@ -225,22 +225,22 @@ export default Component.extend(formValidation, {
           range.select(); //make selection.
         }
       }
-    },
+    }),
 
     // delete password functions
     /**
      * Show Delete password confirmation dialog box
      */
-    showConfirm() {
+    showConfirm: action(function() {
       $('#deletePasswordConfirm').modal('show');
-    },
+    }),
 
     /**
      * close Delete password confirmation dialog box
      */
-    cancelFormConfirm() {
+    cancelFormConfirm: action(function() {
       $('#deletePasswordConfirm').modal('hide');
-    },
+    }),
 
     /**
      * Confirm the password's deletion
@@ -248,16 +248,16 @@ export default Component.extend(formValidation, {
      *
      * @param {*} passwordId
      */
-    deletePassword(passwordId) {
+    deletePassword: action(function(passwordId) {
       $('#deletePasswordConfirm').modal('hide');
       this.onDeletePassword(passwordId);
-    },
+    }),
 
     // Password's file functions
     /**
      * Download password's file
      */
-    downloadPasswordFile() {
+    downloadPasswordFile: action(function() {
       let self = this;
       let fileName = this.password.get('fileName');
       let url =
@@ -280,11 +280,11 @@ export default Component.extend(formValidation, {
           /*global saveAs */
           saveAs(res, fileName);
         });
-    },
+    }),
     /**
      * Delete password's file
      */
-    deletePasswordFile() {
+    deletePasswordFile: action(function() {
       $('#deleteFilePermissionConfirm').modal('hide');
       window.loading.showLoading();
       let self = this;
@@ -325,24 +325,24 @@ export default Component.extend(formValidation, {
             adapterError.responseJSON.detail,
           );
         });
-    },
+    }),
     /**
      * Show Delete password's file confirmation dialog box
      */
-    showDeleteFileConfirm() {
+    showDeleteFileConfirm: action(function() {
       $('#deleteFilePermissionConfirm').modal('show');
-    },
+    }),
     /**
      * Close Delete password's file confirmation dialog box
      */
-    cancelDeleteFileConfirm() {
+    cancelDeleteFileConfirm: action(function() {
       $('#deleteFilePermissionConfirm').modal('hide');
-    },
+    }),
     /**
      * Update password
      * Notify to passwords (controller) about the operation
      */
-    save() {
+    save: action(function() {
       window.loading.showLoading();
       // reset errors data
       this.set('errors', null);
@@ -429,13 +429,14 @@ export default Component.extend(formValidation, {
           window.loading.hideLoading();
           this.growl.errorShowRaw(adapterError.title, adapterError.message);
         });
-    },
+    }),
 
     // Descrypt/Encrypt password funtions
     /**
      * descrypt password.password
      */
-    decryptPassword() {
+    decryptPassword: action(function() {
+		debugger;
       if (
         this.passwordEncrypt.decryptPassword(
           this.pinDecrypt,
@@ -465,31 +466,32 @@ export default Component.extend(formValidation, {
         this.failureCounted >= this.failureLimit,
       );
       this.set('isPinValid', false);
-    },
+    }),
     /**
      * Lock password on pinDecrypt changing
      */
-    protectPassword(event) {
+    protectPassword: action(function(event) {
+		debugger;
       if (event.keyCode !== 13) {
         this.set('isPinValid', false);
       }
-    },
+    }),
     /**
      * reset frontendCrypted if password empty
      *
      */
-    resetPin() {
+    resetPin: action(function() {
       if (!this.passwordDecrypted) {
         this.set('password.frontendCrypted', false);
       }
       this.send('setPassword', false);
-    },
+    }),
     /**
      * set password.password (with/without PIN)
      *
      * @param {boolean} toggleFrontendCrypted
      */
-    setPassword(toggleFrontendCrypted) {
+    setPassword: action(function(toggleFrontendCrypted) {
       if (toggleFrontendCrypted) {
         this.set(
           'password.frontendCrypted',
@@ -511,12 +513,11 @@ export default Component.extend(formValidation, {
           this.set('pinEncrypt', null);
         }
       }
-    },
+    }),
     /**
      * How to handle printed value of select
      */
-    printSelectValuesHandle(icon) {
+    printSelectValuesHandle: action(function(icon) {
       return new htmlSafe('<i class="fas fa-' + icon + '"></i>');
-    },
-  },
+    }),
 });

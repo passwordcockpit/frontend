@@ -6,6 +6,7 @@
 
 import Controller, { inject as controller } from '@ember/controller';
 import { inject } from '@ember/service';
+import { action } from '@ember/object';
 import $ from 'jquery';
 
 export default Controller.extend({
@@ -13,13 +14,13 @@ export default Controller.extend({
     folderController: controller('folders.folder'),
     growl: inject('growl'),
     router: inject('router'),
-    actions: {
+    
         /**
          * Is called by password-contents on deleting the password
          * 
          * @param {*} passwordId 
          */
-        onDeletePassword(passwordId) {
+        onDeletePassword: action(function(passwordId) {
             window.loading.showLoading();
             let password = this.store.peekRecord('password', passwordId);
             let folderId = password.folder_id
@@ -39,7 +40,7 @@ export default Controller.extend({
                     $('.modal-dialog').hide();
                     this.growl.errorShowRaw(adapterError.title, adapterError.message);
                 });
-        },
+        }),
         /**
          * Is called by password-contents on updating the password
          * 
@@ -57,7 +58,7 @@ export default Controller.extend({
          * 
          * @param {*} passwordId 
          */
-        refreshLog(passwordId) {
+        refreshLog: action(function(passwordId) {
 
             let page = this.page;
             let self = this
@@ -85,15 +86,14 @@ export default Controller.extend({
                 window.loading.hideLoading();
                 this.growl.errorShowRaw(adapterError.title, adapterError.message);
             });
-        },
+        }),
 
         /**
          * Set current Log's page
          * 
          * @param {*} page - page number 
          */
-        changeLogPage(page) {
+        changeLogPage: action(function(page) {
             this.set('page', page);
-        }
-    }
+        })
 });

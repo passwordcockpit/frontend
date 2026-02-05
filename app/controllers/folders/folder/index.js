@@ -6,6 +6,7 @@
 
 import Controller, { inject as controller } from '@ember/controller';
 import { inject } from '@ember/service';
+import { action } from '@ember/object';
 
 export default Controller.extend({
     foldersController: controller('folders'),
@@ -15,20 +16,19 @@ export default Controller.extend({
     isAdd: false,
     errors: null,
 
-    actions: {
         /**
          * Notify to folders about the operation
          * Is called by folder-user on updating permission
          */
-        onUpdatePermission() {
+        onUpdatePermission: action(function() {
             this.foldersController.send('onUpdatePemission');
-        },
+        }),
         /**
          * Notify to folders about the operation
          * Is called by folder-user on deleting permission
          */
-        onDeletePermission() {
+        onDeletePermission: action(function() {
             this.foldersController.send('onUpdatePemission');
-        }
-    }
+        })
+
 });

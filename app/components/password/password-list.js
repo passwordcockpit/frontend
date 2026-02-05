@@ -5,17 +5,18 @@
 */
 
 import Component from '@ember/component';
+import { action } from '@ember/object';
 
 export default Component.extend({
-    actions: {
         /**
          * Toggle passwords list visibility (only for mobile)
          */
-        showPasswordsList() {
+        handleShowPasswordsList: action(function() {
+			console.log("gugugaga");
             this.showPasswordsList();
-        },
-        hidePasswordsList() {
+        }),
+        handleHidePasswordsList: action (function() {
+			console.log("gugu");
             this.hidePasswordsList();
-        }
-    }
+        })
 });
