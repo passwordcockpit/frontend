@@ -25,7 +25,7 @@ export default Mixin.create({
     this.isFormValid.forEach(function (data) {
       data.element.validation(true);
     });
-    if (this.isFormValid.isEvery('isElementValid', true)) {
+	if (Array.isArray(this.isFormValid) && this.isFormValid.every((e) => e.isElementValid === true)) {
       this.send('save');
     } else {
       // frontend validation NOK

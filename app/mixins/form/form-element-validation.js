@@ -19,15 +19,13 @@ export default Mixin.create({
   tagName: '',
   willDestroyElement() {
     // Remove element from Errors list
-    let elementToRemove = this.isFormValid.filter((element) => {
-      return element.name == this.name;
-    });
-    this.isFormValid.removeObjects(elementToRemove);
+    this._super?.(...arguments);
+  	this.isFormValid = this.isFormValid.filter((el) => el.name !== this.name);
   },
   init() {
     this._super(...arguments);
     // populate object for form validation on submit
-    if (this.isFormValid.filterBy('name', this.name).length === 0) {
+    if (this.isFormValid.filter((el)=> el.name === this.name).length === 0) {
       this.isFormValid.push({
         name: this.name,
         isElementValid: this.isElementValid,
@@ -136,10 +134,12 @@ export default Mixin.create({
     this.set('showElementMessage', showElementMessage);
     this.set('isElementValid', isElementValid);
     // update object for form validation on submit
-    this.isFormValid.filterBy('name', this.name)[0].isElementValid =
-      isElementValid;
-
-    return isElementValid;
+	let entry = this.isFormValid?.find?.((el) => el.name === this.name);
+	if (entry) {
+  		entry.isElementValid = isElementValid;
+	}
+    
+	return isElementValid;
   },
 
   handleKeyUp: action(function(){
