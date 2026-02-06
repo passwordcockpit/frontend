@@ -5,6 +5,7 @@
 */
 
 import Component from '@ember/component';
+import { action } from '@ember/object';
 
 export default Component.extend({
     selectedPage: null,
@@ -56,32 +57,30 @@ export default Component.extend({
         this.set('pages', pages);
     },
 
-    actions: {
         /**
          * Change log's page
          * 
          * @param {*} page - page number
          */
-        changePage(page) {
+        handleChangePage: action(function(page) {
             this.changePage(page);
-        },
+        }),
         /**
          * Change to next log's page
          * 
          * @param {*} page - current page number
          */
-        nextPage(page) {
+        nextPage: action(function(page) {
             page += 1;
             this.changePage(page);
-        },
+        }),
         /**
          * Change to previous log's page
          * 
          * @param {*} page - current page number
          */
-        previousPage(page) {
+        previousPage: action(function(page) {
             page -= 1;
             this.changePage(page);
-        }
-    }
+        })
 });

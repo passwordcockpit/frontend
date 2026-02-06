@@ -5,17 +5,16 @@
 */
 
 import Controller, { inject as controller } from '@ember/controller';
+import { action } from '@ember/object';
 
 export default Controller.extend({
     folderController: controller('folders.folder'),
 
-    actions: {
         /**
          * Is called by folder-user on creating new Password
          * Notify to folders.folder about the operation
          */
-        onCreatePassword() {
+        onCreatePassword: action(function() {
             this.folderController.send('onUpdatePassword');
-        }
-    }
+        })
 });

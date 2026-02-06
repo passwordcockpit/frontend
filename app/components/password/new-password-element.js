@@ -6,6 +6,7 @@
 
 import Component from '@ember/component';
 import { inject } from '@ember/service';
+import { action } from '@ember/object';
 import ENV from './../../config/environment';
 import formValidation from '../../mixins/form/form-validation';
 import $ from 'jquery';
@@ -28,39 +29,41 @@ export default Component.extend(formValidation, {
         // init bootstrap tooltip
         $('[data-toggle="tooltip"]').tooltip();
     },
-    actions: {
+    
         /**
          * Is called on Random-password's refresh button clicking
          */
-        refreshPassword() {
+		
+        refreshPassword: action(function() {
             this.send('GeneratorPassword');
-        },
+        }),
         /**
          * Show Random-password Options' panel
          */
-        showPasswordGeneratorOption() {
+        showPasswordGeneratorOption: action(function() {
             $('.password-options-form').slideDown();
-        },
+        }),
         /**
          * Close Random-password Options' panel
          */
-        showPasswordGeneratorOptionClose() {
+        showPasswordGeneratorOptionClose: action(function() {
             $('.password-options-form').slideUp();
-        },
+        }),
         /**
          * Reset Random-password Options
          */
-        ResetPasswordGenerator() {
+        ResetPasswordGenerator: action(function() {
             $('input[name="password-length"]').val('8');
             $('input[name="uppercase"]').prop('checked', true);
             $('input[name="lowercase"]').prop('checked', true);
             $('input[name="numbers"]').prop('checked', true);
             $('input[name="specialchars"]').prop('checked', false);
-        },
+        }),
         /**
          * Generate and put new Random-password into Password input
          */
-        GeneratorPassword() {
+		
+        GeneratorPassword: action(function() {
             var passwordLength = 8;
             var uppercase = false;
             var lowercase = false;
@@ -92,14 +95,14 @@ export default Component.extend(formValidation, {
 
             // update password
             this.set('password', newPassword);
-        },
+        }),
 
         /**
          * Create new password
          * Notify to new-password about the operation
          * 
          */
-        save() {
+        save: action(function() {
             window.loading.showLoading();
             let folderId = this.folderId;
             // reset errors data
@@ -175,15 +178,14 @@ export default Component.extend(formValidation, {
                 window.loading.hideLoading();
             }
 
-        },
+        }),
         /**
          * reset frontendCrypted if password empty
          * 
          */
-        resetPin() {
+        resetPin: action(function() {
             if (!this.password) {
                 this.set('frontendCrypted', false)
             }
-        },
-    }
+        }),
 });

@@ -6,20 +6,20 @@
 
 import Component from '@ember/component';
 import { inject } from '@ember/service';
+import { action } from '@ember/object';
 
 export default Component.extend({
     store: inject('store'),
     growl: inject('growl'),
 
-    actions: {
-        /**
+            /**
          * Change password's logs page
          * 
          * @param {*} page - page number
          */
-        submit(page) {
+        submit: action(function(page) {
+			debugger;
             this.changeLogPage(page);
             this.refreshLog(this.password.id);
-        },
-    }
+        }),
 });
