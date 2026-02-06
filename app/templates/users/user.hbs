@@ -1,5 +1,5 @@
 <User::UserDetails @user={{this.model.user}} @isEdit={{this.model.isDetailEdit}} @errors={{this.updatingUserErrors}} @isManageUsers={{true}} />
-<User::UserRights @permission={{this.model.permission}} @isEdit={{this.model.isPermissionEdit}} @onUpdateUserRight={{action "onUpdateUserRight"}} />
+<User::UserRights @permission={{this.model.permission}} @isEdit={{this.model.isPermissionEdit}} @onUpdateUserRight={{this.onUpdateUserRight}} />
 
 <User::UserLogs @logs={{this.logs}} @user={{this.model.user}} @canViewLog={{this.canViewLog}} @page={{this.model.page}} @pageCount={{this.model.pageCount}} />
 <User::UserAccessibleFolders @folderusers={{this.folderusers}} @user={{this.model.user}} @page={{this.model.pageFu}} @pageCount={{this.model.pageCountFu}}/>

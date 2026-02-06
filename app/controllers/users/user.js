@@ -7,19 +7,19 @@
 import Controller from '@ember/controller';
 import { jwtDecode } from 'jwt-decode';
 import { inject } from '@ember/service';
+import { action } from '@ember/object';
 
 export default Controller.extend({
     session: inject('session'),
     growl: inject('growl'),
     router: inject('router'),
-    actions: {
         /**
          * Reload logs data and canViewLog permission
          * Is called by user-rights on Editing permission
          * 
          * @param {*} userId 
          */
-        onUpdateUserRight(userId) {
+        onUpdateUserRight: action(function(userId) {
             let logedUserId = jwtDecode(this.get('session.data.authenticated.token')).sub;
             if (logedUserId == userId) {
                 if (this.model.permission.get('view_logs') && !this.canViewLog) {
@@ -38,6 +38,5 @@ export default Controller.extend({
                     this.router.transitionTo('folders');
                 }
             }
-        }
-    }
+        })
 });

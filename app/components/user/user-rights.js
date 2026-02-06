@@ -6,29 +6,30 @@
 
 import Component from '@ember/component';
 import { inject } from '@ember/service';
+import { action } from '@ember/object';
 
 export default Component.extend({
     store: inject('store'),
     growl: inject('growl'),
-    actions: {
+
 
         /**
          * Show Edit user-rights form
          */
-        editPermission() {
+        editPermission: action(function() {
             this.set('isEdit', true);
-        },
+        }),
         /**
          * Close Edit user-rights form
          */
-        cancel() {
+        cancel: action(function() {
             this.set('isEdit', false);
             this.permission.rollbackAttributes();
-        },
+        }),
         /**
          * Edit user-rights
          */
-        submit() {
+        submit: action(function() {
             window.loading.showLoading();
             let permission = this.permission;
             permission.save()
@@ -42,6 +43,5 @@ export default Component.extend({
                     this.growl.errorShowRaw(adapterError.title, adapterError.message);
                     window.loading.hideLoading();
                 });
-        }
-    }
+        })
 });

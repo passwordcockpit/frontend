@@ -47,7 +47,7 @@
             {{/if}}
         </div>
         {{#if this.folderusers}}
-            <LogPaginator @page={{this.page}} @pageCount={{this.pageCount}} @changePage={{action "submit"}} />
+            <LogPaginator @page={{this.page}} @pageCount={{this.pageCount}} @changePage={{this.submit}} />
         {{/if}}
     </div>
 {{yield}}

@@ -6,6 +6,7 @@
 
 import Component from '@ember/component';
 import { inject } from '@ember/service';
+import { action } from '@ember/object';
 import formValidation from '../../mixins/form/form-validation';
 import ENV from '../../config/environment';
 import $ from 'jquery';
@@ -22,12 +23,12 @@ export default Component.extend(formValidation, {
         this.userLanguages = ENV.APP.userLanguages;
     },
 
-    actions: {
+    
         /**
          * Create new userusers (controller)
          * Notify to users (passing by new-users) about the operation
          */
-        save() {
+        save: action(function() {
             window.loading.showLoading();
             let newUserRecord = this.store
                 .createRecord('user', {
@@ -57,12 +58,11 @@ export default Component.extend(formValidation, {
                     window.loading.hideLoading();
                     this.growl.errorShowRaw(adapterError.title, adapterError.message);
                 });
-        },
+        }),
         /**
          * How to handle printed value of select
          */
-        printSelectValuesHandle(userLanguage) {
+        printSelectValuesHandle: action(function(userLanguage) {
             return userLanguage.text;
-        }
-    }
+        })
 });

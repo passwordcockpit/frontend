@@ -5,16 +5,15 @@
 */
 
 import Controller, { inject as controller } from '@ember/controller';
+import { action } from '@ember/object'
 
 export default Controller.extend({
     usersController: controller('users'),
-    actions: {
         /**
          * Notify to users (controller) about the operation
          * Is called by new-user-element on Creating a new user
          */
-        onCreateUser() {
+        onCreateUser: action(function() {
             this.usersController.send('onCreateUser');
-        }
-    }
+        })
 });

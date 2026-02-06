@@ -4,14 +4,14 @@
             {{t 'Global permissions'}}
             <div class="pull-right">
                 <div class="btn-group">
-                    <a class="btn btn-default btn-xs" {{action 'cancel'}}>
+                    <a class="btn btn-default btn-xs" {{on "click" this.cancel}}>
                         {{t 'Close'}} <i class="fas fa-times"></i>
                     </a>
                 </div>
             </div>
         </div>
         <div class="panel-body">
-            <form class="form-horizontal" {{action 'submit' this.permission.id on='submit' }}>
+            <form class="form-horizontal" {{on 'submit' this.submit}}>
                 <div class="checkbox">
                     <label>
                         <Input @type="checkbox" @checked={{this.permission.manage_users}} /> {{t 'Create and manage users'}}
@@ -48,7 +48,7 @@
             {{t 'Global permissions'}}
             <div class="pull-right">
                 <div class="btn-group">
-                    <a class="btn btn-default btn-xs" {{action 'editPermission'}}>
+                    <a class="btn btn-default btn-xs" {{on "click" this.editPermission}}>
                         <i class="fas fa-pencil-alt"></i>
                     </a>
                 </div>

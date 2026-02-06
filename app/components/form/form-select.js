@@ -31,7 +31,7 @@ export default Component.extend(formElementValidation, {
             if(this.isHeaderLanguage){
   				this.saveLang(value);
             }else{
-                this.send('keyUp');
+                this.send('handleKeyUp');
             }
         }),
         handlePrintSelectValuesHandle: action(function(value) {

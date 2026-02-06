@@ -1,5 +1,5 @@
 {{#if this.isPowerSelect}}
-    <PowerSelect @options={{this.selectOptions}} @allowClear={{this.allowClear}} @onChange={{this.handleSelectOptionChange}} @destination={{this.destination}} @selected={{this.value}} as |icon|>
+    <PowerSelect @options={{this.selectOptions}} @allowClear={{this.allowClear}} @onChange={{this.selectOptionChange}} @destination={{this.destination}} @selected={{this.value}} as |icon|>
         {{print-select-values-handle icon this.handlePrintSelectValuesHandle}}
         {{!--<i class="fas fa-{{icon}}"></i>--}}
     </PowerSelect>

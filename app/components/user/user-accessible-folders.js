@@ -6,19 +6,20 @@
 
 import Component from '@ember/component';
 import { inject } from '@ember/service';
+import { action } from '@ember/object';
 
 export default Component.extend({
     store: inject('store'),
     growl: inject('growl'),
     loading: false,
 
-    actions: {
+    
         /**
          * Change user-detail's "User's accessible folders" page
          * 
          * @param {*} page - page number
          */
-        submit(page) {
+        submit: action(function(page) {
             let self = this;
             this.set('loading', true);
             window.loading.showLoading();
@@ -34,6 +35,5 @@ export default Component.extend({
                 window.loading.hideLoading();
                 this.growl.errorShowRaw(adapterError.title, adapterError.message);
             });
-        }
-    }
+        })
 });
