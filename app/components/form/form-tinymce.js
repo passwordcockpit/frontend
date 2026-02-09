@@ -6,12 +6,11 @@
 
 import Component from '@ember/component';
 import formElementValidation from '../../mixins/form/form-element-validation';
+import { action } from '@ember/object';
 
 export default Component.extend(formElementValidation, {
-    actions: {
-        onChange(value) {
+        onChange: action(function(value) {
             this.set('value', value)
             this.validation(true);
-        }
-    }
+        })
 });
