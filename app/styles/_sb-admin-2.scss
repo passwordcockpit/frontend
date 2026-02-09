@@ -4,6 +4,8 @@
 * @license https://github.com/passwordcockpit/frontend/blob/master/LICENSE.md BSD 3-Clause License 
 */
 
+@use "sass:color";
+
 // Global Styles
 body {
     background-color: $gray-lightest;
@@ -26,7 +28,7 @@ body {
         position: inherit;
         margin: 0 0 0 250px;
         padding: 0 30px;
-        border-left: 1px solid darken($gray-lightest, 6.5%);
+        border-left: 1px solid color.adjust($gray-lightest, $lightness: -6.5%, $space: hsl);
     }
 }
 
@@ -100,7 +102,7 @@ body {
     }
 }
 .sidebar ul li {
-    border-bottom: 1px solid darken($gray-lightest, 6.5%);
+    border-bottom: 1px solid color.adjust($gray-lightest, $lightness: -6.5%, $space: hsl);
 
     a {
         &.active {
@@ -328,7 +330,7 @@ table.dataTable thead .sorting:after {
         color: $brand-success;
 
         &:hover {
-            color: darken($brand-success, 15%);
+            color: color.adjust($brand-success, $lightness: -15%, $space: hsl);
         }
     }
 }
@@ -346,7 +348,7 @@ table.dataTable thead .sorting:after {
         color: $brand-danger;
 
         &:hover {
-            color: darken($brand-danger, 15%);
+            color: color.adjust($brand-danger, $lightness: -15%, $space: hsl);
         }
     }
 }
@@ -364,7 +366,7 @@ table.dataTable thead .sorting:after {
         color: $brand-warning;
 
         &:hover {
-            color: darken($brand-warning, 15%);
+            color: color.adjust($brand-warning, $lightness: -15%, $space: hsl);
         }
     }
 }

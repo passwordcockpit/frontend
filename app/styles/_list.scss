@@ -12,6 +12,8 @@
 - drag & drop
 ***********************************************************************************/
 
+@use "sass:color";
+
 .password-menu ul .fa {
     width: 1em;
 }
@@ -122,7 +124,7 @@ ul.list {
             color: #fff;
 
             &:hover {
-                background: darken($brand-primary, 5%);
+                background: color.adjust($brand-primary, $lightness: -5%, $space: hsl);
             }
         }
     }

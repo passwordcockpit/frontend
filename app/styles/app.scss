@@ -35,6 +35,8 @@
 - media (@import)
 ***********************************************************************************/
 
+@use "sass:color";
+
 /* Variable
 *********************************************************************************/
 $highlight: #eee;
@@ -46,12 +48,12 @@ $border-color: #e7e7e7;
 /* bootstrap */
 $bootstrap-sass-asset-helper: false;
 $logoHeight: 35px;
-$ray-darker: lighten(#000, 13.5%);
-$gray-dark: lighten(#000, 20%);
-$gray: lighten(#000, 33.5%);
+$ray-darker: color.adjust(#000, $lightness: 13.5%);
+$gray-dark: color.adjust(#000, $lightness: 20%);
+$gray: color.adjust(#000, $lightness: 33.5%);
 $gray-light: #db901b;
-$gray-lighter: lighten(#000, 93.5%);
-$gray-lightest: lighten(#000, 97.25%);
+$gray-lighter: color.adjust(#000, $lightness: 93.5%);
+$gray-lightest: color.adjust(#000, $lightness: 97.25%);
 $brand-primary: #db901b;
 $brand-success: #1da41d;
 $brand-info: #5bc0de;
