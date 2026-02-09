@@ -539,7 +539,7 @@ $popover-arrow-color:                 $popover-bg !default;
 //** Popover outer arrow width
 $popover-arrow-outer-width:           ($popover-arrow-width + 1) !default;
 //** Popover outer arrow color
-$popover-arrow-outer-color:           fade_in($popover-border-color, 0.05) !default;
+$popover-arrow-outer-color:           color.adjust($popover-border-color, $alpha: 0.05) !default;
 //** Popover outer arrow fallback color
 $popover-arrow-outer-fallback-color:  color.adjust($popover-fallback-border-color, $lightness: -20%, $space: hsl) !default;
 
