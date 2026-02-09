@@ -6,27 +6,27 @@
 
 // app/routes/application.js
 import Route from '@ember/routing/route';
-import { inject } from '@ember/service';
+import { service } from '@ember/service';
 import { jwtDecode } from 'jwt-decode';
 import DS from 'ember-data';
 import ENV from '../config/environment';
 import RSVP from 'rsvp';
 
 export default Route.extend({
-    session: inject('session'),
-    account: inject('account'),
-    growl: inject('growl'),
-    intl: inject('intl'),
-    loading: inject('loading'),
-    closeFoldersInputs: inject('close-folders-inputs'),
-    store: inject('store'),
-    router: inject('router'),
+    session: service('session'),
+    account: service('account'),
+    growl: service('growl'),
+    intl: service('intl'),
+    loading: service('loading'),
+    closeFoldersInputs: service('close-folders-inputs'),
+    store: service('store'),
+    router: service('router'),
     async beforeModel() {
         await this.session.setup();
         this._super(...arguments);
         window.loading = this.loading;
         window.loading.showLoading(false);
-        this.set('intl.locale', ENV.APP.languages);
+        this.intl.setLocale(['en']);
     },
     model() {
         let self = this;
@@ -47,9 +47,16 @@ export default Route.extend({
             return RSVP.hash(result).then((hash) => {
                 self.get('account').setUser(hash.user);
                 //Set language
-                var token = jwtDecode(this.get('session.data.authenticated.token'));
-                this.set('intl.locale', token.data.language);
-                return {
+				let token = jwtDecode(this.get('session.data.authenticated.token'));
+
+ 	 			let supported = ENV.APP.languages; 
+  				let lang = token?.data?.language || 'en';
+  				if (!supported.includes(lang)) lang = 'en';
+
+				this.intl.setLocale(['en']);
+				console.log('intl.locale', this.intl.locales);
+				console.log('exists Passwords list?', this.intl.exists?.('Passwords list'));                
+				return {
                     user: hash.user,
                     permission: hash.permission,
                     userId: userID.sub,

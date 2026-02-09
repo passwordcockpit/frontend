@@ -5,13 +5,13 @@
 */
 
 import Component from '@ember/component';
-import { inject } from '@ember/service';
+import { service } from '@ember/service';
 import { action } from '@ember/object';
 
 export default Component.extend({
-    store: inject('store'),
-    growl: inject('growl'),
-    closeFoldersInputs: inject('close-folders-inputs'),
+    store: service('store'),
+    growl: service('growl'),
+    closeFoldersInputs: service('close-folders-inputs'),
     
         /**
          * Show New permission form

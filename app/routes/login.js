@@ -5,11 +5,11 @@
 */
 
 import Route from '@ember/routing/route';
-import { inject } from '@ember/service';
+import { service } from '@ember/service';
 
 export default Route.extend({
-    session: inject('session'),
-    router: inject('router'),
+    session: service('session'),
+    router: service('router'),
 
     beforeModel() {
         this.session.prohibitAuthentication('folders');

@@ -5,18 +5,18 @@
  */
 
 import Controller from '@ember/controller';
-import { inject } from '@ember/service';
+import { service } from '@ember/service';
 import { jwtDecode } from 'jwt-decode';
 import formValidation from '../mixins/form/form-validation';
 import { action } from '@ember/object';
 
 export default Controller.extend(formValidation, {
-  intl: inject('intl'),
-  session: inject('session'),
-  growl: inject('growl'),
+  intl: service('intl'),
+  session: service('session'),
+  growl: service('growl'),
   username: null,
   password: null,
-  router: inject('router'),
+  router: service('router'),
 
   init: function () {
     this._super(...arguments);
@@ -42,8 +42,13 @@ export default Controller.extend(formValidation, {
         this.set('errorMessage', null);
         var language = jwtDecode(this.get('session.data.authenticated.token'));
 
+		debugger;
         //set language received from token
-        this.set('intl.locale', language.data.language);
+        // this.set('intl.locale', language.data.language);
+		    // this.intl.setLocale([language.data.language]);
+			let lang = language?.data?.language || 'en';
+			this.intl.setLocale([lang]);
+
         window.loading.hideLoading();
         this.router.refresh();
         this.router.transitionTo('folders');

@@ -5,12 +5,12 @@
 */
 
 import Route from '@ember/routing/route';
-import { inject } from '@ember/service';
+import { service } from '@ember/service';
 
 export default Route.extend({
-    account: inject('account'),
-    store: inject('store'),
-    router: inject('router'),
+    account: service('account'),
+    store: service('store'),
+    router: service('router'),
     beforeModel() {
         this._super(...arguments);
         window.loading.showLoading();

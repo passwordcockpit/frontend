@@ -5,14 +5,14 @@
 */
 
 import Controller, { inject as controller } from '@ember/controller';
-import { inject } from '@ember/service';
+import { service } from '@ember/service';
 import { action } from '@ember/object';
 
 export default Controller.extend({
     foldersController: controller('folders'),
-    growl: inject('growl'),
-    session: inject('session'),
-    store: inject('store'),
+    growl: service('growl'),
+    session: service('session'),
+    store: service('store'),
     isAdd: false,
     errors: null,
 

@@ -5,15 +5,15 @@
 */
 
 import Component from '@ember/component';
-import { inject } from '@ember/service';
+import { service } from '@ember/service';
 import { action } from '@ember/object';
 import formValidation from '../../mixins/form/form-validation';
 
 export default Component.extend(formValidation, {
-    router: inject('router'),
-    store: inject('store'),
-    growl: inject('growl'),
-    intl: inject('intl'),
+    router: service('router'),
+    store: service('store'),
+    growl: service('growl'),
+    intl: service('intl'),
 
     parentId: null,
     userId: null,

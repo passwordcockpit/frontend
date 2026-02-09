@@ -5,15 +5,15 @@
 */
 
 import Controller, { inject as controller } from '@ember/controller';
-import { inject } from '@ember/service';
+import { service } from '@ember/service';
 import { action } from '@ember/object';
 import $ from 'jquery';
 
 export default Controller.extend({
-    store: inject('store'),
+    store: service('store'),
     folderController: controller('folders.folder'),
-    growl: inject('growl'),
-    router: inject('router'),
+    growl: service('growl'),
+    router: service('router'),
     
         /**
          * Is called by password-contents on deleting the password

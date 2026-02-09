@@ -6,18 +6,18 @@
 
 import Component from '@ember/component';
 import { computed, action } from '@ember/object';
-import { inject } from '@ember/service';
+import { service } from '@ember/service';
 import ENV from './../../config/environment';
 import formValidation from '../../mixins/form/form-validation';
 import $ from 'jquery';
 import { htmlSafe } from '@ember/template';
 
 export default Component.extend(formValidation, {
-  store: inject('store'),
-  session: inject('session'),
-  growl: inject('growl'),
-  intl: inject('intl'),
-  passwordEncrypt: inject('password-encrypt'),
+  store: service('store'),
+  session: service('session'),
+  growl: service('growl'),
+  intl: service('intl'),
+  passwordEncrypt: service('password-encrypt'),
   localTempPassword: null,
   icons: ENV.passwordFormConfig.icons,
   options: ENV.passwordFormConfig.options,

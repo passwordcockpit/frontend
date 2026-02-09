@@ -5,7 +5,7 @@
  */
 
 import Component from '@ember/component';
-import { inject } from '@ember/service';
+import { service } from '@ember/service';
 import { action } from '@ember/object';
 import { jwtDecode } from 'jwt-decode';
 import formValidation from '../../mixins/form/form-validation';
@@ -14,11 +14,11 @@ import $ from 'jquery';
 import { computed } from '@ember/object';
 
 export default Component.extend(formValidation, {
-  store: inject('store'),
-  session: inject('session'),
-  intl: inject('intl'),
-  growl: inject('growl'),
-  router: inject('router'),
+  store: service('store'),
+  session: service('session'),
+  intl: service('intl'),
+  growl: service('growl'),
+  router: service('router'),
   // Password variables to be used by Change profile
   actual_password: null,
   newpass: null,
@@ -136,7 +136,9 @@ export default Component.extend(formValidation, {
               this.session.invalidate();
             } else {
               //Update language
-              this.set('intl.locale', user.get('language'));
+            //   this.set('intl.locale', user.get('language'));
+			  let lang = user.get('language') || 'en';
+				this.intl.setLocale([lang]);
               // Update token
               if (
                 userData.get('token') !== undefined &&

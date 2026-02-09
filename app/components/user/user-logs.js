@@ -5,12 +5,12 @@
 */
 
 import Component from '@ember/component';
-import { inject } from '@ember/service';
+import { service } from '@ember/service';
 import { action } from '@ember/object';
 
 export default Component.extend({
-    store: inject('store'),
-    growl: inject('growl'),
+    store: service('store'),
+    growl: service('growl'),
     loading: false,
 
          /**

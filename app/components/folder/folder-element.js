@@ -5,17 +5,17 @@
  */
 
 import Component from '@ember/component';
-import { inject } from '@ember/service';
+import { service } from '@ember/service';
 import formValidation from '../../mixins/form/form-validation';
 import $ from 'jquery';
 import { action } from '@ember/object';
 
 
 export default Component.extend(formValidation, {
-  store: inject('store'),
-  session: inject('session'),
-  closeFoldersInputs: inject('close-folders-inputs'),
-  growl: inject('growl'),
+  store: service('store'),
+  session: service('session'),
+  closeFoldersInputs: service('close-folders-inputs'),
+  growl: service('growl'),
   isManage: false,
   errors: null,
 

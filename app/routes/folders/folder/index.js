@@ -5,13 +5,13 @@
  */
 
 import Route from '@ember/routing/route';
-import { inject } from '@ember/service';
+import { service } from '@ember/service';
 import RSVP from 'rsvp';
 
 export default Route.extend({
-  growl: inject('growl'),
-  store: inject('store'),
-  session: inject('session'),
+  growl: service('growl'),
+  store: service('store'),
+  session: service('session'),
   beforeModel(transition) {
     this.session.requireAuthentication(transition, 'login');
     this._super(...arguments);

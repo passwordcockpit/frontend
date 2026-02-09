@@ -5,11 +5,11 @@
 */
 
 import Route from '@ember/routing/route';
-import { inject } from '@ember/service';
+import { service } from '@ember/service';
 
 export default Route.extend({
-    router: inject('router'),
-    session: inject('session'),
+    router: service('router'),
+    session: service('session'),
     beforeModel(transition) {
         this.session.requireAuthentication(transition, 'login');
         this._super(...arguments);

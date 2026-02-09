@@ -5,14 +5,14 @@
  */
 
 import Mixin from '@ember/object/mixin';
-import { inject } from '@ember/service';
+import { service } from '@ember/service';
 import { action } from '@ember/object';
 
 /**
  * This Mixin manage the elements form validation
  */
 export default Mixin.create({
-  intl: inject('intl'),
+  intl: service('intl'),
   isElementValid: null,
   errorMessage: null,
   showElementMessage: false,

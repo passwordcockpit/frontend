@@ -5,17 +5,17 @@
 */
 
 import Route from '@ember/routing/route';
-import { inject } from '@ember/service';
+import { service } from '@ember/service';
 import $ from 'jquery';
 import { later } from '@ember/runloop'
 
 export default Route.extend({
-    account: inject('account'),
-    growl: inject('growl'),
-    session: inject('session'),
-    closeFoldersInputs: inject('close-folders-inputs'),
+    account: service('account'),
+    growl: service('growl'),
+    session: service('session'),
+    closeFoldersInputs: service('close-folders-inputs'),
     transition: null,
-    store: inject('store'),
+    store: service('store'),
     beforeModel(transition) {
         this.session.requireAuthentication(transition, 'login');
         this._super(...arguments);

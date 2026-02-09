@@ -4,12 +4,12 @@
 * @license https://github.com/passwordcockpit/frontend/blob/master/LICENSE.md BSD 3-Clause License 
 */
 
-import Service, { inject } from '@ember/service'
+import Service, { service } from '@ember/service'
 import $ from 'jquery';
 
 export default Service.extend({
 
-    intl: inject('intl'),
+    intl: service('intl'),
 
     /**
      * Show success message

@@ -5,10 +5,10 @@
 */
 
 import Controller from '@ember/controller';
-import { inject } from '@ember/service';
+import { service } from '@ember/service';
 
 export default Controller.extend({
-    store: inject('store'),
+    store: service('store'),
     actions: {
         /**
          * Update users list

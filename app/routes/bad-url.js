@@ -5,10 +5,10 @@
 */
 
 import Route from '@ember/routing/route';
-import { inject } from '@ember/service';
+import { service } from '@ember/service';
 
 export default Route.extend({
-    router: inject('router'),
+    router: service('router'),
 
     beforeModel() {
         this._super(...arguments);

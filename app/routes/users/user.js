@@ -6,13 +6,13 @@
 
 import Route from '@ember/routing/route';
 import RSVP from 'rsvp';
-import { inject } from '@ember/service';
+import { service } from '@ember/service';
 
 export default Route.extend({
-    account: inject('account'),
-    store: inject('store'),
-    router: inject('router'),
-    session: inject('session'),
+    account: service('account'),
+    store: service('store'),
+    router: service('router'),
+    session: service('session'),
     beforeModel(transition) {
         this.session.requireAuthentication(transition, 'login');
         this._super(...arguments);

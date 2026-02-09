@@ -5,18 +5,18 @@
 */
 
 import Component from '@ember/component';
-import { inject } from '@ember/service';
+import { service } from '@ember/service';
 import { jwtDecode } from 'jwt-decode';
 import $ from 'jquery';
 import {action} from '@ember/object';
 import formValidation from 'passwordcockpit_frontend/mixins/form/form-validation';
 
 export default Component.extend(formValidation,{
-    router: inject('router'),
-    store: inject('store'),
-    growl: inject('growl'),
-    session: inject('session'),
-    closeFoldersInputs: inject('close-folders-inputs'),
+    router: service('router'),
+    store: service('store'),
+    growl: service('growl'),
+    session: service('session'),
+    closeFoldersInputs: service('close-folders-inputs'),
     errors: null,
     isManage: false,
     access: null,

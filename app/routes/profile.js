@@ -7,12 +7,12 @@
 import Route from '@ember/routing/route';
 import { jwtDecode } from 'jwt-decode';
 import RSVP from 'rsvp';
-import { inject } from '@ember/service';
+import { service } from '@ember/service';
 
 export default Route.extend( {
-    session: inject('session'),
-    store: inject('store'),
-    router: inject('router'),
+    session: service('session'),
+    store: service('store'),
+    router: service('router'),
     beforeModel(transition) {
         this.session.requireAuthentication(transition, 'login');
         this._super(...arguments);

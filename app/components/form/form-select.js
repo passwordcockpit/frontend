@@ -5,16 +5,16 @@
 */
 
 import Component from '@ember/component';
-import { inject } from '@ember/service';
+import { service } from '@ember/service';
 import { action } from '@ember/object';
 import { jwtDecode } from 'jwt-decode';
 import ENV from '../../config/environment';
 import formElementValidation from '../../mixins/form/form-element-validation';
 
 export default Component.extend(formElementValidation, {
-    session: inject('session'),
-    intl: inject('intl'),
-    growl: inject('growl'),
+    session: service('session'),
+    intl: service('intl'),
+    growl: service('growl'),
 
     init() {
         this._super(...arguments);
@@ -64,7 +64,9 @@ export default Component.extend(formElementValidation, {
                             this.session.invalidate();
                         } else {
                             //Update language
-                            this.set('intl.locale', user.get('language'));
+                            // this.set('intl.locale', user.get('language'));
+							let lang = user.get('language') || 'en';
+							this.intl.setLocale([lang]);
                             // Update token
                             if (userData.get('token') !== undefined && userData.get('token') !== '') {
                                 this.set('session.data.authenticated.token', userData.get('token'));

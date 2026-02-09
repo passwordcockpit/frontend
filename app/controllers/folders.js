@@ -5,7 +5,7 @@
 */
 
 import Controller, { inject as controller } from '@ember/controller';
-import { inject } from '@ember/service';
+import { service } from '@ember/service';
 import $ from 'jquery';
 import RSVP from 'rsvp';
 import {action} from '@ember/object'
@@ -16,11 +16,11 @@ export default Controller.extend({
     isAdd: false,
     // Show Folder list option for mobile mode
     showList: true,
-    growl: inject('growl'),
-    session: inject('session'),
-    closeFoldersInputs: inject('close-folders-inputs'),
-    store: inject('store'),
-    router: inject('router'),
+    growl: service('growl'),
+    session: service('session'),
+    closeFoldersInputs: service('close-folders-inputs'),
+    store: service('store'),
+    router: service('router'),
 
     searchResults: null,
     /**

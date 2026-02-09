@@ -6,13 +6,13 @@
 
 import Controller from '@ember/controller';
 import { jwtDecode } from 'jwt-decode';
-import { inject } from '@ember/service';
+import { service } from '@ember/service';
 import { action } from '@ember/object';
 
 export default Controller.extend({
-    session: inject('session'),
-    growl: inject('growl'),
-    router: inject('router'),
+    session: service('session'),
+    growl: service('growl'),
+    router: service('router'),
         /**
          * Reload logs data and canViewLog permission
          * Is called by user-rights on Editing permission

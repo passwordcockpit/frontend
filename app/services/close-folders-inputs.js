@@ -4,9 +4,9 @@
 * @license https://github.com/passwordcockpit/frontend/blob/master/LICENSE.md BSD 3-Clause License 
 */
 
-import Service, { inject } from '@ember/service'
+import Service, { service } from '@ember/service'
 export default Service.extend({
-    store: inject('store'),
+    store: service('store'),
     route: null,
 
     init(route){

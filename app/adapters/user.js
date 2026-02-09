@@ -6,12 +6,12 @@
 
 import HalAdapter from "ember-data-hal-9000/adapter";
 import ENV from '../config/environment';
-import { inject } from '@ember/service';
+import { service } from '@ember/service';
 
 import CustomError from '../errors/custom-error';
 
 export default HalAdapter.extend( {
-    session: inject('session'),
+    session: service('session'),
 
     init() {
         this._super(...arguments);

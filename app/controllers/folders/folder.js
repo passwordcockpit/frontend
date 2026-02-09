@@ -5,13 +5,13 @@
 */
 
 import Controller, { inject as controller } from '@ember/controller';
-import { inject } from '@ember/service';
+import { service } from '@ember/service';
 import $ from 'jquery';
 import {action} from '@ember/object';
 
 export default Controller.extend({
-    session: inject('session'),
-    growl: inject('growl'),
+    session: service('session'),
+    growl: service('growl'),
     foldersController: controller('folders'),
     folderController: controller('folders.folder'),
     showList: true,

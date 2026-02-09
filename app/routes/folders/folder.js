@@ -5,14 +5,14 @@
 */
 
 import Route from '@ember/routing/route';
-import { inject } from '@ember/service';
+import { service } from '@ember/service';
 
 export default Route.extend({
-    account: inject('account'),
-    session: inject('session'),
-    store: inject('store'),
-    closeFoldersInputs: inject('close-folders-inputs'),
-    router: inject('router'),
+    account: service('account'),
+    session: service('session'),
+    store: service('store'),
+    closeFoldersInputs: service('close-folders-inputs'),
+    router: service('router'),
     beforeModel() {
         this._super(...arguments);
         window.loading.showLoading();
