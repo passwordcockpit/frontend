@@ -30,9 +30,18 @@ module.exports = function (defaults) {
     });
 
     // Import Bootstrap JS
+
     app.import('node_modules/bootstrap-sass/assets/javascripts/bootstrap.min.js');
 
-    // Import FontAwesome icons
+	// Import FontAwesome icons
+
+  	app.import('node_modules/@fortawesome/fontawesome-free/webfonts/fa-solid-900.woff2', { destDir: 'webfonts' });
+	app.import('node_modules/@fortawesome/fontawesome-free/webfonts/fa-solid-900.woff',  { destDir: 'webfonts' });
+	app.import('node_modules/@fortawesome/fontawesome-free/webfonts/fa-regular-400.woff2', { destDir: 'webfonts' });
+	app.import('node_modules/@fortawesome/fontawesome-free/webfonts/fa-regular-400.woff',  { destDir: 'webfonts' });
+	app.import('node_modules/@fortawesome/fontawesome-free/webfonts/fa-brands-400.woff2', { destDir: 'webfonts' });
+	app.import('node_modules/@fortawesome/fontawesome-free/webfonts/fa-brands-400.woff',  { destDir: 'webfonts' });
+
     /*
     app.import('node_modules/font-awesome/fonts/fontawesome-webfont.eot',{ destDir: 'fonts' }); 
     app.import('node_modules/font-awesome/fonts/fontawesome-webfont.svg',{ destDir: 'fonts' }); 
