@@ -307,8 +307,11 @@ export default Controller.extend({
         /**
          * Submit search
          */
-        searchSubmit: action(function() {
-            window.loading.showLoading();
+        searchSubmit: action(function(event) {
+			event?.preventDefault();
+			event?.stopPropagation();
+            
+			window.loading.showLoading();
             let keywords = $('#search-keywords').val();
             let target = $('#search-target').val();
 
