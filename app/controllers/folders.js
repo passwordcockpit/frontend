@@ -372,7 +372,9 @@ export default Controller.extend({
          * @param {*} folderId 
          * @param {*} passwordId 
          */
-        onSelectSearchFolderElement: action(function(folderId) {
+        onSelectSearchFolderElement: action(function(folderId, event) {
+			event?.preventDefault ();
+			event?.stopPropagation();
             this.set('searchResults', null);
             this.router.transitionTo('folders.folder', folderId,{
                 queryParams: { scroll: true },
@@ -385,7 +387,9 @@ export default Controller.extend({
          * @param {*} folderId 
          * @param {*} passwordId 
          */
-        onSelectSearchPasswordElement: action(function(folderId, passwordId) {
+        onSelectSearchPasswordElement: action(function(folderId, passwordId, event) {
+			event?.preventDefault ();
+			event?.stopPropagation();
             this.set('searchResults', null);
             this.router.transitionTo('folders.folder.passwords.password', folderId, passwordId);
         }),
