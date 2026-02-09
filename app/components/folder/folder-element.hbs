@@ -7,8 +7,12 @@
     {{#if (or this.canAccessAllFolders (eq this.folder.access 1) (eq this.folder.access 2))}}
         <Folder::DraggableDropzone @dropped={{this.addPassword}}>
             <LinkTo @route="folders.folder" @model={{this.folder.id}} class="read">
-                <i class="fas fa-folder"></i>
-                <i class="fas fa-folder-open"></i>
+                {{#if this.isActive}}
+                    <i class="fas fa-folder-open"></i>
+                {{else}}
+                    <i class="fas fa-folder"></i>
+                {{/if}}
+
                 {{this.folder.name}}
             </LinkTo>
         </Folder::DraggableDropzone>

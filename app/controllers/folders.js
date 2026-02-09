@@ -374,7 +374,9 @@ export default Controller.extend({
          */
         onSelectSearchFolderElement: action(function(folderId) {
             this.set('searchResults', null);
-            this.router.transitionTo('folders.folder', folderId);
+            this.router.transitionTo('folders.folder', folderId,{
+                queryParams: { scroll: true },
+            });
         }),
         /**
          * Transition to the page of the selected result's password 
