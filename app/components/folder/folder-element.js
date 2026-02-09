@@ -19,7 +19,7 @@ export default Component.extend(formValidation, {
   growl: service('growl'),
   isManage: false,
   errors: null,
-  router: inject('router'),
+  router: service('router'),
   isActive: computed(
     'router.currentRouteName',
     'router.currentURL',
