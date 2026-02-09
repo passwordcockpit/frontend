@@ -26,7 +26,7 @@ export default Route.extend({
         this._super(...arguments);
         window.loading = this.loading;
         window.loading.showLoading(false);
-        this.intl.setLocale(['en']);
+        this.set('intl.locale', ENV.APP.languages);
     },
     model() {
         let self = this;
@@ -47,16 +47,9 @@ export default Route.extend({
             return RSVP.hash(result).then((hash) => {
                 self.get('account').setUser(hash.user);
                 //Set language
-				let token = jwtDecode(this.get('session.data.authenticated.token'));
-
- 	 			let supported = ENV.APP.languages; 
-  				let lang = token?.data?.language || 'en';
-  				if (!supported.includes(lang)) lang = 'en';
-
-				this.intl.setLocale(['en']);
-				console.log('intl.locale', this.intl.locales);
-				console.log('exists Passwords list?', this.intl.exists?.('Passwords list'));                
-				return {
+                var token = jwtDecode(this.get('session.data.authenticated.token'));
+                this.set('intl.locale', token.data.language);
+                return {
                     user: hash.user,
                     permission: hash.permission,
                     userId: userID.sub,
