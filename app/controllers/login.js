@@ -42,7 +42,6 @@ export default Controller.extend(formValidation, {
         this.set('errorMessage', null);
         var language = jwtDecode(this.get('session.data.authenticated.token'));
 
-		debugger;
         //set language received from token
         // this.set('intl.locale', language.data.language);
 		    // this.intl.setLocale([language.data.language]);

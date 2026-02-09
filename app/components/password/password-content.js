@@ -436,7 +436,6 @@ export default Component.extend(formValidation, {
      * descrypt password.password
      */
     decryptPassword: action(function() {
-		debugger;
       if (
         this.passwordEncrypt.decryptPassword(
           this.pinDecrypt,
@@ -471,7 +470,6 @@ export default Component.extend(formValidation, {
      * Lock password on pinDecrypt changing
      */
     protectPassword: action(function(event) {
-		debugger;
       if (event.keyCode !== 13) {
         this.set('isPinValid', false);
       }

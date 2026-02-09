@@ -18,7 +18,6 @@ export default Component.extend({
          * @param {*} page - page number
          */
         submit: action(function(page) {
-			debugger;
             this.changeLogPage(page);
             this.refreshLog(this.password.id);
         }),
