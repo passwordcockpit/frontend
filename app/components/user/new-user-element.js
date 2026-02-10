@@ -20,7 +20,8 @@ export default Component.extend(formValidation, {
     init() {
         this._super(...arguments);
         // Language options
-        this.userLanguages = ENV.APP.userLanguages;
+        this.languageOptions = ENV.APP.userLanguages;
+    	this.set('selectedLanguage', 'en');
     },
 
     
@@ -38,7 +39,7 @@ export default Component.extend(formValidation, {
                     phone: this.phone,
                     email: this.email,
                     enabled: this.enabled ? true : false,
-                    language: $('select[name=language] option:selected').val()
+                    language: this.selectedLanguage
                 });
             if (this.password !== undefined && this.password != '') {
                 newUserRecord.set('password', this.password);

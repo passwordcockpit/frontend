@@ -46,7 +46,7 @@ export default Component.extend(formValidation, {
   init() {
     this._super(...arguments);
     // Language options
-    this.userLanguages = ENV.APP.userLanguages;
+    this.languageOptions = ENV.APP.userLanguages;
   },
   /**
    * Reset password form's fields
@@ -116,7 +116,7 @@ export default Component.extend(formValidation, {
         }
       }
       // set language
-      user.set('language', $('select[name=language] option:selected').val());
+      user.set('language', this.user.language);
 
       user
         .save()
@@ -136,9 +136,9 @@ export default Component.extend(formValidation, {
               this.session.invalidate();
             } else {
               //Update language
-            //   this.set('intl.locale', user.get('language'));
-			  let lang = user.get('language') || 'en';
-				this.intl.setLocale([lang]);
+			  let lang = userData.get('language') || 'en';
+			  this.intl.setLocale([lang]);
+
               // Update token
               if (
                 userData.get('token') !== undefined &&
