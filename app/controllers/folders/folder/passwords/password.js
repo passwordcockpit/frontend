@@ -46,12 +46,12 @@ export default Controller.extend({
          * 
          * @param {*} passwordId 
          */
-        onSavePassword(passwordId) {
+        onSavePassword: action(function(passwordId) {
             this.folderController.send('onUpdatePassword');
             if (this.canViewLogs) {
                 this.send('refreshLog', passwordId);
             }
-        },
+        }),
 
         /**
          * Refresh password Log's content based on current page

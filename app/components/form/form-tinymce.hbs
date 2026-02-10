@@ -1,6 +1,6 @@
 <textarea
   name={{this.name}}
-  {{editor config=@options content=(if @value @value '') onEditorContentChange=(this.onChange)}}
+  {{editor config=@options content=(if @value @value '') onEditorContentChange=this.onChange}}
 ></textarea>
 
 {{#if (or (and this.showElementMessage (not this.isElementValid)) (and this.showMessage (not this.isElementValid)))}}
