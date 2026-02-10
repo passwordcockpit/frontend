@@ -263,6 +263,15 @@ input.number {
         text-align: center;
     }
 }
+
+.user-select-container {
+    .ember-power-select-options {
+        padding-left: 0;
+        margin-left: 0;
+        list-style: none;
+    }
+}
+
 .control-label.with-tooltip{
     padding-right: 20px;
 }
