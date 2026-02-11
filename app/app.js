@@ -17,6 +17,7 @@ export default class App extends Application {
 }
 
 loadInitializers(App, config.modulePrefix);
+debugger;
 
 TextField.reopen({
     attributeBindings: ['data-validation', 'data-validation-length']

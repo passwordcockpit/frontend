@@ -27,6 +27,7 @@ export default Route.extend({
         window.loading = this.loading;
         window.loading.showLoading(false);
         this.set('intl.locale', ENV.APP.languages);
+		await this.intl.setLocale(ENV.APP.languages);
     },
     model() {
         let self = this;
