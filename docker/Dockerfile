@@ -1,4 +1,4 @@
-FROM node:20.12
+FROM node:20.19
 
 # passwordcockpit variables
 ENV PASSWORDCOCKPIT_BASEHOST https://[YOUR-IP]:4344
@@ -8,8 +8,8 @@ RUN set -ex; \
 mkdir -p /myapp/passwordcockpit; \
 cd /myapp/passwordcockpit; \
 git clone -v https://github.com/passwordcockpit/frontend.git /myapp/passwordcockpit; \
-git checkout 1.3.0.dev; \
-git pull origin 1.3.0.dev
+git checkout 1.3.0; \
+git pull origin 1.3.0
 
 WORKDIR /myapp/passwordcockpit
 
