@@ -9,6 +9,7 @@ import Resolver from 'ember-resolver';
 import loadInitializers from 'ember-load-initializers';
 import config from './config/environment';
 import { TextField } from '@ember/legacy-built-in-components';
+import '@warp-drive/ember/install';
 
 export default class App extends Application {
   modulePrefix = config.modulePrefix;
