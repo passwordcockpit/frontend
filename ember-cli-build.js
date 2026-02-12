@@ -3,6 +3,7 @@
 const EmberApp = require('ember-cli/lib/broccoli/ember-app');
 const Funnel = require('broccoli-funnel');
 const MergeTrees = require('broccoli-merge-trees');
+const { setConfig } = require('@warp-drive/build-config');
 
 module.exports = function (defaults) {
     let app = new EmberApp(defaults, {
@@ -27,7 +28,17 @@ module.exports = function (defaults) {
         emberData: {
             polyfillUUID: true
         },
+		sassOptions: {
+			quietDeps: true,
+			silenceDeprecations: ['import', 'global-builtin', 'if-function'],
+    	}
     });
+	
+	setConfig(app, __dirname, {
+  		deprecations: {
+    		DEPRECATE_TRACKING_PACKAGE: false,
+  		},
+	});
 
     // Import Bootstrap JS
 
