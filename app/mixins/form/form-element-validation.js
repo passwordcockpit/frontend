@@ -89,6 +89,8 @@ export default Mixin.create({
    * @param {boolean} showEMessage
    */
   validation: function (showElementMessage) {
+    if (this.isDestroying || this.isDestroyed) return false;
+    
     let isElementValid = true;
     // required
     if (this.get('validator.required') && !this.value) {

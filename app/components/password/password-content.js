@@ -24,7 +24,7 @@ export default Component.extend(formValidation, {
   pinEncrypt: null,
   localTempPasswordDecrypted: null,
   failureLimit: ENV.passwordEncryptionConfig.failureLimit,
-  passwordDescritpion: computed('password.description', function () {
+  passwordDescription: computed('password.description', function () {
     return htmlSafe(this.get('password.description'));
   }),
 

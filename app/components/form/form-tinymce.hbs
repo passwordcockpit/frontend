@@ -1,7 +1,10 @@
 <textarea
   name={{this.name}}
-  {{editor config=@options content=(if @value @value '') onEditorContentChange=this.onChange}}
-></textarea>
+  {{editor 
+  config=@options 
+  content=(or @value "")
+  onEditorContentChange=this.onChange}}
+>{{or @value ""}}</textarea>
 
 {{#if (or (and this.showElementMessage (not this.isElementValid)) (and this.showMessage (not this.isElementValid)))}}
     <div class="errors-list">
