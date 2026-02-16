@@ -94,6 +94,11 @@ module.exports = function (defaults) {
     // Import password encrypt
     app.import('vendor/sjcl.js');
 
+    // Import TinyMCE
+    app.import('vendor/tinymce.css');
+
+    app.import('node_modules/tinymce/tinymce.js');
+
     // Use `app.import` to add additional libraries to the generated
     // output files.
     //
@@ -107,13 +112,22 @@ module.exports = function (defaults) {
     // please specify an object with the list of modules as keys
     // along with the exports of each module as its value.
 
-    var nodes = [];
-    nodes.push(new Funnel('vendor', {
-        srcDir: '/',
-        include: ['tinymce.css'],
-        destDir: '/'
-    }));
-    nodes.push(app.toTree());
-    
-    return new MergeTrees(nodes);
+    // copy tinymce assets
+    let tinymceAssets = Funnel('node_modules/tinymce', {
+        destDir: 'assets/tinymce',
+        include: [
+            'plugins/**/*',
+            'themes/**/*',
+            'icons/**/*',
+            'models/**/*',
+            'skins/**/*',
+        ] 
+    });
+
+    let tinymceAssetsLangs = Funnel('node_modules/tinymce-i18n/langs', {
+        destDir: 'assets/tinymce/langs',
+        include: ['*.js'],
+    });
+
+    return MergeTrees([app.toTree(), tinymceAssets, tinymceAssetsLangs], { overwrite: true });
 };

@@ -24,7 +24,7 @@ module.exports = {
             'poo', 'radiation', 'restroom', 'rss', 'satellite', 'save','sd-card','server', 'share-alt', 'shopping-cart','sim-card', 
             'smile', 'space-shuttle', 'thumbs-up', 'thumbs-down', 'toilet-paper', 'tools', 'tree', 'tshirt'],
         options: {
-            content_css: '/tinymce.css',
+            content_css: '/assets/vendor.css',
             menubar: false,
             plugins: 'lists',
             toolbar1: 'bold italic underline | bullist numlist',

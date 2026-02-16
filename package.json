@@ -38,8 +38,7 @@
     "jwt-decode": "^4.0.0",
     "minimist": "^1.2.6",
     "sass": "^1.97.3",
-    "tinymce": "^6.8.6",
-    "tinymce-ember": "^4.2.0-0",
+    "tinymce": "^8.3.2",
     "tinymce-i18n": "^26.2.9",
     "whatwg-fetch": "^3.6.2"
   },
@@ -103,7 +102,7 @@
     "edition": "octane"
   },
   "overrides": {
-	"diff": "8.0.3",
+    "diff": "8.0.3",
     "tmp": "^0.2.4",
     "rollup": "2.79.2",
     "ansi-html": "^0.0.8",
