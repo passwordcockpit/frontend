@@ -92,7 +92,7 @@ export default Controller.extend({
                 this.growl.errorShowRaw(adapterError.responseJSON.title, adapterError.responseJSON.detail);
             });
         }),
-		/**
+        /**
          * Toggle passwords list visibility (only for mobile)
          */
         showPasswordsList: action(function() {

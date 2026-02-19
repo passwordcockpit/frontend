@@ -62,17 +62,17 @@
         <div data-id="collapse-{{this.folder.id}}">
             {{#each (get this.tree (concat "" this.folder.id)) as |folderId|}}
                 <Folder::FolderElement 
-								 @removePassword={{this.handleRemovePassword}}
-        				 @folder={{get this.indexedFolders folderId}}
-        				 @indexedFolders={{this.indexedFolders}}
-        				 @tree={{this.tree}}
-        				 @onCreateFolder={{this.handleOnCreateFolder}}
-        				 @onUpdateFolder={{this.handleOnUpdateFolder}}
-        				 @onDeleteFolder={{this.handleOnDeleteFolder}}
-        				 @collapseFolder={{this.handleCollapseFolder}}
-        				 @slideUp={{this.handleSlideUp}}
-        				 @canAccessAllFolders={{this.canAccessAllFolders}}
-							/>
+                                 @removePassword={{this.handleRemovePassword}}
+                         @folder={{get this.indexedFolders folderId}}
+                         @indexedFolders={{this.indexedFolders}}
+                         @tree={{this.tree}}
+                         @onCreateFolder={{this.handleOnCreateFolder}}
+                         @onUpdateFolder={{this.handleOnUpdateFolder}}
+                         @onDeleteFolder={{this.handleOnDeleteFolder}}
+                         @collapseFolder={{this.handleCollapseFolder}}
+                         @slideUp={{this.handleSlideUp}}
+                         @canAccessAllFolders={{this.canAccessAllFolders}}
+                            />
             {{/each}}
         </div>
     </ul>

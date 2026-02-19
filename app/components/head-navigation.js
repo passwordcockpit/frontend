@@ -47,7 +47,7 @@ export default Component.extend(formValidation, {
         /**
          * Redirect to home page
          */
-	    transitionToHomePage: action(function () {
+        transitionToHomePage: action(function () {
             this.router.transitionTo('application');
         }),
         /**

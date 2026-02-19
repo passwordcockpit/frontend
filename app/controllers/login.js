@@ -44,9 +44,9 @@ export default Controller.extend(formValidation, {
 
         //set language received from token
         // this.set('intl.locale', language.data.language);
-		    // this.intl.setLocale([language.data.language]);
-			let lang = language?.data?.language || 'en';
-			this.intl.setLocale([lang]);
+            // this.intl.setLocale([language.data.language]);
+            let lang = language?.data?.language || 'en';
+            this.intl.setLocale([lang]);
 
         window.loading.hideLoading();
         this.router.refresh();

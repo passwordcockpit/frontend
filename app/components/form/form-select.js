@@ -26,10 +26,10 @@ export default Component.extend(formElementValidation, {
 
 
         selectOptionChange: action(function (eventOrValue) {
-			let value = eventOrValue && eventOrValue.target? eventOrValue.target.value: eventOrValue;
+            let value = eventOrValue && eventOrValue.target? eventOrValue.target.value: eventOrValue;
             this.set('value', value);
             if(this.isHeaderLanguage){
-  				this.saveLang(value);
+                  this.saveLang(value);
             }else{
                 this.send('handleKeyUp');
             }
@@ -65,8 +65,8 @@ export default Component.extend(formElementValidation, {
                         } else {
                             //Update language
                             // this.set('intl.locale', user.get('language'));
-							let lang = user.get('language') || 'en';
-							this.intl.setLocale([lang]);
+                            let lang = user.get('language') || 'en';
+                            this.intl.setLocale([lang]);
                             // Update token
                             if (userData.get('token') !== undefined && userData.get('token') !== '') {
                                 this.set('session.data.authenticated.token', userData.get('token'));

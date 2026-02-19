@@ -21,7 +21,7 @@ export default Component.extend(formValidation, {
         this._super(...arguments);
         // Language options
         this.languageOptions = ENV.APP.userLanguages;
-    	this.set('selectedLanguage', 'en');
+        this.set('selectedLanguage', 'en');
     },
 
     

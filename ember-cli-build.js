@@ -28,31 +28,31 @@ module.exports = function (defaults) {
         emberData: {
             polyfillUUID: true
         },
-		sassOptions: {
-			quietDeps: true,
-			silenceDeprecations: ['import', 'global-builtin', 'if-function'],
-    	}
+        sassOptions: {
+            quietDeps: true,
+            silenceDeprecations: ['import', 'global-builtin', 'if-function'],
+        }
     });
-	
-	setConfig(app, __dirname, {
+    
+    setConfig(app, __dirname, {
         polyfillUUID: true,
-  		deprecations: {
-    		DEPRECATE_TRACKING_PACKAGE: false,
-  		},
-	});
+          deprecations: {
+            DEPRECATE_TRACKING_PACKAGE: false,
+          },
+    });
 
     // Import Bootstrap JS
 
     app.import('node_modules/bootstrap-sass/assets/javascripts/bootstrap.min.js');
 
-	// Import FontAwesome icons
+    // Import FontAwesome icons
 
-  	app.import('node_modules/@fortawesome/fontawesome-free/webfonts/fa-solid-900.woff2', { destDir: 'webfonts' });
-	app.import('node_modules/@fortawesome/fontawesome-free/webfonts/fa-solid-900.woff',  { destDir: 'webfonts' });
-	app.import('node_modules/@fortawesome/fontawesome-free/webfonts/fa-regular-400.woff2', { destDir: 'webfonts' });
-	app.import('node_modules/@fortawesome/fontawesome-free/webfonts/fa-regular-400.woff',  { destDir: 'webfonts' });
-	app.import('node_modules/@fortawesome/fontawesome-free/webfonts/fa-brands-400.woff2', { destDir: 'webfonts' });
-	app.import('node_modules/@fortawesome/fontawesome-free/webfonts/fa-brands-400.woff',  { destDir: 'webfonts' });
+      app.import('node_modules/@fortawesome/fontawesome-free/webfonts/fa-solid-900.woff2', { destDir: 'webfonts' });
+    app.import('node_modules/@fortawesome/fontawesome-free/webfonts/fa-solid-900.woff',  { destDir: 'webfonts' });
+    app.import('node_modules/@fortawesome/fontawesome-free/webfonts/fa-regular-400.woff2', { destDir: 'webfonts' });
+    app.import('node_modules/@fortawesome/fontawesome-free/webfonts/fa-regular-400.woff',  { destDir: 'webfonts' });
+    app.import('node_modules/@fortawesome/fontawesome-free/webfonts/fa-brands-400.woff2', { destDir: 'webfonts' });
+    app.import('node_modules/@fortawesome/fontawesome-free/webfonts/fa-brands-400.woff',  { destDir: 'webfonts' });
 
     /*
     app.import('node_modules/font-awesome/fonts/fontawesome-webfont.eot',{ destDir: 'fonts' }); 

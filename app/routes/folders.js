@@ -16,9 +16,9 @@ export default Route.extend({
     closeFoldersInputs: service('close-folders-inputs'),
     transition: null,
     store: service('store'),
- 	
-  	async beforeModel(transition) {
-		await this.session.setup();
+     
+      async beforeModel(transition) {
+        await this.session.setup();
         this.session.requireAuthentication(transition, 'login');
         this._super(...arguments);
         window.loading.showLoading();

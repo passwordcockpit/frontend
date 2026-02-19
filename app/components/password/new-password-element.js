@@ -33,7 +33,7 @@ export default Component.extend(formValidation, {
         /**
          * Is called on Random-password's refresh button clicking
          */
-		
+        
         refreshPassword: action(function() {
             this.send('GeneratorPassword');
         }),
@@ -62,7 +62,7 @@ export default Component.extend(formValidation, {
         /**
          * Generate and put new Random-password into Password input
          */
-		
+        
         GeneratorPassword: action(function() {
             var passwordLength = 8;
             var uppercase = false;

@@ -136,8 +136,8 @@ export default Component.extend(formValidation, {
               this.session.invalidate();
             } else {
               //Update language
-			  let lang = userData.get('language') || 'en';
-			  this.intl.setLocale([lang]);
+              let lang = userData.get('language') || 'en';
+              this.intl.setLocale([lang]);
 
               // Update token
               if (

@@ -4,16 +4,16 @@
             <div class="folder-settings-container">
                 <div class="user-select-container">
                     <PowerSelect 
-					@renderInPlace={{true}}
-					@selected={{this.selectedUser}} 
-					@printSelectValuesHandle={{this.printSelectValuesHandle}} 
-					@options={{this.filteredUsers}} 
-					@isFormValid={{this.isFormValid}} 
-					@showMessage={{this.showMessage}} 
-					@onChange={{this.changeSelectedUser}} 
-					@searchField="fullName" 
-					@validator={{validation-parameters required=true type="select"}} as |user|>
-					{{print-select-values-handle user this.printSelectValuesHandle}}
+                    @renderInPlace={{true}}
+                    @selected={{this.selectedUser}} 
+                    @printSelectValuesHandle={{this.printSelectValuesHandle}} 
+                    @options={{this.filteredUsers}} 
+                    @isFormValid={{this.isFormValid}} 
+                    @showMessage={{this.showMessage}} 
+                    @onChange={{this.changeSelectedUser}} 
+                    @searchField="fullName" 
+                    @validator={{validation-parameters required=true type="select"}} as |user|>
+                    {{print-select-values-handle user this.printSelectValuesHandle}}
                     </PowerSelect>    
                 </div>
                 <label class="user-edit-container">

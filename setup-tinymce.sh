@@ -11,7 +11,7 @@ if [ -d "$LANGDIR" ];
 then
     echo "$LANGDIR directory exists. Skipping creation"
 else
-	mkdir $LANGDIR
+    mkdir $LANGDIR
 fi
 
 cp node_modules/tinymce-i18n/langs/de.js public/assets/langs/de.js

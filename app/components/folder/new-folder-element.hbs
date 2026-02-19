@@ -2,13 +2,13 @@
     <div class="edit {{if this.errors.name 'has-error'}}">
         <form {{on 'submit' this.submit }}>
             <Form::FormText 
-						@type="text" 
-						@class="form-control" 
-						@value={{this.folderName}} 
-						@placeholder={{t "New folder"}} 
-						@isFormValid={{this.isFormValid}} 
-						@showMessage={{this.showMessage}} 
-						@validator={{validation-parameters required=true minLength=2 maxLength=45 }} />
+                        @type="text" 
+                        @class="form-control" 
+                        @value={{this.folderName}} 
+                        @placeholder={{t "New folder"}} 
+                        @isFormValid={{this.isFormValid}} 
+                        @showMessage={{this.showMessage}} 
+                        @validator={{validation-parameters required=true minLength=2 maxLength=45 }} />
             <div class="form-btn">
                 <button style="display: none;">
                 </button>

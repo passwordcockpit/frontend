@@ -12,11 +12,9 @@ export default Component.extend({
          * Toggle passwords list visibility (only for mobile)
          */
         handleShowPasswordsList: action(function() {
-			console.log("gugugaga");
             this.showPasswordsList();
         }),
         handleHidePasswordsList: action (function() {
-			console.log("gugu");
             this.hidePasswordsList();
         })
 });

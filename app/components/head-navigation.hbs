@@ -56,18 +56,18 @@
         </li>
         <li>
             <Form::FormSelect 
-			@class="language-select form-control" 
-			@name="language" 
-			@user={{this.user}} 
-			@isHeaderLanguage={{true}} 
-			@isPowerSelect={{false}} 
-			@selectOptions={{this.userLanguages}} 
-			@allowClear={{true}} 
-			@value={{this.user.language}} 
-			@isFormValid={{this.isFormValid}} 
-			@showMessage={{this.showMessage}} 
-			@printSelectValuesHandle={{this.printSelectValuesHandle}} 
-			@validator={{validation-parameters required=true minLength=2 maxLength=2 type="select" }} />
+            @class="language-select form-control" 
+            @name="language" 
+            @user={{this.user}} 
+            @isHeaderLanguage={{true}} 
+            @isPowerSelect={{false}} 
+            @selectOptions={{this.userLanguages}} 
+            @allowClear={{true}} 
+            @value={{this.user.language}} 
+            @isFormValid={{this.isFormValid}} 
+            @showMessage={{this.showMessage}} 
+            @printSelectValuesHandle={{this.printSelectValuesHandle}} 
+            @validator={{validation-parameters required=true minLength=2 maxLength=2 type="select" }} />
         </li>
     </ul>
     <div class="hidden-md hidden-lg" role="navigation">

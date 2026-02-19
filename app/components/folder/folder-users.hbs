@@ -15,24 +15,24 @@
         <ul class="list">
             {{#if this.isAdd}}
                 <Folder::NewPermissionElement 
-				@isAdd={{this.isAdd}} 
-				@errors={{this.errors}} 
-				@filteredUsers={{this.filteredUsers}} 
-				@folderUsers={{this.folderUsers}} 
-				@folderId={{this.folderId}} 
-				@reloadFolderUser={{this.reloadFolderUser}} 
-				/>
+                @isAdd={{this.isAdd}} 
+                @errors={{this.errors}} 
+                @filteredUsers={{this.filteredUsers}} 
+                @folderUsers={{this.folderUsers}} 
+                @folderId={{this.folderId}} 
+                @reloadFolderUser={{this.reloadFolderUser}} 
+                />
             {{/if}}
             {{#each this.folderUsers as |folderUser|}}
                 <Folder::FolderUser 
-				@folderUser={{folderUser}} 
-				@folderId={{this.folderId}} 
-				@folder={{this.folder}} 
-				@canAccessAllFolders={{this.canAccessAllFolders}} 
-				@reloadFolderUser={{this.reloadFolderUser}} 
-				@onUpdatePermission={{this.handleUpdatePermission}} 
-				@onDeletePermission={{this.handleDeletePermission}} 
-				/>
+                @folderUser={{folderUser}} 
+                @folderId={{this.folderId}} 
+                @folder={{this.folder}} 
+                @canAccessAllFolders={{this.canAccessAllFolders}} 
+                @reloadFolderUser={{this.reloadFolderUser}} 
+                @onUpdatePermission={{this.handleUpdatePermission}} 
+                @onDeletePermission={{this.handleDeletePermission}} 
+                />
             {{/each}}
         </ul>
     </div>

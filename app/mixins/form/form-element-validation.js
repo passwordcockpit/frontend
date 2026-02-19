@@ -20,7 +20,7 @@ export default Mixin.create({
   willDestroyElement() {
     // Remove element from Errors list
     this._super?.(...arguments);
-  	this.isFormValid = this.isFormValid.filter((el) => el.name !== this.name);
+    this.isFormValid = this.isFormValid.filter((el) => el.name !== this.name);
   },
   init() {
     this._super(...arguments);
@@ -136,17 +136,17 @@ export default Mixin.create({
     this.set('showElementMessage', showElementMessage);
     this.set('isElementValid', isElementValid);
     // update object for form validation on submit
-	let entry = this.isFormValid?.find?.((el) => el.name === this.name);
-	if (entry) {
-  		entry.isElementValid = isElementValid;
-	}
+    let entry = this.isFormValid?.find?.((el) => el.name === this.name);
+    if (entry) {
+          entry.isElementValid = isElementValid;
+    }
     
-	return isElementValid;
+    return isElementValid;
   },
 
   handleKeyUp: action(function(){
-	this.validation(true);
-	if (this.keyUpCustomAction !== undefined) {
+    this.validation(true);
+    if (this.keyUpCustomAction !== undefined) {
         this.keyUpCustomAction();
       }
   })

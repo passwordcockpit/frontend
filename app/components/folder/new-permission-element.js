@@ -67,6 +67,6 @@ export default Component.extend(formValidation, {
          * How to handle printed value of select
          */
         printSelectValuesHandle: action(function(user) {
-    		return `${user.name} ${user.surname}`;
+            return `${user.name} ${user.surname}`;
         })
 });

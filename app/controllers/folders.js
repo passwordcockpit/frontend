@@ -308,10 +308,10 @@ export default Controller.extend({
          * Submit search
          */
         searchSubmit: action(function(event) {
-			event?.preventDefault();
-			event?.stopPropagation();
+            event?.preventDefault();
+            event?.stopPropagation();
             
-			window.loading.showLoading();
+            window.loading.showLoading();
             let keywords = $('#search-keywords').val();
             let target = $('#search-target').val();
 
@@ -373,8 +373,8 @@ export default Controller.extend({
          * @param {*} passwordId 
          */
         onSelectSearchFolderElement: action(function(folderId, event) {
-			event?.preventDefault ();
-			event?.stopPropagation();
+            event?.preventDefault ();
+            event?.stopPropagation();
             this.set('searchResults', null);
             this.router.transitionTo('folders.folder', folderId,{
                 queryParams: { scroll: true },
@@ -388,8 +388,8 @@ export default Controller.extend({
          * @param {*} passwordId 
          */
         onSelectSearchPasswordElement: action(function(folderId, passwordId, event) {
-			event?.preventDefault ();
-			event?.stopPropagation();
+            event?.preventDefault ();
+            event?.stopPropagation();
             this.set('searchResults', null);
             this.router.transitionTo('folders.folder.passwords.password', folderId, passwordId);
         }),

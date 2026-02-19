@@ -17,20 +17,20 @@
 </div>
 {{#if this.searchResults.hasResults}}
     <div class='folder-menu result'>
-		<div class='title'>
-			{{t 'Search result'}}
-			<div class='pull-right'>
-				<div class='btn-group'>
-					<a class='btn btn-default btn-xs' {{on "click" this.cancelSearch}}>
-						{{t 'Cancel'}}
-					</a>
-				</div>
-			</div>
-		</div>
-		<div class='scroll-container'>
+        <div class='title'>
+            {{t 'Search result'}}
+            <div class='pull-right'>
+                <div class='btn-group'>
+                    <a class='btn btn-default btn-xs' {{on "click" this.cancelSearch}}>
+                        {{t 'Cancel'}}
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class='scroll-container'>
             {{#if this.searchResults.results.length}}
-			<table class='table'>
-				<tbody>
+            <table class='table'>
+                <tbody>
                     {{#each this.searchResults.results as |searchResult|}}
                     <tr>
                         {{#if searchResult.isFolder}}
@@ -42,9 +42,9 @@
                                 </span>
                             </LinkTo>
                         </td>
-						<td class='path'>
+                        <td class='path'>
                             {{searchResult.folderPathToString}}
-						</td>
+                        </td>
                         {{else}}
                         <td>
                             <LinkTo @route="folders.folder.passwords.password" @models={{array searchResult.folderId searchResult.passwordId}}>
@@ -58,22 +58,22 @@
                                 </span>
                             </LinkTo>
                         </td>
-						<td class='path'>
+                        <td class='path'>
                             {{searchResult.passwordPathToString}}
-						</td>
+                        </td>
                         {{/if}}
                     </tr>
                     {{/each}}
-				</tbody>
-			</table>
+                </tbody>
+            </table>
         {{else}}
             <p class='alert alert-info'>
                 <i class="fas fa-info-circle"></i>
                 {{t 'No result found'}}
             </p>
         {{/if}}
-		</div>
-	</div>
+        </div>
+    </div>
 {{else}}
 <div class="folder-menu area open">
     <div class="title">
@@ -108,23 +108,23 @@
         <ul class="list">
             {{#if this.isAdd}}
                 <Folder::NewFolderElement 
-								@isAdd={{this.isAdd}} 
-								@parentId={{null}} 
-								@cancelAddFolder={{this.cancelAddFolder}} 
-								@onCreateFolder={{this.onCreateFolder}} />
+                                @isAdd={{this.isAdd}} 
+                                @parentId={{null}} 
+                                @cancelAddFolder={{this.cancelAddFolder}} 
+                                @onCreateFolder={{this.onCreateFolder}} />
             {{/if}}
             {{#each this.roots as |folderId|}}
                 <Folder::FolderElement 
-								@removePassword={{this.removePassword}} 
-								@folder={{get this.indexedFolders folderId}} 
-								@indexedFolders={{this.indexedFolders}} 
-								@tree={{this.tree}} 
-								@onCreateFolder={{this.onCreateFolder}} 
-								@onUpdateFolder={{this.onUpdateFolder}} 
-								@onDeleteFolder={{this.onDeleteFolder}} 
-								@collapseFolder={{this.collapseFolder}} 
-								@slideUp={{this.slideUp}} 
-								@canAccessAllFolders={{this.canAccessAllFolders}} />
+                                @removePassword={{this.removePassword}} 
+                                @folder={{get this.indexedFolders folderId}} 
+                                @indexedFolders={{this.indexedFolders}} 
+                                @tree={{this.tree}} 
+                                @onCreateFolder={{this.onCreateFolder}} 
+                                @onUpdateFolder={{this.onUpdateFolder}} 
+                                @onDeleteFolder={{this.onDeleteFolder}} 
+                                @collapseFolder={{this.collapseFolder}} 
+                                @slideUp={{this.slideUp}} 
+                                @canAccessAllFolders={{this.canAccessAllFolders}} />
                 {{else}}
                     <p class="alert alert-info">
                         <i class="fas fa-info-circle"></i>

@@ -30,8 +30,8 @@ export default Component.extend({
          * Edit user-rights
          */
         submit: action(function(event) {
-			event?.preventDefault();
-			event?.stopPropagation();
+            event?.preventDefault();
+            event?.stopPropagation();
             window.loading.showLoading();
             let permission = this.permission;
             permission.save()
