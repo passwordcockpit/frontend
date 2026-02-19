@@ -35,6 +35,7 @@ module.exports = function (defaults) {
     });
 	
 	setConfig(app, __dirname, {
+        polyfillUUID: true,
   		deprecations: {
     		DEPRECATE_TRACKING_PACKAGE: false,
   		},
