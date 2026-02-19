@@ -60,7 +60,7 @@
     "ember-ajax": "^5.1.1",
     "ember-auto-import": "^2.12.0",
     "ember-basic-dropdown": "^8.0.0",
-    "ember-cli": "~6.10.0",
+    "ember-cli": "^6.10.0",
     "ember-cli-app-version": "^7.0.0",
     "ember-cli-babel": "^8.3.0",
     "ember-cli-clean-css": "^3.0.0",
@@ -104,16 +104,19 @@
   "overrides": {
     "diff": "8.0.3",
     "tmp": "^0.2.4",
-    "rollup": "2.79.2",
     "ansi-html": "^0.0.8",
     "braces": "^3.0.3",
-    "glob-parent": "^5.1.2",
-    "merge": "^2.1.1",
-    "markdown-it": "^12.3.2",
-    "@glimmer/component": "^2.0.0",
-    "@glimmer/tracking": "^1.1.2",
     "ember-cli-babel": "^8.3.0",
     "ember-cli-typescript": "^5.3.0",
-    "@babel/runtime": "^7.26.10"
+    "@babel/runtime": "^7.26.10",
+    "minimatch": "^10.2.1",
+    "underscore.string": "^3.3.5",
+    "glob": "^13.0.0",
+    "babel-loader": "^9.2.1",
+    "schema-utils": "^4.3.3",
+    "ajv": "^8.18.0",
+    "@babel/plugin-proposal-private-methods": "npm:@babel/plugin-transform-private-methods@^7.24.0",
+    "@babel/plugin-proposal-class-properties": "npm:@babel/plugin-transform-class-properties@^7.24.0",
+    "raw-body": "^3.0.2"
   }
 }
