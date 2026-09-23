@@ -26,7 +26,6 @@ export default Route.extend({
         this._super(...arguments);
         window.loading = this.loading;
         window.loading.showLoading(false);
-        this.set('intl.locale', ENV.APP.languages);
         await this.intl.setLocale(ENV.APP.languages);
     },
     model() {
@@ -49,7 +48,7 @@ export default Route.extend({
                 self.get('account').setUser(hash.user);
                 //Set language
                 var token = jwtDecode(this.get('session.data.authenticated.token'));
-                this.set('intl.locale', token.data.language);
+                this.intl.setLocale([token.data.language]);
                 return {
                     user: hash.user,
                     permission: hash.permission,
