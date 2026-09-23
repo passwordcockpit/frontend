@@ -8,6 +8,7 @@ import Route from '@ember/routing/route';
 import { service } from '@ember/service';
 import $ from 'jquery';
 import { later } from '@ember/runloop'
+import { findAll } from '@ember-data/legacy-compat/builders';
 
 export default Route.extend({
     account: service('account'),
@@ -69,8 +70,8 @@ export default Route.extend({
         });
 
         // Return folder data as Model
-        return this.store.findAll('folder', { reload: true })
-            .then((results) => {
+        return this.store.request(findAll('folder', { reload: true }))
+            .then(({ content: results }) => {
                 this.controllerFor('folders').send('buildTree', { folders: results });
 
                 // set folder.isShow for selected folder
