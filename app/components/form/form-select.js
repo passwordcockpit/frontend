@@ -45,45 +45,42 @@ export default Component.extend(formElementValidation, {
         /**
          * Edit user's language in header-navigation
          */
-        saveLang: action(function() {
+        saveLang: action(async function() {
             window.loading.showLoading();
             let self = this;
             let user = this.user;
-            
+
             // set language
             user.set('language', $('select[name=language] option:selected').val());
 
-            user.save()
-                .then((userData) => {
+            try {
+                let userData = await user.save();
 
-                    var userId = jwtDecode(self.get('session.session.content.authenticated.token'));
+                var userId = jwtDecode(self.get('session.session.content.authenticated.token'));
 
-                    // If user edit him/her self
-                    if (userId.sub == parseInt(userData.id, 10)) {
-                        if (!userData.get('enabled')) {
-                            this.session.invalidate();
-                        } else {
-                            //Update language
-                            // this.set('intl.locale', user.get('language'));
-                            let lang = user.get('language') || 'en';
-                            this.intl.setLocale([lang]);
-                            // Update token
-                            if (userData.get('token') !== undefined && userData.get('token') !== '') {
-                                this.set('session.data.authenticated.token', userData.get('token'));
-                            }
-                            let sessionData = self.get('session.data');
-                            self.get('session.store').persist(sessionData);
+                // If user edit him/her self
+                if (userId.sub == parseInt(userData.id, 10)) {
+                    if (!userData.get('enabled')) {
+                        this.session.invalidate();
+                    } else {
+                        // Update language, awaited so translations are ready before we stop loading
+                        let lang = user.get('language') || 'en';
+                        await this.intl.setLocale([lang]);
+                        // Update token
+                        if (userData.get('token') !== undefined && userData.get('token') !== '') {
+                            this.set('session.data.authenticated.token', userData.get('token'));
                         }
+                        let sessionData = self.get('session.data');
+                        self.get('session.store').persist(sessionData);
                     }
+                }
 
-                    window.loading.hideLoading();
-                    location.reload(true);
-                })
-                .catch(adapterError => {
-                    let errors = this.growl.errorsDatabaseToArray(adapterError);
-                    this.set('errors', errors);
-                    this.growl.errorShowRaw(adapterError.title, adapterError.message);
-                    window.loading.hideLoading();
-                });
+                window.loading.hideLoading();
+            } catch (adapterError) {
+                let errors = this.growl.errorsDatabaseToArray(adapterError);
+                this.set('errors', errors);
+                this.growl.errorShowRaw(adapterError.title, adapterError.message);
+                window.loading.hideLoading();
+            }
         })
 });
