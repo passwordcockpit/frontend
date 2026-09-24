@@ -18,5 +18,6 @@ export default Model.extend({
     tags: attr(),
     fileId: attr(),
     fileName: attr(),
-    last_modification_date: attr()
+    last_modification_date: attr(),
+    last_password_modification_date: attr()
 });
